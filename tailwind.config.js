@@ -153,7 +153,7 @@ module.exports = {
             900: '#4c1d95',
         },
 
-        beige: {
+        move: {
             50: '#faf7f0',
             100: '#f0e9d7',
             200: '#dfd0a8',

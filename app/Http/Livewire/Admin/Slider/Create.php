@@ -56,7 +56,7 @@ class Create extends Component
 
         $this->resetValidation();
 
-        $this->slider = new PSliderage();
+        $this->slider = new Slider();
 
         $this->createSlider = true;
     }
