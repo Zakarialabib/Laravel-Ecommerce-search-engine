@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html x-data="mainState" :class="{ dark: isDarkMode, rtl: isRtl }" class="scroll-smooth"
-    lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html x-data="mainState" class="scroll-smooth" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -15,7 +14,7 @@
     <!-- Favicon -->
     <link rel="icon" href="{{ asset('images/' . Helpers::settings('site_favicon')) }}" type="image/x-icon">
 
-    @include('partials.css')
+    @include('partials.admin.css')
 
 </head>
 
@@ -49,9 +48,9 @@
             </div>
         </div>
     </div>
-
-    @include('partials.js')
-
+    
+    @vite('resources/js/app.js')
+    @include('partials.admin.js')
 
 </body>
 

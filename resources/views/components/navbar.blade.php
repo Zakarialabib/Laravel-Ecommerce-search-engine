@@ -1,5 +1,5 @@
 <nav aria-label="secondary" x-data="{ open: false }"
-    class="sticky top-0 z-10 flex items-center justify-between px-4 py-4 transition-transform duration-500 bg-gray-100"
+    class="sticky top-0 z-10 flex items-center justify-between px-4 py-4 transition-transform duration-500 shadow"
     :class="{
         '-translate-y-full': scrollingDown,
         'translate-y-0': scrollingUp,
@@ -25,7 +25,7 @@
             <x-dropdown align="right" width="60">
                 <x-slot name="trigger">
                     <x-button type="button" primary>
-                        {{ Auth::user()->first_name }}
+                        {{ Auth::user()->name }}
                     </x-button>
                 </x-slot>
 

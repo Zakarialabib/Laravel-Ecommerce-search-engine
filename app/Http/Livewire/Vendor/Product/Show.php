@@ -1,12 +1,35 @@
 <?php
 
-namespace App\Http\Livewire\Vendor\Product;
+declare(strict_types=1);
 
+namespace App\Http\Livewire\Vnedor\Product;
+
+use App\Models\Product;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 
 class Show extends Component
 {
-    public function render()
+    public $product;
+
+    public $listeners = [
+        'showModal',
+    ];
+
+    public $showModal = false;
+
+    public function showModal($id)
+    {
+        abort_if(Gate::denies('product_show'), 403);
+
+        $this->product = Product::findOrFail($id);
+
+        $this->showModal = true;
+    }
+
+    public function render(): View|Factory
     {
         return view('livewire.vendor.product.show');
     }

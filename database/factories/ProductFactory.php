@@ -6,6 +6,8 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use App\Models\Store;
+use App\Models\Product;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Product>
@@ -19,19 +21,36 @@ class ProductFactory extends Factory
      */
     public function definition()
     {
+        $productName = $this->faker->unique()->words($nb = 3, $asText = true);
+        $productDescription = $this->faker->sentence($nbWords = 6, $variableNbWords = true);
+        $productPrice = $this->faker->numberBetween($min = 10, $max = 1000);
+        $productCode = Str::random(5);
+        $productSlug = Str::slug($productName);
+
         return [
-            'name'             => 'Samsung Galaxy S21',
-            'description'      => 'Samsung Galaxy S21',
-            'price'            => 1000,
+            'name'             => $productName,
+            'description'      => $productDescription,
+            'price'            => $productPrice,
             'image'            => 'samsung-galaxy-s21.jpg',
-            'code'             => Str::random(5),
+            'code'             => $productCode,
             'category_id'      => 1,
+            'user_id'         => 1,
             'brand_id'         => 1,
-            'slug'             => Str::slug('Samsung Galaxy S21'),
-            'meta_title'       => 'Samsung Galaxy S21',
-            'meta_description' => 'Samsung Galaxy S21',
-            'meta_keywords'    => 'Samsung Galaxy S21',
-            'status'           => 1,
+            'url'              => 'www.hotech.ma',
+            'slug'             => $productSlug,
+            'meta_title'       => $productName,
+            'meta_description' => $productDescription,
+            'meta_keywords'    => $this->faker->words($nb = 3, $asText = true),
+            'status'           => $this->faker->boolean(90),
         ];
+    }
+
+    public function configure()
+    {
+        return $this->afterCreating(function (Product $product) {
+            $store = Store::inRandomOrder()->first();
+            $product->store()->associate($store);
+            $product->save();
+        });
     }
 }

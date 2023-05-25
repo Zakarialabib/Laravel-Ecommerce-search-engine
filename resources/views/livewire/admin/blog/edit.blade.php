@@ -7,7 +7,7 @@
 
         <x-slot name="content">
             <!-- Validation Errors -->
-            <x-auth-validation-errors class="mb-4" :errors="$errors" />
+            <x-validation-errors class="mb-4" :errors="$errors" />
             <form wire:submit.prevent="update">
                 <div class="flex flex-wrap -mx-3 space-y-0">
                     <div class="xl:w-1/2 md:w-full px-2">

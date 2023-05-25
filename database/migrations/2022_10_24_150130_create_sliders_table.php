@@ -23,6 +23,7 @@ return new class () extends Migration {
             $table->string('bg_color')->nullable();
             $table->boolean('featured')->default(false);
             $table->string('link')->nullable();
+            $table->text('embeded_video')->nullable();
             $table->string('status')->default(true);
             $table->foreignId('language_id')->nullable()->constrained('languages')->nullOnDelete();
             $table->timestamps();

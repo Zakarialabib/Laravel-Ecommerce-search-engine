@@ -2,9 +2,10 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Front;
 
 use App\Models\Product;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {

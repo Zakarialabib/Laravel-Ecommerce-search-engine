@@ -1,6 +1,6 @@
 <div>
     <!-- Validation Errors -->
-    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+    <x-validation-errors class="mb-4" :errors="$errors" />
 
     <form wire:submit.prevent="submit" class="pt-3">
 

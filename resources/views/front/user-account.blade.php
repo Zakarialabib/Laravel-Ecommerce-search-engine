@@ -1,19 +1,20 @@
-
 @section('title', __('My Account'))
-<x-app-layout>  
+<x-app-layout>
     <section class="py-5 px-4 bg-gray-100">
-        <div class="container mx-auto px-4">
-          <div class="flex flex-wrap -mx-4 mb-20 items-center justify-between bg-gray-100 py-5">
-            <div class="w-full lg:w-auto px-4 mb-12 xl:mb-0">
-              <h2 class="text-5xl font-bold font-heading">
-                {{ __('My Account') }}
-              </h2>
+        <div class="flex flex-wrap -mx-4 mb-20 items-center justify-between bg-gray-100 py-5">
+            <div class="flex">
+                <div class="w-1/4 mx-4">
+                    <div class="flex flex-col space-y-2 bg-gray-200 mt-2 py-4">
+                        <button @click="tab = 'company'" :class="{ 'bg-move-500 text-white': tab === 'company' }"
+                            class="px-4 py-2 w-full text-left text-move-800 hover:bg-move-500 hover:text-white transition-colors">
+                            {{ __('My Account') }}
+                        </button>
+                    </div>
+                </div>
+                <div class="w-3/4 px-4">
+                    @livewire('front.account')
+                </div>
             </div>
-          </div>
-          <div>
-            @livewire('front.account', ['user' => $customer])
-          </div>
         </div>
     </section>
-
 </x-app-layout>

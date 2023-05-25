@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Http\Livewire\Subscription;
+namespace App\Http\Livewire\Admin\Subscription;
 
 use App\Models\Subscription;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
-use App\Http\Livewire\WithConfirmation;
 use App\Http\Livewire\WithSorting;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting, WithConfirmation;
+    use WithPagination, WithSorting;
 
     public int $perPage;
 
     public array $orderable;
 
-    public $showDeleteModal = false;
+    public $renewModal = false;
 
     public string $search = '';
 
@@ -63,7 +62,7 @@ class Index extends Component
         $this->sortBy            = 'id';
         $this->sortDirection     = 'desc';
         $this->perPage           = 100;
-        $this->paginationOptions = config('project.pagination.options');
+        $this->paginationOptions = [25, 50, 100];
         $this->orderable         = (new Subscription())->orderable;
     }
 
@@ -77,7 +76,27 @@ class Index extends Component
 
         $subscriptions = $query->paginate($this->perPage);
 
-        return view('livewire.subscription.index', compact('subscriptions'));
+        return view('livewire.admin.subscription.index', compact('subscriptions'));
+    }
+
+    public function approve($id)
+    {
+        $subscription = Subscription::find($id);
+        $subscription->approved = true;
+        $subscription->save();
+    }
+
+    public function renewModal($id)
+    {
+        $subscription = Subscription::find($id);
+        
+        $this->renewModal = true;
+       
+    }
+
+    public function renew($id)
+    {
+        // 
     }
 
     public function deleteSelected()

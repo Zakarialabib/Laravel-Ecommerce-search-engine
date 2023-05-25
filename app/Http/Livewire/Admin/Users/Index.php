@@ -29,6 +29,8 @@ class Index extends Component
     public $user;
 
     public $role;
+    
+    public $filterRole;
 
     public int $perPage;
 
@@ -83,6 +85,12 @@ class Index extends Component
         $this->selected = [];
     }
 
+    public function filterRole($role)
+    {
+        $this->filterRole = $role;
+        $this->resetPage(); // Reset pagination to the first page
+    }
+
     public function mount()
     {
         $this->sortBy = 'id';
@@ -102,6 +110,26 @@ class Index extends Component
             'order_direction' => $this->sortDirection,
         ]);
 
+        if ($this->filterRole === 'ADMIN') {
+            $query->where(function ($query) {
+                $query->whereHas('roles', function ($query) {
+                    $query->where('name', $this->filterRole);
+                });
+            });
+        } elseif ($this->filterRole === 'VENDOR') {
+            $query->where(function ($query) {
+                $query->whereHas('roles', function ($query) {
+                    $query->where('name', $this->filterRole);
+                });
+            });
+        } elseif ($this->filterRole === 'CLIENT') {
+            $query->where(function ($query) {
+                $query->whereHas('roles', function ($query) {
+                    $query->where('name', $this->filterRole);
+                });
+            });
+        }
+       
         $users = $query->paginate($this->perPage);
 
         return view('livewire.admin.users.index', compact('users'));

@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\Status;
+use App\Trait\GetModelByUuid;
+use App\Trait\UuidGenerator;
 
 class Store extends Model
 {
-    use InteractsWithViews;
     use HasFactory;
-    use Notifiable;
     use HasAdvancedFilter;
+    use HasFactory;
+    use GetModelByUuid;
+    use UuidGenerator;
 
     public $table = 'stores';
 
@@ -25,12 +28,11 @@ class Store extends Model
     ];
 
     protected $fillable = [
-        'store_owner',
-        'store_name',
-        'store_link',
-        'store_phone',
-        'store_social', // array of social media
-        'store_address',
+        'name',
+        'url',
+        'phone', 
+        'social_links', // array of social media
+        'location',
         'status',
         'banner_image',
         'logo',
@@ -60,11 +62,6 @@ class Store extends Model
     {
         return $this->hasMany(Payment::class);
     }
-
-    public function products()
-    {
-        return $this->hasMany(Product::class, 'store_id', 'id');
-    }    
 
     public function reviews()
     {

@@ -1,8 +1,7 @@
 <div class="px-6 py-2 bg-gradient-to-r from-move-400 via-move-600 to-move-800">
     <div class="flex items-center justify-between">
-        <p
-            class="text-xs text-center font-semibold font-heading text-white hover:text-move-200 hover:underline transition ease-in duration-300">
-            BADR LUXURY - SINCE 1983 - THE BEST OF EVERYTHING
+        <p class="text-xs text-center font-semibold font-heading text-white hover:text-move-200 hover:underline transition ease-in duration-300 cursor-pointer">
+            {{__('Search & Compare Freely')}}
         </p>
         <div class="w-auto flex space-x-3">
             <a class="inline-flex items-center justify-center w-5 h-5 rounded-full"

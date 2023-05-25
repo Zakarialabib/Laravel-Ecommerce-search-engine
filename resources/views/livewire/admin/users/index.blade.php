@@ -24,8 +24,19 @@
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <input type="text" wire:model.debounce.300ms="search"
-                class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
-                placeholder="{{ __('Search') }}" />
+            class="block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border-gray-300 rounded-md mt-1"
+            placeholder="{{ __('Search') }}" />
+        </div>
+        <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
+            <x-button danger type="button" wire:click="filterRole('ADMIN')" class="ml-3">
+                Admin
+            </x-button>
+            <x-button success type="button" wire:click="filterRole('VENOR')" class="ml-3">
+                Vendor
+            </x-button>
+            <x-button warning type="button" wire:click="filterRole('CLIENT')" class="ml-3">
+                Client
+            </x-button>
         </div>
     </div>
 
@@ -34,11 +45,14 @@
             <x-table.th class="pr-0 w-8">
                 <input type="checkbox" wire:model="selectPage" />
             </x-table.th>
-            <x-table.th sortable wire:click="sortBy('first_name')" :direction="$sorts['first_name'] ?? null">
+            <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
                 {{ __('Name') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Phone') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Roles') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('status')" :direction="$sorts['status'] ?? null">
                 {{ __('Status') }}
@@ -54,13 +68,18 @@
                         <input type="checkbox" value="{{ $user->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
-                        {{ $user->first_name }} -
+                        {{ $user->name }} -
                         <a class="link-light-blue" href="mailto:{{ $user->email }}">
                             {{ $user->email }}
                         </a>
                     </x-table.td>
                     <x-table.td>
                         {{ $user->phone }}
+                    </x-table.td>
+                    <x-table.td>
+                        @foreach ($user->roles as $role)
+                            {{ $role->name }}
+                        @endforeach
                     </x-table.td>
                     <x-table.td>
                         <livewire:toggle-button :model="$user" field="status" key="{{ $user->id }}" />

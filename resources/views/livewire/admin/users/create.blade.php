@@ -8,10 +8,10 @@
             <form wire:submit.prevent="update">
                 <div class="flex flex-wrap -mx-2 mb-3">
                     <div class="w-full lg:w-1/2 px-2">
-                        <x-label for="first_name" :value="__('Name')" required />
-                        <x-input id="first_name" class="block mt-1 w-full" type="text" wire:model.defer="user.first_name"
+                        <x-label for="name" :value="__('Name')" required />
+                        <x-input id="name" class="block mt-1 w-full" type="text" wire:model.defer="user.name"
                             required />
-                        <x-input-error :messages="$errors->get('user.first_name')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('user.name')" class="mt-2" />
                     </div>
 
                     <div class="w-full lg:w-1/2 px-2">

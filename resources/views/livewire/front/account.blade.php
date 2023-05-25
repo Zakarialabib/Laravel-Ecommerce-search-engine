@@ -1,55 +1,40 @@
 <div>
 
     <form wire:submit.prevent="save">
-        <div class="flex flex-wrap">
-            <div class="w-full px-2 md:w-1/2">
-                <label class="font-bold font-heading text-gray-600" for="">{{ __('First Name') }}</label>
-                <input wire:model.lazy="first_name"
-                    class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                    type="text">
-                    <x-input-error :messages="$errors->get('first_name')" for="first_name" class="mt-2" />
-            </div>
-            <div class="w-full px-2 md:w-1/2">
-                <label class="font-bold font-heading text-gray-600" for="">{{ __('Last Name') }}</label>
-                <input wire:model.lazy="last_name"
-                    class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                    type="text">
-                    <x-input-error :messages="$errors->get('last_name')" for="last_name" class="mt-2" />
+        <div class="flex flex-wrap space-y-2" x-data="{ show : false }">
+            <div class="w-full md:w-1/2 px-2">
+                <label class="font-bold font-heading text-gray-600" for="">{{ __('Full Name') }}</label>
+                <x-input wire:model.lazy="name" type="text" />
+                <x-input-error :messages="$errors->get('name')" for="name" class="mt-2" />
             </div>
 
-            <div class="w-full px-2 md:w-1/2">
+            <div class="w-full md:w-1/2 px-2">
                 <label class="font-bold font-heading text-gray-600" for="">{{ __('Phone') }}</label>
-                <input type="numeric"
-                    class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                    name="phone" wire:model.lazy="phone">
-                    <x-input-error :messages="$errors->get('phone')" for="phone" class="mt-2" />
+                <x-input type="number" name="phone" wire:model.lazy="phone" />
+                <x-input-error :messages="$errors->get('phone')" for="phone" class="mt-2" />
             </div>
-            <div class="w-full px-2 md:w-1/2">
+            <div class="w-full md:w-1/2 px-2">
                 <label class="font-bold font-heading text-gray-600" for="">{{ __('E-mail address') }}</label>
-                <input wire:model="email"
-                    class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                    type="email">
-                    <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
+                <x-input wire:model="email" type="email" />
+                <x-input-error :messages="$errors->get('email')" for="email" class="mt-2" />
             </div>
-            <div class="w-full px-2 md:w-1/2">
+            <div class="w-full md:w-1/2 px-2">
+                <label class="font-bold font-heading text-gray-600" for="">{{ __('Country') }}</label>
+                <x-input wire:model="country" disabled type="text" />
+                <x-input-error :messages="$errors->get('country')" for="country" class="mt-2" />
+            </div>
+            <div class="w-full md:w-1/2 px-2">
+                <label class="font-bold font-heading text-gray-600" for="">{{ __('City') }}</label>
+                <x-input wire:model="city" type="text" />
+            </div>
+            <div class="w-full px-2">
+                <label class="font-bold font-heading text-gray-600" for="">{{ __('Address') }}</label>
                 <textarea name="address" wire:model="address"
                     class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
                     </textarea>
-                    <x-input-error :messages="$errors->get('address')" for="address" class="mt-2" />
+                <x-input-error :messages="$errors->get('address')" for="address" class="mt-2" />
             </div>
-            <div class="w-full md:w-1/2 px-4">
-                <label class="font-bold font-heading text-gray-600" for="">{{ __('Country') }}</label>
-                <input wire:model="country" disabled
-                    class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                    type="text">
-            </div>
-            <div class="w-full md:w-1/2 px-4">
-                <label class="font-bold font-heading text-gray-600" for="">{{ __('City') }}</label>
-                <input wire:model="city"
-                    class="block w-full mt-4 py-2 px-4 bg-white border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md"
-                    type="text">
-            </div>
-            <div class="w-full md:w-1/2 px-4">
+            <div class="w-full md:w-1/2 px-2">
                 <label class="font-bold font-heading text-gray-600" for="">{{ __('Password') }}</label>
                 <div class="relative">
                     <input placeholder="" :type="show ? 'password' : 'text'" name="password" required
@@ -77,9 +62,8 @@
                 </div>
             </div>
 
-            <div class="w-full px-2">
-                <button type="submit"
-                    class="rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm">{{ __('Save changes') }}</button>
+            <div class="w-full flex justify-center py-4 px-2">
+                <x-button type="submit" primary>{{ __('Save changes') }}</x-button>
             </div>
         </div>
     </form>

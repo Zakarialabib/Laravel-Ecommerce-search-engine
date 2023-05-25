@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Vendor;
 
 use App\Http\Controllers\Controller;
 
-class Productontroller extends Controller
+class ProductController extends Controller
 {
     public function index()
     {

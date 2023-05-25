@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html x-data="mainState" class="scroll-smooth"
+lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -40,61 +41,34 @@
     <meta name="robots" content="all,follow">
 
     <link rel="icon" href="{{ asset('images/' . Helpers::settings('site_favicon')) }}" type="image/x-icon">
-
-    {{-- Styles --}}
-    @vite('resources/css/app.css')
-
-    @livewireStyles
-
-    <!-- Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
-        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
- 
-    @stack('styles')
-    <style>
-        [x-cloak] {
-            display: none;
-        }
-    </style>
+    
+    @include('partials.front.css')
 </head>
 
 <body class="antialiased bg-gray-50 text-body font-body">
-    <!-- Body Tags -->
 
+    <x-loading-mask />
+
+    <!-- Body Tags -->
     @if (Helpers::settings('body_tags'))
         {!! Helpers::settings('body_tags') !!}
     @endif
-    
-    <section class="relative">
 
-        <x-topheader />
+    <x-topheader />
 
-        <x-header />
+    <x-header />
 
-        @yield('content')
+    <x-bottomheader />
 
-        @isset($slot)
-            {{ $slot }}
-        @endisset
+    @yield('content')
 
-        <x-footer />
+    @isset($slot)
+        {{ $slot }}
+    @endisset
 
-        <x-whatsapp />
+    <x-footer />
 
-    </section>
-
-    @vite('resources/js/app.js')
-
-    @livewireScripts
-    
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
-    <x-livewire-alert::scripts />
-    
-    @stack('scripts')
-    
-    {{-- <x-core-web-vital-core-web-component /> --}}
+   @include('partials.front.js')
 </body>
 
 </html>

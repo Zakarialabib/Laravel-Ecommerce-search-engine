@@ -64,7 +64,9 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
     Route::get('/blog/category', [BlogCategoryController::class, 'index'])->name('blogcategories');
 
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
+    
     Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('setting.subscriptions');
+
     Route::get('/popupsettings', [SettingController::class, 'popupsettings'])->name('setting.popupsettings');
     Route::get('/redirects', [SettingController::class, 'redirects'])->name('setting.redirects');
 
@@ -73,6 +75,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
     Route::get('/notification', [NotificationController::class, 'index'])->name('notification');
     Route::get('/smpt', [SmptController::class, 'index'])->name('smpt');
     Route::get('/language', [LanguageController::class, 'index'])->name('language');
+    Route::get('/translation/{code}', [LanguageController::class, 'translation'])->name('translation');
     Route::get('/roles', [RolesController::class, 'index'])->name('roles');
     Route::get('/permissions', [UsersController::class, 'permissions'])->name('permissions');
     Route::get('/currencies', [SettingController::class, 'currencies'])->name('currencies');

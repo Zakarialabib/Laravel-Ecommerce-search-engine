@@ -13,12 +13,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Str;
 use App\Enums\Status;
+use App\Trait\GetModelByUuid;
+use App\Trait\UuidGenerator;
 
 class Product extends Model implements Buyable
 {
     use CanBeBought;
     use HasAdvancedFilter;
     use HasFactory;
+    use GetModelByUuid;
+    use UuidGenerator;
 
     public const StatusInActive = 0;
 
@@ -51,6 +55,7 @@ class Product extends Model implements Buyable
         'description',
         'price',
         'old_price',
+        'user_price',
         'slug',
         'code',
         'image',
@@ -58,6 +63,7 @@ class Product extends Model implements Buyable
         'embeded_video',
         'category_id',
         'subcategories',
+        'user_id',
         'url',
         'brand_id',
         'meta_title',
@@ -102,6 +108,11 @@ class Product extends Model implements Buyable
         return null;
     }
 
+    public function store()
+    {
+        return $this->belongsTo(Store::class, 'user_id');
+    }
+
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
@@ -115,6 +126,16 @@ class Product extends Model implements Buyable
     public function subcategories(): BelongsToMany
     {
         return $this->belongsToMany(Subcategory::class);
+    }
+
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewable');
+    }
+
+    public function highlightedByVendor()
+    {
+        return $this->hasOne(VendorHighlighted::class);
     }
 
     /**
@@ -153,8 +174,5 @@ class Product extends Model implements Buyable
         $query->where('status', 1);
     }
 
-    public function reviews()
-    {
-        return $this->morphMany(Review::class, 'reviewable');
-    }
+ 
 }

@@ -15,6 +15,8 @@ class Role extends Model
 
     public const ROLE_ADMIN = 'ADMIN';
 
+    public const ROLE_VENDOR = 'VENDOR';
+    
     public const ROLE_CLIENT = 'CLIENT';
 
     public $table = 'roles';
@@ -47,7 +49,7 @@ class Role extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'role_user', 'role_id', 'user_id');
+        return $this->belongsToMany(User::class);
     }
 
     // syncPermissions

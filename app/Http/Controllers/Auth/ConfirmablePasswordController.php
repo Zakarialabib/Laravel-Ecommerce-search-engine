@@ -46,6 +46,10 @@ class ConfirmablePasswordController extends Controller
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
         }
 
+        if (Auth::user()->isVendor()) {
+            return redirect()->intended(RouteServiceProvider::VENDOR_HOME);
+        }
+
         if (Auth::user()->isClient()) {
             return redirect()->intended(RouteServiceProvider::CLIENT_HOME);
         }

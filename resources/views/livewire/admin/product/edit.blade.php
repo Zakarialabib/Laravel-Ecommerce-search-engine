@@ -7,7 +7,7 @@
 
         <x-slot name="content">
             <form wire:submit.prevent="update">
-                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                <x-validation-errors class="mb-4" :errors="$errors" />
                 <div>
                     <div class="flex flex-wrap -mx-2 mb-3">
                         <div class="sm:w-full lg:w-1/2 px-3 ">
@@ -20,7 +20,13 @@
                             <x-label for="slug" :value="__('Product Slug')" required />
                             <x-input id="slug" class="block mt-1 w-full" type="text" name="slug"
                                 wire:model="product.slug" required />
-                            <x-input-error :messages="$errors->get('product.slug')" for="product.code" class="mt-2" />
+                            <x-input-error :messages="$errors->get('product.slug')" for="product.slug" class="mt-2" />
+                        </div>
+                        <div class="sm:w-full lg:w-1/2 px-3 ">
+                            <x-label for="url" :value="__('Product url')"  />
+                            <x-input id="url" class="block mt-1 w-full" type="text" name="url"
+                                wire:model="product.url" required />
+                            <x-input-error :messages="$errors->get('product.url')" for="product.url" class="mt-2" />
                         </div>
                     </div>
 

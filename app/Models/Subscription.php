@@ -20,7 +20,7 @@ class Subscription extends Model
         'plan',
         'duration',
         'status',
-        'store_id',
+        'price',
     ];
 
     public $filterable = [
@@ -29,7 +29,7 @@ class Subscription extends Model
         'plan',
         'duration',
         'status',
-        'store_id',
+        'price',
     ];
 
     protected $fillable = [
@@ -39,20 +39,20 @@ class Subscription extends Model
         'plan',
         'duration',
         'status',
-        'store_id',
-    ];
-
-    protected $dates = [
-        'created_at',
-        'updated_at',
+        'trial_duration',
+        'ends_at',
+        'price',
     ];
 
     protected $casts = [
         'status' => Status::class,
+        'features' => 'array',
     ];
 
-    public function store()
+    public function users()
     {
-        return $this->belongsTo(Store::class);
+        return $this->belongsToMany(User::class)
+                    ->withPivot('starts_at', 'ends_at')
+                    ->withTimestamps();
     }
 }

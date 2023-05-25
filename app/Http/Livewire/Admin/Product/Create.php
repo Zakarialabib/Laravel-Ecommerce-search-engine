@@ -49,6 +49,7 @@ class Create extends Component
 
     protected $rules = [
         'product.name'             => ['required', 'string', 'max:255'],
+        'product.url'             => ['required', 'string', 'max:255'],
         'product.price'            => ['required', 'numeric', 'max:2147483647'],
         'product.old_price'        => ['required', 'numeric', 'max:2147483647'],
         'description'              => ['nullable'],

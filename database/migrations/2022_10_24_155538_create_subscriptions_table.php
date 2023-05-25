@@ -16,9 +16,13 @@ return new class () extends Migration {
     {
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
-
-            $table->string('title');
-            
+            $table->uuid();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->json('features')->nullable();
+            $table->string('plan');
+            $table->integer('duration');
+            $table->timestamp('trial_duration')->nullable();        
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

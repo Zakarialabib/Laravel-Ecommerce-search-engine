@@ -7,6 +7,8 @@ namespace App\Http\Livewire\Admin\Product;
 use App\Exports\ProductExport;
 use App\Http\Livewire\WithSorting;
 use App\Models\Product;
+use App\Models\Role;
+use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
@@ -33,6 +35,8 @@ class Index extends Component
     ];
 
     public $selectType;
+    
+    public $filterStore;
 
     public $promoAllProducts = false;
 
@@ -89,9 +93,20 @@ class Index extends Component
         $this->resetPage();
     }
 
+    public function selectStore($storeId)
+    {
+        $this->filterStore = $storeId;
+        $this->resetPage(); // Reset pagination to the first page
+    }
+
     public function resetSelected()
     {
         $this->selected = [];
+    }
+    
+    public function getVendorsProperty()
+    {
+        return User::select('name','id')->get();
     }
 
     public function mount()
@@ -111,12 +126,16 @@ class Index extends Component
             $query->select('id', 'name');
         }, 'brand' => function ($query) {
             $query->select('id', 'name');
-        },
+        },'store'
         ])->select('products.*')->advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
-        ]);
+        ])
+        
+        ->when($this->filterStore, function ($query) {
+            return $query->where('user_id', $this->filterStore);
+        });
 
         $products = $query->paginate($this->perPage);
 

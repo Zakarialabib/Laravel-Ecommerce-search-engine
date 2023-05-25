@@ -25,8 +25,6 @@ class ProductShow extends Component
 
     public $category;
 
-    public $quantity = 1;
-
     public $product_id;
 
     public $product_name;
@@ -38,51 +36,8 @@ class ProductShow extends Component
     public $brand_products;
 
     public $listeners = [
-        'AddToCart',
     ];
 
-    public $decreaseQuantity;
-
-    public $increaseQuantity;
-
-    public function decreaseQuantity()
-    {
-        $this->quantity -= 1;
-    }
-
-    public function increaseQuantity()
-    {
-        $this->quantity += 1;
-    }
-
-     public function AddToCart($product_id)
-     {
-         $product = Product::find($product_id);
-
-         $this->product_id = $product->id;
-         $this->product_name = $product->name;
-         $this->product_price = $product->price;
-         $this->product_qty = $this->quantity;
-
-         Cart::instance('shopping')->add($this->product_id, $this->product_name, $this->product_qty, $this->product_price)->associate('App\Models\Product');
-
-         $this->emit('cartCountUpdated');
-
-         $this->alert(
-             'success',
-             __('Product added to cart successfully!'),
-             [
-                 'position'          => 'center',
-                 'timer'             => 3000,
-                 'toast'             => true,
-                 'text'              => '',
-                 'confirmButtonText' => 'Ok',
-                 'cancelButtonText'  => 'Cancel',
-                 'showCancelButton'  => false,
-                 'showConfirmButton' => false,
-             ]
-         );
-     }
 
     public function mount(Product $product)
     {

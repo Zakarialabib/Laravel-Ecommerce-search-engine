@@ -7,7 +7,7 @@
 
         <x-slot name="content">
             <form wire:submit.prevent="update">
-                <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                <x-validation-errors class="mb-4" :errors="$errors" />
                 <div>
                     <div class="flex flex-wrap -mx-2 mb-3">
                         <div class="sm:w-full lg:w-1/2 px-3 ">
@@ -124,16 +124,6 @@
                                                 <option value="color" {{ $option['type'] == 'color' ? 'selected' : '' }}>
                                                     {{ __('Color') }}
                                                 </option>
-                                                <option value="movementType" {{ $option['type'] == 'movementType' ? 'selected' : '' }}>
-                                                    {{ __('Movement type') }}</option>
-                                                <option value="waterproof" {{ $option['type'] == 'waterproof' ? 'selected' : '' }}>
-                                                    {{ __('Water Resiste') }}</option>
-                                                <option value="displayType" {{ $option['type'] == 'displayType' ? 'selected' : '' }}>
-                                                    {{ __('Display type') }}</option>
-                                                <option value="bandColor" {{ $option['type'] == 'bandColor' ? 'selected' : '' }}>
-                                                    {{ __('Band color') }}</option>
-                                                <option value="materials" {{ $option['type'] == 'materials' ? 'selected' : '' }}>
-                                                    {{ __('Materials') }}</option>
                                                 <option value="size" {{ $option['type'] == 'size' ? 'selected' : '' }}>{{ __('Size') }}
                                                 </option>
                                             </select>

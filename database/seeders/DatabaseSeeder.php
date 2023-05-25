@@ -6,6 +6,8 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
+use App\Models\Store;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,7 +18,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(10)->create();
+        $users = User::factory()->count(10)->create();
+       
+        $stores = Store::factory()->count(10)->create([
+            'user_id' => function () use ($users) {
+                return $users->random()->id;
+            },
+        ]);
 
         $this->call([
 
@@ -24,7 +32,7 @@ class DatabaseSeeder extends Seeder
             LanguagesSeeder::class,
             BrandSeeder::class,
             CategorySeeder::class,
-            // ProductSeeder::class,
+            ProductSeeder::class,
             SettingSeeder::class,
             // FeaturedBannerSeeder::class,
             BlogSeeder::class,

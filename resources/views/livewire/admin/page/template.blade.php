@@ -17,7 +17,7 @@
             @if ($selectedTemplate)
                 <form wire:submit.prevent="create" class="w-full">
                     <!-- Validation Errors -->
-                    <x-auth-validation-errors class="mb-4" :errors="$errors" />
+                    <x-validation-errors class="mb-4" :errors="$errors" />
                     <div class="flex flex-wrap space-y-2">
                         <div class="lg:w-1/2 sm:w-full px-2">
                             <x-label for="title" :value="__('Title')" />

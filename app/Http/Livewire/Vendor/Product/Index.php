@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Vendor\Product;
 
-use App\Http\Livewire\WithConfirmation;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
@@ -15,7 +14,7 @@ use App\Models\Product;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting, WithConfirmation, WithFileUploads;
+    use WithPagination, WithSorting, WithFileUploads;
 
     public int $perPage;
 
@@ -23,7 +22,7 @@ class Index extends Component
 
     public string $search = '';
 
-    public $showDeleteModal = false;
+    public $showDeleteModal = false; 
 
     public array $selected = [];
 

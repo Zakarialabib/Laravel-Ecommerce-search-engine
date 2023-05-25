@@ -1,5 +1,6 @@
 import './bootstrap';
 import '../css/app.css'; 
+import '../css/select.css'; 
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 
 import * as FilePond from 'filepond'
@@ -16,6 +17,9 @@ import Alpine from 'alpinejs';
 import collapse from '@alpinejs/collapse';
 import focus from "@alpinejs/focus";
 import intersect from "@alpinejs/intersect";
+import Sortable from 'sortablejs';
+
+window.Sortable = Sortable;
 
 Alpine.plugin(focus);
 Alpine.plugin(intersect);
@@ -24,13 +28,11 @@ import PerfectScrollbar from "perfect-scrollbar";
 window.PerfectScrollbar = PerfectScrollbar;
 
 Alpine.data("mainState", () => {
-    
     let lastScrollTop = 0;
-    
+
     const init = function () {
         window.addEventListener("scroll", () => {
-            let st =
-                window.pageYOffset || document.documentElement.scrollTop;
+            let st = window.pageYOffset || document.documentElement.scrollTop;
             if (st > lastScrollTop) {
                 // downscroll
                 this.scrollingDown = true;
@@ -40,7 +42,7 @@ Alpine.data("mainState", () => {
                 this.scrollingDown = false;
                 this.scrollingUp = true;
                 if (st == 0) {
-                    //  reset
+                    // reset
                     this.scrollingDown = false;
                     this.scrollingUp = false;
                 }
@@ -49,14 +51,14 @@ Alpine.data("mainState", () => {
         });
     };
 
-    Alpine.data("loadingMask", () => ({
+    const loadingMask = {
         pageLoaded: false,
         init() {
             window.onload = (event) => {
-                this.pageLoaded = true
+                this.pageLoaded = true;
             };
-        }
-    }));
+        },
+    };
 
     const getTheme = () => {
         if (window.localStorage.getItem("dark")) {
@@ -67,41 +69,28 @@ Alpine.data("mainState", () => {
             window.matchMedia("(prefers-color-scheme: dark)").matches
         );
     };
+
     const setTheme = (value) => {
         window.localStorage.setItem("dark", value);
     };
 
-    const RTL = () => {
-        if (window.localStorage.getItem("rtl")) {
-            return JSON.parse(window.localStorage.getItem("rtl"));
-          }
-          return false;
-    }
-
-    const enableTheme = (isRtl) => {
-        if (isRtl) {
-          document.body.dir = "rtl";
-        } else {
-          document.body.dir = "ltr";
-        }
-      };
-      
-      enableTheme(false); // sets document.body.dir to "ltr"      
+    const enableTheme = (value) => {
+        document.body.dir = value ? "rtl" : "ltr";
+    };
 
     return {
         init,
+        loadingMask,
         isDarkMode: getTheme(),
         toggleTheme() {
             this.isDarkMode = !this.isDarkMode;
             setTheme(this.isDarkMode);
         },
-        isRtl : RTL(),
-        toggleRtl() {
-            this.isRtl = !this.isRtl;
-            enableTheme(this.isRtl);
-            window.localStorage.setItem("rtl", this.isRtl);
-       },
-        isSidebarOpen: window.innerWidth > 1024,
+        isSidebarOpen: sessionStorage.getItem("sidebarOpen") === "true",
+        handleSidebarToggle() {
+            this.isSidebarOpen = !this.isSidebarOpen;
+            sessionStorage.setItem("sidebarOpen", this.isSidebarOpen.toString());
+        },
         isSidebarHovered: false,
         handleSidebarHover(value) {
             if (window.innerWidth < 1024) {

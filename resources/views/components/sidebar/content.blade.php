@@ -41,6 +41,7 @@
         request()
             ->route()
             ->uri(),
+            'Orders',
     )">
         <x-slot name="icon">
             <span class="inline-block mr-3">
@@ -121,6 +122,7 @@
             </x-slot>
             @can('setting_access')
             <x-sidebar.sublink title="{{ __('Settings') }}" href="{{ route('admin.settings') }}" :active="request()->routeIs('admin.settings')" />
+            <x-sidebar.sublink title="{{ __('Languages') }}" href="{{ route('admin.language') }}" :active="request()->routeIs('admin.language')" />
             @endcan
             <x-sidebar.sublink title="{{ __('Subscriptions') }}" href="{{ route('admin.setting.subscriptions') }}" :active="request()->routeIs('admin.setting.subscriptions')" />
             <x-sidebar.sublink title="{{ __('Popup Settings') }}" href="{{ route('admin.setting.popupsettings') }}" :active="request()->routeIs('admin.setting.popupsettings')" />

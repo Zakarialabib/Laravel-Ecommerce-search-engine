@@ -1,40 +1,23 @@
-<div x-data="{ isMenuOpen: false, isSidebar: false }">
+<div x-data="{ isSidebar: false }">
     <div class="relative">
-        <nav class="flex bg-move-100 border-b">
+        <nav class="flex bg-gray-50 border-b">
             <div class="px-4 py-5 flex w-full items-center justify-between">
-                <a class="ml-4 mr-8 lg:text-3xl sm:text-xl font-bold font-heading text-white"
+                <a class="pl-4 lg:text-3xl sm:text-xl font-bold font-heading text-white"
                     href="{{ route('front.index') }}">
                     <img class="w-auto h-14 bg-black mix-blend-exclusion"
                         src="{{ asset('images/' . Helpers::settings('site_logo')) }}" loading="lazy"
                         alt="{{ Helpers::settings('site_title') }}" />
                 </a>
-
-                <div class="hidden md:flex text-move-800 items-center justify-center space-x-4">
-                    @foreach (\App\Helpers::getActiveCategories() as $category)
-                        <a href="{{ route('front.categories') }}?c={{ $category->id }}"
-                            class="lg:text-md md:text-sm text-center uppercase font-semibold font-heading hover:text-move-400 hover:underline">
-                            {{ $category->name }}
-                        </a>
-                    @endforeach
-                    <button type="button"
-                        class="lg:text-md md:text-sm text-center uppercase font-semibold font-heading hover:text-move-400 hover:underline"
-                        x-on:click="isMenuOpen = !isMenuOpen" mouseenter="isMenuOpen = true"
-                        @click.away="isMenuOpen = false">
-                        {{ __('Brands') }} <small
-                            class="inline-block align-middle text-gray-600 opacity-75">&#9660;</small>
-                    </button>
+                <div class="hidden md:flex shadow-md">
+                    @livewire('front.search-box')
                 </div>
 
-
                 <div class="hidden md:flex items-center text-move-800 gap-4">
-
-                    <livewire:front.search-box />
-
                     @if (Auth::check())
                         <x-dropdown align="right" width="56">
                             <x-slot name="trigger">
-                                <div class="flex items-center text-move-800 px-4">
-                                    <i class="fa fa-caret-down ml-2"></i> {{ Auth::user()->first_name }}
+                                <div class="flex items-center text-move-800 px-4 cursor-pointer">
+                                    <i class="fa fa-caret-down ml-2"></i> {{ Auth::user()->name }}
                                 </div>
                             </x-slot>
 
@@ -46,6 +29,10 @@
 
                                     <x-dropdown-link :href="route('admin.settings')">
                                         {{ __('Settings') }}
+                                    </x-dropdown-link>
+                                @elseif (Auth::user()->isVendor())
+                                    <x-dropdown-link href="{{ route('vendor.dashboard') }}">
+                                        {{ __('Store') }}
                                     </x-dropdown-link>
                                 @else
                                     <x-dropdown-link href="{{ route('front.myaccount') }}">
@@ -70,8 +57,12 @@
                         <x-dropdown align="right" width="56">
                             <x-slot name="trigger">
                                 <div class="flex items-center text-move-800 pr-4">
-                                    <svg class="ml-2 text-move-800" width="30" height="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M17 21C17 18.2386 14.7614 16 12 16C9.23858 16 7 18.2386 7 21M17 21H17.8031C18.921 21 19.48 21 19.9074 20.7822C20.2837 20.5905 20.5905 20.2837 20.7822 19.9074C21 19.48 21 18.921 21 17.8031V6.19691C21 5.07899 21 4.5192 20.7822 4.0918C20.5905 3.71547 20.2837 3.40973 19.9074 3.21799C19.4796 3 18.9203 3 17.8002 3H6.2002C5.08009 3 4.51962 3 4.0918 3.21799C3.71547 3.40973 3.40973 3.71547 3.21799 4.0918C3 4.51962 3 5.08009 3 6.2002V17.8002C3 18.9203 3 19.4796 3.21799 19.9074C3.40973 20.2837 3.71547 20.5905 4.0918 20.7822C4.5192 21 5.07899 21 6.19691 21H7M17 21H7M12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10C15 11.6569 13.6569 13 12 13Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <svg class="ml-2 text-move-800" width="30" height="30" viewBox="0 0 24 24"
+                                        fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M17 21C17 18.2386 14.7614 16 12 16C9.23858 16 7 18.2386 7 21M17 21H17.8031C18.921 21 19.48 21 19.9074 20.7822C20.2837 20.5905 20.5905 20.2837 20.7822 19.9074C21 19.48 21 18.921 21 17.8031V6.19691C21 5.07899 21 4.5192 20.7822 4.0918C20.5905 3.71547 20.2837 3.40973 19.9074 3.21799C19.4796 3 18.9203 3 17.8002 3H6.2002C5.08009 3 4.51962 3 4.0918 3.21799C3.71547 3.40973 3.40973 3.71547 3.21799 4.0918C3 4.51962 3 5.08009 3 6.2002V17.8002C3 18.9203 3 19.4796 3.21799 19.9074C3.40973 20.2837 3.71547 20.5905 4.0918 20.7822C4.5192 21 5.07899 21 6.19691 21H7M17 21H7M12 13C10.3431 13 9 11.6569 9 10C9 8.34315 10.3431 7 12 7C13.6569 7 15 8.34315 15 10C15 11.6569 13.6569 13 12 13Z"
+                                            stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                            stroke-linejoin="round" />
                                     </svg>
                                 </div>
                             </x-slot>
@@ -97,39 +88,15 @@
                 </svg>
             </button>
         </nav>
-        <div class="absolute z-10 top-full left-0 w-full max-w-screen-xl bg-white rounded-md shadow-lg""
-            x-show.transition="isMenuOpen" x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0 transform scale-90"
-            x-transition:enter-end="opacity-100 transform scale-100"
-            x-transition:leave="transition ease-in duration-150"
-            x-transition:leave-start="opacity-100 transform scale-100"
-            x-transition:leave-end="opacity-0 transform scale-90" x-cloak>
-            <div class="grid grid-cols-3 gap-4 p-6">
-                @foreach (\App\Helpers::getActiveBrands() as $brand)
-                    <a class="block mb-5" href="{{ route('front.brandPage', $brand->slug) }}">
-                        <p class="mb-3 text-lg font-bold font-heading text-blue-900">
-                            {{ $brand->name }}
-                        </p>
-                        <div class="relative">
-                            <img class="w-full h-24 object-contain" loading="lazy"
-                                src="{{ asset('images/brands/' . $brand->image) }}"
-                                onerror="this.onerror=null; this.remove();" alt="{{ $brand->name }}">
-                        </div>
-                    </a>
-                @endforeach
-            </div>
-        </div>
 
-        <div class="fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50 overflow-y-scroll" 
-            x-show="isSidebar"
+        <div class="fixed top-0 left-0 bottom-0 w-5/6 max-w-sm z-50 overflow-y-scroll" x-show="isSidebar"
             x-transition:enter="transition ease-out duration-300" x-transition:enter-start="-translate-x-full"
             x-transition:enter-end="translate-x-0" x-transition:leave="transition ease-in duration-300"
             x-transition:leave-start="translate-x-0" x-transition:leave-end="-translate-x-full"
-            @click.away="isSidebar = false"
-            x-cloak>
-            <div class="fixed inset-0 bg-gray-800 opacity-25 transition-opacity" 
-            x-transition:enter="transition ease-out duration-100" x-transition:leave="transition ease-in duration-100"
-            x-on:click="isSidebar = false"></div>
+            @click.away="isSidebar = false" x-cloak>
+            <div class="fixed inset-0 bg-gray-800 opacity-25 transition-opacity"
+                x-transition:enter="transition ease-out duration-100"
+                x-transition:leave="transition ease-in duration-100" x-on:click="isSidebar = false"></div>
             {{-- <div class="fixed inset-0 bg-gray-800 opacity-25"></div> --}}
             <nav class="relative flex flex-col py-6 px-6 w-full h-full bg-white border-r overflow-y-scroll">
                 <div class="flex items-center mb-2">
@@ -147,7 +114,7 @@
                 </div>
                 <div class="border-t border-gray-900 mt-4 py-2"></div>
 
-                <div class="flex justify-center px-2 my-4">
+                <div class="px-2 my-4">
                     <livewire:front.search-box />
                 </div>
 
@@ -200,7 +167,7 @@
                         <div class="w-full lg:text-3xl sm:text-xl font-bold font-heading">
                             <div class="py-3">
                                 <a href="#" class="hover:text-move-500">
-                                    {{ Auth::user()->first_name }}
+                                    {{ Auth::user()->name }}
                                 </a>
                             </div>
                             @if (Auth::user()->isAdmin())
@@ -212,6 +179,12 @@
                                 <div class="py-3">
                                     <a class="hover:text-move-500" href="{{ route('admin.settings') }} ">
                                         {{ __('Settings') }}
+                                    </a>
+                                </div>
+                            @elseif (Auth::user()->isVendor())
+                                <div class="py-3">
+                                    <a class="hover:text-move-500" href="{{ route('front.myaccount') }}">
+                                        {{ __('Store') }}
                                     </a>
                                 </div>
                             @else

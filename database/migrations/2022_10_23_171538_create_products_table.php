@@ -16,10 +16,12 @@ return new class () extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->uuid();
             $table->string('name');
             $table->text('description');
             $table->string('price');
             $table->string('old_price')->nullable();
+            $table->string('wholesale_price')->nullable();
             $table->string('image');
             $table->text('gallery')->nullable();
             $table->string('code');
@@ -28,8 +30,10 @@ return new class () extends Migration {
             $table->tinyInteger('status')->default(true);
             $table->foreignId('category_id')->nullable()->constrained('categories')->nullOnDelete();
             $table->json('subcategories')->nullable();
+            $table->json('options')->nullable();
             $table->string('url')->nullable();
             $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
+            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();
@@ -42,7 +46,9 @@ return new class () extends Migration {
             $table->tinyInteger('trending')->default(false);
             $table->tinyInteger('sale')->default(false);
             $table->tinyInteger('is_discount')->default(false);
+            $table->string('condition')->nullable();
             $table->date('discount_date')->nullable();
+            $table->text('embeded_video')->nullable();
             $table->timestamps();
         });
     }

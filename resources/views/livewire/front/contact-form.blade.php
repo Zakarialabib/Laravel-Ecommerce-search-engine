@@ -5,7 +5,7 @@
 
 
     <div class="text-center">
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+        <x-validation-errors class="mb-4" :errors="$errors" />
     </div>
 
     <div class="md:w-full sm:w-full">

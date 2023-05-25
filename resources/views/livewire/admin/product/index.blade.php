@@ -34,8 +34,16 @@
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <input type="text" wire:model.debounce.300ms="search"
-                class="p-3 leading-5 bg-white text-gray-500 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                placeholder="{{ __('Search') }}" />
+            class="p-3 leading-5 bg-white text-gray-500 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+            placeholder="{{ __('Search') }}" />
+        </div>
+        <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
+            <select wire:model="filterStore" wire:change="selectStore($event.target.value)">
+                <option value="">All Stores</option>
+                @foreach ($this->vendors as $vendor)
+                    {{ $vendor->name }}
+                @endforeach
+            </select>            
         </div>
     </div>
 
@@ -70,11 +78,10 @@
                         <input type="checkbox" value="{{ $product->id }}" wire:model="selected">
                     </x-table.td>
                     <x-table.td>
+                        <a href="{{ route('redirect', $product->url) }}">
                         <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
                             class="w-10 h-10 rounded-full object-cover">
-                        <button
-                            onclick="classifyImage('{{ asset('images/products/' . $product->image) }}').then(result => document.getElementById('result-{{ $product->id }}').innerText = result)">Classify</button>
-                        <p id="result-{{ $product->id }}"></p>
+                        </a>
                     </x-table.td>
                     <x-table.td>
                         <button type="button" wire:click="$emit('showModal',{{ $product->id }})">
@@ -242,44 +249,5 @@
                 })
             })
         })
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.0.0/dist/tf.min.js"></script>
-    <script>
-          const modelUrl = 'https://tfhub.dev/google/imagenet/mobilenet_v2_050_192/feature_vector/5';
-          
-        function classifyImage(imageUrl) {
-            return tf.loadGraphModel(MODEL_URL)
-                .then(model => {
-                    return fetch(imageUrl)
-                        .then(response => response.blob())
-                        .then(blob => {
-                            const objectUrl = URL.createObjectURL(blob);
-                            const img = new Image();
-                            img.src = objectUrl;
-                            return new Promise(resolve => {
-                                img.onload = () => {
-                                    const imageData = tf.browser.fromPixels(img);
-                                    const processedImage = tf.image.resizeBilinear(imageData, [224,
-                                            224])
-                                        .toFloat()
-                                        .sub(127.5)
-                                        .div(127.5)
-                                        .expandDims();
-                                    resolve(model.predict(processedImage).data());
-                                };
-                            });
-                        })
-                        .then(predictions => {
-                            const labelsUrl =
-                                'https://storage.googleapis.com/tfjs-models/tfjs/squeezenet/labels.json';
-                            return fetch(labelsUrl)
-                                .then(response => response.json())
-                                .then(labels => {
-                                    const topPrediction = predictions.indexOf(Math.max(...predictions));
-                                    return labels[topPrediction];
-                                });
-                        });
-                });
-        }
     </script>
 @endpush

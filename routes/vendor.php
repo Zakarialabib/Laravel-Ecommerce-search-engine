@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Http\Controllers\Vendor\DashboardController as VendorDashboard;
+use App\Http\Livewire\Vendor\Dashboard as VendorDashboard;
 use App\Http\Controllers\Vendor\ProductController as VendorProducts;
 use App\Http\Controllers\Vendor\AnalyticsController as VendorAnalytics;
 use App\Http\Controllers\Vendor\AccountController as VendorAccount;
@@ -20,9 +20,9 @@ use App\Http\Controllers\Vendor\SubscriptionController as VendorSubscription;
 |
 */
 
-Route::group(['prefix' => 'vendor', 'as' => 'vendor.', 'middleware' => ['auth', 'role:VENDOR', 'firewall.all']], function () {
+Route::group(['prefix' => 'vendor', 'as' => 'vendor.', 'middleware' => ['auth', 'role:VENDOR', 'firewall.all','approved']], function () {
 
-    Route::get('/dashboard', [VendorDashboard::class, 'index'])->name('dashboard');
+    Route::get('/dashboard', VendorDashboard::class)->name('dashboard');
     Route::get('/products', [VendorProducts::class, 'index'])->name('products');
     Route::get('/analytics', [VendorAnalytics::class, 'index'])->name('analytics');
     Route::get('/account', [VendorAccount::class, 'index'])->name('account');

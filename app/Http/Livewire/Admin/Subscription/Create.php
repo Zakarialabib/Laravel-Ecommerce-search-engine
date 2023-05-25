@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Subscription;
+namespace App\Http\Livewire\Admin\Subscription;
 
 use App\Models\Role;
 use App\Models\Subscription;
@@ -21,7 +21,7 @@ class Create extends Component
 
     public function render()
     {
-        return view('livewire.subscription.create');
+        return view('livewire.admin.subscription.create');
     }
 
     public function submit()
@@ -43,7 +43,6 @@ class Create extends Component
 
         $this->alert('success', __('Subscription created and attached to users successfully!') );
 
-        return redirect()->route('admin.subscriptions.index');
     }
 
     protected function rules(): array

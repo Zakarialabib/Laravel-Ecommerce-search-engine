@@ -19,18 +19,6 @@ class SearchBox extends Component
 
     public $searchBox = true;
 
-    protected $queryString = [
-        'search' => [
-            'except' => '',
-            'as'     => 'q',
-        ],
-    ];
-
-    // public function mount($search = null)
-    // {
-    //     $this->search = $search;
-    // }
-
     public function updatedSearch()
     {
         if (strlen($this->search) > 3) {

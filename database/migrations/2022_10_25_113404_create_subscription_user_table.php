@@ -17,9 +17,8 @@ class CreateSubscriptionUserTable extends Migration
             $table->id();
             $table->foreignId('subscription_id')->constrained('subscriptions')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->decimal('price', 15, 2)->default(0);
-            $table->date('start_date');
-            $table->date('end_date');
+            $table->date('starts_at');
+            $table->date('ends_at');
             $table->timestamps();
         });
     }

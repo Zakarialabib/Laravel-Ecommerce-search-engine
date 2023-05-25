@@ -18,18 +18,14 @@ class SuperUserSeeder extends Seeder
     {
         $user = User::create([
             'id'             => 999,
-            'first_name'     => 'Admin',
-            'last_name'      => 'Admin',
+            'name'     => 'Admin',
             'email'          => 'admin@gmail.com',
             'password'       => bcrypt('password'),
-            'zip'            => '12345',
             'city'           => 'Casablanca',
-            'state'          => 'Casablanca',
             'country'        => 'Morocco',
             'address'        => 'Casablanca',
             'phone'          => '123456789',
-            'statut'         => 1,
-            'role_id'        => 1,
+            'status'         => 1,
             'remember_token' => null,
             'created_at'     => now(),
         ]);

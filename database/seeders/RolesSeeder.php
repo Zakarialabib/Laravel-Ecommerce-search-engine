@@ -24,6 +24,11 @@ class RolesSeeder extends Seeder
             ],
             [
                 'id'         => 2,
+                'name'       => Role::ROLE_VENDOR,
+                'guard_name' => Role::ROLE_VENDOR,
+            ],
+            [
+                'id'         => 3,
                 'name'       => Role::ROLE_CLIENT,
                 'guard_name' => Role::ROLE_CLIENT,
             ],

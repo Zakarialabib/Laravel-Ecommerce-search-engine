@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Subscription;
+namespace App\Http\Livewire\Admin\Subscription;
 
 use Livewire\Component;
 use App\Models\Subscription;
@@ -51,6 +51,6 @@ class Show extends Component
     {   
         $this->subscriptions = $this->user->subscriptions->toArray();
 
-        return view('livewire.subscription.show');
+        return view('livewire.admin.subscription.show');
     }
 }

@@ -49,6 +49,7 @@ class Edit extends Component
     protected $rules = [
         'product.code'             => ['nullable'],
         'product.slug'             => ['nullable'],
+        'product.url'             => ['nullable', 'string', 'max:255'],
         'product.name'             => ['required', 'string', 'max:255'],
         'product.price'            => ['required', 'numeric', 'max:2147483647'],
         'product.old_price'        => ['nullable', 'numeric', 'max:2147483647'],
@@ -57,9 +58,9 @@ class Edit extends Component
         'product.meta_description' => ['nullable', 'string', 'max:255'],
         'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
         'product.category_id'      => ['required', 'integer'],
-        'product.subcategories'    => ['required', 'array', 'min:1'],
+        'product.subcategories'    => ['nullable', 'array', 'min:1'],
         'product.subcategories.*'  => ['integer', 'distinct:strict'],
-        'options'                  => ['array'],
+        'options'                  => ['nullable','array'],
         'options.*.type'           => ['string', 'max:255'],
         'options.*.value'          => ['string', 'max:255'],
         'product.brand_id'         => ['nullable', 'integer'],
@@ -129,7 +130,7 @@ class Edit extends Component
 
         $this->description = $this->product->description;
 
-        $this->options = $this->product->options ?? [['type' => '', 'value' => '']];
+        $this->options = $this->product->options ?? [];
 
         $this->editModal = true;
     }

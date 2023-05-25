@@ -33,13 +33,17 @@ Route::group(['middleware' => 'firewall.all'], function () {
     Route::get('/marques', [FrontController::class, 'brands'])->name('front.brands');
     Route::get('/marque/{slug}', [FrontController::class, 'brandPage'])->name('front.brandPage');
     Route::get('/catalog/{slug}', [FrontController::class, 'productShow'])->name('front.product');
-    Route::get('/panier', [FrontController::class, 'cart'])->name('front.cart');
     Route::get('/contact', [FrontController::class, 'contact'])->name('front.contact');
     Route::get('/a-propos', [FrontController::class, 'about'])->name('front.about');
     Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
     Route::get('/blog/{slug}', [FrontController::class, 'blogPage'])->name('front.blogPage');
     Route::get('/page/{slug}', [FrontController::class, 'dynamicPage'])->name('front.dynamicPage');
     Route::get('/generate-sitemap', [FrontController::class, 'generateSitemaps'])->name('generate-sitemaps');
+    Route::get('/redirect/{url}', [FrontController::class, 'redirect'])->name('redirect');
+    
+    Route::get('/approval' , function () {
+        return view('auth.approval');
+    })->name('auth.approval');
 
     Route::middleware('auth')->group(function () {
         Route::get('/mon-compte', [FrontController::class, 'myaccount'])->name('front.myaccount');

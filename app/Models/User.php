@@ -10,6 +10,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Trait\GetModelByUuid;
+use App\Trait\UuidGenerator;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
@@ -19,15 +21,17 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
     use HasRoles;
+    use GetModelByUuid;
+    use UuidGenerator;
 
     public $orderable = [
-        'id', 'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',
+        'id', 'name',   'city', 'country',
         'phone', 'email', 'password', 'created_at', 'updated_at',
     ];
 
     protected $filterable = [
-        'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',
-        'phone', 'email', 'password', 'favorite_brands', 'created_at', 'updated_at',
+        'name',   'city', 'country',
+        'phone', 'email', 'password', 'created_at', 'updated_at',
     ];
 
     /**
@@ -36,8 +40,8 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id', 'first_name', 'last_name',  'zip', 'city', 'state', 'country', 'address',
-        'phone', 'email', 'password', 'created_at', 'updated_at',
+        'id', 'name',   'city', 'country', 'address',
+        'phone', 'email', 'password', 'created_at', 'updated_at','store_id'
     ];
 
     /**
@@ -59,23 +63,47 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function getFullNameAttribute()
-    {
-        return $this->first_name.' '.$this->last_name;
-    }
-
     public function isAdmin()
     {
         return $this->roles->pluck('name')->contains(Role::ROLE_ADMIN);
     }
 
+    public function isVendor()
+    {
+        return $this->roles->pluck('name')->contains(Role::ROLE_VENDOR);
+    }
+    
     public function isClient()
     {
         return $this->roles->pluck('name')->contains(Role::ROLE_CLIENT);
     }
 
-    public function roles()
+    public function roles() 
     {
-        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
+        return $this->belongsToMany(Role::class);
     }
+    
+    public function store()
+    {
+        return $this->hasOne(Store::class);
+    }
+
+    public function subscriptions()
+    {
+        return $this->belongsToMany(Subscription::class)
+                    ->withPivot('starts_at', 'ends_at')
+                    ->withTimestamps();
+    }
+    
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'user_id', 'id');
+    }    
+
+    public function highlightedProducts()
+    {
+        return $this->hasMany(VendorHighlighted::class);
+    }
+
+
 }

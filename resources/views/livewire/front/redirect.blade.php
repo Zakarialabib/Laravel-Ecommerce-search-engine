@@ -5,9 +5,7 @@
                 <div class="flex items-end justify-end">
                     <div class="w-full lg:w-3/5 lg:pl-20 lg:ml-auto">
                         <h2 class="mb-8 text-5xl font-bold font-heading">{{ __('You are leaving CHRILIA') }}
-                            @if (!empty($order->user))
-                                {{ $order->user->fullName }}
-                            @endif
+                            
                         </h2>
 
                         <p class="mb-12 text-gray-500">

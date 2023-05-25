@@ -7,7 +7,6 @@ namespace App\Http\Controllers\Front;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
-use App\Models\Order;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\Subcategory;
@@ -15,6 +14,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Throwable;
+use App\Http\Controllers\Controller;
 
 class FrontController extends Controller
 {
@@ -100,7 +100,8 @@ class FrontController extends Controller
 
     public function redirect($url)
     {
-        return view('front.redirect', compact('url'));
+        // return view('front.redirect', compact('url'));
+        return redirect()->away($url);
     }
 
     public function dynamicPage($slug)
@@ -110,11 +111,9 @@ class FrontController extends Controller
         return view('front.dynamic-page', compact('page'));
     }
 
-    public function myaccount(User $customer)
+    public function myaccount()
     {
-        $customer = User::where('id', auth()->user()->id)->get();
-
-        return view('front.user-account', ['customer' => $customer]);
+        return view('front.user-account');
     }
 
     public function generateSitemaps()

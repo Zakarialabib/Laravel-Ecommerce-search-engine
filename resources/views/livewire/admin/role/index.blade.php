@@ -43,13 +43,13 @@
                 @forelse($roles as $id=>$role)
                     <x-table.tr>
                         <x-table.td>
-                            {{$id}}
+                            {{ $id }}
                         </x-table.td>
                         <x-table.td>
                             {{ $role->name }}
                         </x-table.td>
                         <x-table.td class="overflo-x-auto text-clip whitespace-pre" style="white-space: initial">
-                            @foreach($role->permissions as $permission)
+                            @foreach ($role->permissions as $permission)
                                 <x-badge info>
                                     {{ $permission->title }}
                                 </x-badge>
@@ -59,11 +59,11 @@
                             <div class="inline-flex">
                                 <x-button secondary href="">
                                     {{ __('Edit') }}
-                                </a>
-                                <x-button danger type="button" wire:click="emit('deleteModal', {{ $role->id }})" 
+                                </x-button>
+                                <x-button danger type="button" wire:click="emit('deleteModal', {{ $role->id }})"
                                     wire:loading.attr="disabled">
                                     {{ __('Delete') }}
-                                </button>
+                                </x-button>
                             </div>
                         </x-table.td>
                     </x-table.tr>

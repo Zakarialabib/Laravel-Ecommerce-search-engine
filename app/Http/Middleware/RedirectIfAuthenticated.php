@@ -30,6 +30,10 @@ class RedirectIfAuthenticated
                     return redirect(RouteServiceProvider::ADMIN_HOME);
                 }
 
+                if (Auth::user()->isVendor()) {
+                    return redirect(RouteServiceProvider::VENDOR_HOME);
+                }
+
                 if (Auth::user()->isClient()) {
                     return redirect(RouteServiceProvider::CLIENT_HOME);
                 }
