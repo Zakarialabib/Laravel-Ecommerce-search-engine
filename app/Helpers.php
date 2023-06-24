@@ -45,6 +45,12 @@ class Helpers
             ->select('id', 'name', 'slug')
             ->get();
     }
+   
+    public static function getBrands()
+    {
+        return Brand::select('id', 'name', 'slug')
+            ->get();
+    }
 
     public static function categoryName($category_id)
     {

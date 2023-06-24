@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Front;
 
 use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Subcategory;
+use App\Models\DeviceModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -31,26 +29,6 @@ class BrandPage extends Component
 
     public $sorting;
 
-    public $category_id;
-
-    public $subcategory_id;
-
-    public $filterProductCategories;
-
-    public $filterProductSubcategories;
-
-    public function filterProductCategories($category_id)
-    {
-        $this->category_id = $category_id;
-        $this->resetPage();
-    }
-
-    public function filterProductSubcategories($subcategory_id)
-    {
-        $this->subcategory_id = $subcategory_id;
-        $this->resetPage();
-    }
-
     public function mount($brand)
     {
         $this->brand = Brand::findOrFail($brand->id);
@@ -73,14 +51,8 @@ class BrandPage extends Component
 
     public function render(): View|Factory
     {
-        $query = Product::active()
-            ->where('brand_id', $this->brand->id)
-            ->when($this->category_id, function ($query) {
-                return $query->where('category_id', $this->category_id);
-            })
-            ->when($this->subcategory_id, function ($query) {
-                return $query->whereIn('subcategories', $this->subcategory_id);
-            });
+        $query = DeviceModel::active()
+            ->where('brand_id', $this->brand->id);
 
         if ($this->sorting === 'name') {
             $query->orderBy('name', 'asc');
@@ -96,20 +68,12 @@ class BrandPage extends Component
             $query->orderBy('created_at', 'desc');
         }
 
-        $brandproducts = $query->paginate($this->perPage);
+        $brandDeviceModels = $query->paginate($this->perPage);
 
-        $this->emit('productsLoaded', $brandproducts->count());
+        $this->emit('deviceModalLoaded', $brandDeviceModels->count());
 
-        return view('livewire.front.brand-page', compact('brandproducts'));
+        return view('livewire.front.brand-page', compact('brandDeviceModels'));
     }
 
-    public function getCategoriesProperty()
-    {
-        return Category::active()->get();
-    }
-
-    public function getSubcategoriesProperty()
-    {
-        return Subcategory::active()->get();
-    }
+  
 }

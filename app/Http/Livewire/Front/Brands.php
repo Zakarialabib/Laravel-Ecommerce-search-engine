@@ -6,9 +6,7 @@ namespace App\Http\Livewire\Front;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Product;
-use App\Models\Subcategory;
+use App\Models\DeviceModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -27,10 +25,6 @@ class Brands extends Component
 
     public array $paginationOptions;
 
-    public $category_id;
-
-    public $subcategory_id;
-
     public $brand_id;
 
     public $sorting;
@@ -40,8 +34,6 @@ class Brands extends Component
     public $selectedFilters = [];
 
     protected $queryString = [
-        'category_id'    => ['except' => '', 'as' => 'c'],
-        'subcategory_id' => ['except' => '', 'as' => 's'],
         'brand_id'       => ['except' => '', 'as' => 'b'],
         'sorting'        => ['except' => '', 'as' => 'filters'],
     ];
@@ -50,47 +42,6 @@ class Brands extends Component
     {
         $this->resetPage();
     }
-
-    public function filterProducts($type, $value)
-    {
-        switch($type) {
-            case 'category':
-                $this->category_id = $value;
-
-                break;
-            case 'subcategory':
-                $this->subcategory_id = $value;
-
-                break;
-            case 'brand':
-                $this->brand_id = $value;
-
-                break;
-        }
-        $this->resetPage();
-    }
-
-      public function clearFilter($filter)
-      {
-          switch($filter) {
-              case 'category':
-                  $this->category_id = null;
-                  unset($this->selectedFilters['category']);
-
-                  break;
-              case 'subcategory':
-                  $this->subcategory_id = null;
-                  unset($this->selectedFilters['subcategory']);
-
-                  break;
-              case 'brand':
-                  $this->brand_id = null;
-                  unset($this->selectedFilters['brand']);
-
-                  break;
-          }
-          $this->resetPage();
-      }
 
     public function mount()
     {
@@ -113,13 +64,7 @@ class Brands extends Component
 
     public function render(): View|Factory
     {
-        $query = Product::active()
-            ->when($this->category_id, function ($query) {
-                return $query->where('category_id', $this->category_id);
-            })
-            ->when($this->subcategory_id, function ($query) {
-                return $query->whereIn('subcategories', $this->subcategory_id);
-            })
+        $query = DeviceModel::active()
             ->when($this->brand_id, function ($query) {
                 return $query->where('brand_id', $this->brand_id);
             });
@@ -140,7 +85,7 @@ class Brands extends Component
 
         $products = $query->paginate($this->perPage);
 
-        $this->emit('productsLoaded', $products->count());
+        $this->emit('deviceModalLoaded', $products->count());
 
         return view('livewire.front.brands', compact('products'));
     }
@@ -150,13 +95,5 @@ class Brands extends Component
         return Brand::select('id', 'name', 'image', 'featured_image')->active()->get();
     }
 
-    public function getCategoriesProperty()
-    {
-        return Category::active()->with('subcategories')->get();
-    }
-
-    public function getSubcategoriesProperty()
-    {
-        return Subcategory::active()->get();
-    }
+  
 }
