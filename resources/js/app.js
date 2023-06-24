@@ -3,23 +3,25 @@ import '../css/app.css';
 import '../css/select.css'; 
 import "perfect-scrollbar/css/perfect-scrollbar.css";
 
-import * as FilePond from 'filepond'
-import 'filepond/dist/filepond.min.css';
-window.FilePond = FilePond
+import {livewire_hot_reload} from 'virtual:livewire-hot-reload'
+livewire_hot_reload();
 
-// import {livewire_hot_reload} from 'virtual:livewire-hot-reload'
-// livewire_hot_reload();
+import swiper from 'swiper';
+import 'swiper/css/bundle';
+window.Swiper = swiper;
 
-import swal from 'sweetalert2';
-window.Swal = swal;
+import "@fortawesome/fontawesome-free/css/all.css";
 
 import Alpine from 'alpinejs';
 import collapse from '@alpinejs/collapse';
 import focus from "@alpinejs/focus";
 import intersect from "@alpinejs/intersect";
-import Sortable from 'sortablejs';
 
+import Sortable from 'sortablejs';
 window.Sortable = Sortable;
+
+import 'trix/dist/trix.css';
+import 'trix';
 
 Alpine.plugin(focus);
 Alpine.plugin(intersect);
@@ -28,29 +30,7 @@ import PerfectScrollbar from "perfect-scrollbar";
 window.PerfectScrollbar = PerfectScrollbar;
 
 Alpine.data("mainState", () => {
-    let lastScrollTop = 0;
-
-    const init = function () {
-        window.addEventListener("scroll", () => {
-            let st = window.pageYOffset || document.documentElement.scrollTop;
-            if (st > lastScrollTop) {
-                // downscroll
-                this.scrollingDown = true;
-                this.scrollingUp = false;
-            } else {
-                // upscroll
-                this.scrollingDown = false;
-                this.scrollingUp = true;
-                if (st == 0) {
-                    // reset
-                    this.scrollingDown = false;
-                    this.scrollingUp = false;
-                }
-            }
-            lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
-        });
-    };
-
+    
     const loadingMask = {
         pageLoaded: false,
         init() {
@@ -79,7 +59,6 @@ Alpine.data("mainState", () => {
     };
 
     return {
-        init,
         loadingMask,
         isDarkMode: getTheme(),
         toggleTheme() {
