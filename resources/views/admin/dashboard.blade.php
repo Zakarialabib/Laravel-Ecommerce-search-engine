@@ -56,13 +56,13 @@
 
         </div>
         
-        <div class="w-full px-6  my-4">
+        {{-- <div class="w-full px-6  my-4">
         @livewire('tools.qr-generator')
         </div>
         
         <div class="w-full px-6  my-4">
             @livewire('visual-editor')
-        </div>
+        </div> --}}
         <div class="w-full px-6 flex flex-row my-4">
 
             <div class="lg:w-full px-4">

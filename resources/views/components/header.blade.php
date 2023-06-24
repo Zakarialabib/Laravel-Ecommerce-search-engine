@@ -4,7 +4,7 @@
             <div class="px-4 py-5 flex w-full items-center justify-between">
                 <a class="pl-4 lg:text-3xl sm:text-xl font-bold font-heading text-white"
                     href="{{ route('front.index') }}">
-                    <img class="w-auto h-14 bg-black mix-blend-exclusion"
+                    <img class="w-auto h-6"
                         src="{{ asset('images/' . Helpers::settings('site_logo')) }}" loading="lazy"
                         alt="{{ Helpers::settings('site_title') }}" />
                 </a>

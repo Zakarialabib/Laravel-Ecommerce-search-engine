@@ -30,7 +30,8 @@
         @endcan
 
         <x-sidebar.sublink title="{{ __('All Products') }}" href="{{ route('admin.products') }}" :active="request()->routeIs('admin.products')" />
-       
+            
+        <x-sidebar.sublink title="{{ __('Device Models') }}" href="{{ route('admin.device-models') }}" :active="request()->routeIs('admin.device-models')" />
         @can('brand_access')
             <x-sidebar.sublink title="{{ __('Brands') }}" href="{{ route('admin.brands') }}" :active="request()->routeIs('admin.brands')" />
         @endcan

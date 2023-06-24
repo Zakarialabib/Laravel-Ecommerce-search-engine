@@ -1,37 +1,42 @@
 <div x-data="{ isMenuOpen: false }"
     class="px-6 py-2 bg-gradient-to-l from-move-400 via-move-600 to-move-800 text-white relative shadow-lg" x-cloak>
-    <div class="hidden md:flex justify-center">
-        <div class="flex items-center justify-center space-x-4">
+    <div class="hidden md:flex ">
+        <button type="button"
+            class="lg:text-md md:text-sm text-center uppercase font-semibold font-heading hover:text-move-400 hover:underline"
+            x-on:click="isMenuOpen = !isMenuOpen" @mouseenter="isMenuOpen = true" @click.away="isMenuOpen = false">
+            <svg width="30" height="22" viewbox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M1 2H19C19.2652 2 19.5196 1.89464 19.7071 1.70711C19.8946 1.51957 20 1.26522 20 1C20 0.734784 19.8946 0.48043 19.7071 0.292893C19.5196 0.105357 19.2652 0 19 0H1C0.734784 0 0.48043 0.105357 0.292893 0.292893C0.105357 0.48043 0 0.734784 0 1C0 1.26522 0.105357 1.51957 0.292893 1.70711C0.48043 1.89464 0.734784 2 1 2ZM19 10H1C0.734784 10 0.48043 10.1054 0.292893 10.2929C0.105357 10.4804 0 10.7348 0 11C0 11.2652 0.105357 11.5196 0.292893 11.7071C0.48043 11.8946 0.734784 12 1 12H19C19.2652 12 19.5196 11.8946 19.7071 11.7071C19.8946 11.5196 20 11.2652 20 11C20 10.7348 19.8946 10.4804 19.7071 10.2929C19.5196 10.1054 19.2652 10 19 10ZM19 5H1C0.734784 5 0.48043 5.10536 0.292893 5.29289C0.105357 5.48043 0 5.73478 0 6C0 6.26522 0.105357 6.51957 0.292893 6.70711C0.48043 6.89464 0.734784 7 1 7H19C19.2652 7 19.5196 6.89464 19.7071 6.70711C19.8946 6.51957 20 6.26522 20 6C20 5.73478 19.8946 5.48043 19.7071 5.29289C19.5196 5.10536 19.2652 5 19 5Z"
+                    fill="#8594A5"></path>
+            </svg>
+        </button>
+
+        <div class="w-full flex items-center justify-center space-x-4">
             @foreach (\App\Helpers::getActiveCategories() as $category)
                 <a href="{{ route('front.categories') }}?c={{ $category->id }}"
                     class="lg:text-md md:text-sm text-center uppercase font-semibold font-heading hover:text-move-400 hover:underline">
                     {{ $category->name }}
                 </a>
             @endforeach
-            <button type="button"
-                class="lg:text-md md:text-sm text-center uppercase font-semibold font-heading hover:text-move-400 hover:underline"
-                x-on:click="isMenuOpen = !isMenuOpen" @mouseenter="isMenuOpen = true" @click.away="isMenuOpen = false">
-                {{ __('Brands') }} <small class="inline-block align-middle text-gray-100">&#9660;</small>
-            </button>
-        </div>
-        <div x-show="isMenuOpen" x-transition:enter="transition ease-out duration-300 transform origin-top"
-            x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
-            x-transition:enter-end="opacity-100 translate-y-0 scale-100"
-            x-transition:leave="transition ease-in duration-200 opacity-0 transform origin-top"
-            x-transition:leave-start="opacity-100 translate-y-0 scale-100"
-            x-transition:leave-end="-translate-y-4 scale-95"
-            class="absolute z-10 top-full max-w-screen-xl bg-white w-[35rem] sm:w-[25rem] 
-             flex flex-wrap justify-between px-4 gap-4 py-4 text-center rounded-md shadow-lg"
-            @click.away="isMenuOpen = false">
-            @foreach (\App\Helpers::getActiveBrands() as $brand)
-                <a class="" href="{{ route('front.brandPage', $brand->slug) }}">
-                    <p class="mb-3 text-lg font-bold font-heading text-move-900 hover:text-move-600 hover:underline">
-                        {{ $brand->name }}
-                    </p>
-                </a>
-            @endforeach
         </div>
     </div>
+    <div x-show="isMenuOpen" x-transition:enter="transition ease-out duration-300 transform origin-top"
+        x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
+        x-transition:enter-end="opacity-100 translate-y-0 scale-100"
+        x-transition:leave="transition ease-in duration-200 opacity-0 transform origin-top"
+        x-transition:leave-start="opacity-100 translate-y-0 scale-100" x-transition:leave-end="-translate-y-4 scale-95"
+        class="absolute z-10 top-full max-w-screen-xl bg-white w-[35rem] sm:w-[25rem] 
+             grid grid-cols-2 py-4 text-center rounded-md shadow-lg"
+        @click.away="isMenuOpen = false">
+        @foreach (\App\Helpers::getActiveBrands() as $brand)
+            <a class="w-full" href="{{ route('front.brandPage', $brand->slug) }}">
+                <p class="mb-3 text-lg font-bold font-heading text-move-900 hover:text-move-600 hover:underline">
+                    {{ $brand->name }}
+                </p>
+            </a>
+        @endforeach
+    </div>
+
     <div class="md:hidden">
         @livewire('front.search-box')
     </div>
