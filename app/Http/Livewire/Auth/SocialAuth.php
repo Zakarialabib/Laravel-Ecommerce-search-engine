@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Livewire\Auth;
 
@@ -29,7 +31,7 @@ class SocialAuth extends Component
             // 'phone'    => $this->phone,
             // 'city'     => $this->city,
             // 'country'  => $this->country,
-            'status'        => Status::INACTIVE,
+            'status' => Status::INACTIVE,
         ]);
 
         $role = Role::where('name', 'CLIENT')->first();
@@ -41,13 +43,16 @@ class SocialAuth extends Component
         switch (true) {
             case $user->hasRole('admin'):
                 $homePage = RouteServiceProvider::ADMIN_HOME;
+
                 break;
-                case $user->hasRole('vendor'):
-                    $homePage = RouteServiceProvider::VENDOR_HOME;
-                    break;
-                    default:
-                    $homePage = RouteServiceProvider::CLIENT_HOME;
-                    break;
+            case $user->hasRole('vendor'):
+                $homePage = RouteServiceProvider::VENDOR_HOME;
+
+                break;
+            default:
+                $homePage = RouteServiceProvider::CLIENT_HOME;
+
+                break;
         }
 
         return redirect()->intended($homePage);
@@ -63,7 +68,7 @@ class SocialAuth extends Component
         $socialUser = Socialite::driver('google')->user();
 
         // $user = User::where('email', $socialUser->email)->first();
- 
+
         $user = User::updateOrCreate([
             'google_id' => $socialUser->id,
         ], [

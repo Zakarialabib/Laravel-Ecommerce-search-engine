@@ -51,7 +51,7 @@ class Index extends Component
 
     public function getBrandsProperty(): Collection
     {
-        return Brand::with('products')->get();
+        return Brand::select('id', 'name', 'slug')->get();
     }
 
     public function getSlidersProperty(): Collection
@@ -59,9 +59,9 @@ class Index extends Component
         return Slider::active()->take(1)->get();
     }
 
-    public function getFeaturedbannerProperty()
+    public function getFeaturedbannersProperty()
     {
-        return FeaturedBanner::where('featured', 1)->first();
+        return FeaturedBanner::whereStatus(true)->get();
     }
 
     public function getSectionsProperty(): Collection

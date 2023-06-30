@@ -10,6 +10,10 @@ import swiper from 'swiper';
 import 'swiper/css/bundle';
 window.Swiper = swiper;
 
+import AOS from 'aos';
+import 'aos/dist/aos.css'; 
+AOS.init();
+
 import "@fortawesome/fontawesome-free/css/all.css";
 
 import Alpine from 'alpinejs';
@@ -22,6 +26,8 @@ window.Sortable = Sortable;
 
 import 'trix/dist/trix.css';
 import 'trix';
+
+
 
 Alpine.plugin(focus);
 Alpine.plugin(intersect);
@@ -39,6 +45,13 @@ Alpine.data("mainState", () => {
             };
         },
     };
+
+    // AOS Animation
+    if (window['AOS']) {
+        window['AOS'].init({
+            once: true,
+        });
+    }
 
     const getTheme = () => {
         if (window.localStorage.getItem("dark")) {

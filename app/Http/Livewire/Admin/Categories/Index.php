@@ -31,7 +31,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'importModal', 
+        'importModal',
     ];
 
     public int $perPage;
@@ -125,14 +125,14 @@ class Index extends Component
 
     public function importModal()
     {
-        abort_if(Gate::denies('category_access'), 403);
+        abort_if(Gate::denies('category access'), 403);
 
         $this->importModal = true;
     }
 
     public function import()
     {
-        abort_if(Gate::denies('category_access'), 403);
+        abort_if(Gate::denies('category access'), 403);
 
         $this->validate([
             'file' => 'required|mimes:xlsx,xls,csv,txt',

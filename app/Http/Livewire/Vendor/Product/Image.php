@@ -140,7 +140,6 @@ class Image extends Component
             $this->alert('success', __('Product image updated successfully.'));
 
             $this->imageModal = false;
-
         } catch (Exception $e) {
             $this->alert('warning', __('Product image was not updated.'));
         }

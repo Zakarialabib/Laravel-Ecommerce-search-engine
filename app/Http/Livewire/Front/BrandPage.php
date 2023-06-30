@@ -32,8 +32,8 @@ class BrandPage extends Component
     public function mount($brand)
     {
         $this->brand = Brand::findOrFail($brand->id);
-        $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
+        $this->perPage = 25;
         $this->sortingOptions = [
             'name-asc'   => __('Order Alphabetic, A-Z'),
             'name-desc'  => __('Order Alphabetic, Z-A'),
@@ -74,6 +74,4 @@ class BrandPage extends Component
 
         return view('livewire.front.brand-page', compact('brandDeviceModels'));
     }
-
-  
 }

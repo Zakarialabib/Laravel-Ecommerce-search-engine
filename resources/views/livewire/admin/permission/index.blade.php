@@ -7,7 +7,7 @@
                     <option value="{{ $value }}">{{ $value }}</option>
                 @endforeach
             </select>
-            @can('permission_delete')
+            @can('permission delete')
                 <button
                     class="text-blue-500 bg-transparent border border-blue-500 dark:border-zinc-300 hover:text-blue-700  active:bg-blue-600 font-bold uppercase text-xs p-3 rounded outline-none focus:outline-none ease-linear transition-all duration-150"
                     type="button" wire:click="confirm('deleteSelected')" wire:loading.attr="disabled"
@@ -56,13 +56,13 @@
                                     <x-heroicon-o-eye class="h-4 w-4" />
                                 </a>
                             @endcan
-                            @can('permission_edit')
+                            @can('permissionedit')
                                 <a class="font-bold border-transparent uppercase justify-center text-xs py-1 px-2 rounded shadow hover:shadow-md outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 mr-1 ease-linear transition-all duration-150 cursor-pointer text-white bg-green-500 border-green-800 hover:bg-green-600 active:bg-green-700 focus:ring-green-300mr-2"
                                     href="{{ route('admin.permissions.edit', $permission) }}">
                                     {{__('Edit')}}
                                 </a>
                             @endcan
-                            @can('permission_delete')
+                            @can('permission delete')
                                 <button
                                     class="font-bold border-transparent uppercase justify-center text-xs py-2 px-2 rounded shadow hover:shadow-md outline-none focus:outline-none focus:ring-2 focus:ring-offset-2 mr-1 ease-linear transition-all duration-150 cursor-pointer text-white bg-red-500 border-red-800 hover:bg-red-600 active:bg-red-700 focus:ring-red-300"
                                     type="button" wire:click="confirm('delete', {{ $permission->id }})"

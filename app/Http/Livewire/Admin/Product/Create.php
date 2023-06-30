@@ -16,6 +16,7 @@ use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use App\Http\Livewire\Quill;
+use App\Models\Price;
 
 class Create extends Component
 {
@@ -49,9 +50,10 @@ class Create extends Component
 
     protected $rules = [
         'product.name'             => ['required', 'string', 'max:255'],
-        'product.url'             => ['required', 'string', 'max:255'],
+        'product.url'              => ['required', 'string', 'max:255'],
         'product.price'            => ['required', 'numeric', 'max:2147483647'],
         'product.old_price'        => ['required', 'numeric', 'max:2147483647'],
+        'product.wholesale_price'  => ['nullable', 'numeric', 'max:2147483647'],
         'description'              => ['nullable'],
         'product.meta_title'       => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
@@ -66,7 +68,7 @@ class Create extends Component
         'product.condition'        => ['nullable'],
     ];
 
-    public function quill_value_updated($value)
+    public function updatedDescription($value)
     {
         $this->description = $value;
     }
@@ -136,6 +138,13 @@ class Create extends Component
         $this->product->subcategories = $this->subcategories;
 
         $this->product->save();
+
+        $price = new Price();
+        $price->price = $this->product->price;
+        $price->old_price = $this->product->old_price;
+        $price->wholesale_price = $this->product->wholesale_price;
+        $price->product_id = $this->product->id;
+        $price->save();
 
         $this->alert('success', 'Product created successfully');
 

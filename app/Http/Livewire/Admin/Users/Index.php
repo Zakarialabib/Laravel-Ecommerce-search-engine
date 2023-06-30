@@ -29,7 +29,7 @@ class Index extends Component
     public $user;
 
     public $role;
-    
+
     public $filterRole;
 
     public int $perPage;
@@ -102,7 +102,7 @@ class Index extends Component
 
     public function render(): View|Factory
     {
-        abort_if(Gate::denies('user_access'), 403);
+        abort_if(Gate::denies('user access'), 403);
 
         $query = User::with('roles')->advancedFilter([
             's'               => $this->search ?: null,
@@ -129,10 +129,10 @@ class Index extends Component
                 });
             });
         }
-       
+
         $users = $query->paginate($this->perPage);
 
-        return view('livewire.admin.users.index', compact('users'));
+        return view('livewire.admin.users.index', compact('users'))->extends('layouts.dashboard');
     }
 
     // getrolesproperty

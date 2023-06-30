@@ -29,6 +29,7 @@ class CreateOrderFormsTable extends Migration
             $table->string('subject')->nullable();
             $table->string('message')->nullable();
 
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }

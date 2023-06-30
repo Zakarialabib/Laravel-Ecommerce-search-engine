@@ -1,6 +1,6 @@
 <div>
     <!-- Create Modal -->
-    <x-modal wire:model="createSlider">
+    <x-modal wire:model="createModal">
         <x-slot name="title">
             {{ __('Create Slider') }}
         </x-slot>
@@ -35,16 +35,21 @@
                             wire:model.lazy="slider.subtitle" />
                         <x-input-error :messages="$errors->get('slider.subtitle')" for="slider.subtitle" class="mt-2" />
                     </div>
-                    <div class="xl:w-1/2 md:w-full px-2">
-                        <x-label for="details" :value="__('Details')" />
-                        <x-input.textarea wire:model.lazy="slider.details" id="details" />
-                        <x-input-error :messages="$errors->get('slider.details')" for="slider.details" class="mt-2" />
-                    </div>
+
+
+
                     <div class="xl:w-1/2 md:w-full px-2">
                         <x-label for="bg_color" :value="__('Background Color')" />
                         <x-input id="bg_color" class="block mt-1 w-full" type="color" name="bg_color"
                             wire:model.lazy="slider.bg_color" />
                         <x-input-error :messages="$errors->get('slider.bg_color')" for="slider.bg_color" class="mt-2" />
+                    </div>
+
+                    <div class="xl:w-1/2 md:w-full px-2">
+                        <x-label for="video" :value="__('Embeded Video')" />
+                        <x-input id="embeded_video" class="block mt-1 w-full" type="text" name="embeded_video"
+                            wire:model.lazy="slider.embeded_video" />
+                        <x-input-error :messages="$errors->get('slider.embeded_video')" for="slider.link" class="mt-2" />
                     </div>
 
                     <div class="xl:w-1/2 md:w-full px-2">
@@ -55,11 +60,11 @@
                     </div>
 
                     <div class="w-full px-3">
-                        <x-label for="video" :value="__('Embeded Video')" />
-                        <x-input id="embeded_video" class="block mt-1 w-full" type="text" name="embeded_video"
-                            wire:model.lazy="slider.embeded_video" />
-                        <x-input-error :messages="$errors->get('slider.embeded_video')" for="slider.link" class="mt-2" />
+                        <x-label for="details" :value="__('Details')" />
+                        <x-trix name="details" wire:model.lazy="description" />
+                        <x-input-error :messages="$errors->get('slider.details')" for="slider.details" class="mt-2" />
                     </div>
+
 
                     <div class="w-full py-2 px-3">
                         <x-label for="photo" :value="__('Image')" />

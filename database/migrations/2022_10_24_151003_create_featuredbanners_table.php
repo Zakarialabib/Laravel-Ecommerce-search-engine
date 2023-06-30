@@ -17,14 +17,15 @@ return new class () extends Migration {
         Schema::create('featured_banners', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('details');
+            $table->text('description');
             $table->string('image')->nullable();
-            $table->boolean('status')->default(true);
-            $table->boolean('featured')->default(false);
+            $table->string('label')->nullable();
             $table->string('link')->nullable();
             $table->text('embeded_video')->nullable();
             $table->foreignId('language_id')->nullable()->constrained('languages')->nullOnDelete();
             $table->foreignId('product_id')->nullable()->constrained('products')->nullOnDelete();
+            $table->boolean('featured')->default(false);
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }

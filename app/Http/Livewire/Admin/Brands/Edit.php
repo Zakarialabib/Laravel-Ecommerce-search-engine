@@ -31,7 +31,7 @@ class Edit extends Component
         'brand.description' => ['nullable', 'string'],
     ];
 
-       public function getImagePreviewProperty()
+    public function getImagePreviewProperty()
     {
         return $this->brand?->image;
     }

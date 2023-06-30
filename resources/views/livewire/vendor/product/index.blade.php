@@ -1,33 +1,23 @@
-@extends('layouts.dashboard')
-@section('title', __('Product list'))
-@section('content')
+<div>
+
+    @section('title', __('Product list'))
+
     <div class="card bg-white dark:bg-dark-eval-1">
         <div class="p-6 rounded-t rounded-r mb-0 border-b border-gray-200">
-            <div class="card-header-container flex flex-wrap">
+            <div class="flex items-center my-auto justify-between">
                 <h6 class="text-xl font-bold text-gray-700 dark:text-gray-300">
                     {{ __('Product list') }}
                 </h6>
-                <div class="flex">
-                    <form action="{{ route('vendor.product-import') }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        <input type="file" name="excel" id="excel" placeholder="select a file" />
-                        <button type="submit"
-                            class="leading-4 md:text-sm sm:text-xs bg-blue-900 text-white hover:text-blue-800 hover:bg-blue-100 active:bg-blue-200 focus:ring-blue-300 font-medium uppercase px-6 py-2 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150">
-                            {{ __('Import') }}
-                        </button>
-                    </form>
-                </div>
 
-                <div class="flex">
-                    <a class="md:text-sm sm:text-xs bg-blue-900 text-white hover:text-blue-800 hover:bg-blue-100 active:bg-blue-200 focus:ring-blue-300 text-sm font-bold uppercase px-6 py-2 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                        href="{{ route('vendor.products.create') }}">
-                        {{ __('Create product') }}
-                    </a>
-                </div>
+
+                <a class="flex float-right md:text-sm sm:text-xs bg-blue-900 text-white hover:text-blue-800 hover:bg-blue-100 active:bg-blue-200 focus:ring-blue-300 text-sm font-bold uppercase px-6 py-2 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                    href="">
+                    {{ __('Create product') }}
+                </a>
             </div>
         </div>
         <div class="p-4">
-            <div>
+
                 <div class="flex flex-wrap justify-center">
                     <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-wrap my-md-0 my-2">
                         <select wire:model="perPage"
@@ -37,13 +27,11 @@
                             @endforeach
                         </select>
 
-                        {{-- @can('client_product_management') --}}
                         <button
                             class="text-blue-500 dark:text-gray-300 bg-transparent dark:bg-dark-eval-2 border border-blue-500 dark:border-gray-300 hover:text-blue-700  active:bg-blue-600 font-bold uppercase text-xs p-3 rounded outline-none focus:outline-none ease-linear transition-all duration-150"
                             type="button" wire:click="$toggle('showDeleteModal')" wire:loading.attr="disabled">
-                            <x-heroicon-o-trash class="h-3 w-3" />
+                            <i class="fas fa-trash-alt"></i>
                         </button>
-                        {{-- @endcan --}}
                     </div>
                     <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
                         <div class="">
@@ -95,10 +83,11 @@
                                     {{ $product->name }}
                                 </x-table.td>
                                 <x-table.td>
-                                    <livewire:toggle-button :model="$product" field="stock" key="{{ $product->id }}" />
+                                    <livewire:toggle-button :model="$product" field="stock"
+                                        key="{{ $product->id }}" />
                                 </x-table.td>
                                 <x-table.td>
-                                    
+
                                 </x-table.td>
 
                                 <x-table.td>
@@ -108,48 +97,46 @@
                                     <div class="inline-flex">
                                         <a class="btn btn-sm text-white bg-green-500 border-green-800 hover:bg-green-600 active:bg-green-700 focus:ring-green-300"
                                             class="flex items-center space-x-2">
-                                            <x-heroicon-o-eye class="h-4 w-4" />
+                                            <i class="fas fa-eye"></i>
                                         </a>
                                         <a class="btn btn-sm text-white bg-blue-500 border-blue-800 hover:bg-blue-600 active:bg-blue-700 focus:ring-blue-300 "
                                             class="flex items-center space-x-2">
-                                            <x-heroicon-o-pencil-alt class="h-4 w-4" />
+                                            <i class="fas fa-edit"></i>
                                         </a>
                                         <button
                                             class="btn btn-sm text-white bg-red-500 border-red-800 hover:bg-red-600 active:bg-red-700 focus:ring-red-300"
                                             type="button" wire:click="confirm('delete', {{ $product->id }})"
                                             wire:loading.attr="disabled">
-                                            <x-heroicon-o-trash class="h-4 w-4" />
+                                            <i class="fas fa-trash"></i>
                                         </button>
-                                        {{-- @endcan --}}
                                     </div>
                                 </x-table.td>
                             </x-table.tr>
-                            @empty
-                                <x-table.tr>
-                                    <x-table.td colspan="10" class="text-center">
-                                        {{ __('No entries found.') }}
-                                    </x-table.td>
-                                </x-table.tr>
-                            @endforelse
-                        </x-table.tbody>
-                    </x-table>
+                        @empty
+                            <x-table.tr>
+                                <x-table.td colspan="10" class="text-center">
+                                    {{ __('No entries found.') }}
+                                </x-table.td>
+                            </x-table.tr>
+                        @endforelse
+                    </x-table.tbody>
+                </x-table>
 
-                    <div class="p-4">
-                        <div class="pt-3">
-                            @if ($this->selectedCount)
-                                <p class="text-sm leading-5">
-                                    <span class="font-medium">
-                                        {{ $this->selectedCount }}
-                                    </span>
-                                    {{ __('Entries selected') }}
-                                </p>
-                            @endif
-                            {{ $products->links() }}
-                        </div>
+                <div class="p-4">
+                    <div class="pt-3">
+                        @if ($this->selectedCount)
+                            <p class="text-sm leading-5">
+                                <span class="font-medium">
+                                    {{ $this->selectedCount }}
+                                </span>
+                                {{ __('Entries selected') }}
+                            </p>
+                        @endif
+                        {{ $products->links() }}
                     </div>
-
                 </div>
 
             </div>
-        </div>
-    @endsection
+
+    </div>
+</div>

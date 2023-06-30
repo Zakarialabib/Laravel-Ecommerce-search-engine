@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use Livewire\Component;
@@ -9,14 +11,15 @@ use App\Http\Livewire\WithSorting;
 
 class Market extends Component
 {
-    use WithPagination, WithSorting;
-    
+    use WithPagination;
+    use WithSorting;
+
     public int $perPage;
 
     public string $search = '';
 
     public array $paginationOptions;
-    
+
     protected $queryString = [
         'search' => [
             'except' => '',
@@ -41,30 +44,26 @@ class Market extends Component
 
     public function mount()
     {
-
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 10;
-        $this->paginationOptions = config('project.pagination.options');
-        $this->orderable         = (new Product())->orderable;
-
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 10;
+        $this->paginationOptions = [25, 50, 100];
+        $this->orderable = (new Product())->orderable;
     }
 
     public function render()
     {
-
         $query = Product::where('name', 'like', '%'.$this->search.'%')
-        ->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
-            'order_direction' => $this->sortDirection,
-        ]);
+            ->advancedFilter([
+                's'               => $this->search ?: null,
+                'order_column'    => $this->sortBy,
+                'order_direction' => $this->sortDirection,
+            ]);
 
         $products = $query->paginate($this->perPage);
-    
+
         return view('livewire.front.market', [
             'products' => $products,
         ]);
-
     }
 }

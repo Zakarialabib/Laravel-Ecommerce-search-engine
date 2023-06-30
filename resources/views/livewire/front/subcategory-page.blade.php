@@ -167,7 +167,7 @@
             </div>
             <div class="w-full lg:w-3/4 px-4" x-data="{ loading: false }">
                 <div class="grid gap-6 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 
- xs:grid-cols-2 mb-10" id="product-container">
+ xs:grid-cols-2 mb-10" >
                     @forelse ($products as $product)
                         <x-product-card :product="$product" />
                     @empty

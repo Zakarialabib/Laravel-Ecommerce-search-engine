@@ -1,9 +1,5 @@
 <?php
 
-/*
- * For more details about the configuration, see:
- * https://sweetalert2.github.io/#configuration
- */
 return [
     'alert' => [
         'position' => 'top-end',
@@ -24,4 +20,26 @@ return [
         'confirmButtonColor' => '#3085d6',
         'cancelButtonColor' => '#d33',
     ],
+    // customize alert style by passing your custom classes, works perfectly with [TailwindCSS]
+    'customClass' => [
+        'container' => '',
+        'popup' => '',
+        'header' => '',
+        'title' => '',
+        'closeButton' => '',
+        'icon' => '',
+        'image' => '',
+        'content' => '',
+        'htmlContainer' => '',
+        'input' => '',
+        'inputLabel' => '',
+        'validationMessage' => '',
+        'actions' => '',
+        'confirmButton' => '',
+        'denyButton' => '',
+        'cancelButton' => '',
+        'loader' => '',
+        'footer' => ''
+       ]
+    
 ];

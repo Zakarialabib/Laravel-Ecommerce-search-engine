@@ -8,7 +8,6 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeaturedBannerController;
 use App\Http\Controllers\Admin\NotificationController;
-use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ReportController;
@@ -42,7 +41,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:ADMIN', 'firewall.all']], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin', 'firewall.all']], function () {
     // change lang
     Route::get('/lang/{lang}', [DashboardController::class, 'changeLanguage'])->name('changelanguage');
 
@@ -60,24 +59,23 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
 
     Route::get('users', UserIndex::class)->name('users');
 
-   Route::get('/email-template', EmailIndex::class)->name('email-templates.index');
-   Route::get('/menu-settings', MenuIndex::class)->name('menu-settings.index');
+    Route::get('/email-template', EmailIndex::class)->name('email-templates.index');
+    Route::get('/menu-settings', MenuIndex::class)->name('menu-settings.index');
 
     Route::get('/analytics', [AnalyticsController::class, 'index'])->name('analytics');
-   
+
     Route::get('/pages', [PageController::class, 'index'])->name('pages');
     Route::get('/page/settings', [PageController::class, 'settings'])->name('page.settings');
     Route::get('/sections', [SectionController::class, 'index'])->name('sections');
     Route::get('/sliders', [SliderController::class, 'index'])->name('sliders');
     Route::get('/featuredBanners', [FeaturedBannerController::class, 'index'])->name('featuredBanners');
-     
+
     Route::get('/order-forms', [PageController::class, 'orderForms'])->name('orderforms');
 
     Route::get('/subscriptions', [SubscriptionController::class, 'index'])->name('setting.subscriptions');
 
-
     Route::get('/settings', [SettingController::class, 'index'])->name('settings');
-    
+
     Route::get('/popupsettings', [SettingController::class, 'popupsettings'])->name('setting.popupsettings');
     Route::get('/redirects', [SettingController::class, 'redirects'])->name('setting.redirects');
     Route::get('/backup', BackupIndex::class)->name('setting.backup');
@@ -85,7 +83,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
 
     Route::get('/notification', [NotificationController::class, 'index'])->name('notification');
     Route::get('/smpt', [SmptController::class, 'index'])->name('smpt');
-    
+
     Route::get('/language', LanguageIndex::class)->name('language');
     Route::get('/translation/{code}', EditTranslation::class)->name('translation');
 

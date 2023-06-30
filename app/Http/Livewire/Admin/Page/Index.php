@@ -18,11 +18,11 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'delete'
+        'delete',
     ];
 
     public $deleteModal = false;
-    
+
     public int $perPage;
 
     public array $orderable;
@@ -116,9 +116,8 @@ class Index extends Component
             'position'          => 'center',
             'showConfirmButton' => true,
             'cancelButtonText'  => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'onConfirmed'       => 'delete',
         ]);
         $this->page = $page;
     }
-
 }

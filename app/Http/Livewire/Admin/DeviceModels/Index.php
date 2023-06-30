@@ -28,7 +28,7 @@ class Index extends Component
     public $listeners = [
         'refreshIndex' => '$refresh',
         'showModal', 'importModal',
-        'delete'
+        'delete',
     ];
 
     public $deleteModal = false;
@@ -36,9 +36,9 @@ class Index extends Component
     public $showModal = false;
 
     public $importModal = false;
-    
+
     public int $perPage;
-    
+
     public array $orderable;
 
     public string $search = '';
@@ -138,7 +138,7 @@ class Index extends Component
             'position'          => 'center',
             'showConfirmButton' => true,
             'cancelButtonText'  => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'onConfirmed'       => 'delete',
         ]);
         $this->device_model = $device_model;
     }

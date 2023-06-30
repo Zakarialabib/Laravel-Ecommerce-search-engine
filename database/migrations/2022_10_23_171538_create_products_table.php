@@ -19,9 +19,6 @@ return new class () extends Migration {
             $table->uuid();
             $table->string('name');
             $table->text('description');
-            $table->string('price');
-            $table->string('old_price')->nullable();
-            $table->string('wholesale_price')->nullable();
             $table->string('image');
             $table->text('gallery')->nullable();
             $table->string('code');

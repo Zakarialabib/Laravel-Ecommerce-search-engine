@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Subscription;
 
 use App\Models\Subscription;
@@ -8,7 +10,7 @@ use Livewire\Component;
 class Edit extends Component
 {
     public Subscription $subscription;
-   
+
     protected $listeners = [
         'submit',
     ];
@@ -29,8 +31,7 @@ class Edit extends Component
 
         $this->subscription->save();
 
-        $this->alert('success', __('Subscription updated successfully!') );
-
+        $this->alert('success', __('Subscription updated successfully!'));
     }
 
     protected function rules(): array
@@ -47,4 +48,3 @@ class Edit extends Component
         ];
     }
 }
-

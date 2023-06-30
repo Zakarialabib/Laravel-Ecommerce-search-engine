@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use App\Models\Price;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use App\Models\Store;
@@ -23,18 +24,16 @@ class ProductFactory extends Factory
     {
         $productName = $this->faker->unique()->words($nb = 3, $asText = true);
         $productDescription = $this->faker->sentence($nbWords = 6, $variableNbWords = true);
-        $productPrice = $this->faker->numberBetween($min = 10, $max = 1000);
         $productCode = Str::random(5);
         $productSlug = Str::slug($productName);
 
         return [
             'name'             => $productName,
             'description'      => $productDescription,
-            'price'            => $productPrice,
             'image'            => 'samsung-galaxy-s21.jpg',
             'code'             => $productCode,
             'category_id'      => 1,
-            'user_id'         => 1,
+            'user_id'          => 1,
             'brand_id'         => 1,
             'url'              => 'www.hotech.ma',
             'slug'             => $productSlug,
@@ -50,6 +49,19 @@ class ProductFactory extends Factory
         return $this->afterCreating(function (Product $product) {
             $store = Store::inRandomOrder()->first();
             $product->store()->associate($store);
+            $product->save();
+
+            $price = Price::create([
+                'price'            => $this->faker->numberBetween($min = 10, $max = 1000),
+                'old_price'        => $this->faker->numberBetween($min = 10, $max = 1000),
+                'wholesale_price'  => $this->faker->numberBetween($min = 10, $max = 1000),
+                'suggested_prices' => [],
+                'product_id'       => $product->id,
+                'status'           => true,
+            ]);
+
+            // Associate the price with the product
+            $product->price_id = $price->id;
             $product->save();
         });
     }

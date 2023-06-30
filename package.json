@@ -8,8 +8,8 @@
         "@defstudio/vite-livewire-plugin": "^0.2.6",
         "autoprefixer": "^10.4.12",
         "axios": "^0.27",
-        "laravel-vite-plugin": "^0.6.0",
         "intersection-observer": "^0.12.2",
+        "laravel-vite-plugin": "^0.6.0",
         "lodash": "^4.17.19",
         "postcss": "^8.4.18",
         "prettier": "^2.8.3",
@@ -26,14 +26,15 @@
         "@fortawesome/fontawesome-free": "^6.4.0",
         "@tailwindcss/forms": "^0.5.3",
         "alpinejs": "^3.5.0",
+        "aos": "^3.0.0-beta.6",
         "perfect-scrollbar": "^1.5.5",
         "ponyfill": "^0.0.1",
+        "quill": "^1.3.7",
         "select2": "^4.1.0-rc.0",
         "sortablejs": "^1.15.0",
         "sweetalert2": "^11.6.1",
         "swiper": "^9.4.0",
         "tailwindcss-tables": "^0.4.0",
-        "trix": "^2.0.5",
-        "quill": "^1.3.7"
+        "trix": "^2.0.5"
     }
 }

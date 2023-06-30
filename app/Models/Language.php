@@ -6,6 +6,30 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * App\Models\Language
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $code
+ * @property string $rtl
+ * @property string $status
+ * @property string $is_default
+ * @property string|null $created_at
+ * @property string|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Language newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Language newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Language query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Language whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Language whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Language whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Language whereIsDefault($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Language whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Language whereRtl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Language whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Language whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Language extends Model
 {
     public const STATUS_ACTIVE = 1;

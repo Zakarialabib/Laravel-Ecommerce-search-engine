@@ -6,11 +6,8 @@ namespace App\Http\Livewire\Admin\FeaturedBanner;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\FeaturedBanner;
-use App\Models\Language;
-use App\Models\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -25,18 +22,14 @@ class Index extends Component
 
     public $featuredbanner;
 
-    public $image;
-
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'showModal', 'editModal', 'delete',
+        'showModal', 'delete',
     ];
 
     public $showModal = false;
 
     public $refreshIndex;
-
-    public $editModal = false;
 
     public int $perPage;
 
@@ -48,8 +41,6 @@ class Index extends Component
 
     public array $paginationOptions;
 
-    public array $listsForFields = [];
-
     protected $queryString = [
         'search' => [
             'except' => '',
@@ -60,15 +51,6 @@ class Index extends Component
         'sortDirection' => [
             'except' => 'desc',
         ],
-    ];
-
-    protected $rules = [
-        'featuredbanner.title'         => ['required', 'string', 'max:255'],
-        'featuredbanner.details'       => ['nullable', 'string'],
-        'featuredbanner.link'          => ['nullable', 'string'],
-        'featuredbanner.product_id'    => ['nullable', 'integer'],
-        'featuredbanner.language_id'   => ['nullable', 'integer'],
-        'featuredbanner.embeded_video' => ['nullable'],
     ];
 
     public function getSelectedCountProperty()
@@ -98,7 +80,6 @@ class Index extends Component
         $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
         $this->orderable = (new FeaturedBanner())->orderable;
-        $this->initListsForFields();
     }
 
     public function render(): View|Factory
@@ -124,35 +105,6 @@ class Index extends Component
         $this->alert('success', __('Featuredbanner featured successfully!'));
     }
 
-    public function editModal(FeaturedBanner $featuredbanner)
-    {
-        $this->resetErrorBag();
-
-        $this->resetValidation();
-
-        $this->featuredbanner = $featuredbanner;
-
-        $this->editModal = true;
-    }
-
-    public function update()
-    {
-        $this->validate();
-        // if product selected Helpers::productLink($product)
-
-        if ($this->image) {
-            $imageName = Str::slug($this->featuredbanner->title).'-'.Str::random(3).'.'.$this->image->extension();
-            $this->image->storeAs('featuredbanners', $imageName);
-            $this->featuredbanner->image = $imageName;
-        }
-
-        $this->featuredbanner->save();
-
-        $this->alert('success', __('FeaturedBanner updated successfully.'));
-
-        $this->editModal = false;
-    }
-
     public function showModal(FeaturedBanner $featuredbanner)
     {
         $this->resetErrorBag();
@@ -169,11 +121,5 @@ class Index extends Component
         $featuredbanner->delete();
 
         $this->alert('success', __('FeaturedBanner deleted successfully.'));
-    }
-
-    protected function initListsForFields(): void
-    {
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
-        $this->listsForFields['products'] = Product::pluck('name', 'id')->toArray();
     }
 }

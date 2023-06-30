@@ -12,7 +12,6 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
-use App\Enums\RoleType;
 use App\Enums\Status;
 
 class Register extends Component
@@ -24,7 +23,7 @@ class Register extends Component
     public $phone;
     public $city; // Set the default city to 'Casablanca'
     public $country; // Set
-    public $isStoreOwner = false; 
+    public $isStoreOwner = false;
 
     // Properties for store owners only
     public $storeName;
@@ -35,7 +34,7 @@ class Register extends Component
 
     public function storeOwnerChanged()
     {
-        $this->isStoreOwner = !$this->isStoreOwner;
+        $this->isStoreOwner = ! $this->isStoreOwner;
         $this->emit('storeOwnerChanged', $this->isStoreOwner);
     }
 
@@ -61,51 +60,50 @@ class Register extends Component
             'phone'    => $this->phone,
             'city'     => $this->city,
             'country'  => $this->country,
-            'status'        => Status::INACTIVE, // Set status to inactive by default
+            'status'   => Status::INACTIVE, // Set status to inactive by default
         ]);
 
         $roleName = $this->isStoreOwner ? 'VENDOR' : 'CLIENT';
-        
+
         $role = Role::where('name', $roleName)->first();
 
         $user->assignRole($role);
 
         if ($this->isStoreOwner) {
             $store = new Store([
-                'name'          => $this->storeName,
-                'url'           => $this->storeUrl,
-                'phone'         => $this->storePhone,
-                'status'        => Status::INACTIVE, // Set status to inactive by default
+                'name'   => $this->storeName,
+                'url'    => $this->storeUrl,
+                'phone'  => $this->storePhone,
+                'slug'   => Str::slug($this->storeName),
+                'status' => Status::INACTIVE, // Set status to inactive by default
             ]);
 
             $user->store()->save($store);
-            
-            $subscription = Subscription::find(1); // trial 
 
-            $user->subscriptions()->attach($subscription, [
-                'starts_at' => now(),
-                'ends_at'   => now()->addDays(14), // Set trial end date
-            ]);
+            $user->store_id = $store->id;
+            $user->save();
+    
         }
 
         event(new Registered($user));
 
         Auth::login($user, true);
-        
+
         switch (true) {
             case $user->hasRole('ADMIN'):
-                $homePage = RouteServiceProvider::ADMIN_HOME;
+
+                return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
+
                 break;
             case $user->hasRole('VENDOR'):
-                $homePage = RouteServiceProvider::VENDOR_HOME;
+                return redirect()->route('subscription-confirm');
+
                 break;
             default:
-                $homePage = RouteServiceProvider::CLIENT_HOME;
+                return redirect()->intended(RouteServiceProvider::CLIENT_HOME);
+
                 break;
         }
-
-        return redirect()->intended($homePage);
-
     }
 
     public function render()

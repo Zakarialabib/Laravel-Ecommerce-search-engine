@@ -15,14 +15,11 @@ class ProductController extends Controller
 
     public function productSync()
     {
-        
         $apiUrl = '127.0.0.1:8000/api/v1/';
         $apiKey = '1otDa9wrzJZNywwbFNLaGgb7TZi9gbBV8JfMOLhRtf9hpzQAkYDH6XJXMBxL';
 
-        $data = Http::withBasicAuth('omar@taibalharamain.ma', 'password')->get( $apiUrl ."products" . $apiKey);
-        
-        dd($data);
-            
+        $data = Http::withBasicAuth('omar@taibalharamain.ma', 'password')->get($apiUrl.'products'.$apiKey);
+
         return view('vendor.product.product-import', $data);
     }
 }

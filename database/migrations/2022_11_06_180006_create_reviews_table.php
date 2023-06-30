@@ -21,7 +21,7 @@ return new class () extends Migration {
             $table->string('reviewable_type');
             $table->text('comment')->nullable();
             $table->unsignedInteger('rating');
-        
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->index(['reviewable_id', 'reviewable_type']);
             $table->timestamps();

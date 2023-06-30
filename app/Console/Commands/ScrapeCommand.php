@@ -45,7 +45,7 @@ class ScrapeCommand extends Command
      */
     public function handle()
     {
-        $lastIndex = (int)file_get_contents('last_index.txt');
+        $lastIndex = (int) file_get_contents('last_index.txt');
 
         $retryCount = 0;
         $maxRetries = 3;
@@ -55,8 +55,7 @@ class ScrapeCommand extends Command
             $sitemapSource = Http::timeout(60)->get('https://www.gsmarena.com/sitemap-phones.xml');
             $retryCount++;
             usleep($retryDelay);
-        } while (!$sitemapSource->successful() && $retryCount < $maxRetries);
-
+        } while ( ! $sitemapSource->successful() && $retryCount < $maxRetries);
 
         $xml = simplexml_load_string($sitemapSource->body());
 
@@ -69,16 +68,15 @@ class ScrapeCommand extends Command
             if ($index < $lastIndex) {
                 $index++;
                 $progressbar->advance();
+
                 continue;
             }
 
             if (
-                !strpos($url->loc->__toString(), 'related.php') &&
-                !strpos($url->loc->__toString(), '-3d-spin-') &&
-                !strpos($url->loc->__toString(), '-pictures-')
+                ! strpos($url->loc->__toString(), 'related.php') &&
+                ! strpos($url->loc->__toString(), '-3d-spin-') &&
+                ! strpos($url->loc->__toString(), '-pictures-')
             ) {
-                            
-
                 $httpSource = Http::get($url->loc);
                 $parser = str_get_html($httpSource->body());
 
@@ -90,7 +88,7 @@ class ScrapeCommand extends Command
                     if ($brandName) {
                         $brand = Brand::firstOrCreate([
                             'name' => $brandName,
-                            'slug' => Str::slug($brandName)
+                            'slug' => Str::slug($brandName),
                         ]);
 
                         $specificationsDom = $parser->find('#specs-list table tr');
@@ -101,13 +99,14 @@ class ScrapeCommand extends Command
 
                         foreach ($specificationsDom as $row) {
                             $rowGroup = $this->clearText($row->find('th')[0]->plaintext ?? null);
-                            if (!empty($rowGroup)) {
+
+                            if ( ! empty($rowGroup)) {
                                 $lastGroup = $rowGroup;
                             }
 
                             $theSpec = $this->clearText($row->find('.ttl')[0]->plaintext ?? null);
 
-                            if (!empty($theSpec)) {
+                            if ( ! empty($theSpec)) {
                                 $lastSpec = $theSpec;
                             } else {
                                 $lastSpec = 'Additional';
@@ -121,29 +120,29 @@ class ScrapeCommand extends Command
                         }
 
                         $device = DeviceModel::firstOrCreate([
-                            'name' => $name,
-                            'image' => Helpers::uploadImage($parser->find('.specs-photo-main img')[0]->src, $name) ?? 'default.jpg',
-                            'code' => Str::slug($name),
-                            'slug' => Str::slug($name),
-                            'type' => DeviceModelType::SMARTPHONE,
-                            'brand_id' => $brand->id,
+                            'name'              => $name,
+                            'image'             => Helpers::uploadImage($parser->find('.specs-photo-main img')[0]->src, $name) ?? 'default.jpg',
+                            'code'              => Str::slug($name),
+                            'slug'              => Str::slug($name),
+                            'type'              => DeviceModelType::SMARTPHONE,
+                            'brand_id'          => $brand->id,
                             'technical_details' => [
-                                'released_at' => $parser->find('[data-spec="released-hl"]')[0]->plaintext ?? null,
-                                'body' => $parser->find('[data-spec="body-hl"]')[0]->plaintext ?? null,
-                                'os' => $parser->find('[data-spec="os-hl"]')[0]->plaintext ?? null,
-                                'storage' => $parser->find('[data-spec="storage-hl"]')[0]->plaintext ?? null,
-                                'display_size' => $parser->find('[data-spec="displaysize-hl"]')[0]->plaintext ?? null,
+                                'released_at'        => $parser->find('[data-spec="released-hl"]')[0]->plaintext ?? null,
+                                'body'               => $parser->find('[data-spec="body-hl"]')[0]->plaintext ?? null,
+                                'os'                 => $parser->find('[data-spec="os-hl"]')[0]->plaintext ?? null,
+                                'storage'            => $parser->find('[data-spec="storage-hl"]')[0]->plaintext ?? null,
+                                'display_size'       => $parser->find('[data-spec="displaysize-hl"]')[0]->plaintext ?? null,
                                 'display_resolution' => $parser->find('[data-spec="displayres-hl"]')[0]->plaintext ?? null,
-                                'camera_pixels' => $parser->find('.accent.accent-camera')[0]->plaintext ?? null,
-                                'video_pixels' => $parser->find('[data-spec="videopixels-hl"]')[0]->plaintext ?? null,
-                                'ram' => $parser->find('.accent.accent-expansion')[0]->plaintext ?? null,
-                                'chipset' => $parser->find('[data-spec="chipset-hl"]')[0]->plaintext ?? null,
-                                'battery_size' => $parser->find('.accent.accent-battery')[0]->plaintext ?? null,
-                                'battery_type' => $parser->find('[data-spec="battype-hl"]')[0]->plaintext ?? null,
+                                'camera_pixels'      => $parser->find('.accent.accent-camera')[0]->plaintext ?? null,
+                                'video_pixels'       => $parser->find('[data-spec="videopixels-hl"]')[0]->plaintext ?? null,
+                                'ram'                => $parser->find('.accent.accent-expansion')[0]->plaintext ?? null,
+                                'chipset'            => $parser->find('[data-spec="chipset-hl"]')[0]->plaintext ?? null,
+                                'battery_size'       => $parser->find('.accent.accent-battery')[0]->plaintext ?? null,
+                                'battery_type'       => $parser->find('[data-spec="battype-hl"]')[0]->plaintext ?? null,
                             ],
-                            'features' => null,
-                            'specifications' => $specifications,
-                            'meta_title' => $name,
+                            'features'         => null,
+                            'specifications'   => $specifications,
+                            'meta_title'       => $name,
                             'meta_description' => __('CHRILIA Maroc- Disover smartphones informations, specifications and technical details'),
                         ]);
 
@@ -178,9 +177,9 @@ class ScrapeCommand extends Command
 
         $text = trim($text);
         $text = str_replace('&nbsp;', '', $text);
+
         return $text;
     }
-
 
     /**
      * @param string $arrayKey
@@ -190,10 +189,12 @@ class ScrapeCommand extends Command
     private function getAvailableIndex(string $arrayKey, array $array): string
     {
         $availableIndex = 1;
+
         while (array_key_exists($arrayKey, $array)) {
-            $arrayKey = $arrayKey . '_' . $availableIndex;
+            $arrayKey = $arrayKey.'_'.$availableIndex;
             $availableIndex++;
         }
+
         return $arrayKey;
     }
 }

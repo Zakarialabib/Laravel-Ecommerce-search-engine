@@ -53,7 +53,9 @@
                                     {{ __('Old Price') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product?->old_price }}
+                                    @if ($product->price)
+                                        {{ $product->price->old_price }}
+                                    @endif
                                 </x-table.td>
                             </x-table.tr>
                             <x-table.tr>
@@ -61,10 +63,33 @@
                                     {{ __('Price') }}
                                 </x-table.th>
                                 <x-table.td>
-                                    {{ $product?->price }}
+                                    @if ($product->price)
+                                        {{ $product->price->price }}
+                                    @endif
                                 </x-table.td>
                             </x-table.tr>
-
+                            <x-table.tr>
+                                <x-table.th>
+                                    {{ __('Wholesale Price') }}
+                                </x-table.th>
+                                <x-table.td>
+                                    @if ($product->price)
+                                        {{ $product->price->wholesale_price }}
+                                    @endif
+                                </x-table.td>
+                            </x-table.tr>                            
+                            <x-table.tr>
+                                <x-table.th>
+                                    {{ __('Suggested Prices') }}
+                                </x-table.th>
+                                <x-table.td>
+                                    @if ($product->price && $product->price->suggested_prices)
+                                        @foreach ($product->price->suggested_prices as $suggestedPrice)
+                                            {{ $suggestedPrice }},
+                                        @endforeach
+                                    @endif
+                                </x-table.td>
+                            </x-table.tr>
                             <x-table.tr>
                                 <x-table.th>
                                     {{ __('Description') }}

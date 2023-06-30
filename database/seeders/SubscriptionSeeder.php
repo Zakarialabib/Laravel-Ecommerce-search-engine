@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Subscription;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Str;
 
 class SubscriptionSeeder extends Seeder
 {
@@ -18,40 +19,40 @@ class SubscriptionSeeder extends Seeder
     {
         Subscription::insert([
             [
-                'id'        => 1,
-                'name' => $this->faker->word,
-                'description' => $this->faker->sentence,
-                'features' => ['Feature 1', 'Feature 2', 'Feature 3'],
-                'plan' => 'Trial',
-                'duration' => 7,
-                'price' => 0,
-                'old_price' => 0,
+                'id'             => 1,
+                'uuid'           => Str::uuid(),
+                'name'           => 'starter plan',
+                'description'    => 'description',
+                'features'       => json_encode(['Feature 1', 'Feature 2', 'Feature 3']),
+                'plan'           => 'Trial',
+                'price'          => 0,
+                'duration'       => 7,
                 'trial_duration' => 7,
-                'status' => 'active',
+                'status'         => true,
             ],
             [
-                'id'        => 2,
-                'name' => $this->faker->word,
-                'description' => $this->faker->sentence,
-                'features' => ['Feature 1', 'Feature 2', 'Feature 3'],
-                'plan' => 'Monthly',
-                'price' => 249,
-                'old_price' => 499,
-                'duration' => '30',
+                'id'             => 2,
+                'uuid'           => Str::uuid(),
+                'name'           => 'growth plan',
+                'description'    => 'description',
+                'features'       => json_encode(['Feature 1', 'Feature 2', 'Feature 3']),
+                'plan'           => 'Monthly',
+                'price'          => 349,
+                'duration'       => '30',
                 'trial_duration' => '7',
-                'status' => 'active',
+                'status'         => true,
             ],
             [
-                'id'        => 3,
-                'name' => $this->faker->word,
-                'description' => $this->faker->sentence,
-                'features' => ['Feature 1', 'Feature 2', 'Feature 3'],
-                'plan' => 'Yearly',
-                'price' => 2499,
-                'old_price' => 3250,
-                'duration' => '365',
+                'id'             => 3,
+                'uuid'           => Str::uuid(),
+                'name'           => 'Pro plan',
+                'description'    => 'description',
+                'features'       => json_encode(['Feature 1', 'Feature 2', 'Feature 3']),
+                'plan'           => 'Yearly',
+                'price'          => 2449,
+                'duration'       => '365',
                 'trial_duration' => '15',
-                'status' => 'active',
+                'status'         => true,
             ],
         ]);
     }

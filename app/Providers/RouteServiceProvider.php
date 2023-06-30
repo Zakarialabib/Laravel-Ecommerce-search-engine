@@ -18,7 +18,7 @@ class RouteServiceProvider extends ServiceProvider
      * Typically, users are redirected here after authentication.
      */
     public const ADMIN_HOME = '/admin/dashboard';
-    
+
     public const VENDOR_HOME = '/vendor/dashboard';
 
     public const CLIENT_HOME = '/';

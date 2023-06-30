@@ -6,10 +6,6 @@ namespace App\Http\Livewire\Vendor\Integrations;
 
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 use Shopify\ShopifyApi;
 
 class Shopify extends Component
@@ -32,9 +28,9 @@ class Shopify extends Component
         // Redirect user to Shopify authorization page
         $shopify = ShopifyApp::shop();
         $redirectUrl = $shopify->buildAuthUrl();
+
         return redirect()->to($redirectUrl);
     }
-    
 
     public function callback()
     {
@@ -42,24 +38,25 @@ class Shopify extends Component
         $hmac = $request->header('x-shopify-hmac-sha256');
         $data = $request->getContent();
         $verified = ShopifyApp::verifyRequest($data, $hmac);
-    
-        if (!$verified) {
+
+        if ( ! $verified) {
             abort(401, 'Unauthorized');
         }
-    
+
         // Exchange authorization code for access token
         $shopify = ShopifyApp::shop();
         $accessToken = $shopify->getAccessToken($request->input('code'));
-    
+
         // Save access token to database
         $integration = Integration::where('store_url', $shopify->getShop())->first();
-        if (!$integration) {
+
+        if ( ! $integration) {
             $integration = new Integration();
             $integration->store_url = $shopify->getShop();
         }
         $integration->access_token = $accessToken;
         $integration->save();
-    
+
         return redirect()->route('dashboard');
     }
 

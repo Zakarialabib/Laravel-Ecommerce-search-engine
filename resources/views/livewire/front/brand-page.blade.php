@@ -1,3 +1,5 @@
+<div>
+
 @section('meta')
     <meta itemprop="url" content="{{ URL::current() }}">
     <meta property="og:title" content="{{ $brand->meta_title }}">
@@ -6,7 +8,6 @@
     <meta property="og:image" content="{{ asset('images/brands/' . $brand->image) }}">
 @endsection
 
-<div>
     <div class="w-full px-4 mx-auto" x-data="{ showSidebar: false }">
 
         <div class="relative bg-white overflow-hidden mb-5">
@@ -43,10 +44,10 @@
                 </div>
             </div>
         </div>
-        <div class="w-full px-4 bg-gray-50" x-data="{ loading: false }">
+        <div class="w-full px-4" x-data="{ loading: false }">
 
             <div class="grid gap-6 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 mb-10"
-                id="product-container">
+                >
                 @forelse ($brandDeviceModels as $deviceModel)
                     <x-deviceModel-card :deviceModel="$deviceModel" />
                 @empty

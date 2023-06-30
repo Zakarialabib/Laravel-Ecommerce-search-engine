@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace App;
 
 use App\Models\Brand;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Settings;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 
 class Helpers
 {
@@ -45,7 +45,14 @@ class Helpers
             ->select('id', 'name', 'slug')
             ->get();
     }
-   
+
+    public static function getActiveBlogs()
+    {
+        return Blog::active()
+            ->select('id', 'title', 'slug')
+            ->get();
+    }
+
     public static function getBrands()
     {
         return Brand::select('id', 'name', 'slug')
@@ -65,6 +72,12 @@ class Helpers
     public static function brandName($brand_id)
     {
         return Brand::find($brand_id)->name;
+    }
+
+    // make a vendor slug for links route
+    public static function vendorSlug($id)
+    {
+        return Store::find($id)->slug;
     }
 
     /**
@@ -90,39 +103,42 @@ class Helpers
      *
      * @return string|null The name of the uploaded file, or null if the upload failed.
      */
-    public static function uploadImage($image_url, $productName)
+    public static function uploadImage($image_url, $productName, $size = 800)
     {
-        $size = 800;
-    
-        $image_content = file_get_contents($image_url);
+        $response = Http::get($image_url);
 
-            // Generate a unique file name
-            $name = Str::slug($productName).'-'.sprintf('%02d', 0).'.jpg';
+        if ($response->failed()) {
+            return null;
+        }
 
-            $img = Image::make($image_content)->encode('webp', 85);
+        $image_content = $response->body();
 
-            // we need to resize image, otherwise it will be cropped
-            if ($img->width() > $size) {
-                $img->resize($size, null, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
+        // Generate a unique file name
+        $name = Str::slug($productName).'-'.sprintf('%02d', 0).'.jpg';
 
-            if ($img->height() > $size) {
-                $img->resize(null, $size, function ($constraint) {
-                    $constraint->aspectRatio();
-                });
-            }
+        $img = Image::make($image_content)->encode('webp', 85);
 
-            $img->resizeCanvas($size, $size, 'center', false, '#ffffff');
+        // we need to resize image, otherwise it will be cropped
+        if ($img->width() > $size) {
+            $img->resize($size, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
 
-            $img->stream();
+        if ($img->height() > $size) {
+            $img->resize(null, $size, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+        }
 
-            Storage::disk('local_files')->put('products/'.$name, $img, 'public');
+        $img->resizeCanvas($size, $size, 'center', false, '#ffffff');
 
-            return $name;
+        $img->stream();
+
+        Storage::disk('local_files')->put('products/'.$name, $img, 'public');
+
+        return $name;
     }
-
 
     /**
      * @param mixed $gallery
@@ -157,14 +173,14 @@ class Helpers
     {
         // Make sure $category is a string
         $category = implode('', $category);
-    
+
         $slug = Str::slug($category, '-');
-    
+
         return Category::create([
             'name' => $category,
             'slug' => $slug,
         ])->id;
-    }    
+    }
 
     /**
      * @param mixed $subcategory

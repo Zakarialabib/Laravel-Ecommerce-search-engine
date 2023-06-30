@@ -86,7 +86,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-
     }
 
     /**
@@ -97,6 +96,5 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-
     }
 }

@@ -11,13 +11,13 @@ final class SubscriptionFactory extends Factory
     public function definition()
     {
         return [
-            'name' => $this->faker->word,
-            'description' => $this->faker->sentence,
-            'features' => ['Feature 1', 'Feature 2', 'Feature 3'],
-            'plan' => $this->faker->randomElement(['Trial', 'Monthly', 'Yearly']),
-            'duration' => $this->faker->numberBetween(1, 12),
+            'name'           => $this->faker->word,
+            'description'    => $this->faker->sentence,
+            'features'       => ['Feature 1', 'Feature 2', 'Feature 3'],
+            'plan'           => $this->faker->randomElement(['Trial', 'Monthly', 'Yearly']),
+            'duration'       => $this->faker->numberBetween(1, 12),
             'trial_duration' => $this->faker->numberBetween(1, 12),
-            'status' => 'active',
+            'status'         => 'active',
         ];
     }
 }

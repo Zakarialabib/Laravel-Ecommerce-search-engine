@@ -1,20 +1,22 @@
-@section('meta')
-    <meta itemprop="url" content="{{ URL::current() }}" />
-    <meta property="og:title" content="{{ $product->meta_title }}">
-    <meta property="og:description" content="{!! $product->meta_description !!}">
-    <meta property="og:url" content="{{ URL::current() }}">
-    <meta property="og:image" content="{{ asset('images/products/' . $product->image) }}">
-    <meta property="og:image:secure_url" content="{{ asset('images/products/' . $product->image) }}">
-    <meta property="og:image:width" content="1000">
-    <meta property="og:image:height" content="1000">
-    <meta property="product:brand" content="{{ $product->brand?->name }}">
-    <meta property="product:availability" content="in stock">
-    <meta property="product:condition" content="new">
-    <meta property="product:price:amount" content="{{ $product->price }}">
-    <meta property="product:price:currency" content="MAD">
-@endsection
-
 <div>
+
+    @section('meta')
+        <meta itemprop="url" content="{{ URL::current() }}" />
+        <meta property="og:title" content="{{ $product->meta_title }}">
+        <meta property="og:description" content="{!! $product->meta_description !!}">
+        <meta property="og:url" content="{{ URL::current() }}">
+        <meta property="og:image" content="{{ asset('images/products/' . $product->image) }}">
+        <meta property="og:image:secure_url" content="{{ asset('images/products/' . $product->image) }}">
+        <meta property="og:image:width" content="1000">
+        <meta property="og:image:height" content="1000">
+        <meta property="product:brand" content="{{ $product->brand?->name }}">
+        <meta property="product:availability" content="in stock">
+        <meta property="product:condition" content="new">
+        <meta property="product:price:amount" content="{{ $product->price->price ?? '' }}">
+        <meta property="product:price:currency" content="MAD">
+    @endsection
+
+
     <div class="my-5">
         <div itemtype="https://schema.org/Product" itemscope>
 
@@ -31,9 +33,10 @@
                         <div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
                             <div class="mb-5 pb-5 border-b">
                                 <span class="text-gray-500">
-                                    {{ $product->category?->name }} / 
+                                    {{ $product->category?->name }} /
                                     @isset($product->brand)
-                                        <a href="{{ route('front.brandPage', $product->brand?->slug) }}">{{ $product->brand?->name }}</a>
+                                        <a
+                                            href="{{ route('front.brandPage', $product->brand?->slug) }}">{{ $product->brand?->name }}</a>
                                     @endisset
                                     <div itemprop="brand" itemtype="https://schema.org/Brand" itemscope>
                                         <meta itemprop="brand" content="{{ $product->brand?->name }}" />
@@ -74,64 +77,37 @@
                             <div itemprop="offers" itemtype="https://schema.org/AggregateOffer" itemscope>
                                 <p class="inline-block mb-4 text-2xl font-bold font-heading">
                                     <span>
-                                        {{ $product->price }}DH
+                                        {{ $product->price->price ?? '' }} DH
                                     </span>
-                                    @if ($product->old_price && $product->discount != 0)
+                                    @if ($product->price->old_price && $product->price->discount != 0)
                                         <span class="bg-red-500 text-white rounded-xl px-4 py-2 text-sm ml-4">
-                                            -{{ $product->discount }}%
+                                            -{{ $product->price->discount }}%
                                         </span>
                                     @endif
 
-                                    <meta itemprop="lowPrice" content="{{ $product->odl_price }}">
-                                    <meta itemprop="highPrice" content="{{ $product->price }}">
-                                    <meta itemprop="price" content="{{ $product->price }}">
+                                    <meta itemprop="lowPrice" content="{{ $product->price->old_price ?? '' }}">
+                                    <meta itemprop="highPrice" content="{{ $product->price->price ?? '' }}">
+                                    <meta itemprop="price" content="{{ $product->price->price ?? '' }}">
                                     <meta itemprop="priceCurrency" content="MAD">
                                     <link itemprop="availability" href="http://schema.org/InStock">
                                     <link itemprop="itemCondition" href="http://schema.org/NewCondition">
                                     <meta itemprop="priceValidUntil" content="2023-12-30">
-
                                 </p>
 
-                                @if ($product->old_price && $product->discount != 0)
+                                @if ($product->price->old_price && $product->price->discount != 0)
                                     <p class="mb-8 text-blue-300">
                                         <span class="font-normal text-base text-gray-400 line-through">
-                                            {{ $product->old_price }}DH
+                                            {{ $product->price->old_price }} DH
                                         </span>
                                     </p>
                                 @endif
                             </div>
 
                             <div class="flex mb-5 pb-5 border-b">
-                                <div class="mr-6">
-                                    <div
-                                        class="inline-flex items-center px-4 font-semibold font-heading text-gray-500 border border-gray-200 focus:ring-blue-300 focus:border-blue-300 rounded-md">
-                                        <button wire:click="decreaseQuantity('{{ $product->id }}')"
-                                            class="py-2 hover:text-gray-700">
-                                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M4 10a1 1 0 011-1h10a1 1 0 110 2H5a1 1 0 01-1-1z"
-                                                    clip-rule="evenodd">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                        <input
-                                            class="w-10 m-0 px-2 py-2 text-center md:text-right border-0 focus:ring-transparent focus:outline-none rounded-md"
-                                            value="{{ $quantity }}" wire:model="quantity">
-                                        <button wire:click="increaseQuantity('{{ $product->id }}')"
-                                            class="py-2 hover:text-gray-700">
-                                            <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                    d="M10 5a1 1 0 011 1v4h4a1 1 0 110 2h-4v4a1 1 0 11-2 0v-4H5a1 1 0 110-2h4V6a1 1 0 011-1z"
-                                                    clip-rule="evenodd">
-                                                </path>
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </div>
                                 <div>
-                                    @if ($product->status == 1)
+                                    @if ($product->status == true)
                                         <a class="block text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-move-400 hover:bg-move-200 transition cursor-pointer"
-                                            href="{{ route('redirect', $product->url) }}">
+                                            href="{{ $product->store->url }}" target="_blank">
                                             {{ __('Boutique') }}
                                         </a>
                                     @else
@@ -142,39 +118,34 @@
                                 </div>
                             </div>
 
-                            <livewire:front.order-form :product="$product" />
-
-                            <ul class="my-4 ">
+                            <ul class="my-4 flex gap-4">
                                 <li class="text-gray-500 py-1">
-                                    <i class="text-blue-600 fa fa-check" aria-hidden="true"></i>
-                                    {{ __('Fast delivery') }}
+                                    <a href="{{ route('front.store-show', $product->store->slug) }}"
+                                        class="my-2 inline-flex items-center bg-move-500 hover:bg-indigo-400 text-center text-white font-bold text-xs py-2 px-4 rounded-md uppercase cursor-pointer tracking-wider hover:shadow-lg transition ease-in duration-300 ">
+                                        {{ $product->store->name }} <i class="fas fa-store-alt w-5 h-5 text-white"></i>
+                                    </a>
                                 </li>
                                 <li class="text-gray-500 py-1">
-                                    <i class="text-blue-600 fa fa-check" aria-hidden="true"></i>
-                                    {{ __('Watch specialist over 40 years of experience') }}
-                                </li>
-                                <li class="text-gray-500 py-1">
-                                    <i class="text-blue-600 fa fa-check" aria-hidden="true"></i>
-                                    <strong>{{ __('Official dealer') }}</strong>
+                                    <a href="#"
+                                        class="my-2 inline-flex items-center bg-move-500 hover:bg-indigo-400 text-center text-white font-bold text-xs py-2 px-4 rounded-md uppercase cursor-pointer tracking-wider hover:shadow-lg transition ease-in duration-300 ">
+                                        {{ $product->store->location }}
+                                        <i class="fa fa-check w-5 h-5 text-white" aria-hidden="true"></i>
+                                    </a>
                                 </li>
                             </ul>
 
-                            <div class="flex items-center">
-                                <span
-                                    class="mr-8 text-gray-500 font-bold font-heading uppercase">{{ __('SHARE IT') }}</span>
-                                <a class="mr-1 w-8 h-8" href="#">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a class="mr-1 w-8 h-8" href="#">
-                                    <i class="fab fa-twitter"></i>
-                                </a>
-                                <a class="w-8 h-8" href="#">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a class="w-8 h-8" href="#">
-                                    <i class="fab fa-whatsapp"></i>
-                                </a>
-                            </div>
+                            @if ($product->store->social_links)
+                                <div class="flex items-center">
+                                    <span
+                                        class="mr-8 text-gray-500 font-bold font-heading uppercase">{{ __('SHARE IT') }}</span>
+                                    @foreach ($product->store->social_links as $link)
+                                        <a class="w-8 h-8 text-blue-500 mr-3" href="{{ $link['url'] }}"
+                                            target="__blank">
+                                            <i class="{{ $link['icon'] }}"></i>
+                                        </a>
+                                    @endforeach
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -281,7 +252,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="mx-auto px-4 mt-5">
                 <h4 class="mb-2 text-xl font-bold font-heading">
                     {{ __('Related Products') }}

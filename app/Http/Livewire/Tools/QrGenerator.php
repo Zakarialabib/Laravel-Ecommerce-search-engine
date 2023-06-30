@@ -6,24 +6,20 @@ namespace App\Http\Livewire\Tools;
 
 use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Gate;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use JeroenDesloovere\VCard\VCard;
-use Illuminate\Support\Facades\Storage;
-use JeroenDesloovere\VCard\Formatter\VCardFormatter;
-use Illuminate\Support\Facades\Response;
 
 class QrGenerator extends Component
 {
     public $activeTab = 'url';
-    public $email ;
-    public $phone ;
-    public $name ;
-    public $company_name ;
-    public $address ;
-    public $websiteUrl ;
-    public $qrImage ;
-    public $qrCodeData ;
+    public $email;
+    public $phone;
+    public $name;
+    public $company_name;
+    public $address;
+    public $websiteUrl;
+    public $qrImage;
+    public $qrCodeData;
     public $instagramLink;
     public $facebookLink;
     public $tiktokLink;
@@ -40,7 +36,6 @@ class QrGenerator extends Component
         return view('livewire.tools.qr-generator');
     }
 
-    
     public function refresh()
     {
         $this->reset();
@@ -51,26 +46,26 @@ class QrGenerator extends Component
         if ($this->websiteUrl === null) {
             return;
         }
-        
+
         // Remove existing UTM parameters from the website URL, if any
         $parsedUrl = parse_url($this->websiteUrl);
-        $this->websiteUrl = $parsedUrl['scheme'] . '://' . $parsedUrl['host'] . $parsedUrl['path'];
-    
+        $this->websiteUrl = $parsedUrl['scheme'].'://'.$parsedUrl['host'].$parsedUrl['path'];
+
         $utmParams = [
-            'utm_source' => $this->utmSource,
-            'utm_medium' => $this->utmMedium,
+            'utm_source'   => $this->utmSource,
+            'utm_medium'   => $this->utmMedium,
             'utm_campaign' => $this->utmCampaign,
-            'utm_term' => $this->utmTerm,
+            'utm_term'     => $this->utmTerm,
         ];
-    
+
         $query = http_build_query($utmParams);
-        $this->websiteUrl .= '?' . $query;
+        $this->websiteUrl .= '?'.$query;
     }
-    
+
     public function data()
     {
         $this->name = 'Techno Service phone';
-        $this->company_name ='Techno Service phone';
+        $this->company_name = 'Techno Service phone';
         $this->phone = '+212696571641';
         $this->email = 'technoservicephone1@gmail.com';
         $this->address = '10 BOULEVARD ABDELMOUMEN MAGASIN n°8';
@@ -83,27 +78,25 @@ class QrGenerator extends Component
 
     public function generateQrCode($download = false)
     {
-
         $vcard = new VCard();
-                
+
         // Set the basic information
         $vcard->addName($this->name);
         $vcard->addCompany($this->company_name);
         $vcard->addPhoneNumber($this->phone);
         $vcard->addEmail($this->email);
         $vcard->addAddress($this->address);
-    
+
         // Add social media links
-        $vcard->addURL($this->websiteUrl, 'Website'); 
-        $vcard->addURL($this->instagramLink, 'Instagram'); 
-        $vcard->addURL($this->facebookLink, 'Facebook'); 
-        $vcard->addURL($this->tiktokLink, 'TikTok'); 
-        $vcard->addURL($this->whatsappLink, 'WhatsApp'); 
-        
+        $vcard->addURL($this->websiteUrl, 'Website');
+        $vcard->addURL($this->instagramLink, 'Instagram');
+        $vcard->addURL($this->facebookLink, 'Facebook');
+        $vcard->addURL($this->tiktokLink, 'TikTok');
+        $vcard->addURL($this->whatsappLink, 'WhatsApp');
+
         $this->qrCodeData = $vcard->getOutput();
-       
     }
-    
+
     public function downloadQrCode()
     {
         $qrCode = QrCode::format('svg')
@@ -111,18 +104,16 @@ class QrGenerator extends Component
             ->size(400)
             ->eye('circle')
             ->generate($this->qrCodeData);
-                
-            // Set the appropriate response headers
-            $headers = [
-                'Content-Type' => 'image/svg+xml',
-                'Content-Disposition' => 'attachment; filename="qr_code.svg"',
-            ];
 
-            // Return the response with the QR code image for download
-            return response()->streamDownload(function () use ($qrCode) {
-                echo $qrCode;
-            }, 'qr_code.svg', $headers);
+        // Set the appropriate response headers
+        $headers = [
+            'Content-Type'        => 'image/svg+xml',
+            'Content-Disposition' => 'attachment; filename="qr_code.svg"',
+        ];
+
+        // Return the response with the QR code image for download
+        return response()->streamDownload(function () use ($qrCode) {
+            echo $qrCode;
+        }, 'qr_code.svg', $headers);
     }
-
-
 }

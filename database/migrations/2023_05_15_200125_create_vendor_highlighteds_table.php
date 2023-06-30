@@ -8,8 +8,7 @@ use Illuminate\Support\Facades\Schema;
 use App\Models\User;
 use App\Models\Product;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     public function up(): void
     {
         Schema::create('vendor_highlighteds', static function (Blueprint $table): void {
@@ -20,11 +19,11 @@ return new class extends Migration
             $table->boolean('approved')->default(false);
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
-            
+
             $table->foreignId(User::class)->nullable();
             $table->foreignId(Product::class)->nullable();
 
-            $table->boolean('status')->default(true); 
+            $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

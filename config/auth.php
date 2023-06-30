@@ -40,15 +40,15 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'ADMIN' => [
+        'admin' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'VENDOR' => [
+        'vendor' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'CLIENT' => [
+        'client' => [
             'driver' => 'session',
             'provider' => 'users',
         ],

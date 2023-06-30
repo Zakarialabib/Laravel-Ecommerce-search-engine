@@ -45,7 +45,7 @@ lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     @include('partials.front.css')
 </head>
 
-<body class="antialiased bg-gray-50 text-body font-body">
+<body class="antialiased bg-gradient-to-r from-[#FCF1F4] to-[#EDFBF9] text-body font-body">
 
     <x-loading-mask />
 
@@ -66,7 +66,7 @@ lang="{{ str_replace('_', '-', app()->getLocale()) }}">
         {{ $slot }}
     @endisset
 
-    <x-footer />
+    <x-theme.footer />
 
    @include('partials.front.js')
 </body>

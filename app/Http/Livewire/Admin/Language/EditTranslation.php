@@ -6,7 +6,6 @@ namespace App\Http\Livewire\Admin\Language;
 
 use Livewire\Component;
 use App\Models\Language;
-use App;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class EditTranslation extends Component
@@ -26,7 +25,7 @@ class EditTranslation extends Component
         $this->translations = $this->getTranslations();
         $this->translations = collect($this->translations)->map(function ($item, $key) {
             return [
-                'key' => $key,
+                'key'   => $key,
                 'value' => $item,
             ];
         })->toArray();
@@ -36,6 +35,7 @@ class EditTranslation extends Component
     {
         $path = base_path("lang/{$this->language->code}.json");
         $content = file_get_contents($path);
+
         return json_decode($content, true);
     }
 
@@ -47,15 +47,14 @@ class EditTranslation extends Component
 
         $data = file_get_contents($path);
         $translations = json_decode($data, true);
-    
+
         foreach ($this->translations as $key => $translation) {
             $translations[$translation['key']] = $translation['value'];
         }
-    
+
         file_put_contents($path, json_encode($translations, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE));
 
         $this->alert('success', __('Data created successfully!'));
-
     }
 
     public function render()

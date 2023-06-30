@@ -28,7 +28,7 @@ class Index extends Component
     public $listeners = [
         'refreshIndex' => '$refresh',
         'showModal', 'importModal',
-        'delete'
+        'delete',
     ];
 
     public $deleteModal = false;
@@ -36,9 +36,9 @@ class Index extends Component
     public $showModal = false;
 
     public $importModal = false;
-    
+
     public int $perPage;
-    
+
     public array $orderable;
 
     public string $search = '';
@@ -138,18 +138,9 @@ class Index extends Component
             'position'          => 'center',
             'showConfirmButton' => true,
             'cancelButtonText'  => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'onConfirmed'       => 'delete',
         ]);
         $this->brand = $brand;
-    }
-
-    public function deleteSelected()
-    {
-        abort_if(Gate::denies('brand_delete'), 403);
-
-        Brand::whereIn('id', $this->selected)->delete();
-
-        $this->resetSelected();
     }
 
     public function delete()
@@ -159,6 +150,33 @@ class Index extends Component
         Brand::findOrFail($this->brand)->delete();
 
         $this->alert('success', __('Brand deleted successfully.'));
+    }
+
+    public function deleteSelected()
+    {
+        abort_if(Gate::denies('brand_delete'), 403);
+
+        $this->confirm(__('Are you sure you want to delete the selected brands and their device models?'), [
+            'toast'             => false,
+            'position'          => 'center',
+            'showConfirmButton' => true,
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'massDelete',
+        ]);
+    }
+
+    public function massDelete()
+    {
+        abort_if(Gate::denies('brand_delete'), 403);
+
+        Brand::whereIn('id', $this->selected)->delete();
+
+        // Delete associated device models
+        DeviceModel::whereIn('brand_id', $this->selected)->delete();
+
+        $this->resetSelected();
+
+        $this->alert('success', __('Selected brands and their device models deleted successfully.'));
     }
 
     public function importModal()

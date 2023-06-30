@@ -31,7 +31,6 @@ class AuthController extends Controller
      */
     public function index()
     {
-
     }
 
     /**
@@ -42,7 +41,6 @@ class AuthController extends Controller
      */
     public function store(Request $request)
     {
-
     }
 
     /**
@@ -53,7 +51,6 @@ class AuthController extends Controller
      */
     public function show($id)
     {
-
     }
 
     /**
@@ -65,7 +62,6 @@ class AuthController extends Controller
      */
     public function update(Request $request, $id)
     {
-
     }
 
     /**
@@ -76,6 +72,5 @@ class AuthController extends Controller
      */
     public function destroy($id)
     {
-
     }
 }

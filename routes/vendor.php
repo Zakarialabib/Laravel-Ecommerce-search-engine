@@ -3,11 +3,10 @@
 declare(strict_types=1);
 
 use App\Http\Livewire\Vendor\Dashboard as VendorDashboard;
-use App\Http\Controllers\Vendor\ProductController as VendorProducts;
-use App\Http\Controllers\Vendor\AnalyticsController as VendorAnalytics;
-use App\Http\Controllers\Vendor\AccountController as VendorAccount;
-use App\Http\Controllers\Vendor\SubscriptionController as VendorSubscription;
-
+use App\Http\Livewire\Vendor\Product\Index as VendorProducts;
+use App\Http\Livewire\Vendor\Settings\Index as VendorSettings;
+use App\Http\Livewire\Vendor\Account\Index as VendorAccount;
+use App\Http\Livewire\Vendor\Subscription\Index as VendorSubscription;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,12 +19,10 @@ use App\Http\Controllers\Vendor\SubscriptionController as VendorSubscription;
 |
 */
 
-Route::group(['prefix' => 'vendor', 'as' => 'vendor.', 'middleware' => ['auth', 'role:VENDOR', 'firewall.all','approved']], function () {
-
+Route::group(['prefix' => 'vendor', 'as' => 'vendor.', 'middleware' => ['auth', 'role:vendor', 'firewall.all', 'approved']], function () {
     Route::get('/dashboard', VendorDashboard::class)->name('dashboard');
-    Route::get('/products', [VendorProducts::class, 'index'])->name('products');
-    Route::get('/analytics', [VendorAnalytics::class, 'index'])->name('analytics');
-    Route::get('/account', [VendorAccount::class, 'index'])->name('account');
-    Route::get('/subscription', [VendorSubscription::class, 'index'])->name('subscription');
-
+    Route::get('/products', VendorProducts::class)->name('products');
+    Route::get('/settings', VendorSettings::class)->name('settings');
+    Route::get('/account', VendorAccount::class)->name('account');
+    Route::get('/subscription', VendorSubscription::class)->name('subscription');
 });

@@ -34,8 +34,8 @@ class Brands extends Component
     public $selectedFilters = [];
 
     protected $queryString = [
-        'brand_id'       => ['except' => '', 'as' => 'b'],
-        'sorting'        => ['except' => '', 'as' => 'filters'],
+        'brand_id' => ['except' => '', 'as' => 'b'],
+        'sorting'  => ['except' => '', 'as' => 'filters'],
     ];
 
     public function updatingPerPage()
@@ -94,6 +94,4 @@ class Brands extends Component
     {
         return Brand::select('id', 'name', 'image', 'featured_image')->active()->get();
     }
-
-  
 }

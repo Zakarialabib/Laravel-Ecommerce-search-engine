@@ -7,8 +7,8 @@ namespace {{ namespace }};
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
-use App\Traits\GetModelByUuid;
-use App\Traits\UuidGenerator;
+use App\Trait\GetModelByUuid;
+use App\Trait\UuidGenerator;
 
 class {{ class }} extends Model
 {

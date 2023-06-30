@@ -19,7 +19,9 @@ class FeaturedBannerSeeder extends Seeder
         FeaturedBanner::insert([
             [
                 'title'       => 'Best Offer For You',
-                'details'     => 'Offer this week',
+                'description' => 'Offer this week',
+                'link'        => '#',
+                'label'       => 'Offer this week',
                 'image'       => 'featured_banner.jpg',
                 'status'      => 1,
                 'featured'    => 1,
@@ -27,8 +29,10 @@ class FeaturedBannerSeeder extends Seeder
                 'language_id' => 1,
             ],
             [
-                'title'       => 'Featured Banner Title',
-                'details'     => 'Featured Banner Details',
+                'title'       => 'Newest Products',
+                'description' => 'Featured Banner Details',
+                'link'        => '#',
+                'label'       => 'offers this week',
                 'image'       => 'featured_banner.jpg',
                 'status'      => 1,
                 'featured'    => 1,
@@ -36,8 +40,10 @@ class FeaturedBannerSeeder extends Seeder
                 'language_id' => 1,
             ],
             [
-                'title'       => 'Featured Banner Title',
-                'details'     => 'Featured Banner Details',
+                'title'       => 'Latests offers',
+                'description' => 'Featured Banner Details',
+                'link'        => '#',
+                'label'       => 'offers this mont',
                 'image'       => 'featured_banner.jpg',
                 'status'      => 1,
                 'featured'    => 1,

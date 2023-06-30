@@ -11,6 +11,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Livewire\Auth\SubscriptionConfirm;
 use App\Http\Livewire\Auth\SocialAuth;
 
 Route::middleware('guest')->group(function () {
@@ -38,6 +39,8 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('/subscription/confirmation', SubscriptionConfirm::class)->name('subscription-confirm');
+
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
         ->name('verification.notice');
 

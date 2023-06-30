@@ -29,7 +29,7 @@ class SubcategoryPage extends Component
     public array $sortingOptions;
 
     public $subcategory;
-    
+
     public $brand_id;
 
     public function getBrandsProperty()

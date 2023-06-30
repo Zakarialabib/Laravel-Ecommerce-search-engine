@@ -17,16 +17,16 @@ class Login extends Component
     public $loginModal = false;
 
     public $email;
-    
+
     public $password;
 
     public $store_url;
-    
+
     public $type;
 
     /** @var array<string> */
     public $listeners = [
-        'loginModal'
+        'loginModal',
     ];
 
     protected $rules = [
@@ -88,11 +88,11 @@ class Login extends Component
             'https://seller-area.youcan.shop/admin/oauth/token',
             [
                 'form_params' => [
-                    'grant_type' => 'authorization_code',
-                    'client_id' => 1,
+                    'grant_type'    => 'authorization_code',
+                    'client_id'     => 1,
                     'client_secret' => '<CLIENT SECRET>',
-                    'redirect_uri' => 'https://myapp.com/callback',
-                    'code' => $this->get('code'),
+                    'redirect_uri'  => 'https://myapp.com/callback',
+                    'code'          => $this->get('code'),
                 ],
                 'http_errors' => false,
             ]
@@ -102,7 +102,7 @@ class Login extends Component
             $data = json_decode($response->getBody(), true);
             $this->ecommerceToken = $data['access_token'];
         }
-     }
+    }
 
     public function render()
     {

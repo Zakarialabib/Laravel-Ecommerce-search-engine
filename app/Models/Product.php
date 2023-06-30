@@ -16,6 +16,95 @@ use App\Enums\Status;
 use App\Trait\GetModelByUuid;
 use App\Trait\UuidGenerator;
 
+/**
+ * App\Models\Product
+ *
+ * @property int $id
+ * @property string $uuid
+ * @property string $name
+ * @property string $description
+ * @property string $image
+ * @property string|null $gallery
+ * @property string $code
+ * @property string $slug
+ * @property int $stock_status
+ * @property Status $status
+ * @property int|null $category_id
+ * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subcategory> $subcategories
+ * @property array|null $options
+ * @property string|null $url
+ * @property int|null $brand_id
+ * @property int|null $price_id
+ * @property int|null $user_id
+ * @property string|null $meta_title
+ * @property string|null $meta_description
+ * @property string|null $meta_keywords
+ * @property int $featured
+ * @property int $hot
+ * @property int $best
+ * @property int $top
+ * @property int $latest
+ * @property int $big
+ * @property int $trending
+ * @property int $sale
+ * @property int $is_discount
+ * @property string|null $condition
+ * @property string|null $discount_date
+ * @property string|null $embeded_video
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Brand|null $brand
+ * @property-read \App\Models\Category|null $category
+ * @property-read \App\Models\VendorHighlighted|null $highlightedByVendor
+ * @property-read \App\Models\Price|null $price
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
+ * @property-read int|null $reviews_count
+ * @property-read \App\Models\Store|null $store
+ * @property-read int|null $subcategories_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Product active()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product advancedFilter($data)
+ * @method static \Database\Factories\ProductFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereBest($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereBig($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereBrandId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCategoryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCondition($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereDiscountDate($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereEmbededVideo($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereFeatured($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereGallery($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereHot($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereImage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereIsDiscount($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereLatest($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereMetaDescription($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereMetaKeywords($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereMetaTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereOptions($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product wherePriceId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereSale($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereSlug($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereStockStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereSubcategories($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereTop($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereTrending($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUserId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Product whereUuid($value)
+ * @property \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subcategory> $subcategories
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
+ * @mixin \Eloquent
+ */
 class Product extends Model implements Buyable
 {
     use CanBeBought;
@@ -31,8 +120,6 @@ class Product extends Model implements Buyable
     public $orderable = [
         'id',
         'name',
-        'description',
-        'price',
         'code',
         'category_id',
         'brand_id',
@@ -42,8 +129,6 @@ class Product extends Model implements Buyable
     public $filterable = [
         'id',
         'name',
-        'description',
-        'price',
         'code',
         'category_id',
         'brand_id',
@@ -53,9 +138,6 @@ class Product extends Model implements Buyable
     protected $fillable = [
         'name',
         'description',
-        'price',
-        'old_price',
-        'user_price',
         'slug',
         'code',
         'image',
@@ -78,6 +160,7 @@ class Product extends Model implements Buyable
         'big',
         'trending',
         'sale',
+        'price_id',
         'is_discount',
         'discount_date',
     ];
@@ -89,7 +172,7 @@ class Product extends Model implements Buyable
      */
     protected $casts = [
         'subcategories' => 'array',
-        'status' => Status::class,
+        'status'        => Status::class,
         'options'       => 'array',
     ];
 
@@ -99,13 +182,9 @@ class Product extends Model implements Buyable
         $this->attributes['slug'] = Str::slug($value);
     }
 
-    public function getDiscountAttribute()
+    public function price()
     {
-        if ($this->old_price) {
-            return round(($this->old_price - $this->price) / $this->old_price * 100);
-        }
-
-        return null;
+        return $this->belongsTo(Price::class);
     }
 
     public function store()
@@ -139,30 +218,6 @@ class Product extends Model implements Buyable
     }
 
     /**
-     * Scope a query to only include the product with the highest price.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeHighestPrice($query)
-    {
-        return $query->orderBy('price', 'desc')->first();
-    }
-
-    /**
-     * Scope a query to only include the product with the lowest price.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeLowestPrice($query)
-    {
-        return $query->orderBy('price', 'asc')->first();
-    }
-
-    /**
      * Scope a query to only include active products.
      *
      * @param  \Illuminate\Database\Eloquent\Builder  $query
@@ -173,6 +228,4 @@ class Product extends Model implements Buyable
     {
         $query->where('status', 1);
     }
-
- 
 }

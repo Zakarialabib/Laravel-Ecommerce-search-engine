@@ -22,19 +22,15 @@ class PermissionsDemoSeeder extends Seeder
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         // create permissions
-        Permission::create(['name' => 'account access']);
-        Permission::create(['name' => 'admin access']);
-        Permission::create(['name' => 'client access']);
+        // Permission::create(['name' => 'account access','guard_name' => 'account_access']);
+        // Permission::create(['name' => 'admin access','guard_name' => 'admin_access']);
+        // Permission::create(['name' => 'client access','guard_name' => 'client_access']);
 
         $role1 = Role::create(['name' => 'admin']);
 
         $role2 = Role::create(['name' => 'vendor']);
-        $role2->givePermissionTo('admin access');
-        $role2->givePermissionTo('account access');
-
-        // create roles and assign existing permissions
-        $role3 = Role::create(['name' => 'client']);
-        $role3->givePermissionTo('client access');
+        // $role2->givePermissionTo('admin_access');
+        // $role2->givePermissionTo('account_access');
 
         // create demo users
         $user = \App\Models\User::factory()->create([
@@ -48,14 +44,15 @@ class PermissionsDemoSeeder extends Seeder
             'name'     => 'Vendor',
             'email'    => 'vendor@mail.com',
             'password' => bcrypt('password'),
+            'status'   => true,
         ]);
         $user->assignRole($role2);
 
-        $user = \App\Models\User::factory()->create([
-            'name'     => 'Client',
-            'email'    => 'client@mail.com',
-            'password' => bcrypt('password'),
-        ]);
-        $user->assignRole($role3);
+        // $user = \App\Models\User::factory()->create([
+        //     'name'     => 'Client',
+        //     'email'    => 'client@mail.com',
+        //     'password' => bcrypt('password'),
+        // ]);
+        // $user->assignRole($role3);
     }
 }

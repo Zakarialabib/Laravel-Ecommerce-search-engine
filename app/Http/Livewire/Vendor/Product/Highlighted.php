@@ -10,7 +10,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Throwable;
 
 class Highlighted extends Component
 {
@@ -23,9 +22,9 @@ class Highlighted extends Component
     public $start_date;
 
     public $end_date;
-    
+
     public $placement_type;
-    
+
     public $pricePerDay = 100;
 
     public $listeners = [
@@ -36,8 +35,8 @@ class Highlighted extends Component
 
     protected $rules = [
         'placementType' => 'required|string',
-        'startDate' => 'required|date|after:today',
-        'endDate' => 'required|date|after:start_date',
+        'startDate'     => 'required|date|after:today',
+        'endDate'       => 'required|date|after:start_date',
     ];
 
     public function highlightModal($id)
@@ -49,16 +48,14 @@ class Highlighted extends Component
         $this->product = Product::findOrFail($id);
 
         $this->startDate = now()->toDateString();
-        
+
         $this->endDate = now()->addDays(7)->toDateString();
 
         $this->highlightModal = true;
-
     }
 
     public function saveHighlight()
     {
-
         $this->validate();
 
         $numberOfDays = Carbon::parse($this->endDate)->diffInDays(Carbon::parse($this->startDate));
@@ -66,23 +63,21 @@ class Highlighted extends Component
 
         $vendorHighlighted = VendorHighlighted::updateOrCreate(
             [
-                'vendor_id' => auth()->id(),
+                'vendor_id'  => auth()->id(),
                 'product_id' => $this->product->id,
             ],
             [
                 'placement_type' => $this->placement_type,
-                'price' => $this->price,
-                'approved' => false,
-                'start_date' => $this->start_date,
-                'end_date' => $this->end_date,
+                'price'          => $this->price,
+                'approved'       => false,
+                'start_date'     => $this->start_date,
+                'end_date'       => $this->end_date,
             ]
         );
 
         $this->alert('success', 'Product highlighted successfully.');
 
         $this->highlightModal = false;
-
-    
     }
 
     private function calculatePrice()

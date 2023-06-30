@@ -7,9 +7,9 @@ namespace App\Enums;
 enum DeviceModelType: string
 {
     case SMARTPHONE = 'Smartphone';
-    
+
     case SMARTWATCH = 'Smartwatch';
-    
+
     case TABLET = 'Tablet';
 
     case LAPTOP = 'Laptop';
@@ -40,26 +40,23 @@ enum DeviceModelType: string
     public static function getSelectOptions(): array
     {
         $options = [];
-        
+
         foreach (self::cases() as $case) {
             $options[$case->value()] = $case->label();
         }
-        
+
         return $options;
     }
-    
 
     public function label(): string
     {
         return __(sprintf('enums.%s', $this->value));
     }
 
-    // usage 
+    // usage
     // use App\Enums\DeviceModelType;
     //
     // $model = DeviceModelType::SMARTPHONE();
     // $model->value(); // 'Smartphone'
     // $model->label(); // 'Smartphone'
-
-
 }

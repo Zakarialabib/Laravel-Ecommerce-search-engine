@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 use App\Http\Controllers\ErrorController;
 use App\Http\Controllers\Front\FrontController;
-use App\Http\Controllers\Front\ProductController;
+use App\Http\Livewire\Front\DeviceShow;
+use App\Http\Livewire\Front\VendorStore as VendorStoreIndex;
+use App\Http\Livewire\Front\Services;
 use App\Http\Controllers\UploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,6 +35,8 @@ Route::group(['middleware' => 'firewall.all'], function () {
     Route::get('/marques', [FrontController::class, 'brands'])->name('front.brands');
     Route::get('/marque/{slug}', [FrontController::class, 'brandPage'])->name('front.brandPage');
     Route::get('/catalog/{slug}', [FrontController::class, 'productShow'])->name('front.product');
+    Route::get('/device-model/{slug}', DeviceShow::class)->name('front.deviceshow');
+
     Route::get('/contact', [FrontController::class, 'contact'])->name('front.contact');
     Route::get('/a-propos', [FrontController::class, 'about'])->name('front.about');
     Route::get('/blog', [FrontController::class, 'blog'])->name('front.blog');
@@ -40,13 +44,14 @@ Route::group(['middleware' => 'firewall.all'], function () {
     Route::get('/page/{slug}', [FrontController::class, 'dynamicPage'])->name('front.dynamicPage');
     Route::get('/generate-sitemap', [FrontController::class, 'generateSitemaps'])->name('generate-sitemaps');
     Route::get('/redirect/{url}', [FrontController::class, 'redirect'])->name('redirect');
-    
-    Route::get('/approval' , function () {
+    Route::get('/services', Services::class)->name('front.services');
+    Route::get('/approval', function () {
         return view('auth.approval');
     })->name('auth.approval');
 
     Route::middleware('auth')->group(function () {
         Route::get('/mon-compte', [FrontController::class, 'myaccount'])->name('front.myaccount');
+        Route::get('/store/{slug}', VendorStoreIndex::class)->name('front.store-show');
     });
 
     Route::post('/uploads', [UploadController::class, 'upload'])->name('upload');

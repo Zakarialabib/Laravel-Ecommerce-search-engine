@@ -1,10 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Vendor\Settings;
 
-use App\Models\Settings;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use BaconQrCode\Renderer\Image\Png;
 use BaconQrCode\Writer;
@@ -16,13 +15,13 @@ class Index extends Component
     public function generateQRCode()
     {
         // Create a new QR code writer
-        $writer = new Writer(new Png());
+        // $writer = new Writer(new Png());
 
         // Generate the QR code image
-        $qrCode = $writer->writeString($this->url);
+        // $qrCode = $writer->writeString($this->url);
 
         // Return the QR code image data
-        return 'data:image/png;base64,' . base64_encode($qrCode);
+        // return 'data:image/png;base64,'.base64_encode($qrCode);
     }
 
     public function render()

@@ -81,10 +81,9 @@ class Create extends Component
         $this->page->save();
 
         $pageSettings = new PageSetting([
-            'page_id'       => $this->page->id,
+            'page_id'     => $this->page->id,
             'language_id' => $this->page->language_id,
         ]);
-    
 
         $this->emit('refreshIndex');
 

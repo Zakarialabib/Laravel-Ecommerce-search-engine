@@ -10,7 +10,6 @@ use App\Models\Category;
 use App\Models\Page;
 use App\Models\Product;
 use App\Models\Subcategory;
-use App\Models\User;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Throwable;
@@ -54,12 +53,12 @@ class FrontController extends Controller
         return view('front.subcategories');
     }
 
-     public function SubcategoryPage($slug)
-     {
-         $subcategory = Subcategory::where('slug', $slug)->first() ?? abort(404);
+    public function SubcategoryPage($slug)
+    {
+        $subcategory = Subcategory::where('slug', $slug)->first() ?? abort(404);
 
-         return view('front.subcategory-page', compact('subcategory'));
-     }
+        return view('front.subcategory-page', compact('subcategory'));
+    }
 
     public function brands()
     {
@@ -72,7 +71,6 @@ class FrontController extends Controller
 
         return view('front.brand-page', compact('brand'));
     }
-
 
     public function contact()
     {

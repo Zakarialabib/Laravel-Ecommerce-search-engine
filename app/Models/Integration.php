@@ -7,8 +7,8 @@ namespace App\Models;
 use App\Enums\IntegrationType;
 use App\Enums\Status;
 use App\Support\HasAdvancedFilter;
-use App\Traits\GetModelByUuid;
-use App\Traits\UuidGenerator;
+use App\Trait\GetModelByUuid;
+use App\Trait\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 

@@ -22,41 +22,41 @@
         </div>
     </div>
 
-    <table class="w-full rounded-t-lg m-5 mx-auto bg-gray-800 text-gray-200">
-        <thead>
-            <tr class="text-left border-b border-gray-300">
-                <th class="px-4 py-3">
-                    {{ __('Subscription name') }}
-                </th>
-                <th class="px-4 py-3">
-                    {{ __('Subscription description') }}
-                </th>
-                <th class="px-4 py-3">
-                    {{ __('Price') }}
-                </th>
-                <th class="px-4 py-3">
-                    {{ __('Actions') }}
-                </th>
-            </tr>
-        </thead>
-        <tbody>
+    <x-table>
+        <x-slot name="thead">
+            <x-table.th class="pr-0 w-8">
+                <input type="checkbox" wire:model="selectPage" />
+            </x-table.th>
+            <x-table.th sortable wire:click="sortBy('name')" :direction="$sorts['name'] ?? null">
+                {{ __('Subscription name') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Subscription description') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Price') }}
+            </x-table.th>
+            <x-table.th>
+                {{ __('Actions') }}
+            </x-table.th>
+        </x-slot>
+        <x-table.tbody>
             @forelse ($subscriptions as $subscription)
-                <tr class="bg-gray-700 border-b border-gray-600">
-                    <td class="px-4 py-3">
+                <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $subscription->id }}">
+                    <x-table.td>
+                        <input type="checkbox" value="{{ $subscription->id }}" wire:model="selected">
+                    </x-table.td>
+                    <x-table.td>
                         {{ $subscription->name }}
-                    </td>
-                    <td class="px-4 py-3">
+                    </x-table.td>
+                    <x-table.td>
                         {{ $subscription->details }}
-                    </td>
-                    <td class="px-4 py-3">
-                        {{ $subscription->pivot->price }}
-                    </td>
-                    <td class="px-4 py-3">
+                    </x-table.td>
+                    <x-table.td>
+                        {{ $subscription->pivot?->price }}
+                    </x-table.td>
+                    <x-table.td>
                         <x-button primary type="button" wire:click="$emit('editModal', {{ $subscription->id }})"
-                            wire:loading.attr="disabled">
-                            <i class="fas fa-edit"></i>
-                        </x-button>
-                        <x-button primary type="button" wire:click="approve({{ $subscription->id }})"
                             wire:loading.attr="disabled">
                             <i class="fas fa-edit"></i>
                         </x-button>
@@ -64,41 +64,13 @@
                             wire:loading.attr="disabled">
                             <i class="fas fa-trash-alt"></i>
                         </x-button>
-                        <x-button danger type="button" wire:click="renewModal({{ $subscription->id }})"
-                            wire:loading.attr="disabled">
-                            <i class="fas fa-trash-alt"></i>
-                        </x-button>
-                    </td>
-                </tr>
+                    </x-table.td>
+                </x-table.tr>
             @empty
                 <tr>
                     <td>{{ __('No entries found.') }}</td>
                 </tr>
             @endforelse
-        </tbody>
-    </table>
-
-    <x-modal wire:click="renewModal">
-        <x-slot name="title">
-            {{ __('Renew user subscription') }}
-        </x-slot>
-        <x-slot name="content">
-            <form wire:submit.prevent="renew">
-                <div class="lg:w-1/3 sm:w-1/2 px-2 mt-5 {{ $errors->has('start_date') ? 'is-invalid' : '' }}">
-                    <label for="start_date">{{ __('Start Date') }}</label>
-                    <input type="date" name="start_date" id="start_date" disabled wire:model="start_date" />
-                    {{-- <x-input-error for="email" /> --}}
-                </div>
-                <div class="lg:w-1/3 sm:w-1/2 px-2 mt-5 {{ $errors->has('end_date') ? 'is-invalid' : '' }}">
-                    <label for="end_date">{{ __('End Date') }}</label>
-                    <input type="date" name="end_date" id="end_date" wire:model="end_date" />
-                    {{-- <x-input-error for="phone" /> --}}
-                </div>
-                <x-button type="submit" primaryF>
-                    {{ __('Renew') }}
-                </x-button>
-            </form>
-        </x-slot>
-    </x-modal>
-
+        </x-table.tbody>
+    </x-table>
 </div>

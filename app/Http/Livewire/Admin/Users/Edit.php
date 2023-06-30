@@ -23,13 +23,13 @@ class Edit extends Component
     public $user;
 
     public array $rules = [
-        'user.name' => 'required|string|max:255',
-        'user.email'      => 'required|email|unique:users,email',
-        'user.password'   => 'required|string|min:8',
-        'user.phone'      => 'required|numeric',
-        'user.city'       => 'nullable',
-        'user.country'    => 'nullable',
-        'user.address'    => 'nullable',
+        'user.name'     => 'required|string|max:255',
+        'user.email'    => 'required|email|unique:users,email',
+        'user.password' => 'required|string|min:8',
+        'user.phone'    => 'required|numeric',
+        'user.city'     => 'nullable',
+        'user.country'  => 'nullable',
+        'user.address'  => 'nullable',
     ];
 
     public function editModal($user)

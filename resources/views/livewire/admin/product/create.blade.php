@@ -73,6 +73,12 @@
                             <x-input-error :messages="$errors->get('product.old_price')" for="old_price" class="mt-2" />
 
                         </div>
+                        <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
+                            <x-label for="wholesale_price" :value="__('Wholesale Price')" required />
+                            <x-input id="wholesale_price" class="block mt-1 w-full" type="number" name="wholesale_price"
+                                wire:model="product.wholesale_price" />
+                            <x-input-error :messages="$errors->get('product.wholesale_price')" for="wholesale_price" class="mt-2" />
+                        </div>
 
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="brand_id" :value="__('Brand')" />

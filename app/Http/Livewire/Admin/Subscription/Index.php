@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Subscription;
 
 use App\Models\Subscription;
@@ -11,13 +13,12 @@ use App\Http\Livewire\WithSorting;
 
 class Index extends Component
 {
-    use WithPagination, WithSorting;
+    use WithPagination;
+    use WithSorting;
 
     public int $perPage;
 
     public array $orderable;
-
-    public $renewModal = false;
 
     public string $search = '';
 
@@ -59,11 +60,11 @@ class Index extends Component
 
     public function mount()
     {
-        $this->sortBy            = 'id';
-        $this->sortDirection     = 'desc';
-        $this->perPage           = 100;
+        $this->sortBy = 'id';
+        $this->sortDirection = 'desc';
+        $this->perPage = 100;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable         = (new Subscription())->orderable;
+        $this->orderable = (new Subscription())->orderable;
     }
 
     public function render()
@@ -77,26 +78,6 @@ class Index extends Component
         $subscriptions = $query->paginate($this->perPage);
 
         return view('livewire.admin.subscription.index', compact('subscriptions'));
-    }
-
-    public function approve($id)
-    {
-        $subscription = Subscription::find($id);
-        $subscription->approved = true;
-        $subscription->save();
-    }
-
-    public function renewModal($id)
-    {
-        $subscription = Subscription::find($id);
-        
-        $this->renewModal = true;
-       
-    }
-
-    public function renew($id)
-    {
-        // 
     }
 
     public function deleteSelected()
@@ -113,10 +94,10 @@ class Index extends Component
     public function delete(Subscription $subscription)
     {
         abort_if(Gate::denies('subscription_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
-        
+
         $subscription->delete();
 
-        $this->alert('warning', __('Subscription deleted successfully!') );
+        $this->alert('warning', __('Subscription deleted successfully!'));
 
         $this->reRenderParent();
     }

@@ -8,6 +8,31 @@ use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
 use App\Enums\RedirectionStatus;
 
+/**
+ * App\Models\Redirect
+ *
+ * @property int $id
+ * @property string $old_url
+ * @property string|null $new_url
+ * @property RedirectionStatus|null $http_status_code
+ * @property bool $status
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property string|null $deleted_at
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect advancedFilter($data)
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereDeletedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereHttpStatusCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereNewUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereOldUrl($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereUpdatedAt($value)
+ * @mixin \Eloquent
+ */
 class Redirect extends Model
 {
     use HasAdvancedFilter;

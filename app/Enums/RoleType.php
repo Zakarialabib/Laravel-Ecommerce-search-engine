@@ -6,9 +6,9 @@ namespace App\Enums;
 
 enum RoleType: string
 {
-    case ADMIN = 'ADMIN';
+    case ADMIN = 'admin';
 
-    case VENDOR = 'VENDOR';
+    case VENDOR = 'vendor';
 
-    case CLIENT = 'CLIENT';
+    case CLIENT = 'client';
 }

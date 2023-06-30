@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class CreatePage extends Command
@@ -24,13 +23,10 @@ class CreatePage extends Command
      */
     protected $description = 'Create a new page with specified components';
 
-
     public function handle()
     {
         $name = Str::snake($this->argument('title'));
 
         $components = json_decode($this->argument('components'), true);
-    
-       
     }
 }

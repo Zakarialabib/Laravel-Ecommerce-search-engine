@@ -53,7 +53,7 @@ class SettingSeeder extends Seeder
         ],
         [
             'key'   => 'page_status',
-            'value' => '1',
+            'value' => true,
         ],
         [
             'key'   => 'footer_copyright_text',
@@ -97,11 +97,19 @@ class SettingSeeder extends Seeder
         ],
         [
             'key'   => 'enableRegistrationTerms',
-            'value' => '1',
+            'value' => true,
+        ],
+        [
+            'key'   => 'site_refresh',
+            'value' => '12',
         ],
         [
             'key'   => 'site_maintenance_message',
             'value' => 'Site is under maintenance',
+        ],
+        [
+            'key'   => 'site_maintenance_status',
+            'value' => false,
         ],
         [
             'key'   => 'site_return',

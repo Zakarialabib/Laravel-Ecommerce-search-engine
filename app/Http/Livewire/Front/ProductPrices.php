@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use App\Models\Brand;
 use App\Models\Store;
-use App\Models\Category;
-use App\Models\Product;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -41,13 +37,13 @@ class ProductPrices extends Component
         if (strlen($this->search) > 3) {
             // Get a list of stores that have products matching the search term
             $this->results = Store::whereHas('products', function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
+                $query->where('name', 'like', '%'.$this->search.'%');
             })
-            ->with(['products' => function ($query) {
-                $query->where('name', 'like', '%' . $this->search . '%');
-            }])
-            ->take($this->howMany)
-            ->get();
+                ->with(['products' => function ($query) {
+                    $query->where('name', 'like', '%'.$this->search.'%');
+                }])
+                ->take($this->howMany)
+                ->get();
         } else {
             $this->results = '';
         }

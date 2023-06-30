@@ -21,7 +21,7 @@ class Index extends Component
 
     public $listeners = [
         'refreshIndex' => '$refresh',
-        'delete'
+        'delete',
     ];
 
     public $blogcategory;

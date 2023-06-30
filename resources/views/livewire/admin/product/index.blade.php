@@ -34,8 +34,8 @@
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <input type="text" wire:model.debounce.300ms="search"
-            class="p-3 leading-5 bg-white text-gray-500 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-            placeholder="{{ __('Search') }}" />
+                class="p-3 leading-5 bg-white text-gray-500 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                placeholder="{{ __('Search') }}" />
         </div>
         <div class="lg:w-1/2 md:w-1/2 sm:w-full my-2 my-md-0">
             <select wire:model="filterStore" wire:change="selectStore($event.target.value)">
@@ -43,7 +43,7 @@
                 @foreach ($this->vendors as $vendor)
                     {{ $vendor->name }}
                 @endforeach
-            </select>            
+            </select>
         </div>
     </div>
 
@@ -59,7 +59,7 @@
                 {{ __('Name') }}
             </x-table.th>
             <x-table.th sortable wire:click="sortBy('price')" :direction="$sorts['price'] ?? null">
-                {{ __('Price') }} / {{ __('Old Price') }}
+                {{ __('Prices') }}
             </x-table.th>
             <x-table.th>
                 {{ __('Image') }}
@@ -79,8 +79,8 @@
                     </x-table.td>
                     <x-table.td>
                         <a href="{{ route('redirect', $product->url) }}">
-                        <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
-                            class="w-10 h-10 rounded-full object-cover">
+                            <img src="{{ asset('images/products/' . $product->image) }}" alt="{{ $product->name }}"
+                                class="w-10 h-10 rounded-full object-cover">
                         </a>
                     </x-table.td>
                     <x-table.td>
@@ -98,10 +98,15 @@
                     </x-table.td> --}}
 
                     <x-table.td>
-                        {{ $product->price }}DH
-                        @if ($product->old_price)
-                            // {{ $product->old_price }}DH
+                        <p>{{ $product->price->price }}DH</p>
+                        @if ($product->price)
+                            <p>
+                                {{ $product->price->latestPrice()->old_price }}DH
+                            </p>
                         @endif
+                        <p>
+                            {{ $product->price ? $product->price->wholesale_price : '' }}DH
+                        </p>
                     </x-table.td>
                     <x-table.td>
                         <x-button type="button" success wire:click="$emit('imageModal', {{ $product->id }})"
@@ -230,7 +235,6 @@
 </div>
 
 @push('scripts')
-    
     <script>
         document.addEventListener('livewire:load', function() {
             window.livewire.on('deleteModal', productId => {

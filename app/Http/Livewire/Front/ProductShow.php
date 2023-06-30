@@ -7,7 +7,6 @@ namespace App\Http\Livewire\Front;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
-use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -37,7 +36,6 @@ class ProductShow extends Component
 
     public $listeners = [
     ];
-
 
     public function mount(Product $product)
     {

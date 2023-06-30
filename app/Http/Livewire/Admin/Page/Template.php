@@ -49,29 +49,27 @@ class Template extends Component
     public function create()
     {
         // try {
-            $pageTemplate = [
-                'title'            => $this->selectedTemplate['title'],
-                'slug'             => $this->selectedTemplate['slug'],
-                'details'          => $this->selectedTemplate['details'],
-                'meta_title'       => $this->selectedTemplate['meta_title'],
-                'meta_description' => $this->selectedTemplate['meta_description'],
-                'photo'            => $this->selectedTemplate['image'],
-            ];
+        $pageTemplate = [
+            'title'            => $this->selectedTemplate['title'],
+            'slug'             => $this->selectedTemplate['slug'],
+            'details'          => $this->selectedTemplate['details'],
+            'meta_title'       => $this->selectedTemplate['meta_title'],
+            'meta_description' => $this->selectedTemplate['meta_description'],
+            'photo'            => $this->selectedTemplate['image'],
+        ];
 
-            $page = Page::create($pageTemplate);
+        $page = Page::create($pageTemplate);
 
-            // dd($page);
+        $pageSettings = new PageSetting([
+            'page_id' => $page->id,
+            // 'language_id' => $page->language_id ?? null,
+        ]);
 
-            $pageSettings = new PageSetting([
-                'page_id'       => $page->id,
-                // 'language_id' => $page->language_id ?? null,
-            ]);
+        $this->emit('refreshIndex');
 
-            $this->emit('refreshIndex');
+        $this->createTemplate = false;
 
-            $this->createTemplate = false;
-
-            $this->alert('success', __('Page created successfully!'));
+        $this->alert('success', __('Page created successfully!'));
         // } catch (Throwable $th) {
         //     $this->alert('warning', __('Page Was not created!'));
         // }

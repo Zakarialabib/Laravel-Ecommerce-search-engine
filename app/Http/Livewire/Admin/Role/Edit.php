@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Role;
 
-// use App\Models\Permission;
 use Spatie\Permission\Models\Permission;
-// use App\Models\Role;
 use Spatie\Permission\Models\Role;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;

@@ -8,8 +8,6 @@ use Livewire\Component;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use App\Models\PageSetting;
 use App\Http\Livewire\WithSorting;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Contracts\View\View;
 use Livewire\WithPagination;
 
 class Settings extends Component
@@ -98,27 +96,26 @@ class Settings extends Component
         $this->bottomFooterModal = ! $this->bottomFooterModal;
     }
 
-   
     public function updatePageSettings($id)
     {
         $this->settings = PageSettings::where('page_id', $id)->first();
 
         $this->validate([
-            'settings.header'    => 'nullable|string',
-            'settings.footer'    => 'nullable|string',
-            'settings.bottomBar'    => 'nullable|string',
-            'settings.topHeader'    => 'nullable|string',
-            'settings.bottomFooter' => 'nullable|string',
-            'settings.themeColor' => 'nullable|string',
-            'settings.popularProducts' => 'nullable|string',
-            'settings.flashDeal' => 'nullable|string',
-            'settings.bestSellers' => 'nullable|string',
-            'settings.topBrands' => 'nullable|string',
-            'settings.status' => 'nullable|string',
+            'settings.header'             => 'nullable|string',
+            'settings.footer'             => 'nullable|string',
+            'settings.bottomBar'          => 'nullable|string',
+            'settings.topHeader'          => 'nullable|string',
+            'settings.bottomFooter'       => 'nullable|string',
+            'settings.themeColor'         => 'nullable|string',
+            'settings.popularProducts'    => 'nullable|string',
+            'settings.flashDeal'          => 'nullable|string',
+            'settings.bestSellers'        => 'nullable|string',
+            'settings.topBrands'          => 'nullable|string',
+            'settings.status'             => 'nullable|string',
             'settings.featured_banner_id' => 'nullable|string',
-            'settings.page_id' => 'nullable|string',
-            'settings.language_id' => 'nullable|string',
-            
+            'settings.page_id'            => 'nullable|string',
+            'settings.language_id'        => 'nullable|string',
+
         ]);
 
         $this->settings->save();

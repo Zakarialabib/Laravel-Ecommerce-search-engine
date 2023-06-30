@@ -114,7 +114,7 @@ class Categories extends Component
     {
         return Subcategory::active()->get();
     }
-  
+
     public function getBrandsProperty()
     {
         return Brand::active()->get();

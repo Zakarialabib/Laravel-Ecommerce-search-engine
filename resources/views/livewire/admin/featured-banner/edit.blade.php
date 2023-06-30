@@ -1,0 +1,72 @@
+<div>
+    <!-- Edit Modal -->
+    <x-modal wire:model="editModal">
+        <x-slot name="title">
+            {{ __('Update FeaturedBanner') }}
+        </x-slot>
+
+        <x-slot name="content">
+            <!-- Validation Errors -->
+            <x-validation-errors class="mb-4" :errors="$errors" />
+
+            <form wire:submit.prevent="update">
+                <div class="flex flex-wrap -mx-3 space-y-0">
+                    <div class="xl:w-1/2 sm:w-full px-2">
+                        <x-label for="title" :value="__('Title')" />
+                        <x-input id="title" class="block mt-1 w-full" type="text" name="title"
+                            wire:model.defer="featuredbanner.title" />
+                        <x-input-error :messages="$errors->get('featuredbanner.title')" for="featuredbanner.title" class="mt-2" />
+                    </div>
+                    <div class="xl:w-1/2 sm:w-full px-2">
+                        <x-label for="language_id" :value="__('Language')" required />
+                        <x-select-list
+                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                            id="language_id" name="language_id" wire:model.defer="featuredbanner.language_id"
+                            :options="$this->languages" />
+                        <x-input-error :messages="$errors->get('featuredbanner.language_id')" for="featuredbanner.language_id" class="mt-2" />
+                    </div>
+                    <div class="xl:w-1/2 sm:w-full px-2">
+                        <x-label for="product_id" :value="__('Product')" />
+                        <x-select-list
+                            class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                            id="product_id" name="product_id" wire:model.defer="featuredbanner.product_id"
+                            :options="$this->products" />
+                        <x-input-error :messages="$errors->get('featuredbanner.product_id')" for="featuredbanner.product_id" class="mt-2" />
+                    </div>
+                 
+                    <div class="xl:w-1/2 sm:w-full px-2">
+                        <x-label for="link" :value="__('Link')" />
+                        <x-input id="link" class="block mt-1 w-full" type="text" name="link"
+                            wire:model.defer="featuredbanner.link" />
+                        <x-input-error :messages="$errors->get('featuredbanner.link')" for="featuredbanner.link" class="mt-2" />
+                    </div>
+
+                    <div class="w-full px-2">
+                        <x-label for="video" :value="__('Embeded Video')" />
+                        <x-input id="embeded_video" class="block mt-1 w-full" type="text" name="embeded_video"
+                            wire:model="featuredbanner.embeded_video" />
+                        <x-input-error :messages="$errors->get('featuredbanner.embeded_video')" for="featuredbanner.embeded_video" class="mt-2" />
+                    </div>
+
+                    <div class="w-full px-2">
+                        <x-label for="description" :value="__('Description')" />
+                        <x-trix wire:model.lazy="description" name="description" />
+                        <x-input-error :messages="$errors->get('description')" for="featuredbanner.details" class="mt-2" />
+                    </div>
+
+                    <div class="w-full py-2 px-3">
+                        <x-label for="image" :value="__('Image')" />
+                        <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
+                        <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
+                    </div>
+                    <div class="w-full px-3">
+                        <x-button primary class="block" type="submit" wire:loading.attr="disabled">
+                            {{ __('Update') }}
+                        </x-button>
+                    </div>
+                </div>
+            </form>
+        </x-slot>
+    </x-modal>
+    <!-- End Edit Modal -->
+</div>

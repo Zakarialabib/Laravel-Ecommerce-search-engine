@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Admin\Subscription;
 
 use App\Models\Role;
@@ -9,7 +11,7 @@ use Livewire\Component;
 class Create extends Component
 {
     public Subscription $subscription;
-   
+
     protected $listeners = [
         'submit',
     ];
@@ -32,7 +34,7 @@ class Create extends Component
 
         $vendors = Role::find(2)->users;
         $clients = Role::find(3)->users;
-        
+
         foreach ($vendors as $vendor) {
             $vendor->subscriptions()->attach($this->subscription->id);
         }
@@ -41,8 +43,7 @@ class Create extends Component
             $client->subscriptions()->attach($this->subscription->id);
         }
 
-        $this->alert('success', __('Subscription created and attached to users successfully!') );
-
+        $this->alert('success', __('Subscription created and attached to users successfully!'));
     }
 
     protected function rules(): array
@@ -59,4 +60,3 @@ class Create extends Component
         ];
     }
 }
-

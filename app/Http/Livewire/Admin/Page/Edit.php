@@ -36,14 +36,14 @@ class Edit extends Component
         $this->page->details = $value;
     }
 
-   protected $rules = [
-       'page.title'            => ['required', 'string', 'max:255'],
-       'page.slug'             => ['required', 'max:255'],
-       'page.details'          => ['required'],
-       'page.meta_title'       => ['nullable', 'max:255'],
-       'page.meta_description' => ['nullable', 'max:255'],
-       'page.language_id'      => ['nullable', 'integer'],
-   ];
+    protected $rules = [
+        'page.title'            => ['required', 'string', 'max:255'],
+        'page.slug'             => ['required', 'max:255'],
+        'page.details'          => ['required'],
+        'page.meta_title'       => ['nullable', 'max:255'],
+        'page.meta_description' => ['nullable', 'max:255'],
+        'page.language_id'      => ['nullable', 'integer'],
+    ];
 
     public function render(): View|Factory
     {

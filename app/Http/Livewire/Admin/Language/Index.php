@@ -28,7 +28,7 @@ class Index extends Component
 
     public function render()
     {
-        return view('livewire.admin.language.index');
+        return view('livewire.admin.language.index')->extends('layouts.dashboard');
     }
 
     public function onSetDefault($id)

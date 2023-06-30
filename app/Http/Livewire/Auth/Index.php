@@ -7,14 +7,14 @@ namespace App\Http\Livewire\Auth;
 use Livewire\Component;
 
 class Index extends Component
-{   
-    public $isStoreOwner = true; 
+{
+    public $isStoreOwner = true;
 
     protected $listeners = ['storeOwnerChanged' => 'hideLoginForm'];
 
     public function hideLoginForm()
     {
-        $this->isStoreOwner = false; 
+        $this->isStoreOwner = false;
     }
 
     public function render()

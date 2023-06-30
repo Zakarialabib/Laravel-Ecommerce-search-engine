@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,25 +18,24 @@ class DashboardController extends Controller
     {
         $customData = [
             'today' => [
-                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now())->count(),
-             
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now())->count(),
+
             ],
             'month' => [
-                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
-              
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonth())->count(),
+
             ],
             'semi' => [
-                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subMonths(6))->count(),
             ],
             'year' => [
-                'countCustomers'  => User::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
+                'countCustomers' => User::whereDate('created_at', '>=', Carbon::now()->subYear())->count(),
             ],
         ];
 
         $recentUsers = User::latest('id')->take(5)->get();
 
-
-        return view('admin.dashboard', compact('customData','recentUsers'));
+        return view('admin.dashboard', compact('customData', 'recentUsers'));
     }
 
     public function profile()

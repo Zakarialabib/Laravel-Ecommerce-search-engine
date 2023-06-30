@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
@@ -16,20 +18,18 @@ class SubscriptionUserSeeder extends Seeder
     public function run()
     {
         $subscriptionIds = Subscription::pluck('id');
-        
+
         $vendorSubscriptions = [];
         $clientSubscriptions = [];
-        
+
         foreach ($subscriptionIds as $id) {
             $vendorSubscriptions[$id] = ['price' => 10];
             $clientSubscriptions[$id] = ['price' => 15];
         }
-        
+
         User::findOrFail(3)->subscriptions()->sync($vendorSubscriptions);
         User::findOrFail(4)->subscriptions()->sync($vendorSubscriptions);
         User::findOrFail(5)->subscriptions()->sync($clientSubscriptions);
         User::findOrFail(6)->subscriptions()->sync($clientSubscriptions);
-        
-       
     }
 }

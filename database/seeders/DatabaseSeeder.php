@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $users = User::factory()->count(10)->create();
-       
+
         $stores = Store::factory()->count(10)->create([
             'user_id' => function () use ($users) {
                 return $users->random()->id;
@@ -30,19 +30,17 @@ class DatabaseSeeder extends Seeder
 
             CurrenciesSeeder::class,
             LanguagesSeeder::class,
-            // BrandSeeder::class,
-            // CategorySeeder::class,
-            // ProductSeeder::class,
+            BrandSeeder::class,
+            CategorySeeder::class,
+            ProductSeeder::class,
             SettingSeeder::class,
-            // FeaturedBannerSeeder::class,
-            // BlogSeeder::class,
+            FeaturedBannerSeeder::class,
+            ServiceSeeder::class,
             // SliderSeeder::class,
-            RolesSeeder::class,
+            // RolesSeeder::class,
+            PermissionsDemoSeeder::class,
             PermissionsSeeder::class,
-            PermissionRoleSeeder::class,
-            SuperUserSeeder::class,
-            RoleUserSeeder::class,
-            // SubscriptionSeeder::class,
+            SubscriptionSeeder::class,
 
         ]);
     }

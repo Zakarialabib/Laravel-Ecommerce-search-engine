@@ -21,8 +21,9 @@ return new class () extends Migration {
             $table->text('description')->nullable();
             $table->json('features')->nullable();
             $table->string('plan');
+            $table->string('price');
             $table->integer('duration');
-            $table->timestamp('trial_duration')->nullable();        
+            $table->string('trial_duration')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

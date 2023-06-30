@@ -20,29 +20,29 @@ class Create extends Component
     use LivewireAlert;
     use WithFileUploads;
 
-    public $createFeaturedBanner = false;
+    public $createModal = false;
 
     public $image;
 
     public $featuredbanner;
 
-    public $listeners = ['createFeaturedBanner'];
+    public $description;
 
-    public array $listsForFields = [];
+    public $listeners = ['createModal'];
 
     protected $rules = [
         'featuredbanner.title'         => ['required', 'string', 'max:255'],
-        'featuredbanner.details'       => ['nullable', 'string'],
+        'description'                  => ['nullable', 'string'],
         'featuredbanner.link'          => ['nullable', 'string'],
+        'featuredbanner.label'         => ['nullable', 'string'],
         'featuredbanner.product_id'    => ['nullable', 'integer'],
         'featuredbanner.language_id'   => ['nullable', 'integer'],
         'featuredbanner.embeded_video' => ['nullable'],
     ];
 
-    public function mount(FeaturedBanner $featuredbanner)
+    public function updatedDescription($value)
     {
-        $this->featuredbanner = $featuredbanner;
-        $this->initListsForFields();
+        $this->description = $value;
     }
 
     public function render(): View|Factory
@@ -52,13 +52,15 @@ class Create extends Component
         return view('livewire.admin.featured-banner.create');
     }
 
-    public function createFeaturedBanner()
+    public function createModal()
     {
         $this->resetErrorBag();
 
         $this->resetValidation();
 
-        $this->createFeaturedBanner = true;
+        $this->featuredbanner = new FeaturedBanner();
+
+        $this->createModal = true;
     }
 
     public function create()
@@ -71,18 +73,24 @@ class Create extends Component
             $this->featuredbanner->image = $imageName;
         }
 
+        $this->featuredbanner->description = $this->description;
+
         $this->featuredbanner->save();
 
         $this->alert('success', __('FeaturedBanner created successfully.'));
 
         $this->emit('refreshIndex');
 
-        $this->createFeaturedBanner = false;
+        $this->createModal = false;
     }
 
-    public function initListsForFields()
+    public function getLanguagesProperty()
     {
-        $this->listsForFields['languages'] = Language::pluck('name', 'id')->toArray();
-        $this->listsForFields['products'] = Product::pluck('name', 'id')->toArray();
+        return Language::pluck('name', 'id')->toArray();
+    }
+
+    public function getProductsProperty()
+    {
+        return Product::pluck('name', 'id')->toArray();
     }
 }
