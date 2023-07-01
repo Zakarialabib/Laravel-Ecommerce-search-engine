@@ -14,7 +14,7 @@ class SubscriberController extends Controller
         return view('admin.subscribers.index');
     }
 
-    public function download()
+    public function download(): void
     {
         //  Code for generating csv file
         header('Content-Type: text/csv; charset=utf-8');

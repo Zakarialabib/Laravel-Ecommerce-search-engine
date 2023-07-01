@@ -33,11 +33,11 @@ class Create extends Component
     public $listeners = ['createBrand'];
 
     protected $rules = [
-        'brand.name'        => ['required', 'string', 'max:255'],
+        'brand.name' => ['required', 'string', 'max:255'],
         'brand.description' => ['nullable', 'string'],
     ];
 
-    public function mount(Brand $brand)
+    public function mount(Brand $brand): void
     {
         $this->brand = $brand;
     }
@@ -49,7 +49,7 @@ class Create extends Component
         return view('livewire.admin.brands.create');
     }
 
-    public function createBrand()
+    public function createBrand(): void
     {
         $this->resetErrorBag();
 
@@ -58,7 +58,7 @@ class Create extends Component
         $this->createBrand = true;
     }
 
-    public function create()
+    public function create(): void
     {
         $this->validate();
 
@@ -75,13 +75,13 @@ class Create extends Component
 
             // we need to resize image, otherwise it will be cropped
             if ($img->width() > $width) {
-                $img->resize($width, null, function ($constraint) {
+                $img->resize($width, null, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }
 
             if ($img->height() > $height) {
-                $img->resize(null, $height, function ($constraint) {
+                $img->resize(null, $height, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }
@@ -105,13 +105,13 @@ class Create extends Component
 
             // we need to resize image, otherwise it will be cropped
             if ($img->width() > $width) {
-                $img->resize($width, null, function ($constraint) {
+                $img->resize($width, null, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }
 
             if ($img->height() > $height) {
-                $img->resize(null, $height, function ($constraint) {
+                $img->resize(null, $height, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }

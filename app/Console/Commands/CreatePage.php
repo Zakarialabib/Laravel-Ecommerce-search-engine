@@ -11,19 +11,15 @@ class CreatePage extends Command
 {
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
-    protected $signature = 'page:create {title} {--components=}';
+    protected string $signature = 'page:create {title} {--components=}';
 
     /**
      * The console command description.
-     *
-     * @var string
      */
-    protected $description = 'Create a new page with specified components';
+    protected string $description = 'Create a new page with specified components';
 
-    public function handle()
+    public function handle(): void
     {
         $name = Str::snake($this->argument('title'));
 

@@ -58,12 +58,12 @@ class Index extends Component
     ];
 
     protected $rules = [
-        'slider.title'         => ['required', 'string', 'max:255'],
-        'slider.subtitle'      => ['nullable', 'string'],
-        'slider.details'       => ['nullable'],
-        'slider.link'          => ['nullable', 'string'],
-        'slider.language_id'   => ['nullable', 'integer'],
-        'slider.bg_color'      => ['nullable', 'string'],
+        'slider.title' => ['required', 'string', 'max:255'],
+        'slider.subtitle' => ['nullable', 'string'],
+        'slider.details' => ['nullable'],
+        'slider.link' => ['nullable', 'string'],
+        'slider.language_id' => ['nullable', 'integer'],
+        'slider.bg_color' => ['nullable', 'string'],
         'slider.embeded_video' => ['nullable'],
     ];
 
@@ -72,22 +72,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -99,8 +99,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Slider::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -114,7 +114,7 @@ class Index extends Component
     //     return $this->slider->photo;
     // }
 
-    public function setFeatured($id)
+    public function setFeatured($id): void
     {
         Slider::where('featured', '=', true)->update(['featured' => false]);
         $slider = Slider::findOrFail($id);
@@ -124,7 +124,7 @@ class Index extends Component
         $this->alert('success', __('Slider featured successfully!'));
     }
 
-    public function showModal(Slider $slider)
+    public function showModal(Slider $slider): void
     {
         $this->resetErrorBag();
 
@@ -135,7 +135,7 @@ class Index extends Component
         $this->showModal = true;
     }
 
-    public function delete(Slider $slider)
+    public function delete(Slider $slider): void
     {
         $slider->delete();
 

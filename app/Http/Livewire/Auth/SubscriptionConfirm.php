@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Auth;
 
-use Livewire\Component;
-use Illuminate\Contracts\View\View;
-use App\Models\UserSubscription;
-use App\Models\SubscriptionOrder;
 use App\Models\Subscription;
+use App\Models\SubscriptionOrder;
+use App\Models\UserSubscription;
+use Illuminate\Contracts\View\View;
+use Livewire\Component;
 
 class SubscriptionConfirm extends Component
 {
@@ -22,7 +22,7 @@ class SubscriptionConfirm extends Component
         return Subscription::query()->get();
     }
 
-    public function selectPlan($planId)
+    public function selectPlan($planId): void
     {
         $this->selectedPlan = Subscription::findOrFail($planId);
         $this->calculateDates();
@@ -30,32 +30,37 @@ class SubscriptionConfirm extends Component
 
     public function confirmSubscription()
     {
-        if ( ! auth()->check()) {
+        if (! auth()->check()) {
             return redirect()->route('login');
         }
 
         $subscriptionOrder = SubscriptionOrder::create([
-            'user_id'         => auth()->user()->id,
+            'user_id' => auth()->user()->id,
             'subscription_id' => $this->selectedPlan->id,
-            'amount'          => $this->selectedPlan->price,
-            'payment_method'  => $this->payment_method,
-            'payment_status'  => false,
-            'payment_status'  => true,
+            'amount' => $this->selectedPlan->price,
+            'payment_method' => $this->payment_method,
+            'payment_status' => false,
+            'payment_status' => true,
         ]);
 
         UserSubscription::create([
-            'user_id'         => auth()->user()->id,
+            'user_id' => auth()->user()->id,
             'subscription_id' => $this->selectedPlan->id,
-            'order_id'        => $subscriptionOrder->id,
-            'starts_at'       => $this->startsAt,
-            'ends_at'         => $this->endsAt,
-            'status'          => true,
+            'order_id' => $subscriptionOrder->id,
+            'starts_at' => $this->startsAt,
+            'ends_at' => $this->endsAt,
+            'status' => true,
         ]);
 
         return redirect()->route('vendor.dashboard');
     }
 
-    private function calculateDates()
+    public function render(): View
+    {
+        return view('livewire.auth.subscription-confirm')->extends('layouts.app');
+    }
+
+    private function calculateDates(): void
     {
         $startsAt = now();
         $endsAt = $startsAt->copy();
@@ -77,10 +82,5 @@ class SubscriptionConfirm extends Component
 
         $this->startsAt = $startsAt;
         $this->endsAt = $endsAt;
-    }
-
-    public function render(): View
-    {
-        return view('livewire.auth.subscription-confirm')->extends('layouts.app');
     }
 }

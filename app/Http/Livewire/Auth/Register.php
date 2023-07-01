@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Auth;
 
-use App\Models\User;
+use App\Enums\Status;
 use App\Models\Store;
-use Spatie\Permission\Models\Role;
+use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
-use App\Enums\Status;
+use Spatie\Permission\Models\Role;
 
 class Register extends Component
 {
@@ -32,13 +32,13 @@ class Register extends Component
 
     protected $listeners = ['storeOwnerChanged'];
 
-    public function storeOwnerChanged()
+    public function storeOwnerChanged(): void
     {
         $this->isStoreOwner = ! $this->isStoreOwner;
         $this->emit('storeOwnerChanged', $this->isStoreOwner);
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->city = 'Casablanca';
         $this->country = 'Morocco';
@@ -47,20 +47,20 @@ class Register extends Component
     public function register()
     {
         $this->validate([
-            'name'     => 'required',
-            'email'    => 'required|email|unique:users,email',
-            'phone'    => 'required|numeric',
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email',
+            'phone' => 'required|numeric',
             'password' => 'required|min:8|same:passwordConfirmation',
         ]);
 
         $user = User::create([
-            'name'     => $this->name,
-            'email'    => $this->email,
+            'name' => $this->name,
+            'email' => $this->email,
             'password' => Hash::make($this->password),
-            'phone'    => $this->phone,
-            'city'     => $this->city,
-            'country'  => $this->country,
-            'status'   => Status::INACTIVE, // Set status to inactive by default
+            'phone' => $this->phone,
+            'city' => $this->city,
+            'country' => $this->country,
+            'status' => Status::INACTIVE, // Set status to inactive by default
         ]);
 
         $roleName = $this->isStoreOwner ? 'VENDOR' : 'CLIENT';
@@ -71,10 +71,10 @@ class Register extends Component
 
         if ($this->isStoreOwner) {
             $store = new Store([
-                'name'   => $this->storeName,
-                'url'    => $this->storeUrl,
-                'phone'  => $this->storePhone,
-                'slug'   => Str::slug($this->storeName),
+                'name' => $this->storeName,
+                'url' => $this->storeUrl,
+                'phone' => $this->storePhone,
+                'slug' => Str::slug($this->storeName),
                 'status' => Status::INACTIVE, // Set status to inactive by default
             ]);
 
@@ -82,7 +82,6 @@ class Register extends Component
 
             $user->store_id = $store->id;
             $user->save();
-    
         }
 
         event(new Registered($user));
@@ -91,7 +90,6 @@ class Register extends Component
 
         switch (true) {
             case $user->hasRole('ADMIN'):
-
                 return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
 
                 break;

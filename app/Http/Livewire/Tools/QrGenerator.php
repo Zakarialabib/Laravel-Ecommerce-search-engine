@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Tools;
 
-use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use JeroenDesloovere\VCard\VCard;
+use Livewire\Component;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 class QrGenerator extends Component
 {
@@ -36,12 +36,12 @@ class QrGenerator extends Component
         return view('livewire.tools.qr-generator');
     }
 
-    public function refresh()
+    public function refresh(): void
     {
         $this->reset();
     }
 
-    public function generateWebsiteUrl()
+    public function generateWebsiteUrl(): void
     {
         if ($this->websiteUrl === null) {
             return;
@@ -52,17 +52,17 @@ class QrGenerator extends Component
         $this->websiteUrl = $parsedUrl['scheme'].'://'.$parsedUrl['host'].$parsedUrl['path'];
 
         $utmParams = [
-            'utm_source'   => $this->utmSource,
-            'utm_medium'   => $this->utmMedium,
+            'utm_source' => $this->utmSource,
+            'utm_medium' => $this->utmMedium,
             'utm_campaign' => $this->utmCampaign,
-            'utm_term'     => $this->utmTerm,
+            'utm_term' => $this->utmTerm,
         ];
 
         $query = http_build_query($utmParams);
         $this->websiteUrl .= '?'.$query;
     }
 
-    public function data()
+    public function data(): void
     {
         $this->name = 'Techno Service phone';
         $this->company_name = 'Techno Service phone';
@@ -76,7 +76,7 @@ class QrGenerator extends Component
         $this->whatsappLink = '+212696571641';
     }
 
-    public function generateQrCode($download = false)
+    public function generateQrCode($download = false): void
     {
         $vcard = new VCard();
 
@@ -107,12 +107,12 @@ class QrGenerator extends Component
 
         // Set the appropriate response headers
         $headers = [
-            'Content-Type'        => 'image/svg+xml',
+            'Content-Type' => 'image/svg+xml',
             'Content-Disposition' => 'attachment; filename="qr_code.svg"',
         ];
 
         // Return the response with the QR code image for download
-        return response()->streamDownload(function () use ($qrCode) {
+        return response()->streamDownload(function () use ($qrCode): void {
             echo $qrCode;
         }, 'qr_code.svg', $headers);
     }

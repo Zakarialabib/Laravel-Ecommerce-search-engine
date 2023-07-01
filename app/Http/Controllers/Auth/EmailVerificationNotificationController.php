@@ -12,12 +12,8 @@ class EmailVerificationNotificationController extends Controller
 {
     /**
      * Send a new email verification notification.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         if ($request->user()->hasVerifiedEmail()) {
             if (Auth::user()->isAdmin()) {

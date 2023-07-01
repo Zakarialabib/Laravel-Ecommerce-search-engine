@@ -40,7 +40,7 @@ class Image extends Component
 
     public $height = 1000;
 
-    public function imageModal($id)
+    public function imageModal($id): void
     {
         $this->resetErrorBag();
 
@@ -61,7 +61,7 @@ class Image extends Component
         return $this->product?->gallery;
     }
 
-    public function saveImage()
+    public function saveImage(): void
     {
         try {
             if ($this->image_url) {
@@ -82,13 +82,13 @@ class Image extends Component
 
                 // we need to resize image, otherwise it will be cropped
                 if ($img->width() > $this->width) {
-                    $img->resize($this->width, null, function ($constraint) {
+                    $img->resize($this->width, null, function ($constraint): void {
                         $constraint->aspectRatio();
                     });
                 }
 
                 if ($img->height() > $this->height) {
-                    $img->resize(null, $this->height, function ($constraint) {
+                    $img->resize(null, $this->height, function ($constraint): void {
                         $constraint->aspectRatio();
                     });
                 }
@@ -114,13 +114,13 @@ class Image extends Component
 
                     // we need to resize image, otherwise it will be cropped
                     if ($img->width() > $this->width) {
-                        $img->resize($this->width, null, function ($constraint) {
+                        $img->resize($this->width, null, function ($constraint): void {
                             $constraint->aspectRatio();
                         });
                     }
 
                     if ($img->height() > $this->height) {
-                        $img->resize(null, $this->height, function ($constraint) {
+                        $img->resize(null, $this->height, function ($constraint): void {
                             $constraint->aspectRatio();
                         });
                     }

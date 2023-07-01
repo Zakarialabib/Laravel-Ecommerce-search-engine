@@ -58,22 +58,22 @@ class Redirects extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -82,13 +82,13 @@ class Redirects extends Component
         $this->orderable = (new Redirect())->orderable;
     }
 
-    public function editModal($id)
+    public function editModal($id): void
     {
         $this->redirect = Redirect::find($id);
         $this->editModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
 
@@ -101,7 +101,7 @@ class Redirects extends Component
         $this->emit('refreshIndex');
     }
 
-    public function delete(Redirect $redirect)
+    public function delete(Redirect $redirect): void
     {
         $redirect->delete();
 
@@ -111,8 +111,8 @@ class Redirects extends Component
     public function render(): View|Factory
     {
         $query = Redirect::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

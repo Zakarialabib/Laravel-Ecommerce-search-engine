@@ -17,19 +17,15 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
-    public function register()
+    public function register(): void
     {
     }
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         if (env('APP_ENV') === 'production') {
             URL::forceScheme('https');
@@ -42,10 +38,9 @@ class AppServiceProvider extends ServiceProvider
         // Model::shouldBeStrict(! $this->app->isProduction());
     }
 
-    /** @return \App\Models\Language|\Illuminate\Database\Eloquent\Model|array|null */
-    private function getLanguages()
+    private function getLanguages(): void
     {
-        if ( ! Schema::hasTable('languages')) {
+        if (! Schema::hasTable('languages')) {
             return;
         }
 

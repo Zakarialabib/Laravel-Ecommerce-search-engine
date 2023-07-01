@@ -9,7 +9,6 @@ use App\Models\PageSetting;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Throwable;
 
 class Template extends Component
 {
@@ -27,12 +26,12 @@ class Template extends Component
         'createTemplate',
     ];
 
-    public function mount()
+    public function mount(): void
     {
         $this->templates = config('templates');
     }
 
-    public function createTemplate()
+    public function createTemplate(): void
     {
         $this->resetErrorBag();
 
@@ -41,21 +40,21 @@ class Template extends Component
         $this->createTemplate = true;
     }
 
-    public function updatedSelectTemplate()
+    public function updatedSelectTemplate(): void
     {
         $this->selectedTemplate = $this->templates[$this->selectTemplate];
     }
 
-    public function create()
+    public function create(): void
     {
         // try {
         $pageTemplate = [
-            'title'            => $this->selectedTemplate['title'],
-            'slug'             => $this->selectedTemplate['slug'],
-            'details'          => $this->selectedTemplate['details'],
-            'meta_title'       => $this->selectedTemplate['meta_title'],
+            'title' => $this->selectedTemplate['title'],
+            'slug' => $this->selectedTemplate['slug'],
+            'details' => $this->selectedTemplate['details'],
+            'meta_title' => $this->selectedTemplate['meta_title'],
             'meta_description' => $this->selectedTemplate['meta_description'],
-            'photo'            => $this->selectedTemplate['image'],
+            'photo' => $this->selectedTemplate['image'],
         ];
 
         $page = Page::create($pageTemplate);

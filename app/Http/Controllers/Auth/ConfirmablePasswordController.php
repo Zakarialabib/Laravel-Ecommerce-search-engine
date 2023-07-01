@@ -14,25 +14,19 @@ class ConfirmablePasswordController extends Controller
 {
     /**
      * Show the confirm password view.
-     *
-     * @return \Illuminate\View\View
      */
-    public function show()
+    public function show(): \Illuminate\View\View
     {
         return view('auth.confirm-password');
     }
 
     /**
      * Confirm the user's password.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return mixed
      */
-    public function store(Request $request)
+    public function store(Request $request): mixed
     {
-        if ( ! Auth::guard('web')->validate([
-            'email'    => $request->user()->email,
+        if (! Auth::guard('web')->validate([
+            'email' => $request->user()->email,
             'password' => $request->password,
         ])) {
             throw ValidationException::withMessages([
@@ -42,15 +36,15 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        if (Auth::user()->isAdmin()) {
+        if (Auth::user()->role('admin')) {
             return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
         }
 
-        if (Auth::user()->isVendor()) {
+        if (Auth::user()->role('vendor')) {
             return redirect()->intended(RouteServiceProvider::VENDOR_HOME);
         }
 
-        if (Auth::user()->isClient()) {
+        if (Auth::user()->role('client')) {
             return redirect()->intended(RouteServiceProvider::CLIENT_HOME);
         }
 

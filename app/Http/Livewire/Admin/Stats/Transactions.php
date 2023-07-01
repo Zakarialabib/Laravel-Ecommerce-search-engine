@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Stats;
 
 use App\Models\Category;
-use App\Models\User;
-use App\Models\Product;
-use App\Models\OrderProduct;
 use App\Models\Order;
+use App\Models\OrderProduct;
+use App\Models\Product;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
@@ -27,7 +27,7 @@ class Transactions extends Component
     public $orders;
     public $orders_count;
 
-    public function mount()
+    public function mount(): void
     {
         $this->categoriesCount = Category::count('id');
         $this->productCount = Product::count('id');
@@ -58,7 +58,7 @@ class Transactions extends Component
         $this->chart();
     }
 
-    public function chart()
+    public function chart(): void
     {
         $query = Order::selectRaw('SUM(total) as total')
             ->when($this->typeChart === 'monthly', function ($q) {
@@ -73,7 +73,7 @@ class Transactions extends Component
             ->toArray();
 
         $orders = [
-            'total'      => array_column($query, 'total'),
+            'total' => array_column($query, 'total'),
             'due_amount' => array_map(function ($total, $dueAmount) {
                 return $total - $dueAmount;
             }, array_column($query, 'total'), array_column($query, 'due_amount')),
@@ -91,21 +91,6 @@ class Transactions extends Component
         ]);
     }
 
-    protected function getChart($orders)
-    {
-        $dataarray = [];
-        $i = 0;
-
-        foreach ($orders as $order) {
-            $dataarray['total']['orders'][$i] = $order['total'];
-            $dataarray['total']['orders'][$i] = $order['total'] - $order['total'];
-            $dataarray['labels'][$i] = $order['labels'];
-            $i++;
-        }
-
-        return json_encode($dataarray);
-    }
-
     public function getDailyChartOptionsProperty()
     {
         $currentMonth = Carbon::now()->startOfMonth();
@@ -114,7 +99,7 @@ class Transactions extends Component
         $daysInMonth = [];
         $currentDay = Carbon::now()->startOfMonth();
 
-        while ($currentDay->month == $currentMonth->month) {
+        while ($currentDay->month === $currentMonth->month) {
             $daysInMonth[] = $currentDay->format('Y-m-d');
             $currentDay->addDay();
         }
@@ -132,20 +117,20 @@ class Transactions extends Component
         foreach ($daysInMonth as $day) {
             $order = $ordersData->where('day', $day)->first();
             $chartData[] = [
-                'day'    => $day,
-                'orders' => ($order) ? $order->total_orders : 0,
+                'day' => $day,
+                'orders' => $order ? $order->total_orders : 0,
             ];
         }
 
         // Create stacked bar chart options
-        $dailyChartOptions = [
+        return [
             'chart' => [
-                'type'    => 'bar',
+                'type' => 'bar',
                 'stacked' => true,
             ],
             'plotOptions' => [
                 'bar' => [
-                    'horizontal'  => false,
+                    'horizontal' => false,
                     'endingShape' => 'flat',
                     'columnWidth' => '70%',
                 ],
@@ -158,9 +143,9 @@ class Transactions extends Component
             ],
             'xaxis' => [
                 'categories' => array_column($chartData, 'day'),
-                'labels'     => [
+                'labels' => [
                     'rotateAlways' => true,
-                    'rotate'       => -45,
+                    'rotate' => -45,
                 ],
             ],
             'yaxis' => [
@@ -169,18 +154,31 @@ class Transactions extends Component
                 ],
             ],
             'legend' => [
-                'position'        => 'top',
+                'position' => 'top',
                 'horizontalAlign' => 'center',
-                'offsetX'         => 40,
+                'offsetX' => 40,
             ],
             'colors' => ['#4CAF50', '#F44336'],
         ];
-
-        return $dailyChartOptions;
     }
 
     public function render()
     {
         return view('livewire.admin.stats.transactions');
+    }
+
+    protected function getChart($orders)
+    {
+        $dataarray = [];
+        $i = 0;
+
+        foreach ($orders as $order) {
+            $dataarray['total']['orders'][$i] = $order['total'];
+            $dataarray['total']['orders'][$i] = $order['total'] - $order['total'];
+            $dataarray['labels'][$i] = $order['labels'];
+            $i++;
+        }
+
+        return json_encode($dataarray);
     }
 }

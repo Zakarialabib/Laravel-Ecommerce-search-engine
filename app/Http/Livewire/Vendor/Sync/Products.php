@@ -6,16 +6,16 @@ namespace App\Http\Livewire\Vendor\Sync;
 
 use App\Enums\IntegrationType;
 use App\Jobs\SyncCustomProducts;
-use App\Models\Product;
 use App\Models\Integration;
+use App\Models\Product;
+use Illuminate\Bus\Batch;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Bus\Batch;
-use Illuminate\Support\Facades\Bus;
 use Throwable;
 
 class Products extends Component
@@ -24,7 +24,7 @@ class Products extends Component
     use WithFileUploads;
 
     /** @var array<string> */
-    public $listeners = ['syncModal'];
+    public array $listeners = ['syncModal'];
 
     public $type;
 
@@ -39,7 +39,7 @@ class Products extends Component
         $this->syncModal = true;
     }
 
-    public function recieveData()
+    public function recieveData(): void
     {
         $integration = Integration::where('type', $this->type)->first();
         $client = Http::withHeaders([
@@ -56,8 +56,8 @@ class Products extends Component
         } elseif ($this->type === IntegrationType::SHOPIFY) {
             $response = new \Shopify\Client([
                 'shop_domain' => $integration->store_url,
-                'api_key'     => $integration->api_key,
-                'api_secret'  => $integration->api_secret,
+                'api_key' => $integration->api_key,
+                'api_secret' => $integration->api_secret,
             ]);
         } elseif ($this->type === IntegrationType::YOUCAN) {
             $response = $client->get($integration->store_url.'/products');
@@ -75,9 +75,9 @@ class Products extends Component
                 $data = $response->json()['data'];
                 $batch = Bus::batch([
                     new SyncCustomProducts($data),
-                ])->then(function (Batch $batch) {
+                ])->then(function (Batch $batch): void {
                     $this->alert('success', 'Sync from ecommerce to inventory completed'.$batch->finished());
-                })->catch(function (Batch $batch, Throwable $e) {
+                })->catch(function (Batch $batch, Throwable $e): void {
                     $this->alert('success', 'Sync Failed'.$e->getMessage());
                 })->name('sync Custom Products')->dispatch();
 
@@ -100,8 +100,8 @@ class Products extends Component
         } elseif ($this->type === IntegrationType::SHOPIFY) {
             $response = new \Shopify\Client([
                 'shop_domain' => $integration->store_url,
-                'api_key'     => $integration->api_key,
-                'api_secret'  => $integration->api_secret,
+                'api_key' => $integration->api_key,
+                'api_secret' => $integration->api_secret,
             ]);
         } elseif ($this->type === IntegrationType::YOUCAN) {
             $client = Http::withHeaders([
@@ -121,12 +121,12 @@ class Products extends Component
             $data = [];
             // Check which products need to be created
             foreach ($inventoryProducts as $product) {
-                if ( ! in_array($product->code, array_column($ecomProducts, 'code'))) {
+                if (! in_array($product->code, array_column($ecomProducts, 'code'))) {
                     $data[] = [
-                        'name'       => $product['name'],
-                        'code'       => $product['code'],
-                        'price'      => $product['price'],
-                        'quantity'   => $product['quantity'],
+                        'name' => $product['name'],
+                        'code' => $product['code'],
+                        'price' => $product['price'],
+                        'quantity' => $product['quantity'],
                         'categoryId' => $product['category']->name,
                     ];
                 }

@@ -25,32 +25,32 @@ class Edit extends Component
     public $description;
     public $message;
 
-    public function updatedDescription($value)
+    protected $rules = [
+        'email_setting.name' => ['required', 'max:255'],
+        'description' => ['required'],
+        'message' => ['required'],
+        'email_setting.default' => ['required'],
+        'email_setting.placeholders' => ['required'],
+        'email_setting.type' => ['required'],
+        'email_setting.subject' => ['required'],
+    ];
+
+    public function updatedDescription($value): void
     {
         $this->description = $value;
     }
 
-    public function updatedMessage($value)
+    public function updatedMessage($value): void
     {
         $this->message = $value;
     }
-
-    protected $rules = [
-        'email_setting.name'         => ['required', 'max:255'],
-        'description'                => ['required'],
-        'message'                    => ['required'],
-        'email_setting.default'      => ['required'],
-        'email_setting.placeholders' => ['required'],
-        'email_setting.type'         => ['required'],
-        'email_setting.subject'      => ['required'],
-    ];
 
     public function render(): View|Factory
     {
         return view('livewire.admin.email.edit');
     }
 
-    public function editModal($id)
+    public function editModal($id): void
     {
         $this->resetErrorBag();
         $this->resetValidation();
@@ -60,7 +60,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
 

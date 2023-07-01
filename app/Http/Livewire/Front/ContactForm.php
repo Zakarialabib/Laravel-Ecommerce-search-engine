@@ -27,13 +27,13 @@ class ContactForm extends Component
     ];
 
     protected $rules = [
-        'contact.name'         => 'required',
-        'contact.email'        => 'required|email',
+        'contact.name' => 'required',
+        'contact.email' => 'required|email',
         'contact.phone_number' => 'required',
-        'contact.message'      => 'required',
+        'contact.message' => 'required',
     ];
 
-    public function mount(Contact $contact)
+    public function mount(Contact $contact): void
     {
         $this->contact = $contact;
     }
@@ -43,7 +43,7 @@ class ContactForm extends Component
         return view('livewire.front.contact-form');
     }
 
-    public function submit()
+    public function submit(): void
     {
         $this->validate();
 
@@ -63,7 +63,7 @@ class ContactForm extends Component
      *
      * @var array
      */
-    private function resetInputFields()
+    private function resetInputFields(): void
     {
         $this->name = '';
         $this->email = '';

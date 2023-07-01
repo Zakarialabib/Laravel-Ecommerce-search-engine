@@ -31,16 +31,16 @@ class Create extends Component
     public $listeners = ['createModal'];
 
     protected $rules = [
-        'featuredbanner.title'         => ['required', 'string', 'max:255'],
-        'description'                  => ['nullable', 'string'],
-        'featuredbanner.link'          => ['nullable', 'string'],
-        'featuredbanner.label'         => ['nullable', 'string'],
-        'featuredbanner.product_id'    => ['nullable', 'integer'],
-        'featuredbanner.language_id'   => ['nullable', 'integer'],
+        'featuredbanner.title' => ['required', 'string', 'max:255'],
+        'description' => ['nullable', 'string'],
+        'featuredbanner.link' => ['nullable', 'string'],
+        'featuredbanner.label' => ['nullable', 'string'],
+        'featuredbanner.product_id' => ['nullable', 'integer'],
+        'featuredbanner.language_id' => ['nullable', 'integer'],
         'featuredbanner.embeded_video' => ['nullable'],
     ];
 
-    public function updatedDescription($value)
+    public function updatedDescription($value): void
     {
         $this->description = $value;
     }
@@ -52,7 +52,7 @@ class Create extends Component
         return view('livewire.admin.featured-banner.create');
     }
 
-    public function createModal()
+    public function createModal(): void
     {
         $this->resetErrorBag();
 
@@ -63,7 +63,7 @@ class Create extends Component
         $this->createModal = true;
     }
 
-    public function create()
+    public function create(): void
     {
         $this->validate();
 

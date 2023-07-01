@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
+ *
  * @mixin \Eloquent
  */
 class Payment extends Model
@@ -36,21 +37,21 @@ class Payment extends Model
      *
      * @var array<int, string>
      */
-    public $orderable = self::ATTRIBUTES;
+    public array $orderable = self::ATTRIBUTES;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    public $filterable = self::ATTRIBUTES;
+    public array $filterable = self::ATTRIBUTES;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    protected array $fillable = [
         'status',
     ];
 
@@ -59,7 +60,7 @@ class Payment extends Model
      *
      * @var array<string, string>
      */
-    protected $casts = [
+    protected array $casts = [
         'status' => 'boolean',
     ];
 }

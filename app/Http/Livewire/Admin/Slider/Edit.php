@@ -4,17 +4,17 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Slider;
 
-use Livewire\Component;
+use App\Http\Livewire\Quill;
+use App\Models\Language;
+use App\Models\Slider;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Collection;
-use App\Models\Slider;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
-use Livewire\WithFileUploads;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use App\Models\Language;
-use App\Http\Livewire\Quill;
+use Livewire\Component;
+use Livewire\WithFileUploads;
 
 class Edit extends Component
 {
@@ -35,21 +35,21 @@ class Edit extends Component
     public $description;
 
     protected $rules = [
-        'slider.title'         => ['required', 'string', 'max:255'],
-        'slider.subtitle'      => ['nullable', 'string', 'max:255'],
-        'slider.details'       => ['nullable'],
-        'slider.link'          => ['nullable', 'string'],
-        'slider.language_id'   => ['nullable', 'integer'],
-        'slider.bg_color'      => ['nullable', 'string'],
+        'slider.title' => ['required', 'string', 'max:255'],
+        'slider.subtitle' => ['nullable', 'string', 'max:255'],
+        'slider.details' => ['nullable'],
+        'slider.link' => ['nullable', 'string'],
+        'slider.language_id' => ['nullable', 'integer'],
+        'slider.bg_color' => ['nullable', 'string'],
         'slider.embeded_video' => ['nullable'],
     ];
 
-    public function quill_value_updated($value)
+    public function quill_value_updated($value): void
     {
         $this->slider->details = $value;
     }
 
-    public function editModal(Slider $slider)
+    public function editModal(Slider $slider): void
     {
         $this->resetErrorBag();
 
@@ -62,7 +62,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
 

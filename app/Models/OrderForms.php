@@ -22,6 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $user_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|OrderForms advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderForms newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|OrderForms newQuery()
@@ -38,6 +39,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|OrderForms whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderForms whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|OrderForms whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class OrderForms extends Model

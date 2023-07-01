@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Users;
 
 use App\Models\User;
-use Livewire\Component;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class Edit extends Component
 {
@@ -23,16 +22,16 @@ class Edit extends Component
     public $user;
 
     public array $rules = [
-        'user.name'     => 'required|string|max:255',
-        'user.email'    => 'required|email|unique:users,email',
+        'user.name' => 'required|string|max:255',
+        'user.email' => 'required|email|unique:users,email',
         'user.password' => 'required|string|min:8',
-        'user.phone'    => 'required|numeric',
-        'user.city'     => 'nullable',
-        'user.country'  => 'nullable',
-        'user.address'  => 'nullable',
+        'user.phone' => 'required|numeric',
+        'user.city' => 'nullable',
+        'user.country' => 'nullable',
+        'user.address' => 'nullable',
     ];
 
-    public function editModal($user)
+    public function editModal($user): void
     {
         // abort_if(Gate::denies('user_edit'), 403);
 
@@ -45,18 +44,18 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
 
         $this->user->update([
-            'name'       => $this->user->name,
-            'email'      => $this->user->email,
-            'password'   => bcrypt($this->user->password),
-            'phone'      => $this->user->phone,
-            'city'       => $this->user->city,
-            'country'    => $this->user->country,
-            'address'    => $this->user->address,
+            'name' => $this->user->name,
+            'email' => $this->user->email,
+            'password' => bcrypt($this->user->password),
+            'phone' => $this->user->phone,
+            'city' => $this->user->city,
+            'country' => $this->user->country,
+            'address' => $this->user->address,
             'tax_number' => $this->user->tax_number,
         ]);
 

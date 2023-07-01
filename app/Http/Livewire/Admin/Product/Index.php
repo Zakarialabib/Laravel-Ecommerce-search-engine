@@ -71,23 +71,23 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function selectStore($storeId)
+    public function selectStore($storeId): void
     {
         $this->filterStore = $storeId;
         $this->resetPage(); // Reset pagination to the first page
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
@@ -97,7 +97,7 @@ class Index extends Component
         return User::select('name', 'id')->get();
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -110,14 +110,14 @@ class Index extends Component
 
     public function render(): View|Factory
     {
-        $query = Product::with(['category' => function ($query) {
+        $query = Product::with(['category' => function ($query): void {
             $query->select('id', 'name');
-        }, 'brand' => function ($query) {
+        }, 'brand' => function ($query): void {
             $query->select('id', 'name');
         }, 'store',
         ])->select('products.*')->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ])
             ->when($this->filterStore, function ($query) {
@@ -129,7 +129,7 @@ class Index extends Component
         return view('livewire.admin.product.index', compact('products'));
     }
 
-    public function delete(Product $product)
+    public function delete(Product $product): void
     {
         abort_if(Gate::denies('product_delete'), 403);
 
@@ -147,7 +147,7 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function selectAll()
+    public function selectAll(): void
     {
         if (count(array_intersect($this->selected, Product::pluck('id')->toArray())) === count(Product::pluck('id')->toArray())) {
             $this->selected = [];
@@ -156,7 +156,7 @@ class Index extends Component
         }
     }
 
-    public function selectPage()
+    public function selectPage(): void
     {
         if (count(array_intersect($this->selected, Product::paginate($this->perPage)->pluck('id')->toArray())) === count(Product::paginate($this->perPage)->pluck('id')->toArray())) {
             $this->selected = [];
@@ -166,23 +166,23 @@ class Index extends Component
     }
 
     // Product  Clone
-    public function clone(Product $product)
+    public function clone(Product $product): void
     {
         $product_details = Product::find($product->id);
         Product::create([
-            'code'             => $product_details->code,
-            'slug'             => $product_details->slug,
-            'name'             => $product_details->name,
-            'price'            => $product_details->price,
-            'description'      => $product_details->description,
-            'meta_title'       => $product_details->meta_title,
+            'code' => $product_details->code,
+            'slug' => $product_details->slug,
+            'name' => $product_details->name,
+            'price' => $product_details->price,
+            'description' => $product_details->description,
+            'meta_title' => $product_details->meta_title,
             'meta_description' => $product_details->meta_description,
-            'meta_keywords'    => $product_details->meta_keywords,
-            'category_id'      => $product_details->category_id,
-            'subcategories'    => $product_details->subcategories,
-            'image'            => $product_details->image,
-            'brand_id'         => $product_details->brand_id,
-            'status'           => 0,
+            'meta_keywords' => $product_details->meta_keywords,
+            'category_id' => $product_details->category_id,
+            'subcategories' => $product_details->subcategories,
+            'image' => $product_details->image,
+            'brand_id' => $product_details->brand_id,
+            'status' => 0,
         ]);
 
         $this->alert('success', __('Product Cloned successfully!'));

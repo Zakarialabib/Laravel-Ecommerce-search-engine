@@ -17,10 +17,12 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subcategory> $subcategories
  * @property-read int|null $subcategories_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Category active()
  * @method static \Illuminate\Database\Eloquent\Builder|Category advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Category newModelQuery()
@@ -33,12 +35,14 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Category whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subcategory> $subcategories
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subcategory> $subcategories
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Subcategory> $subcategories
+ *
  * @mixin \Eloquent
  */
 class Category extends Model
@@ -66,12 +70,8 @@ class Category extends Model
 
     /**
      * Scope a query to only include active products.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     *
-     * @return void
      */
-    public function scopeActive($query)
+    public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
     {
         $query->where('status', 1);
     }

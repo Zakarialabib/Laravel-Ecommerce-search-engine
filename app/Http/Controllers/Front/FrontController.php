@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers\Front;
 
+use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
@@ -13,7 +14,6 @@ use App\Models\Subcategory;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Throwable;
-use App\Http\Controllers\Controller;
 
 class FrontController extends Controller
 {

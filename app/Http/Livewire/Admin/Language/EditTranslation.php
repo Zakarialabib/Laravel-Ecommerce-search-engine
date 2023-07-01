@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Language;
 
-use Livewire\Component;
 use App\Models\Language;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class EditTranslation extends Component
 {
@@ -18,28 +18,20 @@ class EditTranslation extends Component
         'translations.*.value' => 'required',
     ];
 
-    public function mount($language)
+    public function mount($language): void
     {
         $this->language = Language::where('id', $language)->firstOrFail();
         // dd($this->all());
         $this->translations = $this->getTranslations();
         $this->translations = collect($this->translations)->map(function ($item, $key) {
             return [
-                'key'   => $key,
+                'key' => $key,
                 'value' => $item,
             ];
         })->toArray();
     }
 
-    private function getTranslations()
-    {
-        $path = base_path("lang/{$this->language->code}.json");
-        $content = file_get_contents($path);
-
-        return json_decode($content, true);
-    }
-
-    public function updateTranslation()
+    public function updateTranslation(): void
     {
         $this->validate();
 
@@ -60,5 +52,13 @@ class EditTranslation extends Component
     public function render()
     {
         return view('livewire.admin.language.edit-translation');
+    }
+
+    private function getTranslations()
+    {
+        $path = base_path("lang/{$this->language->code}.json");
+        $content = file_get_contents($path);
+
+        return json_decode($content, true);
     }
 }

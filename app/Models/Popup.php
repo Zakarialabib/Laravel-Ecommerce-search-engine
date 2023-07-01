@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Status;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property bool $is_default
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @method static Builder|Popup default()
  * @method static Builder|Popup newModelQuery()
  * @method static Builder|Popup newQuery()
@@ -47,6 +49,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|Popup whereUpdatedAt($value)
  * @method static Builder|Popup whereVisits($value)
  * @method static Builder|Popup whereWidth($value)
+ *
  * @mixin \Eloquent
  */
 class Popup extends Model
@@ -58,7 +61,7 @@ class Popup extends Model
      *
      * @var array<string>
      */
-    protected $fillable = [
+    protected array $fillable = [
         'width',
         'frequency',
         'timing',
@@ -75,13 +78,10 @@ class Popup extends Model
     /**
      * The attributes that should be cast.
      *
-     * @var array
+     * @var array<string, string>
      */
-    protected $casts = [
-        'status'     => 'boolean',
-        'delay'      => 'integer',
-        'duration'   => 'integer',
-        'visits'     => 'integer',
+    protected array $casts = [
+        'status' => Status::class,
         'is_default' => 'boolean',
     ];
 

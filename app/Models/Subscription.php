@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Status;
 use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Enums\Status;
 
 /**
  * App\Models\Subscription
@@ -23,8 +23,10 @@ use App\Enums\Status;
  * @property Status $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription advancedFilter($data)
  * @method static \Database\Factories\SubscriptionFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription newModelQuery()
@@ -41,17 +43,19 @@ use App\Enums\Status;
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereTrialDuration($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription whereUuid($value)
+ *
  * @property string $price
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Subscription wherePrice($value)
+ *
  * @mixin \Eloquent
  */
 class Subscription extends Model
 {
     use HasFactory;
     use HasAdvancedFilter;
-
-    public $table = 'subscriptions';
 
     public const ATTRIBUTES = [
         'id',
@@ -61,6 +65,8 @@ class Subscription extends Model
         'status',
         'price',
     ];
+
+    public $table = 'subscriptions';
 
     public $orderable = self::ATTRIBUTES;
     public $filterable = self::ATTRIBUTES;
@@ -78,7 +84,7 @@ class Subscription extends Model
     ];
 
     protected $casts = [
-        'status'   => Status::class,
+        'status' => Status::class,
         'features' => 'array',
     ];
 

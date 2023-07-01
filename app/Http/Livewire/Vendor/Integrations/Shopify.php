@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Vendor\Integrations;
 
-use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Livewire\Component;
 use Shopify\ShopifyApi;
 
 class Shopify extends Component
@@ -16,7 +16,7 @@ class Shopify extends Component
     public $accessToken;
     public $products = [];
 
-    public function mount()
+    public function mount(): void
     {
         $this->shopUrl = config('shopify.shop_url');
         $this->apiKey = config('shopify.api_key');
@@ -39,7 +39,7 @@ class Shopify extends Component
         $data = $request->getContent();
         $verified = ShopifyApp::verifyRequest($data, $hmac);
 
-        if ( ! $verified) {
+        if (! $verified) {
             abort(401, 'Unauthorized');
         }
 
@@ -50,7 +50,7 @@ class Shopify extends Component
         // Save access token to database
         $integration = Integration::where('store_url', $shopify->getShop())->first();
 
-        if ( ! $integration) {
+        if (! $integration) {
             $integration = new Integration();
             $integration->store_url = $shopify->getShop();
         }
@@ -60,7 +60,7 @@ class Shopify extends Component
         return redirect()->route('dashboard');
     }
 
-    public function syncProducts()
+    public function syncProducts(): void
     {
         $api = new ShopifyApi(['shopUrl' => $this->shopUrl, 'accessToken' => $this->accessToken]);
         $this->products = $api->rest('GET', '/admin/api/2021-09/products.json')['body']['products'];

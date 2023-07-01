@@ -7,7 +7,6 @@ namespace App\Http\Livewire\Admin\DeviceModels;
 use App\Models\DeviceModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
@@ -31,16 +30,16 @@ class Create extends Component
     public $description;
 
     protected $rules = [
-        'device_model.name'              => ['required', 'string', 'max:255'],
-        'device_model.slug'              => ['required', 'string', 'max:255'],
-        'device_model.code'              => ['nullable', 'string', 'max:255'],
+        'device_model.name' => ['required', 'string', 'max:255'],
+        'device_model.slug' => ['required', 'string', 'max:255'],
+        'device_model.code' => ['nullable', 'string', 'max:255'],
         'device_model.technical_details' => ['nullable', 'array'],
-        'device_model.features'          => ['nullable', 'array'],
-        'device_model.specifications'    => ['nullable', 'array'],
-        'device_model.type'              => ['nullable', 'string', 'max:255'],
-        'device_model.brand_id'          => ['required', 'exists:brands,id'],
-        'image'                          => ['nullable', 'image', 'max:1024'],
-        'description'                    => ['nullable', 'string'],
+        'device_model.features' => ['nullable', 'array'],
+        'device_model.specifications' => ['nullable', 'array'],
+        'device_model.type' => ['nullable', 'string', 'max:255'],
+        'device_model.brand_id' => ['required', 'exists:brands,id'],
+        'image' => ['nullable', 'image', 'max:1024'],
+        'description' => ['nullable', 'string'],
     ];
 
     public function render(): View|Factory
@@ -50,7 +49,7 @@ class Create extends Component
         return view('livewire.admin.device-models.create');
     }
 
-    public function createModal()
+    public function createModal(): void
     {
         $this->resetErrorBag();
 
@@ -61,7 +60,7 @@ class Create extends Component
         $this->createModal = true;
     }
 
-    public function create()
+    public function create(): void
     {
         $this->validate();
 
@@ -78,13 +77,13 @@ class Create extends Component
 
             // we need to resize image, otherwise it will be cropped
             if ($img->width() > $width) {
-                $img->resize($width, null, function ($constraint) {
+                $img->resize($width, null, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }
 
             if ($img->height() > $height) {
-                $img->resize(null, $height, function ($constraint) {
+                $img->resize(null, $height, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }
@@ -108,13 +107,13 @@ class Create extends Component
 
             // we need to resize image, otherwise it will be cropped
             if ($img->width() > $width) {
-                $img->resize($width, null, function ($constraint) {
+                $img->resize($width, null, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }
 
             if ($img->height() > $height) {
-                $img->resize(null, $height, function ($constraint) {
+                $img->resize(null, $height, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }

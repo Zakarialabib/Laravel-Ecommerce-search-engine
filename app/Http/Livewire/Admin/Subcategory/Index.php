@@ -43,10 +43,10 @@ class Index extends Component
     public array $paginationOptions;
 
     public array $rules = [
-        'subcategory.name'        => ['required', 'string', 'max:255'],
+        'subcategory.name' => ['required', 'string', 'max:255'],
         'subcategory.category_id' => ['nullable', 'integer'],
         'subcategory.language_id' => ['nullable'],
-        'subcategory.slug'        => ['required'],
+        'subcategory.slug' => ['required'],
     ];
 
     protected $queryString = [
@@ -66,22 +66,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -93,8 +93,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Subcategory::with('category')->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -103,7 +103,7 @@ class Index extends Component
         return view('livewire.admin.subcategory.index', compact('subcategories'));
     }
 
-    public function editModal(Subcategory $subcategory)
+    public function editModal(Subcategory $subcategory): void
     {
         abort_if(Gate::denies('subcategory_update'), 403);
 
@@ -116,7 +116,7 @@ class Index extends Component
         $this->editModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         abort_if(Gate::denies('subcategory_update'), 403);
 
@@ -129,7 +129,7 @@ class Index extends Component
         $this->alert('success', __('Subcategory updated successfully'));
     }
 
-    public function delete(Subcategory $subcategory)
+    public function delete(Subcategory $subcategory): void
     {
         abort_if(Gate::denies('subcategory_delete'), 403);
 

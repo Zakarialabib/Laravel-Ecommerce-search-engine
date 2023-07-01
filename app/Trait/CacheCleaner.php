@@ -8,17 +8,17 @@ use Illuminate\Support\Facades\Artisan;
 
 trait CacheCleaner
 {
-    public static function bootCacheCleaner()
+    public static function bootCacheCleaner(): void
     {
-        self::created(function () {
+        self::created(function (): void {
             Artisan::call('cache:clear');
         });
 
-        self::updated(function () {
+        self::updated(function (): void {
             Artisan::call('cache:clear');
         });
 
-        self::deleted(function () {
+        self::deleted(function (): void {
             Artisan::call('cache:clear');
         });
     }

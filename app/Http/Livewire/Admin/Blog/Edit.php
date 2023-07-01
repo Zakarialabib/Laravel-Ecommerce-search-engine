@@ -25,17 +25,39 @@ class Edit extends Component
 
     public $blog;
 
+    public $description;
+
     public $listeners = ['editModal'];
 
     protected $rules = [
-        'blog.title'       => 'required|min:3|max:255',
+        'blog.title' => 'required|min:3|max:255',
         'blog.category_id' => 'required|integer',
-        'blog.slug'        => 'required|string',
-        'blog.details'     => 'required|min:3',
+        'blog.slug' => 'required|string',
+        'description' => 'required|min:3',
         'blog.language_id' => 'nullable|integer',
-        'blog.meta_title'  => 'nullable|max:100',
-        'blog.meta_desc'   => 'nullable|max:200',
+        'blog.meta_title' => 'nullable|max:66',
+        'blog.meta_description' => 'nullable|max:170',
     ];
+
+    protected $messages = [
+        'blog.title.required' => 'The title cannot be empty.',
+        'blog.title.min' => 'The title must be at least 3 characters.',
+        'blog.title.max' => 'The title may not be greater than 255 characters.',
+        'blog.category_id.required' => 'The category cannot be empty.',
+        'blog.category_id.integer' => 'The category must be an integer.',
+        'blog.slug.required' => 'The slug cannot be empty.',
+        'blog.slug.string' => 'The slug must be a string.',
+        'description.required' => 'The description cannot be empty.',
+        'description.min' => 'The description must be at least 3 characters.',
+        'blog.language_id.integer' => 'The language must be an integer.',
+        'blog.meta_title.max' => 'The meta title may not be greater than 66 characters.',
+        'blog.meta_description.max' => 'The meta description may not be greater than 170 characters.',
+    ];
+
+    public function updatedDescription(): void
+    {
+        $this->description = $this->description;
+    }
 
     public function render(): View|Factory
     {
@@ -44,7 +66,7 @@ class Edit extends Component
         return view('livewire.admin.blog.edit');
     }
 
-    public function editModal($id)
+    public function editModal($id): void
     {
         // abort_if(Gate::denies('blog_edit'), 403);
 
@@ -54,10 +76,12 @@ class Edit extends Component
 
         $this->blog = Blog::where('id', $id)->firstOrFail();
 
+        $this->description = $this->blog->deatails;
+
         $this->editModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
 
@@ -66,6 +90,8 @@ class Edit extends Component
             $this->image->storeAs('blogs', $imageName);
             $this->blog->image = $imageName;
         }
+
+        $this->blog->deatails = $this->description;
 
         $this->blog->save();
 

@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\Pagesetting
@@ -27,9 +27,11 @@ use App\Support\HasAdvancedFilter;
  * @property int|null $language_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \App\Models\FeaturedBanner|null $featuredBanner
  * @property-read \App\Models\Language|null $language
  * @property-read \App\Models\Page|null $page
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Pagesetting advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Pagesetting newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Pagesetting newQuery()
@@ -51,6 +53,7 @@ use App\Support\HasAdvancedFilter;
  * @method static \Illuminate\Database\Eloquent\Builder|Pagesetting whereTopBrands($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pagesetting whereTopHeader($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Pagesetting whereUpdatedAt($value)
+ *
  * @mixin \Eloquent
  */
 class Pagesetting extends Model

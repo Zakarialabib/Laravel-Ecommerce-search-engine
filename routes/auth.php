@@ -10,11 +10,11 @@ use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\Auth\SubscriptionConfirm;
 use App\Http\Livewire\Auth\SocialAuth;
+use App\Http\Livewire\Auth\SubscriptionConfirm;
+use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function () {
+Route::middleware('guest')->group(function (): void {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
@@ -38,7 +38,7 @@ Route::middleware('guest')->group(function () {
         ->name('password.update');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth')->group(function (): void {
     Route::get('/subscription/confirmation', SubscriptionConfirm::class)->name('subscription-confirm');
 
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])

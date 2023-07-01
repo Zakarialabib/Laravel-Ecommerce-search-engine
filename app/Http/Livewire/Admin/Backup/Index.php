@@ -31,7 +31,7 @@ class Index extends Component
         ]);
     }
 
-    public function generate()
+    public function generate(): void
     {
         try {
             Artisan::call('backup:run --only-db');
@@ -46,7 +46,7 @@ class Index extends Component
         return Storage::download($file);
     }
 
-    public function delete($name)
+    public function delete($name): void
     {
         foreach (glob(storage_path().'/app/public/backup/*') as $filename) {
             $path = storage_path().'/app/public/backup/'.basename($name);

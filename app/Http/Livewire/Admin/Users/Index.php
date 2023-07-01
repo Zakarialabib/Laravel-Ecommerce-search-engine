@@ -43,13 +43,13 @@ class Index extends Component
     public array $paginationOptions;
 
     public array $rules = [
-        'user.name'       => 'required|string|max:255',
-        'user.email'      => 'required|email|unique:users,email',
-        'user.password'   => 'required|string|min:8',
-        'user.phone'      => 'required|numeric',
-        'user.city'       => 'nullable',
-        'user.country'    => 'nullable',
-        'user.address'    => 'nullable',
+        'user.name' => 'required|string|max:255',
+        'user.email' => 'required|email|unique:users,email',
+        'user.password' => 'required|string|min:8',
+        'user.phone' => 'required|numeric',
+        'user.city' => 'nullable',
+        'user.country' => 'nullable',
+        'user.address' => 'nullable',
         'user.tax_number' => 'nullable',
     ];
 
@@ -70,28 +70,28 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function filterRole($role)
+    public function filterRole($role): void
     {
         $this->filterRole = $role;
         $this->resetPage(); // Reset pagination to the first page
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -105,26 +105,26 @@ class Index extends Component
         abort_if(Gate::denies('user access'), 403);
 
         $query = User::with('roles')->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
         if ($this->filterRole === 'ADMIN') {
-            $query->where(function ($query) {
-                $query->whereHas('roles', function ($query) {
+            $query->where(function ($query): void {
+                $query->whereHas('roles', function ($query): void {
                     $query->where('name', $this->filterRole);
                 });
             });
         } elseif ($this->filterRole === 'VENDOR') {
-            $query->where(function ($query) {
-                $query->whereHas('roles', function ($query) {
+            $query->where(function ($query): void {
+                $query->whereHas('roles', function ($query): void {
                     $query->where('name', $this->filterRole);
                 });
             });
         } elseif ($this->filterRole === 'CLIENT') {
-            $query->where(function ($query) {
-                $query->whereHas('roles', function ($query) {
+            $query->where(function ($query): void {
+                $query->whereHas('roles', function ($query): void {
                     $query->where('name', $this->filterRole);
                 });
             });
@@ -142,12 +142,12 @@ class Index extends Component
     }
 
     // assign or change user role
-    public function assignRole(User $user, $role)
+    public function assignRole(User $user, $role): void
     {
         $user->assignRole($role);
     }
 
-    public function deleteSelected()
+    public function deleteSelected(): void
     {
         abort_if(Gate::denies('user_delete'), 403);
 
@@ -156,7 +156,7 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(User $user)
+    public function delete(User $user): void
     {
         abort_if(Gate::denies('user_delete'), 403);
 
@@ -165,7 +165,7 @@ class Index extends Component
         $this->alert('warning', __('User deleted successfully!'));
     }
 
-    public function showModal(User $user)
+    public function showModal(User $user): void
     {
         $this->user = $user;
 

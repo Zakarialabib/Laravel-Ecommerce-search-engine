@@ -5,14 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Vendor\Settings;
 
 use Livewire\Component;
-use BaconQrCode\Renderer\Image\Png;
-use BaconQrCode\Writer;
 
 class Index extends Component
 {
     public $url;
 
-    public function generateQRCode()
+    public function generateQRCode(): void
     {
         // Create a new QR code writer
         // $writer = new Writer(new Png());

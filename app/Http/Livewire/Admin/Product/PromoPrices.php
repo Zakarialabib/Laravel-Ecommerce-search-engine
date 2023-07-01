@@ -20,7 +20,7 @@ class PromoPrices extends Component
         'promoModal',
     ];
 
-    public function promoModal()
+    public function promoModal(): void
     {
         $this->resetErrorBag();
 
@@ -29,7 +29,7 @@ class PromoPrices extends Component
         $this->promoModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         $products = Product::active()->get();
 

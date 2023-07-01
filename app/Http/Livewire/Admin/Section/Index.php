@@ -8,8 +8,6 @@ use App\Http\Livewire\WithSorting;
 use App\Models\Section;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Response;
-use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -61,9 +59,9 @@ class Index extends Component
 
     protected $rules = [
         'section.language_id' => 'required',
-        'section.page'        => 'required',
-        'section.title'       => 'nullable',
-        'section.subtitle'    => 'nullable',
+        'section.page' => 'required',
+        'section.title' => 'nullable',
+        'section.subtitle' => 'nullable',
         'section.description' => 'nullable',
     ];
 
@@ -72,22 +70,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -101,8 +99,8 @@ class Index extends Component
         $query = Section::when($this->language_id, function ($query) {
             return $query->where('language_id', $this->language_id);
         })->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -112,7 +110,7 @@ class Index extends Component
     }
 
     // Section  Delete
-    public function delete(Section $section)
+    public function delete(Section $section): void
     {
         //   abort_if(Gate::denies('section_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -122,19 +120,19 @@ class Index extends Component
     }
 
     // Section  Clone
-    public function clone(Section $section)
+    public function clone(Section $section): void
     {
         $section_details = Section::find($section->id);
 
         Section::create([
             'language_id' => $section_details->language_id,
-            'page'        => $section_details->page,
-            'title'       => $section_details->title,
-            'subtitle'    => $section_details->subtitle,
-            'link'        => $section_details->link,
-            'image'       => $section_details->image,
+            'page' => $section_details->page,
+            'title' => $section_details->title,
+            'subtitle' => $section_details->subtitle,
+            'link' => $section_details->link,
+            'image' => $section_details->image,
             'description' => $section_details->description,
-            'status'      => 0,
+            'status' => 0,
         ]);
         $this->alert('success', __('Section Cloned successfully!'));
     }
