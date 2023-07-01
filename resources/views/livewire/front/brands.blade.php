@@ -30,7 +30,7 @@
                     </li>
                     <li class="inline-flex">
                         <p class="lg:text-2xl sm:text-xl font-bold text-gray-600 hover:text-blue-500">
-                            {{ $products->count() }} {{ __('Watches') }}
+                            {{ $products->count() }} {{ __('Products') }}
                         </p>
                     </li>
                     <li>

@@ -150,7 +150,7 @@ class Product extends Model implements Buyable
         'embeded_video',
         'category_id',
         'subcategories',
-        'user_id',
+        'store_id',
         'url',
         'brand_id',
         'meta_title',
@@ -194,7 +194,7 @@ class Product extends Model implements Buyable
 
     public function store()
     {
-        return $this->belongsTo(Store::class, 'user_id');
+        return $this->belongsTo(Store::class, 'store_id');
     }
 
     public function category(): BelongsTo

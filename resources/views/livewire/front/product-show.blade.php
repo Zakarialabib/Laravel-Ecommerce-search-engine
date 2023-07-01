@@ -107,7 +107,7 @@
                                 <div>
                                     @if ($product->status == true)
                                         <a class="block text-center text-white font-bold font-heading py-2 px-4 rounded-md uppercase bg-move-400 hover:bg-move-200 transition cursor-pointer"
-                                            href="{{ $product->store->url }}" target="_blank">
+                                            href="{{ $product->url }}" target="_blank">
                                             {{ __('Boutique') }}
                                         </a>
                                     @else
@@ -120,21 +120,21 @@
 
                             <ul class="my-4 flex gap-4">
                                 <li class="text-gray-500 py-1">
-                                    <a href="{{ route('front.store-show', $product->store->slug) }}"
+                                    <a href="{{ route('front.store-show', $product->url) }}"
                                         class="my-2 inline-flex items-center bg-move-500 hover:bg-indigo-400 text-center text-white font-bold text-xs py-2 px-4 rounded-md uppercase cursor-pointer tracking-wider hover:shadow-lg transition ease-in duration-300 ">
-                                        {{ $product->store->name }} <i class="fas fa-store-alt w-5 h-5 text-white"></i>
+                                        {{ $product->store?->name }} <i class="fas fa-store-alt w-5 h-5 text-white"></i>
                                     </a>
                                 </li>
                                 <li class="text-gray-500 py-1">
                                     <a href="#"
                                         class="my-2 inline-flex items-center bg-move-500 hover:bg-indigo-400 text-center text-white font-bold text-xs py-2 px-4 rounded-md uppercase cursor-pointer tracking-wider hover:shadow-lg transition ease-in duration-300 ">
-                                        {{ $product->store->location }}
+                                        {{ $product->store?->location }}
                                         <i class="fa fa-check w-5 h-5 text-white" aria-hidden="true"></i>
                                     </a>
                                 </li>
                             </ul>
 
-                            @if ($product->store->social_links)
+                            @if ($product->store?->social_links)
                                 <div class="flex items-center">
                                     <span
                                         class="mr-8 text-gray-500 font-bold font-heading uppercase">{{ __('SHARE IT') }}</span>

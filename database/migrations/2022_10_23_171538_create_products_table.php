@@ -30,7 +30,7 @@ return new class () extends Migration {
             $table->json('options')->nullable();
             $table->string('url')->nullable();
             $table->foreignId('brand_id')->nullable()->constrained('brands')->nullOnDelete();
-            $table->foreignId('user_id')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('store_id')->nullable()->constrained('stores')->nullOnDelete();
             $table->string('meta_title')->nullable();
             $table->string('meta_description')->nullable();
             $table->string('meta_keywords')->nullable();

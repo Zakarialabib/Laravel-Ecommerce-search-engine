@@ -37,7 +37,7 @@
                             New in</h2>
                         <span
                             class="md:absolute md:right-0 md:bottom-3 text-sm text-gray-400 font-medium">{{ $products->count() }}
-                            {{ __('Watches') }}</span>
+                            {{ __('Products') }}</span>
                     </div>
                 </div>
 
