@@ -60,6 +60,8 @@ class Create extends Component
 
         $this->featuredbanner = new FeaturedBanner();
 
+        $this->description = '';
+
         $this->createModal = true;
     }
 

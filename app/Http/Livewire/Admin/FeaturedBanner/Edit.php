@@ -59,6 +59,8 @@ class Edit extends Component
 
         $this->featuredbanner = FeaturedBanner::findOrFail($featuredbanner);
 
+        $this->description = $this->featuredbanner->description;
+
         $this->editModal = true;
     }
 

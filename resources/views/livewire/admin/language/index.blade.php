@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="float-right">
-                <x-button primary type="button" onclick="Livewire.emit('createLanguage')">
+                <x-button primary type="button" wire:click="$emit('createLanguage')">
                     {{ __('Create Language') }}
                 </x-button>
             </div>

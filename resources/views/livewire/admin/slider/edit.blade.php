@@ -34,9 +34,8 @@
                         <x-input-error :messages="$errors->get('slider.subtitle')" for="slider.subtitle" class="mt-2" />
                     </div>
                     <div class="xl:w-1/2 md:w-full px-2">
-                        <x-label for="details" :value="__('Details')" />
-                        <x-input.textarea wire:model.lazy="slider.details" id="details" />
-                        <x-input-error :messages="$errors->get('details')" for="details" class="mt-2" />
+                        <x-label for="description" :value="__('description')" />
+                        <xtrix name="description" wire:model.defer="description" />
                     </div>
                     <div class="xl:w-1/2 md:w-full px-2">
                         <x-label for="bg_color" :value="__('Background Color')" />

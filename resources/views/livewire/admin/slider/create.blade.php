@@ -60,9 +60,8 @@
                     </div>
 
                     <div class="w-full px-3">
-                        <x-label for="details" :value="__('Details')" />
-                        <x-trix name="details" wire:model.lazy="description" />
-                        <x-input-error :messages="$errors->get('slider.details')" for="slider.details" class="mt-2" />
+                        <x-label for="description" :value="__('Description')" />
+                        <x-trix name="description" wire:model.lazy="description" />
                     </div>
 
 

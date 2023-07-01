@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $id
  * @property string|null $subtitle
  * @property string $title
- * @property string|null $details
+ * @property string|null $description
  * @property string $photo
  * @property string|null $bg_color
  * @property int $featured
@@ -31,7 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Slider query()
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereBgColor($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Slider whereDetails($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Slider wheredescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereEmbededVideo($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereFeatured($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereId($value)
@@ -66,7 +66,7 @@ class Slider extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'title', 'subtitle', 'details', 'embeded_video', 'photo', 'featured', 'link', 'language_id', 'bg_color', 'status',
+        'title', 'subtitle', 'description', 'embeded_video', 'photo', 'featured', 'link', 'language_id', 'bg_color', 'status',
     ];
 
     /** Scope a query to only include active products. */

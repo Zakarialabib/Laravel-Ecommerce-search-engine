@@ -84,7 +84,7 @@ class Create extends Component
             $this->slider->photo = $imageName;
         }
 
-        $this->slider->details = $this->description;
+        $this->slider->description = $this->description;
 
         $this->slider->save();
 

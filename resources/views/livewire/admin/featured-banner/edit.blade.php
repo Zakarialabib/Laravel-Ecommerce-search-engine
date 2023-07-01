@@ -50,8 +50,7 @@
 
                     <div class="w-full px-2">
                         <x-label for="description" :value="__('Description')" />
-                        <x-trix wire:model.lazy="description" name="description" />
-                        <x-input-error :messages="$errors->get('description')" for="featuredbanner.details" class="mt-2" />
+                        <x-trix name="editDescription" wire:model.lazy="description" />
                     </div>
 
                     <div class="w-full py-2 px-3">

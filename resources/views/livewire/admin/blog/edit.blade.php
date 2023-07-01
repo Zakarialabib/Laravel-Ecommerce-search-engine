@@ -38,9 +38,8 @@
                     </div>
 
                     <div class="w-full px-3 mb-4">
-                        <x-label for="details" :value="__('Description')" required />
-                        <x-input.rich-text wire:model.lazy="blog.details" id="details" name="details"
-                            endpoint="/uploads" {{-- value="{!! $this->blog->details !!}" --}}  />
+                        <x-label for="description" :value="__('Description')" required />
+                        <x-trix name="blogDescription" wire:model.lazy="description" />
                     </div>
                     <div class="xl:w-1/2 md:w-full px-2">
                         <x-label for="meta_title" :value="__('Meta title')" />

@@ -101,7 +101,7 @@
                             </div>
                           </div>
                           <div class="col-lg-7">
-                              <textarea class="nic-edit-p" name="details" placeholder="{{ __('Details') }}">{{ $data->details }}</textarea> 
+                              <textarea class="nic-edit-p" name="details" placeholder="{{ __('Details') }}">{{ $data->description }}</textarea> 
                           </div>
                         </div>
 

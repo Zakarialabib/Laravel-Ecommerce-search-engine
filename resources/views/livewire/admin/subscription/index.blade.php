@@ -50,10 +50,7 @@
                         {{ $subscription->name }}
                     </x-table.td>
                     <x-table.td>
-                        {{ $subscription->details }}
-                    </x-table.td>
-                    <x-table.td>
-                        {{ $subscription->pivot?->price }}
+                        {{ $subscription->price }}
                     </x-table.td>
                     <x-table.td>
                         <x-button primary type="button" wire:click="$emit('editModal', {{ $subscription->id }})"

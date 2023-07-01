@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Slider;
 
-use App\Http\Livewire\Quill;
 use App\Models\Language;
 use App\Models\Slider;
 use Illuminate\Contracts\View\View;
@@ -23,7 +22,6 @@ class Edit extends Component
 
     public $listeners = [
         'editModal',
-        Quill::EVENT_VALUE_UPDATED,
     ];
 
     public $editModal = false;
@@ -37,16 +35,16 @@ class Edit extends Component
     protected $rules = [
         'slider.title'         => ['required', 'string', 'max:255'],
         'slider.subtitle'      => ['nullable', 'string', 'max:255'],
-        'slider.details'       => ['nullable'],
+        'description'       => ['nullable'],
         'slider.link'          => ['nullable', 'string'],
         'slider.language_id'   => ['nullable', 'integer'],
         'slider.bg_color'      => ['nullable', 'string'],
         'slider.embeded_video' => ['nullable'],
     ];
 
-    public function quill_value_updated($value): void
+    public function updatedDescription($value): void
     {
-        $this->slider->details = $value;
+        $this->description = $value;
     }
 
     public function editModal(Slider $slider): void
@@ -57,7 +55,7 @@ class Edit extends Component
 
         $this->slider = $slider;
 
-        $this->description = $slider->details;
+        $this->description = $slider->description;
 
         $this->editModal = true;
     }

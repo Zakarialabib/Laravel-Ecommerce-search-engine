@@ -76,7 +76,7 @@ class Edit extends Component
 
         $this->blog = Blog::where('id', $id)->firstOrFail();
 
-        $this->description = $this->blog->deatails;
+        $this->description = $this->blog->description;
 
         $this->editModal = true;
     }
@@ -91,7 +91,7 @@ class Edit extends Component
             $this->blog->image = $imageName;
         }
 
-        $this->blog->deatails = $this->description;
+        $this->blog->description = $this->description;
 
         $this->blog->save();
 

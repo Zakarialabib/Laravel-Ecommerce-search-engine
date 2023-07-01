@@ -44,7 +44,7 @@ class Edit extends Component
         'page.title.max'            => 'The title may not be greater than 255 characters.',
         'page.slug.required'        => 'The slug cannot be empty.',
         'page.slug.max'             => 'The slug may not be greater than 255 characters.',
-        'description.required'      => 'The details cannot be empty.',
+        'description.required'      => 'The description cannot be empty.',
         'description.max'           => 'The meta title may not be greater than 65 characters.',
         'page.meta_description.max' => 'The meta description may not be greater than 170 characters.',
         'page.language_id.integer'  => 'The language must be an integer.',
@@ -72,7 +72,7 @@ class Edit extends Component
 
         $this->image = $this->page->image;
 
-        $this->description = $this->page->details;
+        $this->description = $this->page->description;
 
         $this->editModal = true;
     }
@@ -89,7 +89,7 @@ class Edit extends Component
             $this->page->image = $imageName;
         }
 
-        $this->page->details = $this->description;
+        $this->page->description = $this->description;
 
         $this->page->save();
 

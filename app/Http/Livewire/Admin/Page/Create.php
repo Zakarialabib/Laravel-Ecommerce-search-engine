@@ -45,7 +45,7 @@ class Create extends Component
         'page.title.max'            => 'The title may not be greater than 255 characters.',
         'page.slug.required'        => 'The slug cannot be empty.',
         'page.slug.max'             => 'The slug may not be greater than 255 characters.',
-        'description.required'      => 'The details cannot be empty.',
+        'description.required'      => 'The description cannot be empty.',
         'page.meta_title.max'       => 'The meta title may not be greater than 65 characters.',
         'page.meta_description.max' => 'The meta description may not be greater than 170 characters.',
         'page.language_id.integer'  => 'The language must be an integer.',
@@ -71,7 +71,7 @@ class Create extends Component
 
         $this->page = new Page();
 
-        $this->description = $this->page->details;
+        $this->description = $this->page->description;
 
         $this->createPage = true;
     }

@@ -50,7 +50,7 @@ enum DeviceModelType: string
 
     public function label(): string
     {
-        return __(sprintf('enums.%s', $this->value));
+        return __(sprintf($this->value));
     }
 
     // usage

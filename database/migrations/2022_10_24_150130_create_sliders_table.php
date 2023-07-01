@@ -18,7 +18,7 @@ return new class () extends Migration {
             $table->id();
             $table->string('subtitle')->nullable();
             $table->string('title');
-            $table->string('details')->nullable();
+            $table->string('description')->nullable();
             $table->string('photo');
             $table->string('bg_color')->nullable();
             $table->boolean('featured')->default(false);

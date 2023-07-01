@@ -14,7 +14,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  *
  * @property int $id
  * @property string $title
- * @property string $details
+ * @property string $description
  * @property string|null $image
  * @property string $slug
  * @property int $status
@@ -38,7 +38,7 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Blog query()
  * @method static \Illuminate\Database\Eloquent\Builder|Blog whereCategoryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blog whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Blog whereDetails($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Blog wheredescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blog whereFeatured($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blog whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blog whereImage($value)
@@ -72,7 +72,7 @@ class Blog extends Model implements HasMedia
 
     protected $fillable = [
         'title',
-        'details',
+        'description',
         'image',
         'slug',
         'status',

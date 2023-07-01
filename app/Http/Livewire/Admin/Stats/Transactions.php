@@ -5,8 +5,9 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Stats;
 
 use App\Models\Category;
-use App\Models\Order;
-use App\Models\OrderProduct;
+use App\Models\DeviceModel;
+use App\Models\UserSubscription;
+use App\Models\Packages;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
@@ -18,76 +19,54 @@ class Transactions extends Component
     public $typeChart = 'monthly';
 
     public $categoriesCount;
-    public $topProduct;
+    public $deviceModelCount;
     public $productCount;
-    public $ordersCount;
-    public $userCount;
-    public $bestOrders;
+    public $clientCount;
+    public $vendorCount;
+    public $userSubscriptions_count;
+    public $userSubscriptions;
     public $charts;
-    public $orders;
-    public $orders_count;
 
     public function mount(): void
     {
         $this->categoriesCount = Category::count('id');
         $this->productCount = Product::count('id');
-        $this->userCount = User::count('id');
+        $this->clientCount = User::hasRole('client')->count('id');
+        $this->vendorCount = User::hasRole('vendor')->count('id');
+        $this->deviceModelCount = DeviceModel::count('id');
 
-        $this->bestOrders = Order::query()
-            ->select('orders.*', 'users.first_name')
-            ->join('users', 'orders.user_id', '=', 'users.id')
-            ->whereMonth('orders.created_at', now()->month())
-            ->orderBy('orders.total', 'desc')
-            ->take(5)
-            ->get();
-
-        $this->topProduct = OrderProduct::query()
-            ->selectRaw('SUM(order_products.qty) as qtyItem, products.name as name, products.code as code')
-            ->join('products', 'products.id', '=', 'order_products.product_id')
-            ->whereMonth('order_products.created_at', now()->month())
-            ->groupBy('order_products.product_id', 'products.name', 'products.code')
-            ->orderByDesc('qtyItem')
-            ->limit(5)
-            ->get();
-
-        $this->orders_count = Order::whereDate('created_at', '>=', now()->subWeek())
-            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as orders'))
+        $this->userSubscriptions_count = UserSubscription::whereDate('created_at', '>=', now()->subWeek())
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('count(*) as user_subscriptions'))
             ->groupBy('date')
-            ->pluck('orders');
+            ->pluck('user_subscriptions');
 
         $this->chart();
     }
 
     public function chart(): void
     {
-        $query = Order::selectRaw('SUM(total) as total')
+        $query = UserSubscription::selectRaw('SUM(amount) as amount')
             ->when($this->typeChart === 'monthly', function ($q) {
-                return $q->selectRaw('MONTH(created_at) as labels, COUNT(*) as orders')
+                return $q->selectRaw('MONTH(created_at) as labels, COUNT(*) as user_subscriptions')
                     ->whereYear('created_at', '=', date('Y'))
                     ->groupByRaw('MONTH(created_at)');
             }, function ($q) {
-                return $q->selectRaw('YEAR(created_at) as labels, COUNT(*) as orders')
+                return $q->selectRaw('YEAR(created_at) as labels, COUNT(*) as user_subscriptions')
                     ->groupByRaw('YEAR(created_at)');
             })
             ->get()
             ->toArray();
 
-        $orders = [
-            'total'      => array_column($query, 'total'),
-            'due_amount' => array_map(function ($total, $dueAmount) {
-                return $total - $dueAmount;
-            }, array_column($query, 'total'), array_column($query, 'due_amount')),
+        $user_subscriptions = [
+            'amount'      => array_column($query, 'amount'),
             'labels' => array_column($query, 'labels'),
         ];
 
         $this->charts = json_encode([
-            'total' => [
-                'orders' => $orders['total'],
+            'amount' => [
+                'user_subscriptions' => $user_subscriptions['amount'],
             ],
-            'due_amount' => [
-                'orders' => $orders['due_amount'],
-            ],
-            'labels' => $orders['labels'],
+            'labels' => $user_subscriptions['labels'],
         ]);
     }
 
@@ -104,21 +83,21 @@ class Transactions extends Component
             $currentDay->addDay();
         }
 
-        // Get orders data for each day in the current month
-        $ordersData = Order::selectRaw('DATE(created_at) as day, SUM(total) as total_orders')
+        // Get user_subscriptions data for each day in the current month
+        $user_subscriptionsData = UserSubscription::selectRaw('DATE(created_at) as day, SUM(amount) as amount_user_subscriptions')
             ->whereBetween('created_at', [$currentMonth, Carbon::now()->endOfMonth()])
             ->groupBy('day')
             ->orderBy('day', 'ASC')
             ->get();
 
-        // Combine orders
+        // Combine user_subscriptions
         $chartData = [];
 
         foreach ($daysInMonth as $day) {
-            $order = $ordersData->where('day', $day)->first();
+            $order = $user_subscriptionsData->where('day', $day)->first();
             $chartData[] = [
                 'day'    => $day,
-                'orders' => $order ? $order->total_orders : 0,
+                'user_subscriptions' => $order ? $order->amount_user_subscriptions : 0,
             ];
         }
 
@@ -137,8 +116,8 @@ class Transactions extends Component
             ],
             'series' => [
                 [
-                    'name' => __('Orders'),
-                    'data' => array_column($chartData, 'orders'),
+                    'name' => __('UserSubscriptions'),
+                    'data' => array_column($chartData, 'user_subscriptions'),
                 ],
             ],
             'xaxis' => [
@@ -167,14 +146,14 @@ class Transactions extends Component
         return view('livewire.admin.stats.transactions');
     }
 
-    protected function getChart($orders)
+    protected function getChart($user_subscriptions)
     {
         $dataarray = [];
         $i = 0;
 
-        foreach ($orders as $order) {
-            $dataarray['total']['orders'][$i] = $order['total'];
-            $dataarray['total']['orders'][$i] = $order['total'] - $order['total'];
+        foreach ($user_subscriptions as $order) {
+            $dataarray['amount']['user_subscriptions'][$i] = $order['amount'];
+            $dataarray['amount']['user_subscriptions'][$i] = $order['amount'] - $order['amount'];
             $dataarray['labels'][$i] = $order['labels'];
             $i++;
         }
