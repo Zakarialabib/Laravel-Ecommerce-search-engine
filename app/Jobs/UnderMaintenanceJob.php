@@ -19,8 +19,13 @@ class UnderMaintenanceJob implements ShouldQueue
     use Queueable;
     use SerializesModels;
 
-    public function __construct(public ?string $secret = null, public int|bool $refresh = false)
+    private $secret;
+    private $refresh;
+    
+    public function __construct($secret = null, $refresh = false)
     {
+        $this->secret = $secret;
+        $this->refresh = $refresh;
     }
 
     public function handle(): void

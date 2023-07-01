@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Tools;
+namespace App\Http\Livewire\Tools\Ads;
 
 use Livewire\Component;
 use Laravel\Socialite\Facades\Socialite;
 use Edbizarro\LaravelFacebookAds\Facades\FacebookAds;
 
-class AdsManagement extends Component
+class FbAdsManagement extends Component
 {
     public function render()
     {
@@ -32,7 +32,7 @@ class AdsManagement extends Component
         });
         $adAccounts = FacebookAds::adAccounts()->all();
 
-        return view('livewire.facebook-management')->with([
+        return view('livewire.tools.ads.fb-ads-management')->with([
             'ads' => $ads,
         ]);
     }

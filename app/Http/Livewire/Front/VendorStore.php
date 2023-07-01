@@ -66,7 +66,7 @@ class VendorStore extends Component
     public function render(): View
     {
         $query = Product::active()
-            ->where('user_id', $this->vendor->user_id);
+            ->where('store_id', $this->vendor->id);
 
         if ($this->sorting === 'name') {
             $query->orderBy('name', 'asc');

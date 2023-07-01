@@ -56,7 +56,7 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin \Eloquent
  */
-class Pagesetting extends Model
+class PageSetting extends Model
 {
     use HasAdvancedFilter;
 

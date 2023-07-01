@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Vendor\Product;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\Product;
+use App\Models\Store;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -72,7 +73,10 @@ class Index extends Component
 
     public function render()
     {
-        $query = Product::where('user_id', Auth::id())
+        // get store id from auth user
+        $store_id = Store::where('user_id', Auth::id())->first()->id;
+
+        $query = Product::where('store_id', $store_id)
 
             ->advancedFilter([
                 's'               => $this->search ?: null,

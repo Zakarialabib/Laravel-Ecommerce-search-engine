@@ -134,7 +134,7 @@ class Settings extends Component
 
     public function render()
     {
-        $query = Pagesetting::advancedFilter([
+        $query = PageSetting::advancedFilter([
             's'               => $this->search ?: null,
             'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,

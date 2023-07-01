@@ -35,7 +35,7 @@ use Illuminate\Support\Str;
  * @property string|null $url
  * @property int|null $brand_id
  * @property int|null $price_id
- * @property int|null $user_id
+ * @property int|null $store_id
  * @property string|null $meta_title
  * @property string|null $meta_description
  * @property string|null $meta_keywords

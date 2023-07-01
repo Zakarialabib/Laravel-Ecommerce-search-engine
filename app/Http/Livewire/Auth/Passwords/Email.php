@@ -5,13 +5,14 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Auth\Passwords;
 
 use Illuminate\Support\Facades\Password;
+use Illuminate\Contracts\Auth\PasswordBroker;
 use Livewire\Component;
 
 class Email extends Component
 {
     public string $email;
 
-    public ?string $emailSentMessage = false;
+    public $emailSentMessage = false;
 
     public function sendResetPasswordLink(): void
     {
@@ -31,7 +32,7 @@ class Email extends Component
     }
 
     /** Get the broker to be used during password reset. */
-    public function broker(): \Illuminate\Contracts\Auth\PasswordBroker
+    public function broker()
     {
         return Password::broker();
     }

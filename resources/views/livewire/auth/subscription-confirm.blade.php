@@ -58,7 +58,7 @@
                     @if ($selectedPlan)
                         <div class="mb-4">
                             <h6 class="text-sm font-semibold">{{ __('Payment Method') }}:</h6>
-                            <p class="text-sm text-gray-500">{{ $paymentMethod }}</p>
+                            <p class="text-sm text-gray-500">{{ $payment_method }}</p>
                         </div>
                         <div class="mb-4">
                             <h5 class="text-base font-semibold">{{ $selectedPlan->name }}</h5>

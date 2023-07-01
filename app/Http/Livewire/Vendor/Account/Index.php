@@ -27,8 +27,8 @@ class Index extends Component
     public $store_url;
     public $store_phone;
     public $store_address;
-    public $logo;
-    public $banner_image;
+    public mixed $logo;
+    public mixed $banner_image;
     public $social_links;
 
     public $password;
@@ -42,7 +42,7 @@ class Index extends Component
         'name'          => 'required|string',
         'address'       => 'nullable|max:255',
         'phone'         => 'required|numeric|max:1O',
-        'password'      => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+        'password'      => 'required|min:8',
         'city'          => 'nullable|string',
         'country'       => 'nullable',
         'store_name'    => 'required',
@@ -56,7 +56,7 @@ class Index extends Component
 
     public function mount(): void
     {
-        $this->user = User::with('store')->whereId(Auth::user()->id)->first();
+        $this->user = User::whereId(Auth::user()->id)->first();
         $this->name = $this->user->name;
         $this->address = $this->user->address;
         $this->phone = $this->user->phone;
@@ -65,19 +65,18 @@ class Index extends Component
         $this->email = $this->user->email;
         $this->password = $this->user->password;
 
-        $store = Store::whereId($this->user->store_id)->first();
+        $store = Store::where('user_id',$this->user->id)->first();
 
         $this->store_name = $store->name;
         $this->store_url = $store->url;
         $this->store_phone = $store->phone;
-        $this->store_address = $store->location;
         $this->store_address = $store->location;
         $this->logo = $store->logo;
         $this->banner_image = $store->banner_image;
         $this->social_links = $store->social_links ?? [];
     }
 
-    public function save(): void
+    public function store(): void
     {
         $this->validate();
 
@@ -88,14 +87,35 @@ class Index extends Component
         $this->user->update();
 
         // store update
-        $this->user->store->name = $this->store_name;
-        $this->user->store->url = $this->store_url;
-        $this->user->store->phone = $this->store_phone;
-        $this->user->store->location = $this->store_address;
-        $this->user->store->logo = $this->logo;
-        $this->user->store->banner_image = $this->banner_image;
-        $this->user->store->social_links = json_encode($this->social_links);
-        $this->user->store->update();
+        $store = Store::where('user_id',$this->user->id)->first();
+        $store->name = $this->store_name;
+        $store->url = $this->store_url;
+        $store->phone = $this->store_phone;
+        $store->location = $this->store_address;
+        
+        if($store->logo) {
+            $image_path = public_path('images/store/' .$store->logo);
+            if(file_exists($image_path)) {
+                unlink($image_path);
+            }
+            
+            $imageName = 'logo-' .$this->store_name .'jpg';
+            $this->logo->storeAs('images/store/', $imageName);
+            $store->logo = $imageName;
+        }
+        if($store->banner_image) {
+            
+            $image_path = public_path('images/store/' .$store->banner_image);
+            if(file_exists($image_path)) {
+                unlink($image_path);
+            }
+
+            $imageName = 'banner-' .$this->store_name .'jpg';
+            $this->banner_image->storeAs('images/store/', $imageName);
+            $store->banner_image = $imageName;
+        }
+        $store->social_links = $this->social_links;
+
 
         $this->alert('success', 'Account updated successfully', [
             'position'          => 'top-end',

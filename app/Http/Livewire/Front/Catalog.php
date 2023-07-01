@@ -23,14 +23,14 @@ class Catalog extends Component
 
     public $paginationOptions = [25, 50, 100];
 
-    public ?int $maxPrice;
-    public ?int $minPrice;
-    public ?int $category_id;
+    public $maxPrice;
+    public $minPrice;
+    public $category_id;
 
     public $subcategory_id;
 
-    public ?int $brand_id;
-    public ?string $sorting;
+    public $brand_id;
+    public $sorting;
 
     public $sortingOptions;
 

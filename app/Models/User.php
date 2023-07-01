@@ -169,9 +169,9 @@ class User extends Authenticatable
         return $this->hasOne(Store::class, 'id', 'store_id');
     }
 
-    public function subscriptions()
+    public function subscription()
     {
-        return $this->hasMany(UserSubscription::class);
+        return $this->hasOne(UserSubscription::class);
     }
 
     public function subscriptionOrders()

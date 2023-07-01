@@ -10,11 +10,13 @@ use Livewire\Component;
 
 class Index extends Component
 {
-    public $subscription;
+    public $userSubscription;
 
     public function mount(): void
     {
-        $this->subscription = UserSubscription::where('user_id', Auth::user()->id)->get();
+        $user = Auth::user();
+        $this->userSubscription = $user->subscription->first();
+
     }
 
     public function render()

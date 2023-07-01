@@ -97,7 +97,7 @@ class Index extends Component
 
         $categories = $query->paginate($this->perPage);
 
-        return view('livewire.admin.categories.index', compact('categories'));
+        return view('livewire.admin.categories.index', compact('categories'))->extends('layouts.dashboard');
     }
 
     public function deleteSelected(): void

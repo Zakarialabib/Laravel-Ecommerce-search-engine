@@ -1,4 +1,4 @@
-@props(['product', 'vendor'])
+@props(['product', 'store'])
 <div itemprop="itemListElement" itemscope itemtype="https://schema.org/Product">
     <div itemprop="brand" content="{{ $product->brand }}"></div>
     <div itemprop="sku" content="{{ $product->code }}"></div>
@@ -80,11 +80,11 @@
                 </a>
             </div>
 
-            @if($product->vendor?->url)
+            @if($product->url)
             <div class="flex justify-center">
-                <a href="{{ $product->vendor->url }}" target="_blank"
+                <a href="https://{{ $product->url }}" target="_blank"
                     class="my-2 block bg-move-500 hover:bg-move-800 text-center text-white font-bold text-xs py-2 px-4 rounded-md uppercase cursor-pointer tracking-wider hover:shadow-lg transition ease-in duration-300">
-                    {{('Boutique')}} <i class="fas fa-store-alt pl-2" class="w-5 h-5 text-blue-500"></i>
+                    {{('Buy directly')}} <i class="fas fa-store-alt pl-2" class="w-5 h-5 text-blue-500"></i>
                 </a>
             </div>
             @endif
