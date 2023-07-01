@@ -25,21 +25,21 @@ class Create extends Component
     public $blogcategory;
 
     protected $rules = [
-        'blogcategory.title' => 'required|string|max:255',
-        'blogcategory.description' => 'nullable',
-        'blogcategory.meta_title' => 'nullable|max:65',
+        'blogcategory.title'            => 'required|string|max:255',
+        'blogcategory.description'      => 'nullable',
+        'blogcategory.meta_title'       => 'nullable|max:65',
         'blogcategory.meta_description' => 'nullable|max:170',
-        'blogcategory.language_id' => 'required|integer',
+        'blogcategory.language_id'      => 'required|integer',
     ];
 
     protected $messages = [
-        'blogcategory.title.required' => 'The title cannot be empty.',
-        'blogcategory.title.string' => 'The title must be a string.',
-        'blogcategory.title.max' => 'The title may not be greater than 255 characters.',
-        'blogcategory.meta_title.max' => 'The meta title may not be greater than 65 characters.',
+        'blogcategory.title.required'       => 'The title cannot be empty.',
+        'blogcategory.title.string'         => 'The title must be a string.',
+        'blogcategory.title.max'            => 'The title may not be greater than 255 characters.',
+        'blogcategory.meta_title.max'       => 'The meta title may not be greater than 65 characters.',
         'blogcategory.meta_description.max' => 'The meta description may not be greater than 170 characters.',
         'blogcategory.language_id.required' => 'The language cannot be empty.',
-        'blogcategory.language_id.integer' => 'The language must be an integer.',
+        'blogcategory.language_id.integer'  => 'The language must be an integer.',
     ];
 
     public function render(): View|Factory

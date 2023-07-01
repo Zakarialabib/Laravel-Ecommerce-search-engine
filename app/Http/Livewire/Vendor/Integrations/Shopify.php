@@ -39,7 +39,7 @@ class Shopify extends Component
         $data = $request->getContent();
         $verified = ShopifyApp::verifyRequest($data, $hmac);
 
-        if (! $verified) {
+        if ( ! $verified) {
             abort(401, 'Unauthorized');
         }
 
@@ -50,7 +50,7 @@ class Shopify extends Component
         // Save access token to database
         $integration = Integration::where('store_url', $shopify->getShop())->first();
 
-        if (! $integration) {
+        if ( ! $integration) {
             $integration = new Integration();
             $integration->store_url = $shopify->getShop();
         }

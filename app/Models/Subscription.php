@@ -84,7 +84,7 @@ class Subscription extends Model
     ];
 
     protected $casts = [
-        'status' => Status::class,
+        'status'   => Status::class,
         'features' => 'array',
     ];
 

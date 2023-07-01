@@ -25,8 +25,8 @@ class SocialAuth extends Component
         $user = User::updateOrCreate([
             'facebook_id' => $socialUser->id,
         ], [
-            'name' => $socialUser->getName(),
-            'email' => $socialUser->getEmail(),
+            'name'     => $socialUser->getName(),
+            'email'    => $socialUser->getEmail(),
             'password' => Hash::make(Str::random(16)), // Generate a random password
             // 'phone'    => $this->phone,
             // 'city'     => $this->city,
@@ -72,8 +72,8 @@ class SocialAuth extends Component
         $user = User::updateOrCreate([
             'google_id' => $socialUser->id,
         ], [
-            'name' => $socialUser->getName(),
-            'email' => $socialUser->getEmail(),
+            'name'     => $socialUser->getName(),
+            'email'    => $socialUser->getEmail(),
             'password' => Hash::make(Str::random(16)), // Generate a random password
             // Add other required fields if needed
         ]);

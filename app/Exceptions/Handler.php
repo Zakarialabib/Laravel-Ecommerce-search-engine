@@ -14,7 +14,7 @@ class Handler extends ExceptionHandler
      *
      * @var array<class-string<Throwable>, \Psr\Log\LogLevel::*>
      */
-    protected array $levels = [
+    protected $levels = [
 
     ];
 
@@ -23,7 +23,7 @@ class Handler extends ExceptionHandler
      *
      * @var array<int, class-string<Throwable>>
      */
-    protected array $dontReport = [
+    protected $dontReport = [
 
     ];
 
@@ -32,18 +32,16 @@ class Handler extends ExceptionHandler
      *
      * @var array<int, string>
      */
-    protected array $dontFlash = [
+    protected $dontFlash = [
         'current_password',
         'password',
         'password_confirmation',
     ];
 
-    /**
-     * Register the exception handling callbacks for the application.
-     */
-    public function register(): void
+    /** Register the exception handling callbacks for the application. */
+    public function register()
     {
-        $this->reportable(function (Throwable $e): void {
+        $this->reportable(function (Throwable $e) {
         });
     }
 }

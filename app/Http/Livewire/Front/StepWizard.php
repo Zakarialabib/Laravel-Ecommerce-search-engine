@@ -129,8 +129,8 @@ class StepWizard extends Component
         }
 
         return view('livewire.front.step-wizard', [
-            'products' => $products->get(),
-            'totalSteps' => 6,
+            'products'    => $products->get(),
+            'totalSteps'  => 6,
             'currentStep' => $this->step,
         ]);
     }

@@ -26,8 +26,8 @@ class Edit extends Component
     ];
 
     protected $rules = [
-        'brand.name' => ['required', 'string', 'max:255'],
-        'brand.slug' => ['required', 'string'],
+        'brand.name'        => ['required', 'string', 'max:255'],
+        'brand.slug'        => ['required', 'string'],
         'brand.description' => ['nullable', 'string'],
     ];
 

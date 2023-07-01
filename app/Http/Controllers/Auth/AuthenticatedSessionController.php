@@ -12,17 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Display the login view.
-     */
+    /** Display the login view. */
     public function create(): \Illuminate\View\View
     {
         return view('auth.login');
     }
 
-    /**
-     * Handle an incoming authentication request.
-     */
+    /** Handle an incoming authentication request. */
     public function store(LoginRequest $request): \Illuminate\Http\RedirectResponse
     {
         $request->authenticate();
@@ -44,9 +40,7 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    /**
-     * Destroy an authenticated session.
-     */
+    /** Destroy an authenticated session. */
     public function destroy(Request $request): \Illuminate\Http\RedirectResponse
     {
         Auth::guard('web')->logout();

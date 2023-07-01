@@ -35,12 +35,12 @@ class BrandPage extends Component
         $this->paginationOptions = [25, 50, 100];
         $this->perPage = 25;
         $this->sortingOptions = [
-            'name-asc' => __('Order Alphabetic, A-Z'),
-            'name-desc' => __('Order Alphabetic, Z-A'),
-            'price-asc' => __('Price, low to high'),
+            'name-asc'   => __('Order Alphabetic, A-Z'),
+            'name-desc'  => __('Order Alphabetic, Z-A'),
+            'price-asc'  => __('Price, low to high'),
             'price-desc' => __('Price, high to low'),
-            'date-asc' => __('Date, new to old'),
-            'date-desc' => __('Date, old to new'),
+            'date-asc'   => __('Date, new to old'),
+            'date-desc'  => __('Date, old to new'),
         ];
     }
 

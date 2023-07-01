@@ -11,9 +11,7 @@ use Spatie\Permission\Models\Role;
 
 class AuthGate
 {
-    /**
-     * Handle an incoming request.
-     */
+    /** Handle an incoming request. */
     public function handle(Request $request, Closure $next): mixed
     {
         $user = auth()->user();

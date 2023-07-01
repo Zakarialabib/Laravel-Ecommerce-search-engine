@@ -59,9 +59,9 @@ class Index extends Component
 
     protected $rules = [
         'section.language_id' => 'required',
-        'section.page' => 'required',
-        'section.title' => 'nullable',
-        'section.subtitle' => 'nullable',
+        'section.page'        => 'required',
+        'section.title'       => 'nullable',
+        'section.subtitle'    => 'nullable',
         'section.description' => 'nullable',
     ];
 
@@ -99,8 +99,8 @@ class Index extends Component
         $query = Section::when($this->language_id, function ($query) {
             return $query->where('language_id', $this->language_id);
         })->advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -126,13 +126,13 @@ class Index extends Component
 
         Section::create([
             'language_id' => $section_details->language_id,
-            'page' => $section_details->page,
-            'title' => $section_details->title,
-            'subtitle' => $section_details->subtitle,
-            'link' => $section_details->link,
-            'image' => $section_details->image,
+            'page'        => $section_details->page,
+            'title'       => $section_details->title,
+            'subtitle'    => $section_details->subtitle,
+            'link'        => $section_details->link,
+            'image'       => $section_details->image,
             'description' => $section_details->description,
-            'status' => 0,
+            'status'      => 0,
         ]);
         $this->alert('success', __('Section Cloned successfully!'));
     }

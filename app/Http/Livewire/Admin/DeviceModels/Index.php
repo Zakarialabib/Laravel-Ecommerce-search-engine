@@ -107,8 +107,8 @@ class Index extends Component
         // abort_if(Gate::denies('device_model_access'), 403);
 
         $query = DeviceModel::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -133,11 +133,11 @@ class Index extends Component
     public function deleteModal($device_model): void
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
         ]);
         $this->device_model = $device_model;
     }

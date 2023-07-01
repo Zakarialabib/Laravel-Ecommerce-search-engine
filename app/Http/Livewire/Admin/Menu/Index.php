@@ -33,12 +33,12 @@ class Index extends Component
     ];
 
     protected $rules = [
-        'menus.*.name' => 'required',
-        'menus.*.type' => 'required',
-        'menus.*.placement' => 'nullable',
-        'menus.*.label' => 'required',
-        'menus.*.url' => 'required',
-        'menus.*.parent_id' => 'nullable|exists:menus,id',
+        'menus.*.name'       => 'required',
+        'menus.*.type'       => 'required',
+        'menus.*.placement'  => 'nullable',
+        'menus.*.label'      => 'required',
+        'menus.*.url'        => 'required',
+        'menus.*.parent_id'  => 'nullable|exists:menus,id',
         'menus.*.new_window' => 'boolean',
     ];
 
@@ -101,12 +101,12 @@ class Index extends Component
     public function store(): void
     {
         $this->validate([
-            'name' => 'required',
-            'type' => 'required',
-            'placement' => 'required',
-            'label' => 'required',
-            'url' => 'required',
-            'parent_id' => 'nullable|exists:menus,id',
+            'name'       => 'required',
+            'type'       => 'required',
+            'placement'  => 'required',
+            'label'      => 'required',
+            'url'        => 'required',
+            'parent_id'  => 'nullable|exists:menus,id',
             'new_window' => 'boolean',
         ]);
 
@@ -142,43 +142,43 @@ class Index extends Component
     {
         $this->menus = [
             [
-                'name' => 'Home',
-                'type' => 'route',
-                'label' => 'Home',
-                'url' => 'home',
-                'parent_id' => null,
+                'name'       => 'Home',
+                'type'       => 'route',
+                'label'      => 'Home',
+                'url'        => 'home',
+                'parent_id'  => null,
                 'new_window' => false,
             ],
             [
-                'name' => 'About',
-                'type' => 'route',
-                'label' => 'About',
-                'url' => 'about',
-                'parent_id' => null,
+                'name'       => 'About',
+                'type'       => 'route',
+                'label'      => 'About',
+                'url'        => 'about',
+                'parent_id'  => null,
                 'new_window' => false,
             ],
             [
-                'name' => 'Contact',
-                'type' => 'route',
-                'label' => 'Contact',
-                'url' => 'contact',
-                'parent_id' => null,
+                'name'       => 'Contact',
+                'type'       => 'route',
+                'label'      => 'Contact',
+                'url'        => 'contact',
+                'parent_id'  => null,
                 'new_window' => false,
             ],
             [
-                'name' => 'Login',
-                'type' => 'route',
-                'label' => 'Login',
-                'url' => 'login',
-                'parent_id' => null,
+                'name'       => 'Login',
+                'type'       => 'route',
+                'label'      => 'Login',
+                'url'        => 'login',
+                'parent_id'  => null,
                 'new_window' => false,
             ],
             [
-                'name' => 'Register',
-                'type' => 'route',
-                'label' => 'Register',
-                'url' => 'register',
-                'parent_id' => null,
+                'name'       => 'Register',
+                'type'       => 'route',
+                'label'      => 'Register',
+                'url'        => 'register',
+                'parent_id'  => null,
                 'new_window' => false,
             ],
         ];

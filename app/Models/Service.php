@@ -79,14 +79,12 @@ class Service extends Model
     ];
 
     protected $casts = [
-        'options' => 'json',
+        'options'  => 'json',
         'features' => 'json',
-        'satuts' => Status::class,
+        'satuts'   => Status::class,
     ];
 
-    /**
-     * Scope a query to only include active products.
-     */
+    /** Scope a query to only include active products. */
     public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
     {
         $query->where('status', true);

@@ -10,9 +10,7 @@ use Illuminate\Http\Request;
 
 class EmailVerificationNotificationController extends Controller
 {
-    /**
-     * Send a new email verification notification.
-     */
+    /** Send a new email verification notification. */
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         if ($request->user()->hasVerifiedEmail()) {

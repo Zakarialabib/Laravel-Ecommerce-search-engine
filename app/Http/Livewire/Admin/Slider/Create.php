@@ -35,14 +35,14 @@ class Create extends Component
     ];
 
     public array $rules = [
-        'slider.title' => ['required', 'string', 'max:255'],
-        'slider.subtitle' => ['nullable', 'string'],
-        'description' => ['nullable', 'string'],
-        'slider.link' => ['nullable', 'string'],
-        'slider.language_id' => ['nullable'],
-        'slider.bg_color' => ['nullable'],
+        'slider.title'         => ['required', 'string', 'max:255'],
+        'slider.subtitle'      => ['nullable', 'string'],
+        'description'          => ['nullable', 'string'],
+        'slider.link'          => ['nullable', 'string'],
+        'slider.language_id'   => ['nullable'],
+        'slider.bg_color'      => ['nullable'],
         'slider.embeded_video' => ['nullable'],
-        'photo' => ['required'],
+        'photo'                => ['required'],
     ];
 
     public function updatedDescription($value): void

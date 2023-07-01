@@ -69,9 +69,7 @@ class Slider extends Model
         'title', 'subtitle', 'details', 'embeded_video', 'photo', 'featured', 'link', 'language_id', 'bg_color', 'status',
     ];
 
-    /**
-     * Scope a query to only include active products.
-     */
+    /** Scope a query to only include active products. */
     public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
     {
         $query->where('status', 1);

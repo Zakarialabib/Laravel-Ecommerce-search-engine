@@ -11,15 +11,11 @@ use Log;
 
 class Backup extends Command
 {
-    /**
-     * The name and signature of the console command.
-     */
-    protected string $signature = 'my:backup';
+    /** The name and signature of the console command. */
+    protected $signature = 'my:backup';
 
-    /**
-     * The console command description.
-     */
-    protected string $description = 'This command will generate backups of the system according to specified in configs';
+    /** The console command description. */
+    protected $description = 'This command will generate backups of the system according to specified in configs';
 
     /**
      * Create a new command instance.
@@ -31,9 +27,7 @@ class Backup extends Command
         parent::__construct();
     }
 
-    /**
-     * Execute the console command.
-     */
+    /** Execute the console command. */
     public function handle(): mixed
     {
         if (settings()->backup_status === 1) {

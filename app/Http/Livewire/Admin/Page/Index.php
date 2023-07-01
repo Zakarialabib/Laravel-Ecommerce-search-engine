@@ -79,8 +79,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Page::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -112,11 +112,11 @@ class Index extends Component
     public function deleteModal($page): void
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
         ]);
         $this->page = $page;
     }

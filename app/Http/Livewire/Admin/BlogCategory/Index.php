@@ -82,11 +82,11 @@ class Index extends Component
     public function deleteModal($blogcategory): void
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
         ]);
         $this->blogcategory = $blogcategory;
     }
@@ -112,8 +112,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = BlogCategory::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

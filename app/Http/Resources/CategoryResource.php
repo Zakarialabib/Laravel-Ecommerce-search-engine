@@ -9,9 +9,7 @@ use JsonSerializable;
 
 class CategoryResource extends JsonResource
 {
-    /**
-     * Transform the resource into an array.
-     */
+    /** Transform the resource into an array. */
     public function toArray(\Illuminate\Http\Request $request): array|\Illuminate\Contracts\Support\Arrayable|JsonSerializable
     {
         return [

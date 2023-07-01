@@ -25,11 +25,11 @@ class Account extends Component
     ];
 
     protected $rules = [
-        'email' => 'required|email',
-        'name' => 'required|string',
+        'email'   => 'required|email',
+        'name'    => 'required|string',
         'address' => 'nullable|max:255',
-        'phone' => 'required|numeric|max:1O',
-        'city' => 'nullable|string',
+        'phone'   => 'required|numeric|max:1O',
+        'city'    => 'nullable|string',
         'country' => 'nullable',
     ];
 

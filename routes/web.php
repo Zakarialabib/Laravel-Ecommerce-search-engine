@@ -27,7 +27,7 @@ require __DIR__.'/auth.php';
 require __DIR__.'/admin.php';
 require __DIR__.'/vendor.php';
 
-Route::group(['middleware' => 'firewall.all'], function (): void {
+Route::group(['middleware' => 'firewall.all'], function () {
     Route::get('/', [FrontController::class, 'index'])->name('front.index');
     Route::get('/catalog', [FrontController::class, 'catalog'])->name('front.catalog');
     Route::get('/categories', [FrontController::class, 'categories'])->name('front.categories');
@@ -50,7 +50,7 @@ Route::group(['middleware' => 'firewall.all'], function (): void {
         return view('auth.approval');
     })->name('auth.approval');
 
-    Route::middleware('auth')->group(function (): void {
+    Route::middleware('auth')->group(function () {
         Route::get('/mon-compte', [FrontController::class, 'myaccount'])->name('front.myaccount');
         Route::get('/store/{slug}', VendorStoreIndex::class)->name('front.store-show');
     });

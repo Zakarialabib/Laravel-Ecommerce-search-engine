@@ -12,21 +12,17 @@ use Illuminate\Validation\ValidationException;
 
 class ConfirmablePasswordController extends Controller
 {
-    /**
-     * Show the confirm password view.
-     */
+    /** Show the confirm password view. */
     public function show(): \Illuminate\View\View
     {
         return view('auth.confirm-password');
     }
 
-    /**
-     * Confirm the user's password.
-     */
+    /** Confirm the user's password. */
     public function store(Request $request): mixed
     {
-        if (! Auth::guard('web')->validate([
-            'email' => $request->user()->email,
+        if ( ! Auth::guard('web')->validate([
+            'email'    => $request->user()->email,
             'password' => $request->password,
         ])) {
             throw ValidationException::withMessages([

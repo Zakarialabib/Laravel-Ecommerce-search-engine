@@ -14,7 +14,7 @@ use App\Http\Livewire\Auth\SocialAuth;
 use App\Http\Livewire\Auth\SubscriptionConfirm;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function (): void {
+Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
@@ -38,7 +38,7 @@ Route::middleware('guest')->group(function (): void {
         ->name('password.update');
 });
 
-Route::middleware('auth')->group(function (): void {
+Route::middleware('auth')->group(function () {
     Route::get('/subscription/confirmation', SubscriptionConfirm::class)->name('subscription-confirm');
 
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])

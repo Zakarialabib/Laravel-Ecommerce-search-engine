@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Session;
 
 class Locale
 {
-    /**
-     * Handle an incoming request.
-     */
+    /** Handle an incoming request. */
     public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
     {
         // Set config translatable.locales

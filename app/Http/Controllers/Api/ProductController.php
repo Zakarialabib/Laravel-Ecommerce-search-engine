@@ -17,27 +17,23 @@ use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    /** Display a listing of the resource. */
     public function index(): \Illuminate\Http\Response
     {
         return new ProductCollection(Product::with('category')->get());
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
+    /** Store a newly created resource in storage. */
     public function store(Request $request): \Illuminate\Http\Response
     {
         $product = Product::create([
-            'id' => $request->id,
-            'name' => $request->name,
-            'price' => $request->price,
-            'slug' => $request->slug,
+            'id'          => $request->id,
+            'name'        => $request->name,
+            'price'       => $request->price,
+            'slug'        => $request->slug,
             'category_id' => Category::create(['name' => $request->category_id])->id ?? null,
-            'meta_title' => $request->name,
-            'status' => false,
+            'meta_title'  => $request->name,
+            'status'      => false,
         ]);
 
         return new ProductResource($product);
@@ -71,16 +67,12 @@ class ProductController extends Controller
         return new ProductResource($product);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
+    /** Update the specified resource in storage. */
     public function update(Request $request, int $id): \Illuminate\Http\Response
     {
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
+    /** Remove the specified resource from storage. */
     public function destroy(int $id): \Illuminate\Http\Response
     {
     }

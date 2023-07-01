@@ -94,6 +94,6 @@ class VendorHighlighted extends Model
      */
     protected array $casts = [
         'approved' => 'boolean',
-        'status' => 'boolean',
+        'status'   => 'boolean',
     ];
 }

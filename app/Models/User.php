@@ -132,7 +132,7 @@ class User extends Authenticatable
      */
     protected array $casts = [
         'email_verified_at' => 'datetime',
-        'status' => Status::class,
+        'status'            => Status::class,
     ];
 
     public function isAdmin()

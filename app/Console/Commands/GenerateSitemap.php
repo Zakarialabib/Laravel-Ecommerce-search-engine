@@ -14,15 +14,11 @@ use Spatie\Sitemap\Tags\Url;
 
 class GenerateSitemap extends Command
 {
-    /**
-     * The name and signature of the console command.
-     */
-    protected string $signature = 'sitemap:generate';
+    /** The name and signature of the console command. */
+    protected $signature = 'sitemap:generate';
 
-    /**
-     * The console command description.
-     */
-    protected string $description = 'Generate the sitemap.';
+    /** The console command description. */
+    protected $description = 'Generate the sitemap.';
 
     public function __construct()
     {

@@ -15,9 +15,7 @@ use Illuminate\Validation\Rules;
 
 class RegisteredUserController extends Controller
 {
-    /**
-     * Display the registration view.
-     */
+    /** Display the registration view. */
     public function create(): \Illuminate\View\View
     {
         return view('auth.register');
@@ -31,20 +29,20 @@ class RegisteredUserController extends Controller
     public function store(Request $request): \Illuminate\Http\RedirectResponse
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'string', 'max:255', 'unique:users'],
-            'city' => ['required', 'string', 'max:255'],
-            'address' => ['nullable', 'string', 'max:255'],
+            'name'     => ['required', 'string', 'max:255'],
+            'email'    => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone'    => ['required', 'string', 'max:255', 'unique:users'],
+            'city'     => ['required', 'string', 'max:255'],
+            'address'  => ['nullable', 'string', 'max:255'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
         $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'city' => $request->city,
-            'address' => $request->address,
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'phone'    => $request->phone,
+            'city'     => $request->city,
+            'address'  => $request->address,
             'password' => Hash::make($request->password),
         ]);
 

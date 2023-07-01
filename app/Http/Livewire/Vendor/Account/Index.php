@@ -38,20 +38,20 @@ class Index extends Component
     ];
 
     protected $rules = [
-        'email' => 'required|email',
-        'name' => 'required|string',
-        'address' => 'nullable|max:255',
-        'phone' => 'required|numeric|max:1O',
-        'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
-        'city' => 'nullable|string',
-        'country' => 'nullable',
-        'store_name' => 'required',
-        'store_url' => 'required',
-        'store_phone' => 'required',
+        'email'         => 'required|email',
+        'name'          => 'required|string',
+        'address'       => 'nullable|max:255',
+        'phone'         => 'required|numeric|max:1O',
+        'password'      => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
+        'city'          => 'nullable|string',
+        'country'       => 'nullable',
+        'store_name'    => 'required',
+        'store_url'     => 'required',
+        'store_phone'   => 'required',
         'store_address' => 'nullable',
-        'logo' => 'nullable',
-        'banner_image' => 'nullable',
-        'social_links' => 'array',
+        'logo'          => 'nullable',
+        'banner_image'  => 'nullable',
+        'social_links'  => 'array',
     ];
 
     public function mount(): void
@@ -98,13 +98,13 @@ class Index extends Component
         $this->user->store->update();
 
         $this->alert('success', 'Account updated successfully', [
-            'position' => 'top-end',
-            'timer' => 3000,
-            'toast' => true,
-            'text' => '',
+            'position'          => 'top-end',
+            'timer'             => 3000,
+            'toast'             => true,
+            'text'              => '',
             'confirmButtonText' => 'Ok',
-            'cancelButtonText' => 'Cancel',
-            'showCancelButton' => false,
+            'cancelButtonText'  => 'Cancel',
+            'showCancelButton'  => false,
             'showConfirmButton' => false,
         ]);
     }

@@ -24,10 +24,8 @@ class SubscribedMail extends Mailable
     {
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): \Illuminate\Mail\Mailables\Envelope
+    /** Get the message envelope. */
+    public function envelope(): Envelope
     {
         $subject = 'Thank you for your subscription'.config('app.name');
 
@@ -36,10 +34,8 @@ class SubscribedMail extends Mailable
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): \Illuminate\Mail\Mailables\Content
+    /** Get the message content definition. */
+    public function content(): Content
     {
         // return $this->from(('admin@mail.com'))
         // ->replyTo(request()->input('email'))

@@ -35,9 +35,9 @@ class Phonesearch extends Component
 
                 $phone = Phone::create([
                     'phone_name' => $phone_name,
-                    'brand' => $brand,
-                    'slug' => $slug,
-                    'image' => $image,
+                    'brand'      => $brand,
+                    'slug'       => $slug,
+                    'image'      => $image,
                 ], $searchResults);
                 $phone->save();
             }

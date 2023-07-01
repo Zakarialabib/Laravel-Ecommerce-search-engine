@@ -16,7 +16,7 @@ class ProductCollection extends ResourceCollection
     public function toArray(\Illuminate\Http\Request $request): array
     {
         return [
-            'data' => ProductResource::collection($this->collection),
+            'data'  => ProductResource::collection($this->collection),
             'links' => [
                 'meta' => ['product_count' => $this->collection->count()],
             ],

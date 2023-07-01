@@ -28,24 +28,24 @@ class Create extends Component
     public $listeners = ['createBlog'];
 
     protected $rules = [
-        'blog.title' => 'required|min:3|max:255',
-        'blog.category_id' => 'required|integer',
-        'blog.details' => 'required|min:3',
-        'blog.language_id' => 'nullable|integer',
-        'blog.meta_title' => 'nullable|max:65',
+        'blog.title'            => 'required|min:3|max:255',
+        'blog.category_id'      => 'required|integer',
+        'blog.details'          => 'required|min:3',
+        'blog.language_id'      => 'nullable|integer',
+        'blog.meta_title'       => 'nullable|max:65',
         'blog.meta_description' => 'nullable|max:170',
     ];
 
     protected $messages = [
-        'blog.title.required' => 'The title cannot be empty.',
-        'blog.title.min' => 'The title must be at least 3 characters.',
-        'blog.title.max' => 'The title may not be greater than 255 characters.',
+        'blog.title.required'       => 'The title cannot be empty.',
+        'blog.title.min'            => 'The title must be at least 3 characters.',
+        'blog.title.max'            => 'The title may not be greater than 255 characters.',
         'blog.category_id.required' => 'The category cannot be empty.',
-        'blog.category_id.integer' => 'The category must be an integer.',
-        'blog.details.required' => 'The details cannot be empty.',
-        'blog.details.min' => 'The details must be at least 3 characters.',
-        'blog.language_id.integer' => 'The language must be an integer.',
-        'blog.meta_title.max' => 'The meta title may not be greater than 65 characters.',
+        'blog.category_id.integer'  => 'The category must be an integer.',
+        'blog.details.required'     => 'The details cannot be empty.',
+        'blog.details.min'          => 'The details must be at least 3 characters.',
+        'blog.language_id.integer'  => 'The language must be an integer.',
+        'blog.meta_title.max'       => 'The meta title may not be greater than 65 characters.',
         'blog.meta_description.max' => 'The meta description may not be greater than 170 characters.',
     ];
 

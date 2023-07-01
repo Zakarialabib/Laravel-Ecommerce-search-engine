@@ -29,7 +29,7 @@ class UnderMaintenanceJob implements ShouldQueue
             Artisan::call('up');
         } else {
             Artisan::call('down', [
-                '--secret' => $this->secret,
+                '--secret'  => $this->secret,
                 '--refresh' => $this->refresh,
             ]);
         }

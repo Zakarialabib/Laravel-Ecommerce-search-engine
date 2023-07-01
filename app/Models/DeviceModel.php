@@ -117,10 +117,10 @@ class DeviceModel extends Model
      */
     protected array $casts = [
         'technical_details' => 'array',
-        'features' => 'array',
-        'specifications' => 'array',
-        'type' => DeviceModelType::class,
-        'status' => Status::class,
+        'features'          => 'array',
+        'specifications'    => 'array',
+        'type'              => DeviceModelType::class,
+        'status'            => Status::class,
     ];
 
     public function brand()

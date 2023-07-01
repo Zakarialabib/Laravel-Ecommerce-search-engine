@@ -104,7 +104,7 @@ class Store extends Model
 
     protected $casts = [
         'social_links' => 'array',
-        'status' => Status::class,
+        'status'       => Status::class,
     ];
 
     public function user()

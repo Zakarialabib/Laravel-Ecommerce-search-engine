@@ -17,9 +17,7 @@ class Kernel extends ConsoleKernel
         GenerateSitemap::class,
     ];
 
-    /**
-     * Define the application's command schedule.
-     */
+    /** Define the application's command schedule. */
     protected function schedule(Schedule $schedule): void
     {
         //  some config somewhere
@@ -43,10 +41,8 @@ class Kernel extends ConsoleKernel
         }
     }
 
-    /**
-     * Register the commands for the application.
-     */
-    protected function commands(): void
+    /** Register the commands for the application. */
+    protected function commands()
     {
         $this->load(__DIR__.'/Commands');
 

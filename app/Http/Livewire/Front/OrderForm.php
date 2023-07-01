@@ -46,17 +46,17 @@ class OrderForm extends Component
     public function save(): void
     {
         $this->validate([
-            'name' => 'required',
-            'phone' => 'required',
+            'name'    => 'required',
+            'phone'   => 'required',
             'address' => 'required',
         ]);
 
         $order = OrderForms::create([
-            'name' => $this->name,
-            'phone' => $this->phone,
+            'name'    => $this->name,
+            'phone'   => $this->phone,
             'address' => $this->address,
-            'type' => OrderForms::PRODUCT_FORM,
-            'status' => OrderForms::STATUS_PENDING,
+            'type'    => OrderForms::PRODUCT_FORM,
+            'status'  => OrderForms::STATUS_PENDING,
             'subject' => __('New request for ').$this->product->name,
             'message' => $this->name.__(' has sent a request for ').$this->product->name,
         ]);

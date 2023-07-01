@@ -11,9 +11,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 class VerifyEmailController extends Controller
 {
-    /**
-     * Mark the authenticated user's email address as verified.
-     */
+    /** Mark the authenticated user's email address as verified. */
     public function __invoke(EmailVerificationRequest $request): \Illuminate\Http\RedirectResponse
     {
         if ($request->user()->hasVerifiedEmail()) {

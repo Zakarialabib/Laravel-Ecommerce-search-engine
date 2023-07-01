@@ -108,8 +108,8 @@ class Index extends Component
         abort_if(Gate::denies('brand_access'), 403);
 
         $query = Brand::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -134,11 +134,11 @@ class Index extends Component
     public function deleteModal($brand): void
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
         ]);
         $this->brand = $brand;
     }
@@ -157,11 +157,11 @@ class Index extends Component
         abort_if(Gate::denies('brand_delete'), 403);
 
         $this->confirm(__('Are you sure you want to delete the selected brands and their device models?'), [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => __('Cancel'),
-            'onConfirmed' => 'massDelete',
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'massDelete',
         ]);
     }
 

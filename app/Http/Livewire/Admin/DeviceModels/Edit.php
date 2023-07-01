@@ -26,16 +26,16 @@ class Edit extends Component
     public $description;
 
     protected $rules = [
-        'device_model.name' => ['required', 'string', 'max:255'],
-        'device_model.slug' => ['required', 'string', 'max:255'],
-        'device_model.code' => ['nullable', 'string', 'max:255'],
+        'device_model.name'              => ['required', 'string', 'max:255'],
+        'device_model.slug'              => ['required', 'string', 'max:255'],
+        'device_model.code'              => ['nullable', 'string', 'max:255'],
         'device_model.technical_details' => ['nullable', 'array'],
-        'device_model.features' => ['nullable', 'array'],
-        'device_model.specifications' => ['nullable', 'array'],
-        'device_model.type' => ['nullable', 'string', 'max:255'],
-        'device_model.brand_id' => ['required', 'exists:brands,id'],
-        'image' => ['nullable', 'image', 'max:1024'],
-        'description' => ['nullable', 'string'],
+        'device_model.features'          => ['nullable', 'array'],
+        'device_model.specifications'    => ['nullable', 'array'],
+        'device_model.type'              => ['nullable', 'string', 'max:255'],
+        'device_model.brand_id'          => ['required', 'exists:brands,id'],
+        'image'                          => ['nullable', 'image', 'max:1024'],
+        'description'                    => ['nullable', 'string'],
     ];
 
     public function updatedDescription($value): void

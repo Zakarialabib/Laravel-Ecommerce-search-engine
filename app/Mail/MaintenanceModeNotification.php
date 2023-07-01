@@ -22,10 +22,8 @@ class MaintenanceModeNotification extends Mailable
         $this->status = $status;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): \Illuminate\Mail\Mailables\Envelope
+    /** Get the message envelope. */
+    public function envelope(): Envelope
     {
         $subject = $this->status ? 'Maintenance Mode Enabled' : 'Maintenance Mode Disabled';
 
@@ -34,10 +32,8 @@ class MaintenanceModeNotification extends Mailable
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): \Illuminate\Mail\Mailables\Content
+    /** Get the message content definition. */
+    public function content(): Content
     {
         return new Content(
             markdown: 'emails.maintenance-mode',

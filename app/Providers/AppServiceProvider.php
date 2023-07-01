@@ -15,17 +15,13 @@ use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
-    public function register(): void
+    /** Register any application services. */
+    public function register()
     {
     }
 
-    /**
-     * Bootstrap any application services.
-     */
-    public function boot(): void
+    /** Bootstrap any application services. */
+    public function boot()
     {
         if (env('APP_ENV') === 'production') {
             URL::forceScheme('https');
@@ -38,9 +34,9 @@ class AppServiceProvider extends ServiceProvider
         // Model::shouldBeStrict(! $this->app->isProduction());
     }
 
-    private function getLanguages(): void
+    private function getLanguages()
     {
-        if (! Schema::hasTable('languages')) {
+        if ( ! Schema::hasTable('languages')) {
             return;
         }
 

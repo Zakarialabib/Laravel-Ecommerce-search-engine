@@ -30,15 +30,15 @@ class Reset extends Component
     public function resetPassword()
     {
         $this->validate([
-            'token' => 'required',
-            'email' => 'required|email',
+            'token'    => 'required',
+            'email'    => 'required|email',
             'password' => 'required|min:8|same:passwordConfirmation',
         ]);
 
         $response = $this->broker()->reset(
             [
-                'token' => $this->token,
-                'email' => $this->email,
+                'token'    => $this->token,
+                'email'    => $this->email,
                 'password' => $this->password,
             ],
             function ($user, $password): void {
@@ -63,9 +63,7 @@ class Reset extends Component
         $this->addError('email', trans($response));
     }
 
-    /**
-     * Get the broker to be used during password reset.
-     */
+    /** Get the broker to be used during password reset. */
     public function broker(): \Illuminate\Contracts\Auth\PasswordBroker
     {
         return Password::broker();
@@ -76,9 +74,7 @@ class Reset extends Component
         return view('livewire.auth.passwords.reset');
     }
 
-    /**
-     * Get the guard to be used during password reset.
-     */
+    /** Get the guard to be used during password reset. */
     protected function guard(): \Illuminate\Contracts\Auth\StatefulGuard
     {
         return Auth::guard();

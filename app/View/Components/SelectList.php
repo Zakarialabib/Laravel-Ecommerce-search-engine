@@ -20,9 +20,7 @@ class SelectList extends Component
         $this->options = $options;
     }
 
-    /**
-     * Get the view / contents that represent the component.
-     */
+    /** Get the view / contents that represent the component. */
     public function render(): \Illuminate\Contracts\View\View|string
     {
         return view('components.select-list');

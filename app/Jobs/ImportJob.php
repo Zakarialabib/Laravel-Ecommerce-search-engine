@@ -32,9 +32,7 @@ class ImportJob implements ShouldQueue
         $this->filename = $filename;
     }
 
-    /**
-     * Execute the job.
-     */
+    /** Execute the job. */
     public function handle(): void
     {
         Excel::import(new ImportUpdates(), public_path('images/products/'.$this->filename));

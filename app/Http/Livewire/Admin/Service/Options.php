@@ -16,7 +16,7 @@ class Options extends Component
         $options = [];
 
         foreach ($options as $option) {
-            if (! empty($option['type']) && ! empty($option['value'])) {
+            if ( ! empty($option['type']) && ! empty($option['value'])) {
                 $this->options[] = $option;
             }
         }
@@ -27,7 +27,7 @@ class Options extends Component
     public function addOption(): void
     {
         $this->options[] = [
-            'type' => '',
+            'type'  => '',
             'value' => '',
         ];
     }
@@ -42,7 +42,7 @@ class Options extends Component
     {
         $this->options = [
             [
-                'type' => '',
+                'type'  => '',
                 'value' => '',
             ],
         ];

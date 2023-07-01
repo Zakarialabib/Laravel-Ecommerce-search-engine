@@ -27,10 +27,8 @@ class ContactForm extends Mailable
         $this->contact = $contact;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): \Illuminate\Mail\Mailables\Envelope
+    /** Get the message envelope. */
+    public function envelope(): Envelope
     {
         $subject = config('app.name').' - '.'Contact Form from '.$this->contact->name.'';
 
@@ -39,10 +37,8 @@ class ContactForm extends Mailable
         );
     }
 
-    /**
-     * Get the message content definition.
-     */
-    public function content(): \Illuminate\Mail\Mailables\Content
+    /** Get the message content definition. */
+    public function content(): Content
     {
         // return $this->view('')
         // ->subject('Contact Form!')

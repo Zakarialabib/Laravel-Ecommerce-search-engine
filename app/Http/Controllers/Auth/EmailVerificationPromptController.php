@@ -10,9 +10,7 @@ use Illuminate\Http\Request;
 
 class EmailVerificationPromptController extends Controller
 {
-    /**
-     * Display the email verification prompt.
-     */
+    /** Display the email verification prompt. */
     public function __invoke(Request $request): mixed
     {
         return $request->user()->hasVerifiedEmail()

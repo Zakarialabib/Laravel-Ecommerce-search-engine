@@ -26,10 +26,10 @@ class Login extends Component
     public $type;
 
     protected $rules = [
-        'email' => 'required|email',
-        'password' => 'required',
+        'email'     => 'required|email',
+        'password'  => 'required',
         'store_url' => 'required',
-        'type' => 'required',
+        'type'      => 'required',
     ];
 
     public function loginModal(): void
@@ -45,11 +45,11 @@ class Login extends Component
 
         $response = $client->request('POST', $this->store_url.'/api/login', [
             'headers' => [
-                'Accept' => 'application/json',
+                'Accept'           => 'application/json',
                 'X-Requested-With' => 'XMLHttpRequest',
             ],
             'json' => [
-                'email' => $this->email,
+                'email'    => $this->email,
                 'password' => $this->password,
             ],
         ]);
@@ -60,12 +60,12 @@ class Login extends Component
 
             $integration = Integration::firstOrNew(['type' => $this->type]);
             $integration->fill([
-                'store_url' => $this->store_url,
-                'api_key' => $ecommerceToken,
+                'store_url'  => $this->store_url,
+                'api_key'    => $ecommerceToken,
                 'api_secret' => $ecommerceToken,
-                'last_sync' => null, // set to null initially
-                'products' => null, // set to null initially
-                'status' => true, // or any other default status
+                'last_sync'  => null, // set to null initially
+                'products'   => null, // set to null initially
+                'status'     => true, // or any other default status
             ])->save();
 
             $this->alert('success', __('Authentication successful !'));

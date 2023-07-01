@@ -1,8 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Tools;
 
-use FacebookAds\Api;
 use Livewire\Component;
 use Laravel\Socialite\Facades\Socialite;
 use Edbizarro\LaravelFacebookAds\Facades\FacebookAds;
@@ -25,15 +26,14 @@ class AdsManagement extends Component
                     'balance',
                     'campaign',
                     'campaign_id',
-                    'status'
+                    'status',
                 ]
             );
-          });
+        });
         $adAccounts = FacebookAds::adAccounts()->all();
-  
 
         return view('livewire.facebook-management')->with([
-            'ads' => $ads
+            'ads' => $ads,
         ]);
     }
 }

@@ -58,12 +58,12 @@ class Index extends Component
     ];
 
     protected $rules = [
-        'slider.title' => ['required', 'string', 'max:255'],
-        'slider.subtitle' => ['nullable', 'string'],
-        'slider.details' => ['nullable'],
-        'slider.link' => ['nullable', 'string'],
-        'slider.language_id' => ['nullable', 'integer'],
-        'slider.bg_color' => ['nullable', 'string'],
+        'slider.title'         => ['required', 'string', 'max:255'],
+        'slider.subtitle'      => ['nullable', 'string'],
+        'slider.details'       => ['nullable'],
+        'slider.link'          => ['nullable', 'string'],
+        'slider.language_id'   => ['nullable', 'integer'],
+        'slider.bg_color'      => ['nullable', 'string'],
         'slider.embeded_video' => ['nullable'],
     ];
 
@@ -99,8 +99,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Slider::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

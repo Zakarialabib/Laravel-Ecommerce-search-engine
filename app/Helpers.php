@@ -18,9 +18,7 @@ use Intervention\Image\Facades\Image;
 
 class Helpers
 {
-    /**
-     * Fetch Cached settings from database
-     */
+    /** Fetch Cached settings from database */
     public static function settings(mixed $key): mixed
     {
         return Cache::rememberForever('settings', function () {
@@ -131,9 +129,7 @@ class Helpers
         return $name;
     }
 
-    /**
-     * @return array<string>|null
-     */
+    /** @return array<string>|null */
     public static function uploadGallery(mixed $gallery): ?array
     {
         // Path cannot be empty
@@ -166,19 +162,17 @@ class Helpers
         ])->id;
     }
 
-    /**
-     * @param mixed $subcategory
-     */
+    /** @param mixed $subcategory */
     public static function createSubcategories($subcategories, mixed $category): mixed
     {
         $subcategoryIds = [];
 
         foreach (explode(',', $subcategories) as $subcategory) {
             $subcategoryModel = Subcategory::create([
-                'name' => trim($subcategory),
-                'slug' => Str::slug($subcategory, '-'),
+                'name'        => trim($subcategory),
+                'slug'        => Str::slug($subcategory, '-'),
                 'category_id' => Category::where('name', $category)->first()->id,
-                'language' => '3',
+                'language'    => '3',
             ]);
             $subcategoryIds[] = $subcategoryModel->id;
         }
@@ -199,7 +193,7 @@ class Helpers
 
     public static function format_currency(mixed $value, bool $format = true): mixed
     {
-        if (! $format) {
+        if ( ! $format) {
             return $value;
         }
 

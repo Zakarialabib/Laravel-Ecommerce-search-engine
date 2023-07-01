@@ -36,8 +36,8 @@ class Highlighted extends Component
 
     protected $rules = [
         'placementType' => 'required|string',
-        'startDate' => 'required|date|after:today',
-        'endDate' => 'required|date|after:start_date',
+        'startDate'     => 'required|date|after:today',
+        'endDate'       => 'required|date|after:start_date',
     ];
 
     public function highlightModal($id): void
@@ -64,15 +64,15 @@ class Highlighted extends Component
 
         $vendorHighlighted = VendorHighlighted::updateOrCreate(
             [
-                'vendor_id' => auth()->id(),
+                'vendor_id'  => auth()->id(),
                 'product_id' => $this->product->id,
             ],
             [
                 'placement_type' => $this->placement_type,
-                'price' => $totalPrice,
-                'approved' => false,
-                'start_date' => $this->startDate,
-                'end_date' => $this->endDate,
+                'price'          => $totalPrice,
+                'approved'       => false,
+                'start_date'     => $this->startDate,
+                'end_date'       => $this->endDate,
             ]
         );
 

@@ -31,10 +31,10 @@ class Login extends Component
     ];
 
     protected $rules = [
-        'email' => 'required|email',
-        'password' => 'required',
+        'email'     => 'required|email',
+        'password'  => 'required',
         'store_url' => 'required',
-        'type' => 'required',
+        'type'      => 'required',
     ];
 
     public function loginModal(): void
@@ -50,11 +50,11 @@ class Login extends Component
 
         $response = $client->request('POST', $this->store_url.'/api/login', [
             'headers' => [
-                'Accept' => 'application/json',
+                'Accept'           => 'application/json',
                 'X-Requested-With' => 'XMLHttpRequest',
             ],
             'json' => [
-                'email' => $this->email,
+                'email'    => $this->email,
                 'password' => $this->password,
             ],
         ]);
@@ -65,12 +65,12 @@ class Login extends Component
 
             $integration = Integration::firstOrNew(['type' => $this->type]);
             $integration->fill([
-                'store_url' => $this->store_url,
-                'api_key' => $ecommerceToken,
+                'store_url'  => $this->store_url,
+                'api_key'    => $ecommerceToken,
                 'api_secret' => $ecommerceToken,
-                'last_sync' => null,
-                'products' => null,
-                'status' => true,
+                'last_sync'  => null,
+                'products'   => null,
+                'status'     => true,
             ])->save();
 
             $this->alert('success', __('Authentication successful !'));
@@ -89,11 +89,11 @@ class Login extends Component
             'https://seller-area.youcan.shop/admin/oauth/token',
             [
                 'form_params' => [
-                    'grant_type' => 'authorization_code',
-                    'client_id' => 1,
+                    'grant_type'    => 'authorization_code',
+                    'client_id'     => 1,
                     'client_secret' => '<CLIENT SECRET>',
-                    'redirect_uri' => 'https://myapp.com/callback',
-                    'code' => $this->get('code'),
+                    'redirect_uri'  => 'https://myapp.com/callback',
+                    'code'          => $this->get('code'),
                 ],
                 'http_errors' => false,
             ]

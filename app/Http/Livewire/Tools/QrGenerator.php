@@ -52,10 +52,10 @@ class QrGenerator extends Component
         $this->websiteUrl = $parsedUrl['scheme'].'://'.$parsedUrl['host'].$parsedUrl['path'];
 
         $utmParams = [
-            'utm_source' => $this->utmSource,
-            'utm_medium' => $this->utmMedium,
+            'utm_source'   => $this->utmSource,
+            'utm_medium'   => $this->utmMedium,
             'utm_campaign' => $this->utmCampaign,
-            'utm_term' => $this->utmTerm,
+            'utm_term'     => $this->utmTerm,
         ];
 
         $query = http_build_query($utmParams);
@@ -107,7 +107,7 @@ class QrGenerator extends Component
 
         // Set the appropriate response headers
         $headers = [
-            'Content-Type' => 'image/svg+xml',
+            'Content-Type'        => 'image/svg+xml',
             'Content-Disposition' => 'attachment; filename="qr_code.svg"',
         ];
 

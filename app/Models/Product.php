@@ -177,8 +177,8 @@ class Product extends Model implements Buyable
      */
     protected array $casts = [
         'subcategories' => 'array',
-        'status' => Status::class,
-        'options' => 'array',
+        'status'        => Status::class,
+        'options'       => 'array',
     ];
 
     public function setNameAttribute($value): void
@@ -222,9 +222,7 @@ class Product extends Model implements Buyable
         return $this->hasOne(VendorHighlighted::class);
     }
 
-    /**
-     * Scope a query to only include active products.
-     */
+    /** Scope a query to only include active products. */
     public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
     {
         $query->where('status', 1);

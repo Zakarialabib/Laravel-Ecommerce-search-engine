@@ -72,7 +72,7 @@ class Redirect extends Model
      * @var array<string, string>
      */
     protected array $casts = [
-        'status' => 'boolean',
+        'status'           => 'boolean',
         'http_status_code' => RedirectionStatus::class,
     ];
 }

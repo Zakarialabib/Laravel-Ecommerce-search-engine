@@ -55,8 +55,8 @@ class Market extends Component
     {
         $query = Product::where('name', 'like', '%'.$this->search.'%')
             ->advancedFilter([
-                's' => $this->search ?: null,
-                'order_column' => $this->sortBy,
+                's'               => $this->search ?: null,
+                'order_column'    => $this->sortBy,
                 'order_direction' => $this->sortDirection,
             ]);
 

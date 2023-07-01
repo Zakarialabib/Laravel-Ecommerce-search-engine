@@ -43,13 +43,13 @@ class Index extends Component
     public array $paginationOptions;
 
     public array $rules = [
-        'user.name' => 'required|string|max:255',
-        'user.email' => 'required|email|unique:users,email',
-        'user.password' => 'required|string|min:8',
-        'user.phone' => 'required|numeric',
-        'user.city' => 'nullable',
-        'user.country' => 'nullable',
-        'user.address' => 'nullable',
+        'user.name'       => 'required|string|max:255',
+        'user.email'      => 'required|email|unique:users,email',
+        'user.password'   => 'required|string|min:8',
+        'user.phone'      => 'required|numeric',
+        'user.city'       => 'nullable',
+        'user.country'    => 'nullable',
+        'user.address'    => 'nullable',
         'user.tax_number' => 'nullable',
     ];
 
@@ -105,8 +105,8 @@ class Index extends Component
         abort_if(Gate::denies('user access'), 403);
 
         $query = User::with('roles')->advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

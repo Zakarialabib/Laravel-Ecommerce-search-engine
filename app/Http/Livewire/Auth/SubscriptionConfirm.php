@@ -30,26 +30,26 @@ class SubscriptionConfirm extends Component
 
     public function confirmSubscription()
     {
-        if (! auth()->check()) {
+        if ( ! auth()->check()) {
             return redirect()->route('login');
         }
 
         $subscriptionOrder = SubscriptionOrder::create([
-            'user_id' => auth()->user()->id,
+            'user_id'         => auth()->user()->id,
             'subscription_id' => $this->selectedPlan->id,
-            'amount' => $this->selectedPlan->price,
-            'payment_method' => $this->payment_method,
-            'payment_status' => false,
-            'payment_status' => true,
+            'amount'          => $this->selectedPlan->price,
+            'payment_method'  => $this->payment_method,
+            'payment_status'  => false,
+            'payment_status'  => true,
         ]);
 
         UserSubscription::create([
-            'user_id' => auth()->user()->id,
+            'user_id'         => auth()->user()->id,
             'subscription_id' => $this->selectedPlan->id,
-            'order_id' => $subscriptionOrder->id,
-            'starts_at' => $this->startsAt,
-            'ends_at' => $this->endsAt,
-            'status' => true,
+            'order_id'        => $subscriptionOrder->id,
+            'starts_at'       => $this->startsAt,
+            'ends_at'         => $this->endsAt,
+            'status'          => true,
         ]);
 
         return redirect()->route('vendor.dashboard');

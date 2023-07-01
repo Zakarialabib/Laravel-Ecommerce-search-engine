@@ -67,7 +67,7 @@ class Price extends Model
 
     protected $casts = [
         'suggested_prices' => 'array',
-        'status' => 'boolean',
+        'status'           => 'boolean',
     ];
 
     public function product()

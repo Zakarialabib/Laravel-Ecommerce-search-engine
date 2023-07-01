@@ -30,9 +30,7 @@ class Email extends Component
         $this->addError('email', trans($response));
     }
 
-    /**
-     * Get the broker to be used during password reset.
-     */
+    /** Get the broker to be used during password reset. */
     public function broker(): \Illuminate\Contracts\Auth\PasswordBroker
     {
         return Password::broker();

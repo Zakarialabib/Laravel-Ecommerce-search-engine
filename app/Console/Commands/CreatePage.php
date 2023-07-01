@@ -9,16 +9,23 @@ use Illuminate\Support\Str;
 
 class CreatePage extends Command
 {
-    /**
-     * The name and signature of the console command.
-     */
-    protected string $signature = 'page:create {title} {--components=}';
+    /** The name and signature of the console command. */
+    protected $signature = 'page:create {title} {--components=}';
 
-    /**
-     * The console command description.
-     */
-    protected string $description = 'Create a new page with specified components';
+    /** The console command description. */
+    protected $description = 'Create a new page with specified components';
 
+      /**
+     * Create a new command instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    
     public function handle(): void
     {
         $name = Str::snake($this->argument('title'));

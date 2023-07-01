@@ -30,11 +30,11 @@ class Create extends Component
 
     protected $rules = [
         'service.language_id' => 'required',
-        'service.title' => 'required|unique:services,title|max:191',
-        'service.type' => 'required',
-        'service.features' => 'nullable',
-        'service.options' => 'nullable',
-        'description' => 'nullable',
+        'service.title'       => 'required|unique:services,title|max:191',
+        'service.type'        => 'required',
+        'service.features'    => 'nullable',
+        'service.options'     => 'nullable',
+        'description'         => 'nullable',
     ];
 
     public function createModal(): void

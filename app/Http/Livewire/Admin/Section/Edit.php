@@ -35,9 +35,9 @@ class Edit extends Component
 
     protected $rules = [
         'section.language_id' => ['required'],
-        'section.page' => ['nullable'],
-        'section.title' => ['nullable', 'string', 'max:255'],
-        'section.subtitle' => ['nullable', 'string', 'max:255'],
+        'section.page'        => ['nullable'],
+        'section.title'       => ['nullable', 'string', 'max:255'],
+        'section.subtitle'    => ['nullable', 'string', 'max:255'],
         'section.description' => ['nullable'],
     ];
 

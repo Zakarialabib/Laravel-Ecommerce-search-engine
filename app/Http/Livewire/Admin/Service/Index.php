@@ -88,8 +88,8 @@ class Index extends Component
         $query = Service::when($this->language_id, function ($query) {
             return $query->where('language_id', $this->language_id);
         })->advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -140,11 +140,11 @@ class Index extends Component
     public function deleteModal($service): void
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
         ]);
         $this->service = $service;
     }
@@ -156,11 +156,11 @@ class Index extends Component
 
         Service::create([
             'language_id' => $service_details->language_id,
-            'title' => $service_details->title,
-            'slug' => $service_details->slug,
-            'image' => $service_details->image,
-            'content' => $service_details->content,
-            'status' => 0,
+            'title'       => $service_details->title,
+            'slug'        => $service_details->slug,
+            'image'       => $service_details->image,
+            'content'     => $service_details->content,
+            'status'      => 0,
         ]);
         $this->alert('success', __('Service Cloned successfully!'));
     }

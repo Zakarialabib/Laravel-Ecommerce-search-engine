@@ -55,9 +55,7 @@ class Page extends Model
         'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'photo',
     ];
 
-    /**
-     * Scope a query to only include active products.
-     */
+    /** Scope a query to only include active products. */
     public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
     {
         $query->where('status', true);

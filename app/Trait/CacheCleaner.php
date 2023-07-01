@@ -10,15 +10,15 @@ trait CacheCleaner
 {
     public static function bootCacheCleaner(): void
     {
-        self::created(function (): void {
+        self::created(function () {
             Artisan::call('cache:clear');
         });
 
-        self::updated(function (): void {
+        self::updated(function () {
             Artisan::call('cache:clear');
         });
 
-        self::deleted(function (): void {
+        self::deleted(function () {
             Artisan::call('cache:clear');
         });
     }

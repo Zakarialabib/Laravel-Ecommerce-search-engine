@@ -35,14 +35,14 @@ class ClickController extends Controller
 
         $matchThese = [
             'belongs_to_type' => $data->type,
-            'belongs_to' => $data->id,
-            'type' => 'click',
-            'ip' => $ip,
-            'time_checker' => $timeChecker,
-            'is_featured' => $data->is_featured,
+            'belongs_to'      => $data->id,
+            'type'            => 'click',
+            'ip'              => $ip,
+            'time_checker'    => $timeChecker,
+            'is_featured'     => $data->is_featured,
         ];
 
-        if (! Track::query()->where($matchThese)->exists()) {
+        if ( ! Track::query()->where($matchThese)->exists()) {
             Track::create($matchThese);
         }
     }

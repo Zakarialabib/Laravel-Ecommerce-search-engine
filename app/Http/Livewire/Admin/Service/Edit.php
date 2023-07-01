@@ -30,11 +30,11 @@ class Edit extends Component
 
     protected $rules = [
         'service.language_id' => 'required',
-        'service.title' => 'required|max:191',
-        'service.type' => 'required',
-        'service.features' => 'nullable',
-        'service.options' => 'nullable',
-        'description' => 'nullable',
+        'service.title'       => 'required|max:191',
+        'service.type'        => 'required',
+        'service.features'    => 'nullable',
+        'service.options'     => 'nullable',
+        'description'         => 'nullable',
     ];
 
     public function updatedDescription($value): void

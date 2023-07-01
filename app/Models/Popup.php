@@ -81,7 +81,7 @@ class Popup extends Model
      * @var array<string, string>
      */
     protected array $casts = [
-        'status' => Status::class,
+        'status'     => Status::class,
         'is_default' => 'boolean',
     ];
 

@@ -101,20 +101,20 @@ class Settings extends Component
         $this->settings = PageSettings::where('page_id', $id)->first();
 
         $this->validate([
-            'settings.header' => 'nullable|string',
-            'settings.footer' => 'nullable|string',
-            'settings.bottomBar' => 'nullable|string',
-            'settings.topHeader' => 'nullable|string',
-            'settings.bottomFooter' => 'nullable|string',
-            'settings.themeColor' => 'nullable|string',
-            'settings.popularProducts' => 'nullable|string',
-            'settings.flashDeal' => 'nullable|string',
-            'settings.bestSellers' => 'nullable|string',
-            'settings.topBrands' => 'nullable|string',
-            'settings.status' => 'nullable|string',
+            'settings.header'             => 'nullable|string',
+            'settings.footer'             => 'nullable|string',
+            'settings.bottomBar'          => 'nullable|string',
+            'settings.topHeader'          => 'nullable|string',
+            'settings.bottomFooter'       => 'nullable|string',
+            'settings.themeColor'         => 'nullable|string',
+            'settings.popularProducts'    => 'nullable|string',
+            'settings.flashDeal'          => 'nullable|string',
+            'settings.bestSellers'        => 'nullable|string',
+            'settings.topBrands'          => 'nullable|string',
+            'settings.status'             => 'nullable|string',
             'settings.featured_banner_id' => 'nullable|string',
-            'settings.page_id' => 'nullable|string',
-            'settings.language_id' => 'nullable|string',
+            'settings.page_id'            => 'nullable|string',
+            'settings.language_id'        => 'nullable|string',
 
         ]);
 
@@ -135,8 +135,8 @@ class Settings extends Component
     public function render()
     {
         $query = Pagesetting::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

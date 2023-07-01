@@ -22,13 +22,13 @@ class Edit extends Component
     public $user;
 
     public array $rules = [
-        'user.name' => 'required|string|max:255',
-        'user.email' => 'required|email|unique:users,email',
+        'user.name'     => 'required|string|max:255',
+        'user.email'    => 'required|email|unique:users,email',
         'user.password' => 'required|string|min:8',
-        'user.phone' => 'required|numeric',
-        'user.city' => 'nullable',
-        'user.country' => 'nullable',
-        'user.address' => 'nullable',
+        'user.phone'    => 'required|numeric',
+        'user.city'     => 'nullable',
+        'user.country'  => 'nullable',
+        'user.address'  => 'nullable',
     ];
 
     public function editModal($user): void
@@ -49,13 +49,13 @@ class Edit extends Component
         $this->validate();
 
         $this->user->update([
-            'name' => $this->user->name,
-            'email' => $this->user->email,
-            'password' => bcrypt($this->user->password),
-            'phone' => $this->user->phone,
-            'city' => $this->user->city,
-            'country' => $this->user->country,
-            'address' => $this->user->address,
+            'name'       => $this->user->name,
+            'email'      => $this->user->email,
+            'password'   => bcrypt($this->user->password),
+            'phone'      => $this->user->phone,
+            'city'       => $this->user->city,
+            'country'    => $this->user->country,
+            'address'    => $this->user->address,
             'tax_number' => $this->user->tax_number,
         ]);
 

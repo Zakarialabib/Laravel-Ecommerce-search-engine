@@ -40,9 +40,9 @@ class Categories extends Component
     public $selectedFilters = [];
 
     protected $queryString = [
-        'category_id' => ['except' => '', 'as' => 'c'],
+        'category_id'    => ['except' => '', 'as' => 'c'],
         'subcategory_id' => ['except' => '', 'as' => 's'],
-        'sorting' => ['except' => '', 'as' => 'f'],
+        'sorting'        => ['except' => '', 'as' => 'f'],
     ];
 
     public function updatingPerPage(): void
@@ -96,12 +96,12 @@ class Categories extends Component
         $this->perPage = 25;
         $this->paginationOptions = [25, 50, 100];
         $this->sortingOptions = [
-            'name-asc' => __('Order Alphabetic, A-Z'),
-            'name-desc' => __('Order Alphabetic, Z-A'),
-            'price-asc' => __('Price, low to high'),
+            'name-asc'   => __('Order Alphabetic, A-Z'),
+            'name-desc'  => __('Order Alphabetic, Z-A'),
+            'price-asc'  => __('Price, low to high'),
             'price-desc' => __('Price, high to low'),
-            'date-asc' => __('Date, new to old'),
-            'date-desc' => __('Date, old to new'),
+            'date-asc'   => __('Date, new to old'),
+            'date-desc'  => __('Date, old to new'),
         ];
     }
 

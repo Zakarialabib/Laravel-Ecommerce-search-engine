@@ -25,8 +25,8 @@ class ErrorController extends Controller
 
             // If not, store the unfound URL in the database and redirect to the app URL with status code
             $redirect = Redirect::create([
-                'old_url' => $request->url(),
-                'new_url' => url('/'),
+                'old_url'          => $request->url(),
+                'new_url'          => url('/'),
                 'http_status_code' => RedirectionStatus::MOVED_PERMANENTLY,
             ]);
 

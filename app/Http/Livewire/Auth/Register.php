@@ -47,20 +47,20 @@ class Register extends Component
     public function register()
     {
         $this->validate([
-            'name' => 'required',
-            'email' => 'required|email|unique:users,email',
-            'phone' => 'required|numeric',
+            'name'     => 'required',
+            'email'    => 'required|email|unique:users,email',
+            'phone'    => 'required|numeric',
             'password' => 'required|min:8|same:passwordConfirmation',
         ]);
 
         $user = User::create([
-            'name' => $this->name,
-            'email' => $this->email,
+            'name'     => $this->name,
+            'email'    => $this->email,
             'password' => Hash::make($this->password),
-            'phone' => $this->phone,
-            'city' => $this->city,
-            'country' => $this->country,
-            'status' => Status::INACTIVE, // Set status to inactive by default
+            'phone'    => $this->phone,
+            'city'     => $this->city,
+            'country'  => $this->country,
+            'status'   => Status::INACTIVE, // Set status to inactive by default
         ]);
 
         $roleName = $this->isStoreOwner ? 'VENDOR' : 'CLIENT';
@@ -71,10 +71,10 @@ class Register extends Component
 
         if ($this->isStoreOwner) {
             $store = new Store([
-                'name' => $this->storeName,
-                'url' => $this->storeUrl,
-                'phone' => $this->storePhone,
-                'slug' => Str::slug($this->storeName),
+                'name'   => $this->storeName,
+                'url'    => $this->storeUrl,
+                'phone'  => $this->storePhone,
+                'slug'   => Str::slug($this->storeName),
                 'status' => Status::INACTIVE, // Set status to inactive by default
             ]);
 

@@ -50,55 +50,55 @@ class VisualEditor extends Component
             }, $this->listItems),
             'tabItems' => array_map(function ($item) {
                 return [
-                    'title' => $item['title'],
+                    'title'   => $item['title'],
                     'content' => $item['content'],
                 ];
             }, $this->tabItems),
             'accordionItems' => array_map(function ($item) {
                 return [
-                    'title' => $item['title'],
+                    'title'   => $item['title'],
                     'content' => $item['content'],
                 ];
             }, $this->accordionItems),
             'textContent' => [],
             'cardContent' => [],
-            'layout' => [
+            'layout'      => [
                 'columns' => 2,
-                'rows' => 1,
+                'rows'    => 1,
                 'content' => [],
             ],
             'sections' => [],
-            'videos' => [],
+            'videos'   => [],
         ];
         $this->headerLayout = [
             'numberOfColumns' => 1,
-            'headerHeight' => 100,
-            'logoUrl' => null,
-            'logoSize' => 50,
-            'logoPosition' => 'left',
-            'hasSearchIcon' => false,
-            'searchIcon' => null,
+            'headerHeight'    => 100,
+            'logoUrl'         => null,
+            'logoSize'        => 50,
+            'logoPosition'    => 'left',
+            'hasSearchIcon'   => false,
+            'searchIcon'      => null,
         ];
 
         $this->footerLayout = [
             'numberOfColumns' => 1,
-            'headerHeight' => 100,
-            'logoUrl' => null,
-            'logoSize' => 50,
-            'logoPosition' => 'left',
-            'hasSearchIcon' => false,
-            'searchIcon' => null,
+            'headerHeight'    => 100,
+            'logoUrl'         => null,
+            'logoSize'        => 50,
+            'logoPosition'    => 'left',
+            'hasSearchIcon'   => false,
+            'searchIcon'      => null,
         ];
 
         $this->breadcrumbsSettings = [
             'isCentered' => true,
-            'isSimple' => false,
+            'isSimple'   => false,
         ];
 
         $this->pageLoaderSettings = [
             'backgroundColor' => '#ffffff',
-            'color' => '#000000',
-            'customLoader' => null,
+            'color'           => '#000000',
+            'customLoader'    => null,
         ];
 
         // $this->menuItems = [
@@ -161,8 +161,8 @@ class VisualEditor extends Component
     public function addComponent($type, $props = []): void
     {
         $component = [
-            'type' => $type,
-            'props' => $props,
+            'type'     => $type,
+            'props'    => $props,
             'children' => [],
         ];
 
@@ -173,7 +173,7 @@ class VisualEditor extends Component
     {
         $this->components['layout'] = [
             'columns' => 2,
-            'rows' => 1,
+            'rows'    => 1,
             'content' => [],
         ];
     }
@@ -189,8 +189,8 @@ class VisualEditor extends Component
     public function addColumn($width = 1): void
     {
         $this->components['layout']['content'][] = [
-            'type' => 'column',
-            'width' => $width,
+            'type'    => 'column',
+            'width'   => $width,
             'content' => [],
         ];
     }
@@ -198,7 +198,7 @@ class VisualEditor extends Component
     public function addVideo($url = '', $autoplay = false): void
     {
         $this->components['videos'][] = [
-            'url' => $url,
+            'url'      => $url,
             'autoplay' => $autoplay,
         ];
     }
@@ -206,7 +206,7 @@ class VisualEditor extends Component
     public function saveBreadcrumbs(): void
     {
         $breadcrumbs = [
-            'type' => $this->breadcrumbType,
+            'type'  => $this->breadcrumbType,
             'image' => $this->breadcrumbType === 'image' ? $this->breadcrumbImage : null,
         ];
 
@@ -218,8 +218,8 @@ class VisualEditor extends Component
     {
         $loader = [
             'backgroundColor' => $this->pageLoaderSettings['backgroundColor'],
-            'color' => $this->pageLoaderSettings['color'],
-            'customLoader' => $this->pageLoaderSettings['customLoader'],
+            'color'           => $this->pageLoaderSettings['color'],
+            'customLoader'    => $this->pageLoaderSettings['customLoader'],
         ];
 
         // Save the values to the pageLoaderSettings component
@@ -231,10 +231,10 @@ class VisualEditor extends Component
     {
         $this->menuItems[] = [
             'menuName' => '',
-            'items' => [
+            'items'    => [
                 [
                     'label' => '',
-                    'url' => '',
+                    'url'   => '',
                 ],
             ],
         ];
@@ -250,7 +250,7 @@ class VisualEditor extends Component
     {
         $this->menuItems[$index]['items'][] = [
             'label' => '',
-            'url' => '',
+            'url'   => '',
         ];
     }
 
@@ -276,7 +276,7 @@ class VisualEditor extends Component
     {
         $this->menuItems[] = [
             'menuName' => 'Main Menu',
-            'items' => [
+            'items'    => [
                 ['label' => 'Home', 'url' => '/'],
                 ['label' => 'About', 'url' => '/about'],
                 ['label' => 'Contact', 'url' => '/contact'],
@@ -289,12 +289,12 @@ class VisualEditor extends Component
     {
         $column = [
             'numberOfColumns' => $this->headerLayout['numberOfColumns'],
-            'headerHeight' => $this->headerLayout['headerHeight'],
-            'logoUrl' => $this->headerLayout['logoUrl'],
-            'logoSize' => $this->headerLayout['logoSize'],
-            'logoPosition' => $this->headerLayout['logoPosition'],
-            'hasSearchIcon' => $this->headerLayout['hasSearchIcon'],
-            'searchIcon' => $this->headerLayout['searchIcon'],
+            'headerHeight'    => $this->headerLayout['headerHeight'],
+            'logoUrl'         => $this->headerLayout['logoUrl'],
+            'logoSize'        => $this->headerLayout['logoSize'],
+            'logoPosition'    => $this->headerLayout['logoPosition'],
+            'hasSearchIcon'   => $this->headerLayout['hasSearchIcon'],
+            'searchIcon'      => $this->headerLayout['searchIcon'],
         ];
 
         // Save the values to the headerLayout component
@@ -306,9 +306,9 @@ class VisualEditor extends Component
     {
         $column = [
             'numberOfColumns' => $this->footerLayout['numberOfColumns'],
-            'footerHeight' => $this->footerLayout['footerHeight'],
-            'hasSocialIcons' => $this->footerLayout['hasSocialIcons'],
-            'socialIcons' => $this->footerLayout['socialIcons'],
+            'footerHeight'    => $this->footerLayout['footerHeight'],
+            'hasSocialIcons'  => $this->footerLayout['hasSocialIcons'],
+            'socialIcons'     => $this->footerLayout['socialIcons'],
         ];
 
         // Save the values to the footerLayout component
@@ -318,14 +318,14 @@ class VisualEditor extends Component
     public function addCardContent(): void
     {
         $this->cardContent[] = [
-            'cardImage' => '',
-            'cardTitle' => '',
-            'cardText' => '',
+            'cardImage'      => '',
+            'cardTitle'      => '',
+            'cardText'       => '',
             'cardButtonText' => '',
             'cardButtonLink' => '',
-            'cardBgColor' => '',
-            'cardTextColor' => '',
-            'cardSize' => '',
+            'cardBgColor'    => '',
+            'cardTextColor'  => '',
+            'cardSize'       => '',
         ];
     }
 
@@ -333,14 +333,14 @@ class VisualEditor extends Component
     {
         $this->cardContent = array_map(function ($item) {
             return [
-                'cardImage' => $item['cardImage'],
-                'cardTitle' => $item['cardTitle'],
-                'cardText' => $item['cardText'],
+                'cardImage'      => $item['cardImage'],
+                'cardTitle'      => $item['cardTitle'],
+                'cardText'       => $item['cardText'],
                 'cardButtonText' => $item['cardButtonText'],
                 'cardButtonLink' => $item['cardButtonLink'],
-                'cardBgColor' => $item['cardBgColor'],
-                'cardTextColor' => $item['cardTextColor'],
-                'cardSize' => $item['cardSize'],
+                'cardBgColor'    => $item['cardBgColor'],
+                'cardTextColor'  => $item['cardTextColor'],
+                'cardSize'       => $item['cardSize'],
             ];
         }, $this->cardContent);
     }
@@ -355,7 +355,7 @@ class VisualEditor extends Component
     public function addAccordionItem(): void
     {
         $this->components['accordionItems'][] = [
-            'title' => '',
+            'title'   => '',
             'content' => '',
         ];
     }
@@ -364,7 +364,7 @@ class VisualEditor extends Component
     {
         $this->components['accordionItems'] = array_map(function ($item) {
             return [
-                'title' => $item['title'],
+                'title'   => $item['title'],
                 'content' => $item['content'],
             ];
         }, $this->components['accordionItems']);
@@ -380,7 +380,7 @@ class VisualEditor extends Component
     public function addTabItem(): void
     {
         $this->components['tabItems'][] = [
-            'title' => '',
+            'title'   => '',
             'content' => '',
         ];
     }
@@ -389,7 +389,7 @@ class VisualEditor extends Component
     {
         $this->components['tabItems'] = array_map(function ($item) {
             return [
-                'title' => $item['title'],
+                'title'   => $item['title'],
                 'content' => $item['content'],
             ];
         }, $this->components['tabItems']);
@@ -456,7 +456,7 @@ class VisualEditor extends Component
         // Convert the components data to a string
         $components = json_encode([
             'cardContent' => $this->cardContent,
-            'menuItems' => $this->menuItems,
+            'menuItems'   => $this->menuItems,
             // Add other components data here...
         ]);
         $name = Str::snake($this->title);
@@ -471,7 +471,7 @@ class VisualEditor extends Component
 
             $content .= '>'.PHP_EOL;
 
-            if (! empty($component['slot'])) {
+            if ( ! empty($component['slot'])) {
                 $content .= '{{ $'.$component['slot'].' }}';
             }
 

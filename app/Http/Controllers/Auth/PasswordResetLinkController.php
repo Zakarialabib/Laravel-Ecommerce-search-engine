@@ -10,9 +10,7 @@ use Illuminate\Support\Facades\Password;
 
 class PasswordResetLinkController extends Controller
 {
-    /**
-     * Display the password reset link request view.
-     */
+    /** Display the password reset link request view. */
     public function create(): \Illuminate\View\View
     {
         return view('auth.forgot-password');

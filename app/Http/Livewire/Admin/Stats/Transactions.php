@@ -73,7 +73,7 @@ class Transactions extends Component
             ->toArray();
 
         $orders = [
-            'total' => array_column($query, 'total'),
+            'total'      => array_column($query, 'total'),
             'due_amount' => array_map(function ($total, $dueAmount) {
                 return $total - $dueAmount;
             }, array_column($query, 'total'), array_column($query, 'due_amount')),
@@ -117,7 +117,7 @@ class Transactions extends Component
         foreach ($daysInMonth as $day) {
             $order = $ordersData->where('day', $day)->first();
             $chartData[] = [
-                'day' => $day,
+                'day'    => $day,
                 'orders' => $order ? $order->total_orders : 0,
             ];
         }
@@ -125,12 +125,12 @@ class Transactions extends Component
         // Create stacked bar chart options
         return [
             'chart' => [
-                'type' => 'bar',
+                'type'    => 'bar',
                 'stacked' => true,
             ],
             'plotOptions' => [
                 'bar' => [
-                    'horizontal' => false,
+                    'horizontal'  => false,
                     'endingShape' => 'flat',
                     'columnWidth' => '70%',
                 ],
@@ -143,9 +143,9 @@ class Transactions extends Component
             ],
             'xaxis' => [
                 'categories' => array_column($chartData, 'day'),
-                'labels' => [
+                'labels'     => [
                     'rotateAlways' => true,
-                    'rotate' => -45,
+                    'rotate'       => -45,
                 ],
             ],
             'yaxis' => [
@@ -154,9 +154,9 @@ class Transactions extends Component
                 ],
             ],
             'legend' => [
-                'position' => 'top',
+                'position'        => 'top',
                 'horizontalAlign' => 'center',
-                'offsetX' => 40,
+                'offsetX'         => 40,
             ],
             'colors' => ['#4CAF50', '#F44336'],
         ];

@@ -18,7 +18,7 @@ class Login extends Component
     public bool $remember_me = false;
 
     protected array $rules = [
-        'email' => 'required|email',
+        'email'    => 'required|email',
         'password' => 'required',
     ];
 

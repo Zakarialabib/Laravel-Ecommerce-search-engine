@@ -25,7 +25,7 @@ class EditTranslation extends Component
         $this->translations = $this->getTranslations();
         $this->translations = collect($this->translations)->map(function ($item, $key) {
             return [
-                'key' => $key,
+                'key'   => $key,
                 'value' => $item,
             ];
         })->toArray();

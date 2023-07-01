@@ -24,14 +24,14 @@ class Create extends Component
     public $message;
 
     protected $rules = [
-        'email_setting.name' => ['required', 'max:255'],
-        'description' => ['required'],
-        'message' => ['required'],
-        'email_setting.default' => ['required'],
+        'email_setting.name'         => ['required', 'max:255'],
+        'description'                => ['required'],
+        'message'                    => ['required'],
+        'email_setting.default'      => ['required'],
         'email_setting.placeholders' => ['required'],
-        'email_setting.type' => ['required'],
-        'email_setting.subject' => ['required'],
-        'email_setting.status' => ['required'],
+        'email_setting.type'         => ['required'],
+        'email_setting.subject'      => ['required'],
+        'email_setting.status'       => ['required'],
     ];
 
     public function updatedDescription($value): void
