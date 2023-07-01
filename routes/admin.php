@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 use App\Http\Controllers\Admin\BlogCategoryController;
 use App\Http\Controllers\Admin\BrandController;
-use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\FeaturedBannerController;
 use App\Http\Controllers\Admin\NotificationController;
@@ -21,6 +20,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Livewire\Admin\Backup\Index as BackupIndex;
 use App\Http\Livewire\Admin\Blog\Index as BlogIndex;
 use App\Http\Livewire\Admin\Categories\Index as CategoryIndex;
+use App\Http\Livewire\Admin\Subcategory\Index as SubCategoryIndex;
 use App\Http\Livewire\Admin\DeviceModels\Index as DeviceModelIndex;
 use App\Http\Livewire\Admin\Email\Index as EmailIndex;
 use App\Http\Livewire\Admin\Language\EditTranslation;
@@ -48,7 +48,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'r
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/categories', CategoryIndex::class)->name('categories');
-    Route::get('/subcategories', [CategoryController::class, 'subcategories'])->name('subcategories');
+    Route::get('/subcategories', SubCategoryIndex::class)->name('subcategories');
     Route::get('/brands', [BrandController::class, 'index'])->name('brands');
     Route::get('/products', [ProductController::class, 'index'])->name('products');
     Route::get('/device-models', DeviceModelIndex::class)->name('device-models');

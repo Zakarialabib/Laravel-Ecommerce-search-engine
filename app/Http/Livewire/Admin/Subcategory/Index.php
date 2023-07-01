@@ -100,7 +100,7 @@ class Index extends Component
 
         $subcategories = $query->paginate($this->perPage);
 
-        return view('livewire.admin.subcategory.index', compact('subcategories'));
+        return view('livewire.admin.subcategory.index', compact('subcategories'))->extends('layouts.dashboard');
     }
 
     public function editModal(Subcategory $subcategory): void
