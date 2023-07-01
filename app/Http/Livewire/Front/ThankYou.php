@@ -4,20 +4,20 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use App\Models\SubscriptionOrder;
+use App\Models\Order;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
 
 class ThankYou extends Component
 {
-    //  show subscription details on thank you page
+    //  show order details on thank you page
 
-    public $subscription;
+    public $order;
 
-    public function mount($subscription): void
+    public function mount($order)
     {
-        $this->subscription = SubscriptionOrder::findOrFail($subscription->id);
+        $this->order = Order::findOrFail($order->id);
     }
 
     public function render(): View|Factory

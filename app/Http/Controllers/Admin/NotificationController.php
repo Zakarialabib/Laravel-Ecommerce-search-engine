@@ -26,7 +26,7 @@ class NotificationController extends Controller
         return response()->json($data);
     }
 
-    public function user_notf_clear(): void
+    public function user_notf_clear()
     {
         $data = Notification::where('user_id', '!=', null);
         $data->delete();
@@ -46,7 +46,7 @@ class NotificationController extends Controller
         return view('admin.notification.register', compact('datas'));
     }
 
-    public function order_notf_clear(): void
+    public function order_notf_clear()
     {
         $data = Notification::where('order_id', '!=', null);
         $data->delete();
@@ -66,7 +66,7 @@ class NotificationController extends Controller
         return view('admin.notification.order', compact('datas'));
     }
 
-    public function product_notf_clear(): void
+    public function product_notf_clear()
     {
         $data = Notification::where('product_id', '!=', null);
         $data->delete();
@@ -86,7 +86,7 @@ class NotificationController extends Controller
         return view('admin.notification.product', compact('datas'));
     }
 
-    public function conv_notf_clear(): void
+    public function conv_notf_clear()
     {
         $data = Notification::where('conversation_id', '!=', null);
         $data->delete();

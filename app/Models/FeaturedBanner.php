@@ -23,10 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \App\Models\Language|null $language
  * @property-read \App\Models\Product|null $product
- *
  * @method static \Illuminate\Database\Eloquent\Builder|FeaturedBanner advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|FeaturedBanner newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|FeaturedBanner newQuery()
@@ -44,7 +42,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|FeaturedBanner whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FeaturedBanner whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|FeaturedBanner whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class FeaturedBanner extends Model

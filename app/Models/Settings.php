@@ -15,7 +15,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $value
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Settings newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Settings newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Settings query()
@@ -24,7 +23,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Settings whereKey($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Settings whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Settings whereValue($value)
- *
  * @mixin \Eloquent
  */
 class Settings extends Model
@@ -45,7 +43,7 @@ class Settings extends Model
             $setting->save();
         } else {
             $setting = self::create([
-                'key' => $key,
+                'key'   => $key,
                 'value' => $value,
             ]);
         }

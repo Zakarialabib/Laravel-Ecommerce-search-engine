@@ -18,7 +18,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Subscriber advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscriber newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Subscriber newQuery()
@@ -31,7 +30,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Subscriber whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscriber whereTag($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subscriber whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Subscriber extends Model

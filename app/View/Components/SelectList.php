@@ -13,17 +13,20 @@ class SelectList extends Component
     /**
      * Create a new component instance.
      *
+     * @param  mixed  $options
      * @param  mixed  $id
      */
-    public function __construct(mixed $options)
+    public function __construct($options)
     {
         $this->options = $options;
     }
 
     /**
      * Get the view / contents that represent the component.
+     *
+     * @return \Illuminate\Contracts\View\View|string
      */
-    public function render(): \Illuminate\Contracts\View\View|string
+    public function render()
     {
         return view('components.select-list');
     }

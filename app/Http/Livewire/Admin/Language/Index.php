@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Language;
 
+use Livewire\Component;
 use App\Models\Language;
 use Artisan;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class Index extends Component
 {
@@ -21,7 +21,7 @@ class Index extends Component
         'refreshIndex' => '$refresh',
     ];
 
-    public function mount(): void
+    public function mount()
     {
         $this->languages = Language::all()->toArray();
     }
@@ -31,7 +31,7 @@ class Index extends Component
         return view('livewire.admin.language.index')->extends('layouts.dashboard');
     }
 
-    public function onSetDefault($id): void
+    public function onSetDefault($id)
     {
         Language::where('is_default', '=', true)->update(['is_default' => false]);
 
@@ -44,7 +44,7 @@ class Index extends Component
         $this->alert('success', __('Language updated successfully!'));
     }
 
-    public function sync($id): void
+    public function sync($id)
     {
         $languages = Language::findOrFail($id);
 
@@ -53,7 +53,7 @@ class Index extends Component
         $this->alert('success', __('Translation updated successfully!'));
     }
 
-    public function delete(Language $language): void
+    public function delete(Language $language)
     {
         $language->delete();
 

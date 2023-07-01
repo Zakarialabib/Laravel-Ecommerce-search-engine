@@ -26,7 +26,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|VendorHighlighted advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|VendorHighlighted newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|VendorHighlighted newQuery()
@@ -44,7 +43,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|VendorHighlighted whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VendorHighlighted whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|VendorHighlighted whereUuid($value)
- *
  * @mixin \Eloquent
  */
 class VendorHighlighted extends Model
@@ -64,21 +62,21 @@ class VendorHighlighted extends Model
      *
      * @var array<int, string>
      */
-    public array $orderable = self::ATTRIBUTES;
+    public $orderable = self::ATTRIBUTES;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    public array $filterable = self::ATTRIBUTES;
+    public $filterable = self::ATTRIBUTES;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'placement_type',
         'price',
         'approved',
@@ -92,8 +90,8 @@ class VendorHighlighted extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'approved' => 'boolean',
-        'status' => 'boolean',
+        'status'   => 'boolean',
     ];
 }

@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Categories;
 
-use App\Models\Category;
+use Livewire\Component;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Category;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class Edit extends Component
@@ -30,7 +31,7 @@ class Edit extends Component
         'category.name' => ['required', 'max:255'],
     ];
 
-    public function editModal($category): void
+    public function editModal($category)
     {
         //abort_if(Gate::denies('category_edit'), 403);
 
@@ -43,7 +44,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update(): void
+    public function update()
     {
         //abort_if(Gate::denies('category_edit'), 403);
 

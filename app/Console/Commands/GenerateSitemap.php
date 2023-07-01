@@ -16,20 +16,24 @@ class GenerateSitemap extends Command
 {
     /**
      * The name and signature of the console command.
+     *
+     * @var string
      */
-    protected string $signature = 'sitemap:generate';
+    protected $signature = 'sitemap:generate';
 
     /**
      * The console command description.
+     *
+     * @var string
      */
-    protected string $description = 'Generate the sitemap.';
+    protected $description = 'Generate the sitemap.';
 
     public function __construct()
     {
         parent::__construct();
     }
 
-    public function handle(): void
+    public function handle()
     {
         $this->generateSitemapIndex();
         $this->generatePagesSitemap();
@@ -38,7 +42,7 @@ class GenerateSitemap extends Command
         $this->generateSubcategoriesSitemap();
     }
 
-    protected function generateSitemapIndex(): void
+    protected function generateSitemapIndex()
     {
         $sitemapIndex = SitemapIndex::create()
             ->add('/products_sitemap.xml')
@@ -48,7 +52,7 @@ class GenerateSitemap extends Command
         $sitemapIndex->writeToFile(public_path('sitemap.xml'));
     }
 
-    protected function generatePagesSitemap(): void
+    protected function generatePagesSitemap()
     {
         $sitemap = Sitemap::create()
             ->add(
@@ -91,31 +95,31 @@ class GenerateSitemap extends Command
         $sitemap->writeToFile(public_path('pages_sitemap.xml'));
     }
 
-    protected function generateProductsSitemap(): void
+    protected function generateProductsSitemap()
     {
         $sitemap = Sitemap::create();
-        Product::select('id', 'slug', 'updated_at')->active()->get()->each(function (Product $product) use ($sitemap): void {
+        Product::select('id', 'slug', 'updated_at')->active()->get()->each(function (Product $product) use ($sitemap) {
             $sitemap->add(Url::create("catalog/{$product->slug}")
                 ->setLastModificationDate($product->updated_at));
         });
         $sitemap->writeToFile(public_path('products_sitemap.xml'));
     }
 
-    protected function generateBrandsSitemap(): void
+    protected function generateBrandsSitemap()
     {
         $sitemap = Sitemap::create();
-        Brand::select('id', 'slug', 'updated_at')->get()->each(function (Brand $brand) use ($sitemap): void {
+        Brand::select('id', 'slug', 'updated_at')->get()->each(function (Brand $brand) use ($sitemap) {
             $sitemap->add(Url::create("/marque/{$brand->slug}")
                 ->setLastModificationDate($brand->updated_at));
         });
         $sitemap->writeToFile(public_path('brands_sitemap.xml'));
     }
 
-    protected function generateSubcategoriesSitemap(): void
+    protected function generateSubcategoriesSitemap()
     {
         $sitemap = Sitemap::create();
 
-        Subcategory::select('id', 'slug', 'updated_at')->get()->each(function (Subcategory $subcategory) use ($sitemap): void {
+        Subcategory::select('id', 'slug', 'updated_at')->get()->each(function (Subcategory $subcategory) use ($sitemap) {
             $sitemap->add(Url::create("/categorie/{$subcategory->slug}"));
         });
 

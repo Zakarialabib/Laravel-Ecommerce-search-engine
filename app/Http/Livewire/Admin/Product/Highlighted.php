@@ -43,7 +43,7 @@ class Highlighted extends Component
 
     public $highlightModal = false;
 
-    public function highlightModal($id): void
+    public function highlightModal($id)
     {
         $this->resetErrorBag();
 
@@ -54,7 +54,7 @@ class Highlighted extends Component
         $this->highlightModal = true;
     }
 
-    public function saveHighlight(): void
+    public function saveHighlight()
     {
         try {
             if ($this->hot) {

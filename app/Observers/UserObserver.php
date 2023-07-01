@@ -5,7 +5,8 @@ declare(strict_types=1);
 namespace App\Observers;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Notification;
+use App\Notifications\DataChangeNotification;
+use Notification;
 
 class UserObserver
 {
@@ -17,9 +18,8 @@ class UserObserver
             'reason' => auth()->user(),
         ];
 
-        // role('admin')
-        $admins = User::role('admin')->get();
+        $admins = User::isAdmin();
 
-        // Notification::send($admins, new DataChangeNotification($payload));
+        Notification::send($admins, new DataChangeNotification($payload));
     }
 }

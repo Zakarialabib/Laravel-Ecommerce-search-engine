@@ -63,22 +63,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function resetSelected(): void
+    public function resetSelected()
     {
         $this->selected = [];
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -90,8 +90,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Category::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -100,7 +100,7 @@ class Index extends Component
         return view('livewire.admin.categories.index', compact('categories'));
     }
 
-    public function deleteSelected(): void
+    public function deleteSelected()
     {
         abort_if(Gate::denies('category_delete'), 403);
 
@@ -111,7 +111,7 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(Category $category): void
+    public function delete(Category $category)
     {
         abort_if(Gate::denies('category_delete'), 403);
 
@@ -123,14 +123,14 @@ class Index extends Component
         $this->alert('success', __('Category deleted successfully.'));
     }
 
-    public function importModal(): void
+    public function importModal()
     {
         abort_if(Gate::denies('category access'), 403);
 
         $this->importModal = true;
     }
 
-    public function import(): void
+    public function import()
     {
         abort_if(Gate::denies('category access'), 403);
 

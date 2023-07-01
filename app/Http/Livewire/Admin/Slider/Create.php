@@ -35,17 +35,17 @@ class Create extends Component
     ];
 
     public array $rules = [
-        'slider.title' => ['required', 'string', 'max:255'],
-        'slider.subtitle' => ['nullable', 'string'],
-        'description' => ['nullable', 'string'],
-        'slider.link' => ['nullable', 'string'],
-        'slider.language_id' => ['nullable'],
-        'slider.bg_color' => ['nullable'],
+        'slider.title'         => ['required', 'string', 'max:255'],
+        'slider.subtitle'      => ['nullable', 'string'],
+        'description'          => ['nullable', 'string'],
+        'slider.link'          => ['nullable', 'string'],
+        'slider.language_id'   => ['nullable'],
+        'slider.bg_color'      => ['nullable'],
         'slider.embeded_video' => ['nullable'],
-        'photo' => ['required'],
+        'photo'                => ['required'],
     ];
 
-    public function updatedDescription($value): void
+    public function updatedDescription($value)
     {
         $this->description = $value;
     }
@@ -57,7 +57,7 @@ class Create extends Component
         return view('livewire.admin.slider.create');
     }
 
-    public function createModal(): void
+    public function createModal()
     {
         $this->resetErrorBag();
 
@@ -68,7 +68,7 @@ class Create extends Component
         $this->createModal = true;
     }
 
-    public function create(): void
+    public function create()
     {
         $this->validate();
 

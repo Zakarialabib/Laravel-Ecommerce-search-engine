@@ -22,12 +22,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- *
  * @property-read mixed $discount
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PriceHistory> $priceHistories
  * @property-read int|null $price_histories_count
  * @property-read \App\Models\Product|null $product
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Price highestPrice()
  * @method static \Illuminate\Database\Eloquent\Builder|Price latestPrice()
  * @method static \Illuminate\Database\Eloquent\Builder|Price lowestPrice()
@@ -45,10 +43,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Price whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Price whereUuid($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Price whereWholesalePrice($value)
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PriceHistory> $priceHistories
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\PriceHistory> $priceHistories
- *
  * @mixin \Eloquent
  */
 class Price extends Model
@@ -67,7 +63,7 @@ class Price extends Model
 
     protected $casts = [
         'suggested_prices' => 'array',
-        'status' => 'boolean',
+        'status'           => 'boolean',
     ];
 
     public function product()
@@ -94,11 +90,25 @@ class Price extends Model
         return null;
     }
 
+    /**
+     * Scope a query to only include the product with the highest price.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeHighestPrice($query)
     {
         return $query->orderBy('price', 'desc')->first();
     }
 
+    /**
+     * Scope a query to only include the product with the lowest price.
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
     public function scopeLowestPrice($query)
     {
         return $query->orderBy('price', 'asc')->first();

@@ -19,43 +19,58 @@ class AuthController extends Controller
             $token = $user->createToken('inventory', ['read', 'write']);
 
             return response()->json(['api_token' => $token->plainTextToken]);
+        } else {
+            return response()->json(['error' => 'Invalid login credentials'], 401);
         }
-
-        return response()->json(['error' => 'Invalid login credentials'], 401);
     }
 
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(): \Illuminate\Http\Response
+    public function index()
     {
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): \Illuminate\Http\Response
+    public function store(Request $request)
     {
     }
 
     /**
      * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function show(int $id): \Illuminate\Http\Response
+    public function show($id)
     {
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id): \Illuminate\Http\Response
+    public function update(Request $request, $id)
     {
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id): \Illuminate\Http\Response
+    public function destroy($id)
     {
     }
 }

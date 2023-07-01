@@ -4,19 +4,19 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Service;
 
-use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
 
 class Options extends Component
 {
     public $options;
 
-    public function updatedOptions($options): void
+    public function updatedOptions($options)
     {
         $options = [];
 
         foreach ($options as $option) {
-            if (! empty($option['type']) && ! empty($option['value'])) {
+            if ( ! empty($option['type']) && ! empty($option['value'])) {
                 $this->options[] = $option;
             }
         }
@@ -24,25 +24,25 @@ class Options extends Component
         $this->emitUp('optionUpdated', $this->options);
     }
 
-    public function addOption(): void
+    public function addOption()
     {
         $this->options[] = [
-            'type' => '',
+            'type'  => '',
             'value' => '',
         ];
     }
 
-    public function removeOption($index): void
+    public function removeOption($index)
     {
         unset($this->options[$index]);
         $this->options = array_values($this->options);
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->options = [
             [
-                'type' => '',
+                'type'  => '',
                 'value' => '',
             ],
         ];

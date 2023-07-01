@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Controllers\Front;
+namespace App\Http\Controllers;
 
 use App\Models\Track;
 use Illuminate\Http\Request;
@@ -29,25 +29,25 @@ class ClickController extends Controller
         return isset($data->type) && isset($data->id, $data->is_featured);
     }
 
-    private function createTrack($data, $ip): void
+    private function createTrack($data, $ip)
     {
         $timeChecker = now()->format('Y-m-d-H');
 
         $matchThese = [
             'belongs_to_type' => $data->type,
-            'belongs_to' => $data->id,
-            'type' => 'click',
-            'ip' => $ip,
-            'time_checker' => $timeChecker,
-            'is_featured' => $data->is_featured,
+            'belongs_to'      => $data->id,
+            'type'            => 'click',
+            'ip'              => $ip,
+            'time_checker'    => $timeChecker,
+            'is_featured'     => $data->is_featured,
         ];
 
-        if (! Track::query()->where($matchThese)->exists()) {
+        if ( ! Track::query()->where($matchThese)->exists()) {
             Track::create($matchThese);
         }
     }
 
-    private function updateClickCounts($data): void
+    private function updateClickCounts($data)
     {
         $object = null;
         $clickType = null;

@@ -16,18 +16,18 @@ class ImageUpload extends Component
     public $gallery = []; // An array to hold the uploaded images
     public $image; // A single uploaded image
 
-    public function updatedGallery($gallery): void
+    public function updatedGallery($gallery)
     {
         $this->emit('galleryUpdated', $this->gallery);
     }
 
-    public function removeImage($index): void
+    public function removeImage($index)
     {
         unset($this->gallery[$index]);
         $this->gallery = array_values($this->gallery); // Reset array keys
     }
 
-    public function save(): void
+    public function save()
     {
         $this->validate([
             $this->name => $this->multiple ? 'array' : 'image|max:1024', // Customize validation rules as needed

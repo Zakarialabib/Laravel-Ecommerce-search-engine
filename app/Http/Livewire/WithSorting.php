@@ -10,7 +10,7 @@ trait WithSorting
 
     public $sortDirection = 'desc';
 
-    public function sortBy($field): void
+    public function sortBy($field)
     {
         $this->sortBy = $field;
 

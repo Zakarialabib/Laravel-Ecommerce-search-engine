@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use App\Models\Brand;
 use App\Models\Product;
+use App\Models\Brand;
 use App\Models\Subcategory;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -37,7 +37,7 @@ class SubcategoryPage extends Component
         return Brand::active()->get();
     }
 
-    public function filterProducts($type, $value): void
+    public function filterProducts($type, $value)
     {
         switch ($type) {
             case 'brand':
@@ -48,7 +48,7 @@ class SubcategoryPage extends Component
         $this->resetPage();
     }
 
-    public function clearFilter($filter): void
+    public function clearFilter($filter)
     {
         switch ($filter) {
             case 'brand':
@@ -59,21 +59,21 @@ class SubcategoryPage extends Component
         $this->resetPage();
     }
 
-    public function mount($subcategory): void
+    public function mount($subcategory)
     {
         $this->subcategory = Subcategory::findOrFail($subcategory->id);
 
         $this->sortingOptions = [
-            'name-asc' => __('Order Alphabetic, A-Z'),
-            'name-desc' => __('Order Alphabetic, Z-A'),
-            'price-asc' => __('Price, low to high'),
+            'name-asc'   => __('Order Alphabetic, A-Z'),
+            'name-desc'  => __('Order Alphabetic, Z-A'),
+            'price-asc'  => __('Price, low to high'),
             'price-desc' => __('Price, high to low'),
-            'date-asc' => __('Date, new to old'),
-            'date-desc' => __('Date, old to new'),
+            'date-asc'   => __('Date, new to old'),
+            'date-desc'  => __('Date, old to new'),
         ];
     }
 
-    public function loadMore(): void
+    public function loadMore()
     {
         $this->perPage += 25;
     }

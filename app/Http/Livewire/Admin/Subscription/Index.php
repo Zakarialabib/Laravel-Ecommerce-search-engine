@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Subscription;
 
-use App\Http\Livewire\WithSorting;
 use App\Models\Subscription;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Gate;
 use Livewire\Component;
 use Livewire\WithPagination;
+use App\Http\Livewire\WithSorting;
 
 class Index extends Component
 {
@@ -43,22 +43,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function resetSelected(): void
+    public function resetSelected()
     {
         $this->selected = [];
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -70,8 +70,8 @@ class Index extends Component
     public function render()
     {
         $query = Subscription::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -80,7 +80,7 @@ class Index extends Component
         return view('livewire.admin.subscription.index', compact('subscriptions'));
     }
 
-    public function deleteSelected(): void
+    public function deleteSelected()
     {
         abort_if(Gate::denies('subscription_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -91,7 +91,7 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(Subscription $subscription): void
+    public function delete(Subscription $subscription)
     {
         abort_if(Gate::denies('subscription_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

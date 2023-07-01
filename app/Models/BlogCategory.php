@@ -16,17 +16,14 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $status
  * @property int $featured
  * @property string|null $meta_title
- * @property string|null $meta_description
+ * @property string|null $meta_desc
  * @property int|null $language_id
  * @property string|null $created_at
  * @property string|null $updated_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Blog> $blogs
  * @property-read int|null $blogs_count
  * @property-read \App\Models\Language|null $language
- *
  * @property-write mixed $slug
- *
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory newQuery()
@@ -41,11 +38,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|BlogCategory whereUpdatedAt($value)
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Blog> $blogs
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Blog> $blogs
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Blog> $blogs
- *
  * @mixin \Eloquent
  */
 class BlogCategory extends Model
@@ -93,7 +88,7 @@ class BlogCategory extends Model
         return $this->belongsTo('App\Models\Language', 'language_id')->withDefault();
     }
 
-    public function setSlugAttribute($value): void
+    public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = str_replace(' ', '-', $value);
     }

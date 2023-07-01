@@ -13,15 +13,19 @@ use Livewire\Component;
 
 class Reset extends Component
 {
-    public string $token;
+    /** @var string */
+    public $token;
 
-    public string $email;
+    /** @var string */
+    public $email;
 
-    public string $password;
+    /** @var string */
+    public $password;
 
-    public string $passwordConfirmation;
+    /** @var string */
+    public $passwordConfirmation;
 
-    public function mount($token): void
+    public function mount($token)
     {
         $this->email = request()->query('email', '');
         $this->token = $token;
@@ -30,18 +34,18 @@ class Reset extends Component
     public function resetPassword()
     {
         $this->validate([
-            'token' => 'required',
-            'email' => 'required|email',
+            'token'    => 'required',
+            'email'    => 'required|email',
             'password' => 'required|min:8|same:passwordConfirmation',
         ]);
 
         $response = $this->broker()->reset(
             [
-                'token' => $this->token,
-                'email' => $this->email,
+                'token'    => $this->token,
+                'email'    => $this->email,
                 'password' => $this->password,
             ],
-            function ($user, $password): void {
+            function ($user, $password) {
                 $user->password = Hash::make($password);
 
                 $user->setRememberToken(Str::random(60));
@@ -65,8 +69,10 @@ class Reset extends Component
 
     /**
      * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
-    public function broker(): \Illuminate\Contracts\Auth\PasswordBroker
+    public function broker()
     {
         return Password::broker();
     }
@@ -78,8 +84,10 @@ class Reset extends Component
 
     /**
      * Get the guard to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\StatefulGuard
      */
-    protected function guard(): \Illuminate\Contracts\Auth\StatefulGuard
+    protected function guard()
     {
         return Auth::guard();
     }

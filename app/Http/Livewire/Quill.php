@@ -14,13 +14,13 @@ class Quill extends Component
 
     public $quillId;
 
-    public function mount($value = ''): void
+    public function mount($value = '')
     {
         $this->value = $value;
         $this->quillId = 'quill-'.uniqid();
     }
 
-    public function updatedValue($value): void
+    public function updatedValue($value)
     {
         $this->emit(self::EVENT_VALUE_UPDATED, $this->value);
     }

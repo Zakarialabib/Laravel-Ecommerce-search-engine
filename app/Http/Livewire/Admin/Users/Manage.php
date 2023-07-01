@@ -4,33 +4,33 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Users;
 
-use App\Models\Subscription;
-use Illuminate\Contracts\View\View;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use App\Models\Subscription;
 
 class Manage extends Component
 {
     public $renewModal = false;
 
-    public function renewModal($id): void
+    public function renewModal($id)
     {
         $subscription = Subscription::find($id);
 
         $this->renewModal = true;
     }
 
-    public function renew($id): void
+    public function renew($id)
     {
     }
 
-    public function updateSubscriptions($id): void
+    public function updateSubscriptions($id)
     {
         $subscriptionIds = Subscription::find($id);
         $this->user->subscriptions()->sync($subscriptionIds);
         $this->alert('success', __('Subscription updated successfully!'));
     }
 
-    public function removeSubscription($id): void
+    public function removeSubscription($id)
     {
         $user = User::find($userId);
         $user->subscriptions()->detach($subscriptionId);

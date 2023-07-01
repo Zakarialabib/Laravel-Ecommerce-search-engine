@@ -40,15 +40,15 @@ class PopupSettings extends Component
     public $ctaUrl;
 
     public array $rules = [
-        'width' => ['required', 'string', 'max:15'],
-        'frequency' => ['nullable', 'string'],
-        'timing' => ['nullable', 'string', 'max:255'],
-        'delay' => ['nullable', 'string'],
-        'duration' => ['nullable', 'string', 'max:255'],
+        'width'           => ['required', 'string', 'max:15'],
+        'frequency'       => ['nullable', 'string'],
+        'timing'          => ['nullable', 'string', 'max:255'],
+        'delay'           => ['nullable', 'string'],
+        'duration'        => ['nullable', 'string', 'max:255'],
         'backgroundColor' => ['nullable', 'string', 'max:15'],
-        'content' => ['required', 'string'],
-        'ctaText' => ['required', 'string'],
-        'ctaUrl' => ['required', 'string'],
+        'content'         => ['required', 'string'],
+        'ctaText'         => ['required', 'string'],
+        'ctaUrl'          => ['required', 'string'],
     ];
 
     public array $orderable;
@@ -76,22 +76,22 @@ class PopupSettings extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function resetSelected(): void
+    public function resetSelected()
     {
         $this->selected = [];
     }
 
-    public function setDefault($id): void
+    public function setDefault($id)
     {
         Popup::where('is_default', '=', true)->update(['is_default' => false]);
 
@@ -102,26 +102,26 @@ class PopupSettings extends Component
         $this->popup->save();
     }
 
-    public function popupModal($popup = null): void
+    public function popupModal($popup = null)
     {
         $this->popup = $popup;
         $this->popupModal = true;
     }
 
-    public function create(): void
+    public function create()
     {
         try {
             // save new popup
             $this->popup = Popup::create([
-                'width' => $this->width,
-                'frequency' => $this->frequency,
-                'timing' => $this->timing,
-                'delay' => $this->delay,
-                'duration' => $this->duration,
+                'width'           => $this->width,
+                'frequency'       => $this->frequency,
+                'timing'          => $this->timing,
+                'delay'           => $this->delay,
+                'duration'        => $this->duration,
                 'backgroundColor' => $this->backgroundColor,
-                'content' => $this->content,
-                'ctaText' => $this->ctaText,
-                'ctaUrl' => $this->ctaUrl,
+                'content'         => $this->content,
+                'ctaText'         => $this->ctaText,
+                'ctaUrl'          => $this->ctaUrl,
             ]);
 
             // show succes message
@@ -134,7 +134,7 @@ class PopupSettings extends Component
         }
     }
 
-    public function update($popup): void
+    public function update($popup)
     {
         $this->popup = Popup::find($popup->id); // retrieve the popup setting from the database
 
@@ -154,7 +154,7 @@ class PopupSettings extends Component
             // Emit an event based on the chosen timing option, passing along the corresponding delay/interval/duration value as an argument
 
             match ($this->timing) {
-                'delay' => $this->emit('showDelay', $this->delay),
+                'delay'    => $this->emit('showDelay', $this->delay),
                 'duration' => $this->emit('showDuration', $this->duration),
                 'interval' => $this->emit('showInterval', $this->interval),
             };

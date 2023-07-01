@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use App\Enums\Status;
 use App\Models\Language;
 use Closure;
 use Illuminate\Support\Facades\App;
@@ -15,13 +14,18 @@ class Locale
 {
     /**
      * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Closure  $next
+     *
+     * @return mixed
      */
-    public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
+    public function handle($request, Closure $next)
     {
         // Set config translatable.locales
         if (Schema::hasTable('languages')) {
             $languages = Language::query()
-                ->where('status', Status::ACTIVE)
+                ->where('status', Language::STATUS_ACTIVE)
                 ->get()->toArray();
 
             $language_default = Language::query()
@@ -34,11 +38,7 @@ class Locale
         if ($language_code) {
             App::setLocale($language_code);
         } else {
-            if ($language_default) {
-                App::setLocale($language_default['code']);
-            } else {
-                App::setLocale(config('app.locale'));
-            }
+            App::setLocale($language_default['code']);
         }
 
         return $next($request);

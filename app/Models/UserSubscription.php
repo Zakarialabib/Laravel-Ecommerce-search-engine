@@ -24,10 +24,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- *
  * @property-read \App\Models\Subscription $subscription
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|UserSubscription advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSubscription newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|UserSubscription newQuery()
@@ -43,7 +41,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|UserSubscription whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSubscription whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|UserSubscription whereUuid($value)
- *
  * @mixin \Eloquent
  */
 class UserSubscription extends Model
@@ -63,21 +60,21 @@ class UserSubscription extends Model
      *
      * @var array<int, string>
      */
-    public array $orderable = self::ATTRIBUTES;
+    public $orderable = self::ATTRIBUTES;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    public array $filterable = self::ATTRIBUTES;
+    public $filterable = self::ATTRIBUTES;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'user_id',
         'subscription_id',
         'order_id',
@@ -91,7 +88,7 @@ class UserSubscription extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'status' => 'boolean',
     ];
 

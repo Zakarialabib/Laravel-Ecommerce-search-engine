@@ -20,17 +20,15 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @property int $status
  * @property int $featured
  * @property string|null $meta_title
- * @property string|null $meta_description
+ * @property string|null $meta_desc
  * @property int|null $category_id
  * @property int|null $language_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \App\Models\BlogCategory|null $category
  * @property-read \App\Models\Language|null $language
  * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
  * @property-read int|null $media_count
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Blog active()
  * @method static \Illuminate\Database\Eloquent\Builder|Blog advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Blog newModelQuery()
@@ -49,7 +47,6 @@ use Spatie\MediaLibrary\InteractsWithMedia;
  * @method static \Illuminate\Database\Eloquent\Builder|Blog whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blog whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Blog whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Blog extends Model implements HasMedia
@@ -79,7 +76,7 @@ class Blog extends Model implements HasMedia
         'featured',
         'category_id',
         'meta_title',
-        'meta_description',
+        'meta_desc',
         'language_id',
     ];
 
@@ -109,8 +106,12 @@ class Blog extends Model implements HasMedia
 
     /**
      * Scope a query to only include active products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
+     * @return void
      */
-    public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
+    public function scopeActive($query)
     {
         $query->where('status', true);
     }

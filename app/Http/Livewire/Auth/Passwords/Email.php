@@ -9,11 +9,13 @@ use Livewire\Component;
 
 class Email extends Component
 {
-    public string $email;
+    /** @var string */
+    public $email;
 
-    public ?string $emailSentMessage = false;
+    /** @var string|null */
+    public $emailSentMessage = false;
 
-    public function sendResetPasswordLink(): void
+    public function sendResetPasswordLink()
     {
         $this->validate([
             'email' => ['required', 'email'],
@@ -32,8 +34,10 @@ class Email extends Component
 
     /**
      * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
      */
-    public function broker(): \Illuminate\Contracts\Auth\PasswordBroker
+    public function broker()
     {
         return Password::broker();
     }

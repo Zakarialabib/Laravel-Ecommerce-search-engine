@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
+use Livewire\Component;
+use Illuminate\Contracts\View\View;
 use App\Models\Service;
 use App\Models\Subscription;
-use Illuminate\Contracts\View\View;
-use Livewire\Component;
 
 class Services extends Component
 {

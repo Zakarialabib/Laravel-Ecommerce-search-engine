@@ -37,15 +37,15 @@ class Catalog extends Component
     public $selectedFilters = [];
 
     protected $queryString = [
-        'category_id' => ['except' => '', 'as' => 'c'],
+        'category_id'    => ['except' => '', 'as' => 'c'],
         'subcategory_id' => ['except' => '', 'as' => 's'],
-        'brand_id' => ['except' => '', 'as' => 'b'],
-        'sorting' => ['except' => '', 'as' => 'f'],
-        'maxPrice' => ['except' => '', 'as' => 'max'],
-        'minPrice' => ['except' => '', 'as' => 'min'],
+        'brand_id'       => ['except' => '', 'as' => 'b'],
+        'sorting'        => ['except' => '', 'as' => 'f'],
+        'maxPrice'       => ['except' => '', 'as' => 'max'],
+        'minPrice'       => ['except' => '', 'as' => 'min'],
     ];
 
-    public function filterProducts($type, $value): void
+    public function filterProducts($type, $value)
     {
         switch($type) {
             case 'category':
@@ -64,7 +64,7 @@ class Catalog extends Component
         $this->resetPage();
     }
 
-    public function clearFilter($filter): void
+    public function clearFilter($filter)
     {
         switch($filter) {
             case 'category':
@@ -86,20 +86,20 @@ class Catalog extends Component
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortingOptions = [
-            'name-asc' => __('Order Alphabetic, A-Z'),
-            'name-desc' => __('Order Alphabetic, Z-A'),
-            'price-asc' => __('Price, low to high'),
+            'name-asc'   => __('Order Alphabetic, A-Z'),
+            'name-desc'  => __('Order Alphabetic, Z-A'),
+            'price-asc'  => __('Price, low to high'),
             'price-desc' => __('Price, high to low'),
-            'date-asc' => __('Date, new to old'),
-            'date-desc' => __('Date, old to new'),
+            'date-asc'   => __('Date, new to old'),
+            'date-desc'  => __('Date, old to new'),
         ];
     }
 

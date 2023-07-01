@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\RedirectionStatus;
 use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
+use App\Enums\RedirectionStatus;
 
 /**
  * App\Models\Redirect
@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Redirect advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Redirect newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Redirect newQuery()
@@ -32,7 +31,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereOldUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Redirect whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Redirect extends Model
@@ -60,7 +58,7 @@ class Redirect extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'old_url',
         'new_url',
         'status',
@@ -71,8 +69,8 @@ class Redirect extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
-        'status' => 'boolean',
+    protected $casts = [
+        'status'           => 'boolean',
         'http_status_code' => RedirectionStatus::class,
     ];
 }

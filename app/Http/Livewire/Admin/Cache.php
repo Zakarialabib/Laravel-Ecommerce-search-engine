@@ -21,7 +21,7 @@ class Cache extends Component
         return view('livewire.admin.cache');
     }
 
-    public function onClearCache(): void
+    public function onClearCache()
     {
         Artisan::call('optimize:clear');
 

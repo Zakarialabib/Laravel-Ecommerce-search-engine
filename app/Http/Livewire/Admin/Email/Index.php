@@ -26,11 +26,11 @@ class Index extends Component
 
     public array $selected = [];
 
-    public array $paginationOptions;
-
     protected $listeners = [
         'refreshIndex' => '$refresh',
     ];
+
+    public array $paginationOptions;
 
     protected $queryString = [
         'search' => [
@@ -49,22 +49,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function resetSelected(): void
+    public function resetSelected()
     {
         $this->selected = [];
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -76,8 +76,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = EmailTemplate::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -87,7 +87,7 @@ class Index extends Component
     }
 
     // Blog Category  Delete
-    public function delete(EmailTemplate $email): void
+    public function delete(EmailTemplate $email)
     {
         // abort_if(Gate::denies('email_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

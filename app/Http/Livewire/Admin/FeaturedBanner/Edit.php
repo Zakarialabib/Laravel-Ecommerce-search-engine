@@ -9,6 +9,7 @@ use App\Models\Language;
 use App\Models\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
@@ -30,16 +31,16 @@ class Edit extends Component
     public $listeners = ['editModal'];
 
     protected $rules = [
-        'featuredbanner.title' => ['required', 'string', 'max:255'],
-        'description' => ['nullable', 'string'],
-        'featuredbanner.link' => ['nullable', 'string'],
-        'featuredbanner.label' => ['nullable', 'string'],
-        'featuredbanner.product_id' => ['nullable', 'integer'],
-        'featuredbanner.language_id' => ['nullable', 'integer'],
+        'featuredbanner.title'         => ['required', 'string', 'max:255'],
+        'description'                  => ['nullable', 'string'],
+        'featuredbanner.link'          => ['nullable', 'string'],
+        'featuredbanner.label'         => ['nullable', 'string'],
+        'featuredbanner.product_id'    => ['nullable', 'integer'],
+        'featuredbanner.language_id'   => ['nullable', 'integer'],
         'featuredbanner.embeded_video' => ['nullable'],
     ];
 
-    public function updatedDescription($value): void
+    public function updatedDescription($value)
     {
         $this->description = $value;
     }
@@ -51,7 +52,7 @@ class Edit extends Component
         return view('livewire.admin.featured-banner.edit');
     }
 
-    public function editModal($featuredbanner): void
+    public function editModal($featuredbanner)
     {
         $this->resetErrorBag();
 
@@ -62,7 +63,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update(): void
+    public function update()
     {
         $this->validate();
         // if product selected Helpers::productLink($product)

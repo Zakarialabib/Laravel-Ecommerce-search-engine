@@ -23,7 +23,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $language_id
  * @property string|null $created_at
  * @property string|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Slider active()
  * @method static \Illuminate\Database\Eloquent\Builder|Slider advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Slider newModelQuery()
@@ -42,7 +41,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereSubtitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Slider whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Slider extends Model
@@ -71,8 +69,12 @@ class Slider extends Model
 
     /**
      * Scope a query to only include active products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
+     * @return void
      */
-    public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
+    public function scopeActive($query)
     {
         $query->where('status', 1);
     }

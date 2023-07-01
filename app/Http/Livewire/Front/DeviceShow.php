@@ -31,7 +31,7 @@ class DeviceShow extends Component
     public $listeners = [
     ];
 
-    public function mount($slug): void
+    public function mount($slug)
     {
         $this->device_model = DeviceModel::whereSlug($slug)->first();
 

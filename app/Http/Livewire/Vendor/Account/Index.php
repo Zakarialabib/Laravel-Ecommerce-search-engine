@@ -6,16 +6,11 @@ namespace App\Http\Livewire\Vendor\Account;
 
 use App\Models\Store;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Auth;
 
 class Index extends Component
 {
-    use WithFileUploads;
-    use LivewireAlert;
-
     public $user;
     public $name;
     public $phone;
@@ -27,10 +22,10 @@ class Index extends Component
     public $store_url;
     public $store_phone;
     public $store_address;
-    public $logo;
+    public $store_logo;
     public $banner_image;
     public $social_links;
-
+    
     public $password;
 
     protected $listeners = [
@@ -38,12 +33,12 @@ class Index extends Component
     ];
 
     protected $rules = [
-        'email' => 'required|email',
-        'name' => 'required|string',
+        'email'   => 'required|email',
+        'name'    => 'required|string',
         'address' => 'nullable|max:255',
-        'phone' => 'required|numeric|max:1O',
+        'phone'   => 'required|numeric|max:1O',
         'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/',
-        'city' => 'nullable|string',
+        'city'    => 'nullable|string',
         'country' => 'nullable',
         'store_name' => 'required',
         'store_url' => 'required',
@@ -54,7 +49,7 @@ class Index extends Component
         'social_links' => 'array',
     ];
 
-    public function mount(): void
+    public function mount()
     {
         $this->user = User::with('store')->whereId(Auth::user()->id)->first();
         $this->name = $this->user->name;
@@ -64,20 +59,21 @@ class Index extends Component
         $this->country = $this->user->country;
         $this->email = $this->user->email;
         $this->password = $this->user->password;
-
+        
         $store = Store::whereId($this->user->store_id)->first();
 
         $this->store_name = $store->name;
         $this->store_url = $store->url;
         $this->store_phone = $store->phone;
+        $this->image = $store->location;
         $this->store_address = $store->location;
-        $this->store_address = $store->location;
-        $this->logo = $store->logo;
+        $this->logo = $store->lofo;
         $this->banner_image = $store->banner_image;
         $this->social_links = $store->social_links ?? [];
+        
     }
 
-    public function save(): void
+    public function save()
     {
         $this->validate();
 
@@ -87,7 +83,7 @@ class Index extends Component
 
         $this->user->update();
 
-        // store update
+        // store update 
         $this->user->store->name = $this->store_name;
         $this->user->store->url = $this->store_url;
         $this->user->store->phone = $this->store_phone;
@@ -98,14 +94,14 @@ class Index extends Component
         $this->user->store->update();
 
         $this->alert('success', 'Account updated successfully', [
-            'position' => 'top-end',
-            'timer' => 3000,
-            'toast' => true,
-            'text' => '',
-            'confirmButtonText' => 'Ok',
-            'cancelButtonText' => 'Cancel',
-            'showCancelButton' => false,
-            'showConfirmButton' => false,
+            'position' =>  'top-end',
+            'timer' =>  3000,
+            'toast' =>  true,
+            'text' =>  '',
+            'confirmButtonText' =>  'Ok',
+            'cancelButtonText' =>  'Cancel',
+            'showCancelButton' =>  false,
+            'showConfirmButton' =>  false,
         ]);
     }
 

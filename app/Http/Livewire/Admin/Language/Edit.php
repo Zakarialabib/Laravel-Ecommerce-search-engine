@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Language;
 
+use Livewire\Component;
+use File;
 use App;
 use App\Models\Language;
-use File;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Livewire\Component;
 
 class Edit extends Component
 {
     use LivewireAlert;
 
-    /** @var array<string> */
-    public array $listeners = ['editLanguage'];
+    /** @var string[] */
+    public $listeners = ['editLanguage'];
 
     public array $languages = [];
 
@@ -30,20 +30,20 @@ class Edit extends Component
         'language.code' => 'required',
     ];
 
-    public function editLanguage($id): void
+    public function editLanguage($id)
     {
         $this->language = Language::findOrFail($id);
 
         $this->editLanguage = true;
     }
 
-    public function update(): void
+    public function update()
     {
         $this->validate();
 
         $this->language->save();
 
-        File::copy(App::langPath().'/en.json', App::langPath().('/'.$this->code.'.json'));
+        File::copy(App::langPath().('/en.json'), App::langPath().('/'.$this->code.'.json'));
 
         $this->alert('success', __('Data created successfully!'));
 

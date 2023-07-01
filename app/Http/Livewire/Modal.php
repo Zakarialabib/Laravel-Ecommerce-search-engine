@@ -19,7 +19,7 @@ class Modal extends Component
      *  Set Modal
      * -------------------------------------------------------------------------------
      */
-    public function show(): void
+    public function show()
     {
         $this->show = true;
     }

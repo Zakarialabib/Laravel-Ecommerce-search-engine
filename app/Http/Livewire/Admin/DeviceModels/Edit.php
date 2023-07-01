@@ -5,11 +5,12 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\DeviceModels;
 
 use App\Models\DeviceModel;
-use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
 use Livewire\Component;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class Edit extends Component
 {
@@ -26,19 +27,19 @@ class Edit extends Component
     public $description;
 
     protected $rules = [
-        'device_model.name' => ['required', 'string', 'max:255'],
-        'device_model.slug' => ['required', 'string', 'max:255'],
-        'device_model.code' => ['nullable', 'string', 'max:255'],
+        'device_model.name'              => ['required', 'string', 'max:255'],
+        'device_model.slug'              => ['required', 'string', 'max:255'],
+        'device_model.code'              => ['nullable', 'string', 'max:255'],
         'device_model.technical_details' => ['nullable', 'array'],
-        'device_model.features' => ['nullable', 'array'],
-        'device_model.specifications' => ['nullable', 'array'],
-        'device_model.type' => ['nullable', 'string', 'max:255'],
-        'device_model.brand_id' => ['required', 'exists:brands,id'],
-        'image' => ['nullable', 'image', 'max:1024'],
-        'description' => ['nullable', 'string'],
+        'device_model.features'          => ['nullable', 'array'],
+        'device_model.specifications'    => ['nullable', 'array'],
+        'device_model.type'              => ['nullable', 'string', 'max:255'],
+        'device_model.brand_id'          => ['required', 'exists:brands,id'],
+        'image'                          => ['nullable', 'image', 'max:1024'],
+        'description'                    => ['nullable', 'string'],
     ];
 
-    public function updatedDescription($value): void
+    public function updatedDescription($value)
     {
         $this->description = $value;
     }
@@ -48,7 +49,7 @@ class Edit extends Component
         return $this->device_model?->image;
     }
 
-    public function editModal($device_model): void
+    public function editModal($device_model)
     {
         // abort_if(Gate::denies('device_model_update'), 403);
 
@@ -63,7 +64,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update(): void
+    public function update()
     {
         $this->validate();
 
@@ -75,13 +76,13 @@ class Edit extends Component
             $img = Image::make($this->image->getRealPath())->encode('webp', 85);
 
             if ($img->width() > $width) {
-                $img->resize($width, null, function ($constraint): void {
+                $img->resize($width, null, function ($constraint) {
                     $constraint->aspectRatio();
                 });
             }
 
             if ($img->height() > $height) {
-                $img->resize(null, $height, function ($constraint): void {
+                $img->resize(null, $height, function ($constraint) {
                     $constraint->aspectRatio();
                 });
             }

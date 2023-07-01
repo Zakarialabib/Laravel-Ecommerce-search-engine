@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Vendor\Product;
 
-use App\Http\Livewire\WithSorting;
-use App\Models\Product;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Auth;
-use Livewire\Component;
+use App\Http\Livewire\WithSorting;
+use Illuminate\Http\Response;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
+use Livewire\Component;
+use App\Models\Product;
 
 class Index extends Component
 {
@@ -46,22 +48,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function resetSelected(): void
+    public function resetSelected()
     {
         $this->selected = [];
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -75,8 +77,8 @@ class Index extends Component
         $query = Product::where('user_id', Auth::id())
 
             ->advancedFilter([
-                's' => $this->search ?: null,
-                'order_column' => $this->sortBy,
+                's'               => $this->search ?: null,
+                'order_column'    => $this->sortBy,
                 'order_direction' => $this->sortDirection,
             ]);
 
@@ -85,7 +87,7 @@ class Index extends Component
         return view('livewire.vendor.product.index', compact('products'))->extends('layouts.vendor');
     }
 
-    public function deleteSelected(): void
+    public function deleteSelected()
     {
         // abort_if(Gate::denies('vendor_product_management'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 
@@ -96,7 +98,7 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(Product $product): void
+    public function delete(Product $product)
     {
         // abort_if(Gate::denies('vendor_product_management'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

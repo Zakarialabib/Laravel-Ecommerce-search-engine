@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Page;
 
-use App\Http\Livewire\WithSorting;
-use App\Models\PageSetting;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use App\Models\PageSetting;
+use App\Http\Livewire\WithSorting;
 use Livewire\WithPagination;
 
 class Settings extends Component
@@ -71,50 +71,50 @@ class Settings extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function resetSelected(): void
+    public function resetSelected()
     {
         $this->selected = [];
     }
 
-    public function topHeaderModal(): void
+    public function topHeaderModal()
     {
         $this->topHeaderModal = ! $this->topHeaderModal;
     }
 
-    public function bottomFooterModal(): void
+    public function bottomFooterModal()
     {
         $this->bottomFooterModal = ! $this->bottomFooterModal;
     }
 
-    public function updatePageSettings($id): void
+    public function updatePageSettings($id)
     {
         $this->settings = PageSettings::where('page_id', $id)->first();
 
         $this->validate([
-            'settings.header' => 'nullable|string',
-            'settings.footer' => 'nullable|string',
-            'settings.bottomBar' => 'nullable|string',
-            'settings.topHeader' => 'nullable|string',
-            'settings.bottomFooter' => 'nullable|string',
-            'settings.themeColor' => 'nullable|string',
-            'settings.popularProducts' => 'nullable|string',
-            'settings.flashDeal' => 'nullable|string',
-            'settings.bestSellers' => 'nullable|string',
-            'settings.topBrands' => 'nullable|string',
-            'settings.status' => 'nullable|string',
+            'settings.header'             => 'nullable|string',
+            'settings.footer'             => 'nullable|string',
+            'settings.bottomBar'          => 'nullable|string',
+            'settings.topHeader'          => 'nullable|string',
+            'settings.bottomFooter'       => 'nullable|string',
+            'settings.themeColor'         => 'nullable|string',
+            'settings.popularProducts'    => 'nullable|string',
+            'settings.flashDeal'          => 'nullable|string',
+            'settings.bestSellers'        => 'nullable|string',
+            'settings.topBrands'          => 'nullable|string',
+            'settings.status'             => 'nullable|string',
             'settings.featured_banner_id' => 'nullable|string',
-            'settings.page_id' => 'nullable|string',
-            'settings.language_id' => 'nullable|string',
+            'settings.page_id'            => 'nullable|string',
+            'settings.language_id'        => 'nullable|string',
 
         ]);
 
@@ -123,7 +123,7 @@ class Settings extends Component
         $this->alert('success', 'Settings updated successfully.');
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -135,8 +135,8 @@ class Settings extends Component
     public function render()
     {
         $query = Pagesetting::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

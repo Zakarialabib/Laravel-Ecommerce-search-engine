@@ -5,15 +5,15 @@ declare(strict_types=1);
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Enums\Status;
 use App\Support\HasAdvancedFilter;
-use App\Trait\GetModelByUuid;
-use App\Trait\UuidGenerator;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use App\Trait\GetModelByUuid;
+use App\Trait\UuidGenerator;
 use Spatie\Permission\Traits\HasRoles;
+use App\Enums\Status;
 
 /**
  * App\Models\User
@@ -33,7 +33,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string|null $remember_token
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\VendorHighlighted> $highlightedProducts
  * @property-read int|null $highlighted_products_count
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
@@ -49,7 +48,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $subscriptions_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
  * @property-read int|null $tokens_count
- *
  * @method static \Illuminate\Database\Eloquent\Builder|User advancedFilter($data)
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
@@ -72,7 +70,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereStoreId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUuid($value)
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\VendorHighlighted> $highlightedProducts
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection<int, \Illuminate\Notifications\DatabaseNotification> $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Permission\Models\Permission> $permissions
@@ -82,7 +79,6 @@ use Spatie\Permission\Traits\HasRoles;
  * @property-read int|null $subscription_orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\UserSubscription> $subscriptions
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
- *
  * @mixin \Eloquent
  */
 class User extends Authenticatable
@@ -110,7 +106,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'id', 'name',   'city', 'country', 'address',
         'phone', 'email', 'password', 'created_at', 'updated_at', 'store_id',
     ];
@@ -120,7 +116,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected array $hidden = [
+    protected $hidden = [
         'password',
         'remember_token',
     ];
@@ -130,7 +126,7 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'email_verified_at' => 'datetime',
         'status' => Status::class,
     ];
@@ -152,7 +148,7 @@ class User extends Authenticatable
 
     public function store()
     {
-        return $this->hasOne(Store::class, 'id', 'store_id');
+        return $this->hasOne(Store::class);
     }
 
     public function subscriptions()
@@ -167,7 +163,7 @@ class User extends Authenticatable
 
     public function products()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(Product::class, 'user_id', 'id');
     }
 
     public function highlightedProducts()

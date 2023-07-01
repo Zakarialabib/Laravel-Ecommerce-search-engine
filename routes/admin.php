@@ -14,20 +14,20 @@ use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\RolesController;
 use App\Http\Controllers\Admin\SectionController;
 use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\SmptController;
-use App\Http\Controllers\Admin\SubscriptionController;
 use App\Http\Controllers\Admin\UsersController;
-use App\Http\Livewire\Admin\Backup\Index as BackupIndex;
+use App\Http\Livewire\Admin\Users\Index as UserIndex;
 use App\Http\Livewire\Admin\Blog\Index as BlogIndex;
+use App\Http\Livewire\Admin\Service\Index as ServiceIndex;
 use App\Http\Livewire\Admin\Categories\Index as CategoryIndex;
 use App\Http\Livewire\Admin\DeviceModels\Index as DeviceModelIndex;
 use App\Http\Livewire\Admin\Email\Index as EmailIndex;
-use App\Http\Livewire\Admin\Language\EditTranslation;
-use App\Http\Livewire\Admin\Language\Index as LanguageIndex;
 use App\Http\Livewire\Admin\Menu\Index as MenuIndex;
-use App\Http\Livewire\Admin\Service\Index as ServiceIndex;
-use App\Http\Livewire\Admin\Users\Index as UserIndex;
+use App\Http\Livewire\Admin\Language\Index as LanguageIndex;
+use App\Http\Livewire\Admin\Language\EditTranslation;
+use App\Http\Livewire\Admin\Backup\Index as BackupIndex;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -41,7 +41,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin', 'firewall.all']], function (): void {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth', 'role:admin', 'firewall.all']], function () {
     // change lang
     Route::get('/lang/{lang}', [DashboardController::class, 'changeLanguage'])->name('changelanguage');
 

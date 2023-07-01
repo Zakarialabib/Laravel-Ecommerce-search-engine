@@ -16,12 +16,12 @@ class Notifications extends Component
         return view('livewire.notifications');
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->notifications = auth()->user()->notifications->take(10);
     }
 
-    public function toggleReadStatus($key): void
+    public function toggleReadStatus($key)
     {
         $notification = $this->notifications[$key];
 

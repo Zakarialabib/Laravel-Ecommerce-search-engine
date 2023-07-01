@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Support\HasAdvancedFilter;
 use Illuminate\Database\Eloquent\Model;
+use App\Support\HasAdvancedFilter;
 
 /**
  * App\Models\Menu
@@ -23,11 +23,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property string|null $icon
  * @property int $new_window
  * @property int $status
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Menu> $children
  * @property-read int|null $children_count
  * @property-read Menu|null $parent
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Menu active()
  * @method static \Illuminate\Database\Eloquent\Builder|Menu advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Menu newModelQuery()
@@ -46,10 +44,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Menu whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Menu whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Menu whereUrl($value)
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Menu> $children
  * @property-read \Illuminate\Database\Eloquent\Collection<int, Menu> $children
- *
  * @mixin \Eloquent
  */
 class Menu extends Model

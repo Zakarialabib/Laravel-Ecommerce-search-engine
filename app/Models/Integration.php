@@ -28,7 +28,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property Status $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Integration advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Integration newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Integration newQuery()
@@ -46,7 +45,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Integration whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Integration whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Integration whereUuid($value)
- *
  * @mixin \Eloquent
  */
 class Integration extends Model
@@ -74,7 +72,7 @@ class Integration extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'uuid',
         'type',
         'store_url',
@@ -89,17 +87,17 @@ class Integration extends Model
 
     protected $casts = [
         'status' => Status::class,
-        'type' => IntegrationType::class,
+        'type'   => IntegrationType::class,
     ];
 
     public function getTypeName(): string
     {
         return match ($this->type) {
-            IntegrationType::CUSTOM => 'Custom',
-            IntegrationType::YOUCAN => 'Youcan',
+            IntegrationType::CUSTOM      => 'Custom',
+            IntegrationType::YOUCAN      => 'Youcan',
             IntegrationType::WOOCOMMERCE => 'WooCommerce',
-            IntegrationType::SHOPIFY => 'Shopify',
-            default => 'Unknown'
+            IntegrationType::SHOPIFY     => 'Shopify',
+            default                      => 'Unknown'
         };
     }
 }

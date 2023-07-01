@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Service;
 
-use App\Models\Language;
 use App\Models\Service;
-use Illuminate\Support\Str;
+use App\Models\Language;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class Create extends Component
 {
@@ -30,14 +30,14 @@ class Create extends Component
 
     protected $rules = [
         'service.language_id' => 'required',
-        'service.title' => 'required|unique:services,title|max:191',
-        'service.type' => 'required',
-        'service.features' => 'nullable',
-        'service.options' => 'nullable',
-        'description' => 'nullable',
+        'service.title'       => 'required|unique:services,title|max:191',
+        'service.type'        => 'required',
+        'service.features'    => 'nullable',
+        'service.options'     => 'nullable',
+        'description'         => 'nullable',
     ];
 
-    public function createModal(): void
+    public function createModal()
     {
         $this->resetErrorBag();
 
@@ -55,7 +55,7 @@ class Create extends Component
         return view('livewire.admin.service.create');
     }
 
-    public function submit(): void
+    public function submit()
     {
         $this->validate();
 

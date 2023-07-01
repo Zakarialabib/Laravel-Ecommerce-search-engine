@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
-use App\Helpers;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Artisan;
+use App\Helpers;
 
 class UnderMaintenanceJob implements ShouldQueue
 {
@@ -29,7 +29,7 @@ class UnderMaintenanceJob implements ShouldQueue
             Artisan::call('up');
         } else {
             Artisan::call('down', [
-                '--secret' => $this->secret,
+                '--secret'  => $this->secret,
                 '--refresh' => $this->refresh,
             ]);
         }

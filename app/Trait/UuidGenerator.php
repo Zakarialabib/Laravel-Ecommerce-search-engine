@@ -12,7 +12,7 @@ trait UuidGenerator
 {
     public static function bootUuidGenerator(): void
     {
-        static::creating(function (Model $model): void {
+        static::creating(function (Model $model) {
             if (Schema::hasColumn($model->getTable(), 'uuid')) {
                 $model->uuid = Str::uuid()->toString();
             }

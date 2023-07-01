@@ -26,51 +26,51 @@ class StepWizard extends Component
         'resetPage' => '$refresh',
     ];
 
-    public function nextStep(): void
+    public function nextStep()
     {
         $this->step++;
     }
 
-    public function prevStep(): void
+    public function prevStep()
     {
         $this->step--;
     }
 
-    public function updateGiftOrSelf($giftOrSelf): void
+    public function updateGiftOrSelf($giftOrSelf)
     {
         $this->giftOrSelf = $giftOrSelf;
         $this->nextStep();
     }
 
-    public function updateCategoryId($category_id): void
+    public function updateCategoryId($category_id)
     {
         $this->category_id = $category_id;
         $this->nextStep();
     }
 
-    public function updateBrandId($brand_id): void
+    public function updateBrandId($brand_id)
     {
         $this->brand_id = $brand_id;
         $this->nextStep();
     }
 
-    public function updatedMinPrice($value): void
+    public function updatedMinPrice($value)
     {
         $this->minPrice = $value;
     }
 
-    public function updatedMaxPrice($value): void
+    public function updatedMaxPrice($value)
     {
         $this->maxPrice = $value;
     }
 
-    public function updateSubcategoryId($subcategory_id): void
+    public function updateSubcategoryId($subcategory_id)
     {
         $this->subcategory_id = $subcategory_id;
         $this->nextStep();
     }
 
-    public function clearFilter($filter): void
+    public function clearFilter($filter)
     {
         switch($filter) {
             case 'category_id':
@@ -129,8 +129,8 @@ class StepWizard extends Component
         }
 
         return view('livewire.front.step-wizard', [
-            'products' => $products->get(),
-            'totalSteps' => 6,
+            'products'    => $products->get(),
+            'totalSteps'  => 6,
             'currentStep' => $this->step,
         ]);
     }

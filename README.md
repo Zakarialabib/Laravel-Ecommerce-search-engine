@@ -23,18 +23,3 @@
     Merchant Integration: CHRILIA integrates with multiple e-commerce sites through plugins, APIs, and feed files. enabling sellers to fit market needs & allow them to reach a wider audience without investing in costly advertising campaigns.
 
     Store Availability: CHRILIA provides a list of all stores where the product is available, making it easy for users to compare prices and choose the best option.
-
-    milestones : 
-    1. Create a basic website with a home page, product page, and search functionality.
-    2. Add product listings, reviews, and filters.
-    3. Add product comparison & recommendations.
-    4. Add user accounts and product management system.
-    5. Add click statistics and insights.
-    6. Add user-friendly interface and product information.
-    7. Add merchant dashboard and analytics.
-    8. Add merchant integration and store availability.
-    9. Add subscription management system.
-    10. Changing media upload to MediaLibrary package.
-    11. Ads with subscriptions management system.
-    12. Add Price history to products.
-

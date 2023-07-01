@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Service;
 
-use App\Models\Language;
 use App\Models\Service;
-use Illuminate\Support\Str;
+use App\Models\Language;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class Edit extends Component
 {
@@ -30,19 +30,19 @@ class Edit extends Component
 
     protected $rules = [
         'service.language_id' => 'required',
-        'service.title' => 'required|max:191',
-        'service.type' => 'required',
-        'service.features' => 'nullable',
-        'service.options' => 'nullable',
-        'description' => 'nullable',
+        'service.title'       => 'required|max:191',
+        'service.type'        => 'required',
+        'service.features'    => 'nullable',
+        'service.options'     => 'nullable',
+        'description'         => 'nullable',
     ];
 
-    public function updatedDescription($value): void
+    public function updatedDescription($value)
     {
         $this->service->content = $value;
     }
 
-    public function editModal($service): void
+    public function editModal($service)
     {
         $this->resetErrorBag();
 
@@ -62,7 +62,7 @@ class Edit extends Component
         return view('livewire.admin.service.edit');
     }
 
-    public function submit(): void
+    public function submit()
     {
         $this->validate();
 

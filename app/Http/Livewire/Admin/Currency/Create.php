@@ -20,13 +20,13 @@ class Create extends Component
     public $currency;
 
     public array $rules = [
-        'currency.name' => 'required|string|max:255',
-        'currency.code' => 'required|string|max:255',
-        'currency.symbol' => 'required|string|max:255',
+        'currency.name'          => 'required|string|max:255',
+        'currency.code'          => 'required|string|max:255',
+        'currency.symbol'        => 'required|string|max:255',
         'currency.exchange_rate' => 'required|numeric',
     ];
 
-    public function mount(Currency $currency): void
+    public function mount(Currency $currency)
     {
         $this->currency = $currency;
     }
@@ -39,7 +39,7 @@ class Create extends Component
         return view('livewire.currency.create');
     }
 
-    public function createCurrency(): void
+    public function createCurrency()
     {
         $this->resetErrorBag();
 
@@ -48,7 +48,7 @@ class Create extends Component
         $this->createCurrency = true;
     }
 
-    public function create(): void
+    public function create()
     {
         $this->validate();
 

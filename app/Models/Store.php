@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use App\Enums\Status;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Support\HasAdvancedFilter;
+use Illuminate\Database\Eloquent\Model;
+use App\Enums\Status;
 use App\Trait\GetModelByUuid;
 use App\Trait\UuidGenerator;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\Store
@@ -28,12 +28,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
  * @property-read int|null $reviews_count
  * @property-read \App\Models\Subscription|null $subscription
  * @property-read \App\Models\User|null $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Store advancedFilter($data)
  * @method static \Database\Factories\StoreFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Store newModelQuery()
@@ -53,15 +51,11 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Store whereUrl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Store whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Store whereUuid($value)
- *
  * @property string $slug
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
  * @property-read int|null $payments_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Review> $reviews
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Store whereSlug($value)
- *
  * @mixin \Eloquent
  */
 class Store extends Model
@@ -104,7 +98,7 @@ class Store extends Model
 
     protected $casts = [
         'social_links' => 'array',
-        'status' => Status::class,
+        'status'       => Status::class,
     ];
 
     public function user()

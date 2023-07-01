@@ -14,16 +14,13 @@ class PromoPrices extends Component
     public $percentage;
     public $copyPriceToOldPrice;
 
-    public $old_price;
-    public $price;
-
     public $promoModal = false;
 
     public $listeners = [
         'promoModal',
     ];
 
-    public function promoModal(): void
+    public function promoModal()
     {
         $this->resetErrorBag();
 
@@ -32,7 +29,7 @@ class PromoPrices extends Component
         $this->promoModal = true;
     }
 
-    public function update(): void
+    public function update()
     {
         $products = Product::active()->get();
 

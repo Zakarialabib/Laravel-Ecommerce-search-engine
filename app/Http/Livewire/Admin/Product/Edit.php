@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Quill;
 
 class Edit extends Component
 {
@@ -42,32 +43,33 @@ class Edit extends Component
     public $listeners = [
         'optionUpdated' => 'updatedOptions',
         'editModal',
+        Quill::EVENT_VALUE_UPDATED,
     ];
 
     protected $rules = [
-        'product.code' => ['nullable'],
-        'product.slug' => ['nullable'],
-        'product.url' => ['nullable', 'string', 'max:255'],
-        'product.name' => ['required', 'string', 'max:255'],
-        'product.price' => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price' => ['required', 'numeric', 'max:2147483647'],
-        'product.wholesale_price' => ['nullable', 'numeric', 'max:2147483647'],
-        'description' => ['nullable'],
-        'product.meta_title' => ['nullable', 'string', 'max:65'],
-        'product.meta_description' => ['nullable', 'string', 'max:170'],
-        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
-        'product.category_id' => ['required', 'integer'],
-        'product.subcategories' => ['nullable', 'array', 'min:1'],
-        'product.subcategories.*' => ['integer', 'distinct:strict'],
-        'options' => ['nullable', 'array'],
-        'options.*.type' => ['string', 'max:255'],
-        'options.*.value' => ['string', 'max:255'],
-        'product.brand_id' => ['nullable', 'integer'],
-        'product.embeded_video' => ['nullable'],
-        'product.condition' => ['nullable'],
+        'product.code'             => ['nullable'],
+        'product.slug'             => ['nullable'],
+        'product.url'              => ['nullable', 'string', 'max:255'],
+        'product.name'             => ['required', 'string', 'max:255'],
+        'product.price'            => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price'        => ['required', 'numeric', 'max:2147483647'],
+        'product.wholesale_price'  => ['nullable', 'numeric', 'max:2147483647'],
+        'description'              => ['nullable'],
+        'product.meta_title'       => ['nullable', 'string', 'max:255'],
+        'product.meta_description' => ['nullable', 'string', 'max:255'],
+        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
+        'product.category_id'      => ['required', 'integer'],
+        'product.subcategories'    => ['nullable', 'array', 'min:1'],
+        'product.subcategories.*'  => ['integer', 'distinct:strict'],
+        'options'                  => ['nullable', 'array'],
+        'options.*.type'           => ['string', 'max:255'],
+        'options.*.value'          => ['string', 'max:255'],
+        'product.brand_id'         => ['nullable', 'integer'],
+        'product.embeded_video'    => ['nullable'],
+        'product.condition'        => ['nullable'],
     ];
 
-    public function updatedDescription($value): void
+    public function updatedDescription($value)
     {
         $this->description = $value;
     }
@@ -98,26 +100,26 @@ class Edit extends Component
         return Subcategory::select('name', 'id')->get();
     }
 
-    public function updatedProductSubcategories(): void
+    public function updatedProductSubcategories()
     {
         $this->product->subcategories;
     }
 
-    public function addOption(): void
+    public function addOption()
     {
         $this->options[] = [
-            'type' => '',
+            'type'  => '',
             'value' => '',
         ];
     }
 
-    public function removeOption($index): void
+    public function removeOption($index)
     {
         unset($this->options[$index]);
         $this->options = array_values($this->options);
     }
 
-    public function editModal($id): void
+    public function editModal($id)
     {
         abort_if(Gate::denies('product_update'), 403);
 
@@ -139,7 +141,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update(): void
+    public function update()
     {
         abort_if(Gate::denies('product_update'), 403);
 

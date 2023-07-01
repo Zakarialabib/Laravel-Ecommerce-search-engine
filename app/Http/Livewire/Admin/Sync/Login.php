@@ -17,7 +17,7 @@ class Login extends Component
     public $loginModal = false;
 
     /** @var array<string> */
-    public array $listeners = ['loginModal'];
+    public $listeners = ['loginModal'];
 
     public $email;
     public $password;
@@ -26,18 +26,18 @@ class Login extends Component
     public $type;
 
     protected $rules = [
-        'email' => 'required|email',
-        'password' => 'required',
+        'email'     => 'required|email',
+        'password'  => 'required',
         'store_url' => 'required',
-        'type' => 'required',
+        'type'      => 'required',
     ];
 
-    public function loginModal(): void
+    public function loginModal()
     {
         $this->loginModal = true;
     }
 
-    public function authenticate(): void
+    public function authenticate()
     {
         $this->validate();
 
@@ -45,11 +45,11 @@ class Login extends Component
 
         $response = $client->request('POST', $this->store_url.'/api/login', [
             'headers' => [
-                'Accept' => 'application/json',
+                'Accept'           => 'application/json',
                 'X-Requested-With' => 'XMLHttpRequest',
             ],
             'json' => [
-                'email' => $this->email,
+                'email'    => $this->email,
                 'password' => $this->password,
             ],
         ]);
@@ -60,12 +60,12 @@ class Login extends Component
 
             $integration = Integration::firstOrNew(['type' => $this->type]);
             $integration->fill([
-                'store_url' => $this->store_url,
-                'api_key' => $ecommerceToken,
+                'store_url'  => $this->store_url,
+                'api_key'    => $ecommerceToken,
                 'api_secret' => $ecommerceToken,
-                'last_sync' => null, // set to null initially
-                'products' => null, // set to null initially
-                'status' => true, // or any other default status
+                'last_sync'  => null, // set to null initially
+                'products'   => null, // set to null initially
+                'status'     => true, // or any other default status
             ])->save();
 
             $this->alert('success', __('Authentication successful !'));

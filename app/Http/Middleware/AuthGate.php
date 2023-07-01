@@ -4,17 +4,23 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Models\Role;
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Spatie\Permission\Models\Role;
 
 class AuthGate
 {
     /**
      * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  Closure  $next
+     *
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next): mixed
+    public function handle(Request $request, Closure $next)
     {
         $user = auth()->user();
 
@@ -24,13 +30,13 @@ class AuthGate
 
             foreach ($roles as $role) {
                 foreach ($role->permissions as $permissions) {
-                    $permissionsArray[$permissions->name][] = $role->name;
+                    $permissionsArray[$permissions->title][] = $role->id;
                 }
             }
 
-            foreach ($permissionsArray as $name => $roles) {
-                Gate::define($name, function ($user) use ($roles) {
-                    return $user->hasAnyRole($roles);
+            foreach ($permissionsArray as $title => $roles) {
+                Gate::define($title, function (User $user) use ($roles) {
+                    return count(array_intersect($user->roles->pluck('id')->toArray(), $roles)) > 0;
                 });
             }
         }

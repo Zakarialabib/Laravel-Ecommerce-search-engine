@@ -9,14 +9,13 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Subcategory;
-use App\Models\User;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Quill;
 
 class Create extends Component
 {
@@ -25,6 +24,7 @@ class Create extends Component
 
     public $listeners = [
         'createProduct',
+        Quill::EVENT_VALUE_UPDATED,
     ];
 
     public $createProduct = false;
@@ -39,9 +39,7 @@ class Create extends Component
 
     public $uploadLink;
 
-    public $description;
-
-    public $subcategories;
+    public $description = null;
 
     public $width = 1000;
 
@@ -50,34 +48,34 @@ class Create extends Component
     public array $listsForFields = [];
 
     protected $rules = [
-        'product.name' => ['required', 'string', 'max:255'],
-        'product.price' => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price' => ['required', 'numeric', 'max:2147483647'],
-        'description' => ['nullable'],
-        'product.meta_title' => ['nullable', 'string', 'max:65'],
-        'product.meta_description' => ['nullable', 'string', 'max:170'],
-        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
-        'product.category_id' => ['required', 'integer'],
-        'product.subcategories' => ['required', 'array', 'min:1'],
-        'product.subcategories.*' => ['integer', 'distinct:strict'],
-        'options.*.type' => ['required', 'string', 'in:color,size'],
-        'options.*.value' => ['required_if:options.*.type,color', 'string'],
-        'product.brand_id' => ['nullable', 'integer'],
-        'product.embeded_video' => ['nullable'],
-        'product.condition' => ['nullable'],
+        'product.name'             => ['required', 'string', 'max:255'],
+        'product.price'            => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price'        => ['required', 'numeric', 'max:2147483647'],
+        'description'              => ['nullable'],
+        'product.meta_title'       => ['nullable', 'string', 'max:255'],
+        'product.meta_description' => ['nullable', 'string', 'max:255'],
+        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
+        'product.category_id'      => ['required', 'integer'],
+        'product.subcategories'    => ['required', 'array', 'min:1'],
+        'product.subcategories.*'  => ['integer', 'distinct:strict'],
+        'options.*.type'           => ['required', 'string', 'in:color,size'],
+        'options.*.value'          => ['required_if:options.*.type,color', 'string'],
+        'product.brand_id'         => ['nullable', 'integer'],
+        'product.embeded_video'    => ['nullable'],
+        'product.condition'        => ['nullable'],
     ];
 
-    public function updatedDescription($value): void
+    public function quill_value_updated($value)
     {
         $this->description = $value;
     }
 
-    public function updated($propertyName): void
+    public function updated($propertyName)
     {
         $this->validateOnly($propertyName);
     }
 
-    public function updatedProductSubcategories(): void
+    public function updatedProductSubcategories()
     {
         $this->product->subcategories()->sync($this->product->subcategories);
     }
@@ -97,7 +95,7 @@ class Create extends Component
         return view('livewire.vendor.product.create');
     }
 
-    public function createProduct(): void
+    public function createProduct()
     {
         $this->resetErrorBag();
 
@@ -108,7 +106,7 @@ class Create extends Component
         $this->createProduct = true;
     }
 
-    public function create(): void
+    public function create()
     {
         $this->validate();
 
@@ -136,8 +134,7 @@ class Create extends Component
         $this->product->subcategories = $this->subcategories;
         $this->product->subcategories = $this->subcategories;
 
-        $user = User::find(Auth::id());
-        $user->products()->attach($this->product);
+        Auth()->user()->products()->attach($this->product);
 
         $this->alert('success', 'Product created successfully');
 

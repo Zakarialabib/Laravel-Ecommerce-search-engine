@@ -4,16 +4,16 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Section;
 
-use App\Http\Livewire\Quill;
-use App\Models\Language;
-use App\Models\Section;
-use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use Livewire\WithFileUploads;
+use Illuminate\Contracts\View\View;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Illuminate\Support\Collection;
 use Throwable;
+use App\Models\Section;
+use Illuminate\Support\Str;
+use Livewire\WithFileUploads;
+use App\Models\Language;
+use App\Http\Livewire\Quill;
 
 class Edit extends Component
 {
@@ -35,18 +35,18 @@ class Edit extends Component
 
     protected $rules = [
         'section.language_id' => ['required'],
-        'section.page' => ['nullable'],
-        'section.title' => ['nullable', 'string', 'max:255'],
-        'section.subtitle' => ['nullable', 'string', 'max:255'],
+        'section.page'        => ['nullable'],
+        'section.title'       => ['nullable', 'string', 'max:255'],
+        'section.subtitle'    => ['nullable', 'string', 'max:255'],
         'section.description' => ['nullable'],
     ];
 
-    public function quill_value_updated($value): void
+    public function quill_value_updated($value)
     {
         $this->section->description = $value;
     }
 
-    public function editModal($section): void
+    public function editModal($section)
     {
         $this->resetErrorBag();
 
@@ -61,7 +61,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update(): void
+    public function update()
     {
         try {
             $this->validate();

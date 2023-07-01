@@ -22,7 +22,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|PriceHistory advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|PriceHistory newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PriceHistory newQuery()
@@ -36,7 +35,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|PriceHistory whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PriceHistory whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PriceHistory whereUuid($value)
- *
  * @mixin \Eloquent
  */
 class PriceHistory extends Model
@@ -53,7 +51,7 @@ class PriceHistory extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'status' => 'boolean',
     ];
 

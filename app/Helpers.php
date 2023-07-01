@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App;
 
-use App\Models\Blog;
 use App\Models\Brand;
+use App\Models\Blog;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Settings;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
@@ -20,8 +20,12 @@ class Helpers
 {
     /**
      * Fetch Cached settings from database
+     *
+     * @param mixed $key
+     *
+     * @return mixed
      */
-    public static function settings(mixed $key): mixed
+    public static function settings($key)
     {
         return Cache::rememberForever('settings', function () {
             return Settings::pluck('value', 'key');
@@ -76,7 +80,12 @@ class Helpers
         return Store::find($id)->slug;
     }
 
-    public static function productLink(mixed $product): ?string
+    /**
+     * @param mixed $product
+     *
+     * @return string|null
+     */
+    public static function productLink($product)
     {
         if ($product) {
             return route('front.product', $product->slug);
@@ -94,7 +103,7 @@ class Helpers
      *
      * @return string|null The name of the uploaded file, or null if the upload failed.
      */
-    public static function uploadImage(string $image_url, string $productName, int $size = 800): ?string
+    public static function uploadImage($image_url, $productName, $size = 800)
     {
         $response = Http::get($image_url);
 
@@ -111,13 +120,13 @@ class Helpers
 
         // we need to resize image, otherwise it will be cropped
         if ($img->width() > $size) {
-            $img->resize($size, null, function ($constraint): void {
+            $img->resize($size, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
         }
 
         if ($img->height() > $size) {
-            $img->resize(null, $size, function ($constraint): void {
+            $img->resize(null, $size, function ($constraint) {
                 $constraint->aspectRatio();
             });
         }
@@ -132,9 +141,11 @@ class Helpers
     }
 
     /**
+     * @param mixed $gallery
+     *
      * @return array<string>|null
      */
-    public static function uploadGallery(mixed $gallery): ?array
+    public static function uploadGallery($gallery)
     {
         // Path cannot be empty
         if (empty($gallery)) {
@@ -153,7 +164,12 @@ class Helpers
         }, $gallery);
     }
 
-    public static function createCategory(mixed $category): mixed
+    /**
+     * @param mixed $category
+     *
+     * @return mixed
+     */
+    public static function createCategory($category)
     {
         // Make sure $category is a string
         $category = implode('', $category);
@@ -168,17 +184,20 @@ class Helpers
 
     /**
      * @param mixed $subcategory
+     * @param mixed $category
+     *
+     * @return mixed
      */
-    public static function createSubcategories($subcategories, mixed $category): mixed
+    public static function createSubcategories($subcategories, $category)
     {
         $subcategoryIds = [];
 
         foreach (explode(',', $subcategories) as $subcategory) {
             $subcategoryModel = Subcategory::create([
-                'name' => trim($subcategory),
-                'slug' => Str::slug($subcategory, '-'),
+                'name'        => trim($subcategory),
+                'slug'        => Str::slug($subcategory, '-'),
                 'category_id' => Category::where('name', $category)->first()->id,
-                'language' => '3',
+                'language'    => '3',
             ]);
             $subcategoryIds[] = $subcategoryModel->id;
         }
@@ -186,7 +205,12 @@ class Helpers
         return $subcategoryIds;
     }
 
-    public static function createBrand(mixed $brand): mixed
+    /**
+     * @param mixed $brand
+     *
+     * @return mixed
+     */
+    public static function createBrand($brand)
     {
         // Make sure $brand is a string
         $brand = implode('', $brand);
@@ -197,9 +221,15 @@ class Helpers
         ])->id;
     }
 
-    public static function format_currency(mixed $value, bool $format = true): mixed
+    /**
+     * @param mixed $value
+     * @param bool $format
+     *
+     * @return mixed
+     */
+    public static function format_currency($value, $format = true)
     {
-        if (! $format) {
+        if ( ! $format) {
             return $value;
         }
 
@@ -220,13 +250,13 @@ class Helpers
 
         // we need to resize image, otherwise it will be cropped
         if ($img->width() > $width) {
-            $img->resize($width, null, function ($constraint): void {
+            $img->resize($width, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
         }
 
         if ($img->height() > $height) {
-            $img->resize(null, $height, function ($constraint): void {
+            $img->resize(null, $height, function ($constraint) {
                 $constraint->aspectRatio();
             });
         }

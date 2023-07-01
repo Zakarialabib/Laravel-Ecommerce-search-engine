@@ -55,22 +55,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function resetSelected(): void
+    public function resetSelected()
     {
         $this->selected = [];
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -79,19 +79,19 @@ class Index extends Component
         $this->orderable = (new BlogCategory())->orderable;
     }
 
-    public function deleteModal($blogcategory): void
+    public function deleteModal($blogcategory)
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
         ]);
         $this->blogcategory = $blogcategory;
     }
 
-    public function delete(): void
+    public function delete()
     {
         abort_if(Gate::denies('blogcategory_delete'), 403);
 
@@ -100,7 +100,7 @@ class Index extends Component
         $this->alert('success', __('BlogCategory deleted successfully.'));
     }
 
-    public function deleteSelected(): void
+    public function deleteSelected()
     {
         abort_if(Gate::denies('blogcategory_delete'), 403);
 
@@ -112,8 +112,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = BlogCategory::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

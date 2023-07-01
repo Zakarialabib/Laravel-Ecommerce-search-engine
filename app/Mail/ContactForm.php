@@ -6,8 +6,6 @@ namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
 class ContactForm extends Mailable
@@ -28,29 +26,16 @@ class ContactForm extends Mailable
     }
 
     /**
-     * Get the message envelope.
+     * Build the message.
+     *
+     * @return $this
      */
-    public function envelope(): \Illuminate\Mail\Mailables\Envelope
+    public function build()
     {
-        $subject = config('app.name').' - '.'Contact Form from '.$this->contact->name.'';
-
-        return new Envelope(
-            subject: $subject,
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): \Illuminate\Mail\Mailables\Content
-    {
-        // return $this->view('')
-        // ->subject('Contact Form!')
-        // ->with([
-        //     'contact' => $this->contact,
-        // ]);
-        return new Content(
-            view: 'emails.contact-mail',
-        );
+        return $this->view('emails.contact-mail')
+            ->subject('Contact Form!')
+            ->with([
+                'contact' => $this->contact,
+            ]);
     }
 }

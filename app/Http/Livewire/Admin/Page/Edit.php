@@ -11,6 +11,7 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Quill;
 
 class Edit extends Component
 {
@@ -27,33 +28,22 @@ class Edit extends Component
 
     public $listeners = [
         'editModal',
+        Quill::EVENT_VALUE_UPDATED,
     ];
+
+    public function quill_value_updated($value)
+    {
+        $this->page->details = $value;
+    }
 
     protected $rules = [
-        'page.title' => ['required', 'string', 'max:255'],
-        'page.slug' => ['required', 'max:255'],
-        'description' => ['required'],
-        'description' => ['nullable', 'max:65'],
-        'page.meta_description' => ['nullable', 'max:170'],
-        'page.language_id' => ['nullable', 'integer'],
+        'page.title'            => ['required', 'string', 'max:255'],
+        'page.slug'             => ['required', 'max:255'],
+        'page.details'          => ['required'],
+        'page.meta_title'       => ['nullable', 'max:255'],
+        'page.meta_description' => ['nullable', 'max:255'],
+        'page.language_id'      => ['nullable', 'integer'],
     ];
-
-    protected $messages = [
-        'page.title.required' => 'The title cannot be empty.',
-        'page.title.string' => 'The title must be a string.',
-        'page.title.max' => 'The title may not be greater than 255 characters.',
-        'page.slug.required' => 'The slug cannot be empty.',
-        'page.slug.max' => 'The slug may not be greater than 255 characters.',
-        'description.required' => 'The details cannot be empty.',
-        'description.max' => 'The meta title may not be greater than 65 characters.',
-        'page.meta_description.max' => 'The meta description may not be greater than 170 characters.',
-        'page.language_id.integer' => 'The language must be an integer.',
-    ];
-
-    public function updatedDescription($value): void
-    {
-        $this->description = $value;
-    }
 
     public function render(): View|Factory
     {
@@ -62,7 +52,7 @@ class Edit extends Component
         return view('livewire.admin.page.edit');
     }
 
-    public function editModal($page): void
+    public function editModal($page)
     {
         $this->resetErrorBag();
 
@@ -77,7 +67,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update(): void
+    public function update()
     {
         $this->validate();
 
@@ -88,8 +78,6 @@ class Edit extends Component
             $this->image->storeAs('pages', $imageName);
             $this->page->image = $imageName;
         }
-
-        $this->page->details = $this->description;
 
         $this->page->save();
 

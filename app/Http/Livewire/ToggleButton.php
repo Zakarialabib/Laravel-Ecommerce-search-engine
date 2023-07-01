@@ -21,23 +21,23 @@ class ToggleButton extends Component
 
     protected $listeners = ['updating'];
 
-    public function mount(): void
+    public function mount()
     {
         $this->status = (bool) $this->model->getAttribute($this->field);
         $this->uniqueId = uniqid();
     }
 
-    public function updating($field, $value): void
+    public function updating($field, $value)
     {
         $this->model->setAttribute($this->field, $value)->save();
 
         $this->alert('success', __('Status Changed successfully!'), [
-            'position' => 'center',
-            'timer' => 3000,
-            'toast' => true,
-            'text' => '',
+            'position'       => 'center',
+            'timer'          => 3000,
+            'toast'          => true,
+            'text'           => '',
             'showDenyButton' => false,
-            'onDenied' => '',
+            'onDenied'       => '',
         ]);
     }
 

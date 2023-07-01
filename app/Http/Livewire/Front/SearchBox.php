@@ -19,7 +19,7 @@ class SearchBox extends Component
 
     public $searchBox = true;
 
-    public function updatedSearch(): void
+    public function updatedSearch()
     {
         if (strlen($this->search) > 3) {
             $this->results = Product::active()
@@ -32,13 +32,13 @@ class SearchBox extends Component
         }
     }
 
-    public function hideSearchResults(): void
+    public function hideSearchResults()
     {
         $this->searchBox = false;
         $this->clearSearch();
     }
 
-    public function clearSearch(): void
+    public function clearSearch()
     {
         $this->search = '';
         $this->results = [];

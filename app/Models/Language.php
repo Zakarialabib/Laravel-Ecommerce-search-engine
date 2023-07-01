@@ -17,7 +17,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $is_default
  * @property string|null $created_at
  * @property string|null $updated_at
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Language newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Language newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Language query()
@@ -29,7 +28,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereRtl($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Language whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Language extends Model

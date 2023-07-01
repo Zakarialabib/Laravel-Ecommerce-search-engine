@@ -9,6 +9,7 @@ use App\Imports\DeviceModelImport;
 use App\Models\DeviceModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -73,27 +74,27 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function resetSelected(): void
+    public function resetSelected()
     {
         $this->selected = [];
     }
 
-    public function confirmed(): void
+    public function confirmed()
     {
         $this->emit('delete');
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -107,8 +108,8 @@ class Index extends Component
         // abort_if(Gate::denies('device_model_access'), 403);
 
         $query = DeviceModel::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -117,7 +118,7 @@ class Index extends Component
         return view('livewire.admin.device-models.index', compact('device_models'))->extends('layouts.dashboard');
     }
 
-    public function showModal(DeviceModel $device_model): void
+    public function showModal(DeviceModel $device_model)
     {
         // abort_if(Gate::denies('device_model_show'), 403);
 
@@ -130,19 +131,19 @@ class Index extends Component
         $this->showModal = true;
     }
 
-    public function deleteModal($device_model): void
+    public function deleteModal($device_model)
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast' => false,
-            'position' => 'center',
+            'toast'             => false,
+            'position'          => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText' => __('Cancel'),
-            'onConfirmed' => 'delete',
+            'cancelButtonText'  => __('Cancel'),
+            'onConfirmed'       => 'delete',
         ]);
         $this->device_model = $device_model;
     }
 
-    public function deleteSelected(): void
+    public function deleteSelected()
     {
         // abort_if(Gate::denies('device_model_delete'), 403);
 
@@ -151,7 +152,7 @@ class Index extends Component
         $this->resetSelected();
     }
 
-    public function delete(): void
+    public function delete()
     {
         // abort_if(Gate::denies('device_model_delete'), 403);
 
@@ -160,14 +161,14 @@ class Index extends Component
         $this->alert('success', __('DeviceModel deleted successfully.'));
     }
 
-    public function importModal(): void
+    public function importModal()
     {
         // abort_if(Gate::denies('device_model_create'), 403);
 
         $this->importModal = true;
     }
 
-    public function import(): void
+    public function import()
     {
         // abort_if(Gate::denies('device_model_create'), 403);
 

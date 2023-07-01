@@ -35,8 +35,10 @@ class ProductJob implements ShouldQueue
 
     /**
      * Execute the job.
+     *
+     * @return void
      */
-    public function handle(): void
+    public function handle()
     {
         Excel::import(new ProductImport(), public_path('images/products/'.$this->filename));
 

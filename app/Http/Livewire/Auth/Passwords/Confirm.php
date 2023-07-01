@@ -8,7 +8,8 @@ use Livewire\Component;
 
 class Confirm extends Component
 {
-    public string $password = '';
+    /** @var string */
+    public $password = '';
 
     public function confirm()
     {

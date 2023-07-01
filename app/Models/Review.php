@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace App\Models;
 
-use Eloquent;
 use Illuminate\Database\Eloquent\Model;
+use Eloquent;
 
 /**
  * App\Models\Review
@@ -18,10 +18,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $rating
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read Model|Eloquent $reviewable
  * @property-read \App\Models\User $user
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Review newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Review newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Review query()
@@ -33,7 +31,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereReviewableType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Review whereUserId($value)
- *
  * @mixin \Eloquent
  */
 class Review extends Model
@@ -42,9 +39,6 @@ class Review extends Model
         'user_id',
         'comment',
         'rating',
-        'like',
-        'dislike',
-        'sugest_price',
     ];
 
     public function user()

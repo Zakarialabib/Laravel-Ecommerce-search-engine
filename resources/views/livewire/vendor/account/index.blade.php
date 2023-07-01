@@ -16,7 +16,9 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <div class="{{ $errors->has('name') ? 'is-invalid' : '' }}">
                             <label class="form-label" for="name">{{ __('Full Name') }}</label>
-                            <x-input type="text" name="name" id="name" wire:model="name" />
+                            <input
+                                class="p-3 leading-5 bg-white dark:bg-dark-eval-2 text-gray-700 dark:text-gray-300 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
+                                type="text" name="name" id="name" wire:model="name">
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
                         <div class="{{ $errors->has('email') ? 'is-invalid' : '' }}">

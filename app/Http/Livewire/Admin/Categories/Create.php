@@ -29,7 +29,7 @@ class Create extends Component
         'category.name' => 'required',
     ];
 
-    public function mount(Category $category): void
+    public function mount(Category $category)
     {
         $this->category = $category;
     }
@@ -39,7 +39,7 @@ class Create extends Component
         return view('livewire.admin.categories.create');
     }
 
-    public function createCategory(): void
+    public function createCategory()
     {
         $this->resetErrorBag();
 
@@ -48,7 +48,7 @@ class Create extends Component
         $this->createCategory = true;
     }
 
-    public function create(): void
+    public function create()
     {
         $this->validate();
 

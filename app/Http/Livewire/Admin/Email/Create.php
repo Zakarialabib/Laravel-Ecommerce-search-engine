@@ -23,33 +23,33 @@ class Create extends Component
     public $description;
     public $message;
 
-    protected $rules = [
-        'email_setting.name' => ['required', 'max:255'],
-        'description' => ['required'],
-        'message' => ['required'],
-        'email_setting.default' => ['required'],
-        'email_setting.placeholders' => ['required'],
-        'email_setting.type' => ['required'],
-        'email_setting.subject' => ['required'],
-        'email_setting.status' => ['required'],
-    ];
-
-    public function updatedDescription($value): void
+    public function updatedDescription($value)
     {
         $this->description = $value;
     }
 
-    public function updatedMessage($value): void
+    public function updatedMessage($value)
     {
         $this->message = $value;
     }
+
+    protected $rules = [
+        'email_setting.name'         => ['required', 'max:255'],
+        'description'                => ['required'],
+        'message'                    => ['required'],
+        'email_setting.default'      => ['required'],
+        'email_setting.placeholders' => ['required'],
+        'email_setting.type'         => ['required'],
+        'email_setting.subject'      => ['required'],
+        'email_setting.status'       => ['required'],
+    ];
 
     public function render(): View|Factory
     {
         return view('livewire.admin.email.create');
     }
 
-    public function createModal(): void
+    public function createModal()
     {
         $this->resetErrorBag();
         $this->resetValidation();
@@ -59,7 +59,7 @@ class Create extends Component
         $this->createModal = true;
     }
 
-    public function create(): void
+    public function create()
     {
         $this->validate();
 

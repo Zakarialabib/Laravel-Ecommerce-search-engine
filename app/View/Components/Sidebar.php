@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\View\Components;
 
-use Illuminate\Contracts\View\View;
+use Closure;
 use Illuminate\View\Component;
 
 class Sidebar extends Component
@@ -18,7 +18,12 @@ class Sidebar extends Component
     {
     }
 
-    public function render(): View
+    /**
+     * Get the view / contents that represent the component.
+     *
+     * @return \Illuminate\Contracts\View\View|Closure|string
+     */
+    public function render(): View|Factory
     {
         return view('components.sidebar.sidebar');
     }

@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Section;
 
-use App\Http\Livewire\Quill;
 use App\Models\Language;
 use App\Models\Section;
 use Illuminate\Contracts\View\Factory;
@@ -14,6 +13,7 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use App\Http\Livewire\Quill;
 
 class Create extends Component
 {
@@ -34,24 +34,24 @@ class Create extends Component
     ];
 
     public array $rules = [
-        'section.language_id' => ['required'],
-        'section.page' => ['required'],
-        'section.title' => ['required', 'string', 'max:255'],
+        'section.language_id'    => ['required'],
+        'section.page'           => ['required'],
+        'section.title'          => ['required', 'string', 'max:255'],
         'section.featured_title' => ['nullable', 'string', 'max:255'],
-        'section.subtitle' => ['nullable', 'string', 'max:255'],
-        'section.label' => ['nullable', 'string', 'max:255'],
-        'section.description' => ['nullable'],
-        'section.bg_color' => ['nullable'],
-        'section.position' => ['nullable'],
-        'section.link' => ['nullable'],
+        'section.subtitle'       => ['nullable', 'string', 'max:255'],
+        'section.label'          => ['nullable', 'string', 'max:255'],
+        'section.description'    => ['nullable'],
+        'section.bg_color'       => ['nullable'],
+        'section.position'       => ['nullable'],
+        'section.link'           => ['nullable'],
     ];
 
-    public function quill_value_updated($value): void
+    public function quill_value_updated($value)
     {
         $this->section->description = $value;
     }
 
-    public function createSection(): void
+    public function createSection()
     {
         $this->resetErrorBag();
 
@@ -72,7 +72,7 @@ class Create extends Component
         return Language::select('name', 'id')->get();
     }
 
-    public function save(): void
+    public function save()
     {
         $this->validate();
 

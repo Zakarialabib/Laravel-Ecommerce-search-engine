@@ -25,24 +25,23 @@ class ProductPrices extends Component
 
     public $howMany = 5;
 
-    public function loadMore(): void
+    public function loadMore()
     {
         $this->howMany += 5;
     }
 
-    public function updatedSearch(): void
+    public function updatedSearch()
     {
         $searchTerm = $this->search;
 
         if (strlen($this->search) > 3) {
             // Get a list of stores that have products matching the search term
-            $this->results = Store::whereHas('products', function ($query): void {
+            $this->results = Store::whereHas('products', function ($query) {
                 $query->where('name', 'like', '%'.$this->search.'%');
             })
-                ->with(['products' => function ($query): void {
+                ->with(['products' => function ($query) {
                     $query->where('name', 'like', '%'.$this->search.'%');
-                },
-                ])
+                }])
                 ->take($this->howMany)
                 ->get();
         } else {
@@ -50,7 +49,7 @@ class ProductPrices extends Component
         }
     }
 
-    public function clearSearch(): void
+    public function clearSearch()
     {
         $this->search = '';
         $this->results = [];

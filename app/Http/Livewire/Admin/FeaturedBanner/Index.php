@@ -58,22 +58,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function resetSelected(): void
+    public function resetSelected()
     {
         $this->selected = [];
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -85,8 +85,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = FeaturedBanner::advancedFilter([
-            's' => $this->search ?: null,
-            'order_column' => $this->sortBy,
+            's'               => $this->search ?: null,
+            'order_column'    => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -95,7 +95,7 @@ class Index extends Component
         return view('livewire.admin.featured-banner.index', compact('featuredbanners'));
     }
 
-    public function setFeatured($id): void
+    public function setFeatured($id)
     {
         FeaturedBanner::where('featured', '=', true)->update(['featured' => false]);
         $featuredbanner = FeaturedBanner::findOrFail($id);
@@ -105,7 +105,7 @@ class Index extends Component
         $this->alert('success', __('Featuredbanner featured successfully!'));
     }
 
-    public function showModal(FeaturedBanner $featuredbanner): void
+    public function showModal(FeaturedBanner $featuredbanner)
     {
         $this->resetErrorBag();
 
@@ -116,7 +116,7 @@ class Index extends Component
         $this->showModal = true;
     }
 
-    public function delete(FeaturedBanner $featuredbanner): void
+    public function delete(FeaturedBanner $featuredbanner)
     {
         $featuredbanner->delete();
 

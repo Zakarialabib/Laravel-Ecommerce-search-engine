@@ -18,11 +18,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $language_id
  * @property string|null $created_at
  * @property string|null $updated_at
- *
  * @property-read \App\Models\Category|null $category
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory active()
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory newModelQuery()
@@ -36,9 +34,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Subcategory whereUpdatedAt($value)
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
- *
  * @mixin \Eloquent
  */
 class Subcategory extends Model
@@ -61,8 +57,12 @@ class Subcategory extends Model
 
     /**
      * Scope a query to only include active products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
+     * @return void
      */
-    public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
+    public function scopeActive($query)
     {
         $query->where('status', 1);
     }
@@ -77,7 +77,7 @@ class Subcategory extends Model
         return $this->hasMany(Product::class);
     }
 
-    public function setSlugAttribute($value): void
+    public function setSlugAttribute($value)
     {
         $this->attributes['slug'] = str_replace(' ', '-', $value);
     }

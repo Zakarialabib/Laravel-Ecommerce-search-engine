@@ -4,10 +4,10 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use App\Http\Livewire\WithSorting;
-use App\Models\Product;
 use Livewire\Component;
+use App\Models\Product;
 use Livewire\WithPagination;
+use App\Http\Livewire\WithSorting;
 
 class Market extends Component
 {
@@ -32,17 +32,17 @@ class Market extends Component
         ],
     ];
 
-    public function updatingSearch(): void
+    public function updatingSearch()
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage(): void
+    public function updatingPerPage()
     {
         $this->resetPage();
     }
 
-    public function mount(): void
+    public function mount()
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -55,8 +55,8 @@ class Market extends Component
     {
         $query = Product::where('name', 'like', '%'.$this->search.'%')
             ->advancedFilter([
-                's' => $this->search ?: null,
-                'order_column' => $this->sortBy,
+                's'               => $this->search ?: null,
+                'order_column'    => $this->sortBy,
                 'order_direction' => $this->sortDirection,
             ]);
 

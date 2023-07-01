@@ -25,9 +25,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $language_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- *
  * @property-read \App\Models\Language|null $language
- *
  * @method static \Illuminate\Database\Eloquent\Builder|Section active()
  * @method static \Illuminate\Database\Eloquent\Builder|Section advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Section newModelQuery()
@@ -48,7 +46,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereSubtitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereTitle($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Section whereUpdatedAt($value)
- *
  * @mixin \Eloquent
  */
 class Section extends Model
@@ -124,8 +121,12 @@ class Section extends Model
 
     /**
      * Scope a query to only include active products.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     *
+     * @return void
      */
-    public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
+    public function scopeActive($query)
     {
         $query->where('status', 1);
     }

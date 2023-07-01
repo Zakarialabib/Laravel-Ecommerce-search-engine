@@ -4,21 +4,24 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Auth;
 
-use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use App\Models\User;
 
 class Login extends Component
 {
-    public string $email = '';
+    /** @var string */
+    public $email = '';
 
-    public string $password = '';
+    /** @var string */
+    public $password = '';
 
-    public bool $remember_me = false;
+    /** @var bool */
+    public $remember_me = false;
 
     protected array $rules = [
-        'email' => 'required|email',
+        'email'    => 'required|email',
         'password' => 'required',
     ];
 
@@ -47,8 +50,9 @@ class Login extends Component
             }
 
             return redirect()->intended($homePage);
+        } else {
+            $this->addError('email', __('These credentials do not match our records'));
         }
-        $this->addError('email', __('These credentials do not match our records'));
     }
 
     public function render()

@@ -5,39 +5,44 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ProductRequest;
-use App\Http\Resources\ProductCollection;
-use App\Http\Resources\ProductResource;
-use App\Models\Category;
-use App\Models\Product;
-use Exception;
 use Illuminate\Http\Request;
+use App\Http\Resources\ProductResource;
+use App\Http\Resources\ProductCollection;
+use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Support\Arr;
+use App\Http\Requests\ProductRequest;
 use Illuminate\Support\Facades\Log;
+use Exception;
 
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
      */
-    public function index(): \Illuminate\Http\Response
+    public function index()
     {
         return new ProductCollection(Product::with('category')->get());
     }
 
     /**
      * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function store(Request $request): \Illuminate\Http\Response
+    public function store(Request $request)
     {
         $product = Product::create([
-            'id' => $request->id,
-            'name' => $request->name,
-            'price' => $request->price,
-            'slug' => $request->slug,
+            'id'          => $request->id,
+            'name'        => $request->name,
+            'price'       => $request->price,
+            'slug'        => $request->slug,
             'category_id' => Category::create(['name' => $request->category_id])->id ?? null,
-            'meta_title' => $request->name,
-            'status' => false,
+            'meta_title'  => $request->name,
+            'status'      => false,
         ]);
 
         return new ProductResource($product);
@@ -65,23 +70,31 @@ class ProductController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function show(Product $product): \Illuminate\Http\Response
+    public function show(Product $product)
     {
         return new ProductResource($product);
     }
 
     /**
      * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, int $id): \Illuminate\Http\Response
+    public function update(Request $request, $id)
     {
     }
 
     /**
      * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function destroy(int $id): \Illuminate\Http\Response
+    public function destroy($id)
     {
     }
 }

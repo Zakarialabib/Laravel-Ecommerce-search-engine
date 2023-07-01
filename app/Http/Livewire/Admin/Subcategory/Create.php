@@ -27,7 +27,7 @@ class Create extends Component
     public $subcategory;
 
     public array $rules = [
-        'subcategory.name' => ['required', 'string', 'max:255'],
+        'subcategory.name'        => ['required', 'string', 'max:255'],
         'subcategory.category_id' => ['nullable', 'integer'],
         'subcategory.language_id' => ['nullable'],
     ];
@@ -39,7 +39,7 @@ class Create extends Component
         return view('livewire.admin.subcategory.create');
     }
 
-    public function createSubcategory(): void
+    public function createSubcategory()
     {
         $this->resetErrorBag();
 
@@ -50,7 +50,7 @@ class Create extends Component
         $this->createSubcategory = true;
     }
 
-    public function create(): void
+    public function create()
     {
         $this->validate();
 
