@@ -14,7 +14,7 @@ class Create extends Component
     use LivewireAlert;
 
     /** @var array<string> */
-    public array $listeners = ['createLanguage'];
+    protected $listeners = ['createLanguage'];
 
     public array $languages = [];
 

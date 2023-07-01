@@ -17,7 +17,7 @@ class Login extends Component
     public $loginModal = false;
 
     /** @var array<string> */
-    public array $listeners = ['loginModal'];
+    protected $listeners = ['loginModal'];
 
     public $email;
     public $password;

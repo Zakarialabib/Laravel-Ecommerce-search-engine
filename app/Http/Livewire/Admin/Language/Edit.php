@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Language;
 
-use App;
 use App\Models\Language;
-use File;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\File;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 
@@ -15,7 +15,7 @@ class Edit extends Component
     use LivewireAlert;
 
     /** @var array<string> */
-    public array $listeners = ['editLanguage'];
+    protected $listeners = ['editLanguage'];
 
     public array $languages = [];
 

@@ -24,7 +24,7 @@ class Products extends Component
     use WithFileUploads;
 
     /** @var array<string> */
-    public array $listeners = ['syncModal'];
+    protected $listeners = ['syncModal'];
 
     public $type;
 

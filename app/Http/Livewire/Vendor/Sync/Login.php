@@ -26,7 +26,7 @@ class Login extends Component
     public $type;
 
     /** @var array<string> */
-    public array $listeners = [
+    protected $listeners = [
         'loginModal',
     ];
 

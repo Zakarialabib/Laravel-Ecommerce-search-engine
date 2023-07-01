@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Language;
 
 use App\Models\Language;
-use Artisan;
+use Illuminate\Support\Facades\Artisan;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 

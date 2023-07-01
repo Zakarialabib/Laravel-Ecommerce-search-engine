@@ -31,8 +31,6 @@ class [class] extends Component
 
     public $editModal = false;
 
-    public array $listsForFields = [];
-
     /** @var string[][] */
     protected $queryString = [
         'search' => [
