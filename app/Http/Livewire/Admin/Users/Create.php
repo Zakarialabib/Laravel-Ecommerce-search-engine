@@ -21,17 +21,17 @@ class Create extends Component
     public $user;
 
     public array $rules = [
-        'user.name'       => 'required|string|max:255',
-        'user.email'      => 'required|email|unique:users,email',
-        'user.password'   => 'required|string|min:8',
-        'user.phone'      => 'required|numeric',
-        'user.city'       => 'nullable',
-        'user.country'    => 'nullable',
-        'user.address'    => 'nullable',
+        'user.name' => 'required|string|max:255',
+        'user.email' => 'required|email|unique:users,email',
+        'user.password' => 'required|string|min:8',
+        'user.phone' => 'required|numeric',
+        'user.city' => 'nullable',
+        'user.country' => 'nullable',
+        'user.address' => 'nullable',
         'user.tax_number' => 'nullable',
     ];
 
-    public function mount(User $user)
+    public function mount(User $user): void
     {
         $this->user = $user;
     }
@@ -41,7 +41,7 @@ class Create extends Component
         return view('livewire.admin.users.create');
     }
 
-    public function createUser()
+    public function createUser(): void
     {
         $this->resetErrorBag();
 
@@ -50,7 +50,7 @@ class Create extends Component
         $this->createUser = true;
     }
 
-    public function create()
+    public function create(): void
     {
         $this->validate();
 

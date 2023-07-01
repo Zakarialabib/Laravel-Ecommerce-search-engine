@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Enums\Status;
 use App\Support\HasAdvancedFilter;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
 /**
  * App\Models\Service
@@ -25,7 +26,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
  * @property mixed $satuts
+ *
  * @property-read \App\Models\Language|null $language
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Service active()
  * @method static \Illuminate\Database\Eloquent\Builder|Service advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Service newModelQuery()
@@ -45,6 +48,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
  * @method static \Illuminate\Database\Eloquent\Builder|Service whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Service whereUpdatedAt($value)
  * @method static \Database\Factories\ServiceFactory factory($count = null, $state = [])
+ *
  * @mixin \Eloquent
  */
 class Service extends Model
@@ -75,19 +79,15 @@ class Service extends Model
     ];
 
     protected $casts = [
-        'options'  => 'json',
+        'options' => 'json',
         'features' => 'json',
-        'satuts'   => Status::class,
+        'satuts' => Status::class,
     ];
 
     /**
      * Scope a query to only include active products.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     *
-     * @return void
      */
-    public function scopeActive($query)
+    public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
     {
         $query->where('status', true);
     }

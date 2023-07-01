@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Shipping query()
+ *
  * @mixin \Eloquent
  */
 class Shipping extends Model

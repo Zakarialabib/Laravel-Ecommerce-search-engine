@@ -22,8 +22,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string|null $meta_description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read int|null $products_count
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Brand active()
  * @method static \Illuminate\Database\Eloquent\Builder|Brand advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Brand newModelQuery()
@@ -40,9 +42,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @method static \Illuminate\Database\Eloquent\Builder|Brand whereSlug($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Brand whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Brand whereUpdatedAt($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Product> $products
+ *
  * @mixin \Eloquent
  */
 class Brand extends Model
@@ -63,12 +67,8 @@ class Brand extends Model
 
     /**
      * Scope a query to only include active products.
-     *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
-     *
-     * @return void
      */
-    public function scopeActive($query)
+    public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
     {
         $query->where('status', 1);
     }

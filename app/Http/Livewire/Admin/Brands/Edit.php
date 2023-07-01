@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Brands;
 
 use App\Models\Brand;
-use Livewire\Component;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
-use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
+use Intervention\Image\Facades\Image;
+use Livewire\Component;
 
 class Edit extends Component
 {
@@ -26,8 +26,8 @@ class Edit extends Component
     ];
 
     protected $rules = [
-        'brand.name'        => ['required', 'string', 'max:255'],
-        'brand.slug'        => ['required', 'string'],
+        'brand.name' => ['required', 'string', 'max:255'],
+        'brand.slug' => ['required', 'string'],
         'brand.description' => ['nullable', 'string'],
     ];
 
@@ -41,7 +41,7 @@ class Edit extends Component
         return $this->brand?->featured_image;
     }
 
-    public function editModal($brand)
+    public function editModal($brand): void
     {
         abort_if(Gate::denies('brand_update'), 403);
 
@@ -54,7 +54,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         abort_if(Gate::denies('brand_update'), 403);
 
@@ -68,13 +68,13 @@ class Edit extends Component
             $img = Image::make($this->image->getRealPath())->encode('webp', 85);
 
             if ($img->width() > $width) {
-                $img->resize($width, null, function ($constraint) {
+                $img->resize($width, null, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }
 
             if ($img->height() > $height) {
-                $img->resize(null, $height, function ($constraint) {
+                $img->resize(null, $height, function ($constraint): void {
                     $constraint->aspectRatio();
                 });
             }

@@ -6,9 +6,9 @@ namespace App\Http\Livewire\Admin\Menu;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\Menu;
+use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithPagination;
-use Jantinnerezo\LivewireAlert\LivewireAlert;
 
 class Index extends Component
 {
@@ -17,10 +17,6 @@ class Index extends Component
     use LivewireAlert;
 
     public string $perPage = '100';
-
-    protected $listeners = [
-        'refreshIndex' => '$refresh',
-    ];
     public $links = [];
     public $menu;
     public $menus;
@@ -32,19 +28,23 @@ class Index extends Component
     public $parent_id;
     public $new_window;
 
+    protected $listeners = [
+        'refreshIndex' => '$refresh',
+    ];
+
     protected $rules = [
-        'menus.*.name'       => 'required',
-        'menus.*.type'       => 'required',
-        'menus.*.placement'  => 'nullable',
-        'menus.*.label'      => 'required',
-        'menus.*.url'        => 'required',
-        'menus.*.parent_id'  => 'nullable|exists:menus,id',
+        'menus.*.name' => 'required',
+        'menus.*.type' => 'required',
+        'menus.*.placement' => 'nullable',
+        'menus.*.label' => 'required',
+        'menus.*.url' => 'required',
+        'menus.*.parent_id' => 'nullable|exists:menus,id',
         'menus.*.new_window' => 'boolean',
     ];
 
-    public function mount()
+    public function mount(): void
     {
-        $this->menus = Menu::when($this->placement, function ($query) {
+        $this->menus = Menu::when($this->placement, function ($query): void {
             $query->where('placement', $this->placement);
         })->orderBy('sort_order')
             ->get()->toArray();
@@ -60,7 +60,7 @@ class Index extends Component
         $this->resetValidation();
     }
 
-    public function filterByPlacement($value)
+    public function filterByPlacement($value): void
     {
         $this->placement = $value;
         $this->mount();
@@ -68,14 +68,14 @@ class Index extends Component
 
     public function render()
     {
-        $menus = Menu::when($this->placement, function ($query) {
+        $menus = Menu::when($this->placement, function ($query): void {
             $query->where('placement', $this->placement);
         })->paginate($this->perPage);
 
         return view('livewire.admin.menu.index', compact('menus'))->extends('layouts.dashboard');
     }
 
-    public function update($id)
+    public function update($id): void
     {
         $this->menu = Menu::find($id);
 
@@ -98,15 +98,15 @@ class Index extends Component
         $this->reset(['name', 'label', 'url', 'type', 'placement', 'parent_id', 'new_window']);
     }
 
-    public function store()
+    public function store(): void
     {
         $this->validate([
-            'name'       => 'required',
-            'type'       => 'required',
-            'placement'  => 'required',
-            'label'      => 'required',
-            'url'        => 'required',
-            'parent_id'  => 'nullable|exists:menus,id',
+            'name' => 'required',
+            'type' => 'required',
+            'placement' => 'required',
+            'label' => 'required',
+            'url' => 'required',
+            'parent_id' => 'nullable|exists:menus,id',
             'new_window' => 'boolean',
         ]);
 
@@ -127,7 +127,7 @@ class Index extends Component
         $this->mount();
     }
 
-    public function updateMenuOrder($ids)
+    public function updateMenuOrder($ids): void
     {
         foreach ($ids as $index => $id) {
             $menu = Menu::find($id);
@@ -142,43 +142,43 @@ class Index extends Component
     {
         $this->menus = [
             [
-                'name'       => 'Home',
-                'type'       => 'route',
-                'label'      => 'Home',
-                'url'        => 'home',
-                'parent_id'  => null,
+                'name' => 'Home',
+                'type' => 'route',
+                'label' => 'Home',
+                'url' => 'home',
+                'parent_id' => null,
                 'new_window' => false,
             ],
             [
-                'name'       => 'About',
-                'type'       => 'route',
-                'label'      => 'About',
-                'url'        => 'about',
-                'parent_id'  => null,
+                'name' => 'About',
+                'type' => 'route',
+                'label' => 'About',
+                'url' => 'about',
+                'parent_id' => null,
                 'new_window' => false,
             ],
             [
-                'name'       => 'Contact',
-                'type'       => 'route',
-                'label'      => 'Contact',
-                'url'        => 'contact',
-                'parent_id'  => null,
+                'name' => 'Contact',
+                'type' => 'route',
+                'label' => 'Contact',
+                'url' => 'contact',
+                'parent_id' => null,
                 'new_window' => false,
             ],
             [
-                'name'       => 'Login',
-                'type'       => 'route',
-                'label'      => 'Login',
-                'url'        => 'login',
-                'parent_id'  => null,
+                'name' => 'Login',
+                'type' => 'route',
+                'label' => 'Login',
+                'url' => 'login',
+                'parent_id' => null,
                 'new_window' => false,
             ],
             [
-                'name'       => 'Register',
-                'type'       => 'route',
-                'label'      => 'Register',
-                'url'        => 'register',
-                'parent_id'  => null,
+                'name' => 'Register',
+                'type' => 'route',
+                'label' => 'Register',
+                'url' => 'register',
+                'parent_id' => null,
                 'new_window' => false,
             ],
         ];
@@ -190,7 +190,7 @@ class Index extends Component
         $this->alert('success', __('Predefined menus created successfully.'));
     }
 
-    public function delete(Menu $menu)
+    public function delete(Menu $menu): void
     {
         // abort_if(Gate::denies('menu_delete'), Response::HTTP_FORBIDDEN, '403 Forbidden');
 

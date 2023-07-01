@@ -25,13 +25,13 @@ class Contact extends Component
     ];
 
     protected $rules = [
-        'conversation.name'         => 'required',
-        'conversation.email'        => 'required|email',
+        'conversation.name' => 'required',
+        'conversation.email' => 'required|email',
         'conversation.phone_number' => 'required',
-        'conversation.message'      => 'required',
+        'conversation.message' => 'required',
     ];
 
-    public function mount()
+    public function mount(): void
     {
         // $this->conversation = $conversation;
     }
@@ -41,7 +41,7 @@ class Contact extends Component
         return view('livewire.front.contact');
     }
 
-    public function submit()
+    public function submit(): void
     {
         $this->validate();
 
@@ -56,7 +56,7 @@ class Contact extends Component
         // Mail::to($user_email)->send(new MailContactForm($contact));
     }
 
-    private function resetInputFields()
+    private function resetInputFields(): void
     {
         $this->name = '';
         $this->email = '';

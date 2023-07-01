@@ -31,12 +31,12 @@ class AddToCart extends Component
         'AddToCart',
     ];
 
-    public function mount(Product $product)
+    public function mount(Product $product): void
     {
         $this->product = $product;
     }
 
-    public function AddToCart(Product $product_id)
+    public function AddToCart(Product $product_id): void
     {
         Cart::instance('shopping')->add($product_id, $this->quantity)->associate('App\Models\Product');
 
@@ -47,13 +47,13 @@ class AddToCart extends Component
             'success',
             __('Product added to cart successfully!'),
             [
-                'position'          => 'center',
-                'timer'             => 3000,
-                'toast'             => true,
-                'text'              => '',
+                'position' => 'center',
+                'timer' => 3000,
+                'toast' => true,
+                'text' => '',
                 'confirmButtonText' => 'Ok',
-                'cancelButtonText'  => 'Cancel',
-                'showCancelButton'  => false,
+                'cancelButtonText' => 'Cancel',
+                'showCancelButton' => false,
                 'showConfirmButton' => false,
             ]
         );

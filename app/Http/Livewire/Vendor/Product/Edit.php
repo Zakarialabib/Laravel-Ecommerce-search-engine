@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Vendor\Product;
 
 use App\Helpers;
+use App\Http\Livewire\Quill;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -15,7 +16,6 @@ use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Http\Livewire\Quill;
 
 class Edit extends Component
 {
@@ -47,27 +47,27 @@ class Edit extends Component
     ];
 
     protected $rules = [
-        'product.code'             => ['nullable'],
-        'product.slug'             => ['nullable'],
-        'product.name'             => ['required', 'string', 'max:255'],
-        'product.price'            => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price'        => ['nullable', 'numeric', 'max:2147483647'],
-        'description'              => ['nullable'],
-        'product.meta_title'       => ['nullable', 'string', 'max:255'],
+        'product.code' => ['nullable'],
+        'product.slug' => ['nullable'],
+        'product.name' => ['required', 'string', 'max:255'],
+        'product.price' => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price' => ['nullable', 'numeric', 'max:2147483647'],
+        'description' => ['nullable'],
+        'product.meta_title' => ['nullable', 'string', 'max:255'],
         'product.meta_description' => ['nullable', 'string', 'max:255'],
-        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
-        'product.category_id'      => ['required', 'integer'],
-        'product.subcategories'    => ['required', 'array', 'min:1'],
-        'product.subcategories.*'  => ['integer', 'distinct:strict'],
-        'options'                  => ['array'],
-        'options.*.type'           => ['string', 'max:255'],
-        'options.*.value'          => ['string', 'max:255'],
-        'product.brand_id'         => ['nullable', 'integer'],
-        'product.embeded_video'    => ['nullable'],
-        'product.condition'        => ['nullable'],
+        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
+        'product.category_id' => ['required', 'integer'],
+        'product.subcategories' => ['required', 'array', 'min:1'],
+        'product.subcategories.*' => ['integer', 'distinct:strict'],
+        'options' => ['array'],
+        'options.*.type' => ['string', 'max:255'],
+        'options.*.value' => ['string', 'max:255'],
+        'product.brand_id' => ['nullable', 'integer'],
+        'product.embeded_video' => ['nullable'],
+        'product.condition' => ['nullable'],
     ];
 
-    public function quill_value_updated($value)
+    public function quill_value_updated($value): void
     {
         $this->product->description = $value;
     }
@@ -98,26 +98,26 @@ class Edit extends Component
         return Subcategory::select('name', 'id')->get();
     }
 
-    public function updatedProductSubcategories()
+    public function updatedProductSubcategories($value): void
     {
-        $this->product->subcategories;
+        $this->product->subcategories = $value;
     }
 
-    public function addOption()
+    public function addOption(): void
     {
         $this->options[] = [
-            'type'  => '',
+            'type' => '',
             'value' => '',
         ];
     }
 
-    public function removeOption($index)
+    public function removeOption($index): void
     {
         unset($this->options[$index]);
         $this->options = array_values($this->options);
     }
 
-    public function editModal($id)
+    public function editModal($id): void
     {
         abort_if(Gate::denies('product_update'), 403);
 
@@ -134,7 +134,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         abort_if(Gate::denies('product_update'), 403);
 

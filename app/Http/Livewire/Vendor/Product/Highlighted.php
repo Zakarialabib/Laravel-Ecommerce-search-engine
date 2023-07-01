@@ -6,6 +6,7 @@ namespace App\Http\Livewire\Vendor\Product;
 
 use App\Models\Product;
 use App\Models\VendorHighlighted;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -19,9 +20,9 @@ class Highlighted extends Component
 
     public $price;
 
-    public $start_date;
+    public $startDate;
 
-    public $end_date;
+    public $endDate;
 
     public $placement_type;
 
@@ -35,11 +36,11 @@ class Highlighted extends Component
 
     protected $rules = [
         'placementType' => 'required|string',
-        'startDate'     => 'required|date|after:today',
-        'endDate'       => 'required|date|after:start_date',
+        'startDate' => 'required|date|after:today',
+        'endDate' => 'required|date|after:start_date',
     ];
 
-    public function highlightModal($id)
+    public function highlightModal($id): void
     {
         $this->resetErrorBag();
 
@@ -54,7 +55,7 @@ class Highlighted extends Component
         $this->highlightModal = true;
     }
 
-    public function saveHighlight()
+    public function saveHighlight(): void
     {
         $this->validate();
 
@@ -63,21 +64,26 @@ class Highlighted extends Component
 
         $vendorHighlighted = VendorHighlighted::updateOrCreate(
             [
-                'vendor_id'  => auth()->id(),
+                'vendor_id' => auth()->id(),
                 'product_id' => $this->product->id,
             ],
             [
                 'placement_type' => $this->placement_type,
-                'price'          => $this->price,
-                'approved'       => false,
-                'start_date'     => $this->start_date,
-                'end_date'       => $this->end_date,
+                'price' => $totalPrice,
+                'approved' => false,
+                'start_date' => $this->startDate,
+                'end_date' => $this->endDate,
             ]
         );
 
         $this->alert('success', 'Product highlighted successfully.');
 
         $this->highlightModal = false;
+    }
+
+    public function render(): View|Factory
+    {
+        return view('livewire.vendor.product.highlighted');
     }
 
     private function calculatePrice()
@@ -109,10 +115,5 @@ class Highlighted extends Component
             default:
                 return '';
         }
-    }
-
-    public function render(): View|Factory
-    {
-        return view('livewire.vendor.product.highlighted');
     }
 }

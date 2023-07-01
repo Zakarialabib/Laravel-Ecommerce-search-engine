@@ -4,17 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Settings;
 
-use Illuminate\Http\RedirectResponse;
-use Livewire\Redirector;
 use App\Helpers;
 use App\Jobs\UnderMaintenanceJob;
 use App\Models\Settings;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
-use App\Mail\MaintenanceModeNotification;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Str;
+use Livewire\Redirector;
 
 class MaintenanceMode extends Component
 {
@@ -25,7 +23,7 @@ class MaintenanceMode extends Component
     public $secret;
     public $refresh;
 
-    public function mount()
+    public function mount(): void
     {
         $this->site_maintenance_message = Helpers::settings('site_maintenance_message');
         $this->status = Helpers::settings('site_maintenance_status');
@@ -33,7 +31,7 @@ class MaintenanceMode extends Component
         $this->secret = Str::uuid()->toString();
     }
 
-    public function saveSettings()
+    public function saveSettings(): void
     {
         $this->validate([
             'site_maintenance_message' => 'required',
@@ -50,24 +48,22 @@ class MaintenanceMode extends Component
     {
         Settings::set('site_maintenance_status', false);
 
-        Settings::set('site_maintenance__secret', $this->secret);
+        Settings::set('site_maintenance_secret', $this->secret);
 
         UnderMaintenanceJob::dispatch($this->secret, $this->refresh);
 
         $this->alert('success', implode(' ', ['status' => $this->status ? __('System turned on') : __('System turned off')]));
 
-        return  redirect()->route('front.index', ['secret' => $this->secret]);
+        return redirect()->route('front.index', ['secret' => $this->secret]);
         // Send email notification
         // Mail::to($user)->send(new MaintenanceModeNotification(false));
     }
 
-    public function turnOn()
+    public function turnOn(): void
     {
-        $this->site_maintenance_status = true;
-
         Artisan::call('up');
 
-        Settings::set('site_maintenance', $this->site_maintenance_status);
+        Settings::set('site_maintenance_status', true);
 
         $this->alert('success', __('System turned on.'));
 

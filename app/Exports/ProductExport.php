@@ -14,8 +14,7 @@ class ProductExport implements FromView
     use Exportable;
     use ForModelsTrait;
 
-    /** @var mixed */
-    protected $models;
+    protected mixed $models;
 
     public function __construct()
     {

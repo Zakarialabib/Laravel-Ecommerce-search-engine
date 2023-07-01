@@ -4,15 +4,15 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
+use App\Mail\SubscribedMail;
 use App\Models\Subscriber;
 use App\Models\User;
-use App\Mail\SubscribedMail;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
-use Illuminate\Contracts\View\View;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Log;
+use Livewire\Component;
 use Throwable;
 
 class Newsletters extends Component
@@ -26,12 +26,6 @@ class Newsletters extends Component
     protected $listeners = [
         'submit',
     ];
-
-    /* @var array */
-    private function resetInputFields()
-    {
-        $this->email = '';
-    }
 
     protected $rules = [
         'email' => 'required|email',
@@ -47,7 +41,7 @@ class Newsletters extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function subscribe()
+    public function subscribe(): void
     {
         try {
             $validatedData = $this->validate();
@@ -67,5 +61,11 @@ class Newsletters extends Component
             $this->alert('error', __('Something went wrong. Please try again.'));
             Log::error($th->getMessage());
         }
+    }
+
+    /* @var array */
+    private function resetInputFields(): void
+    {
+        $this->email = '';
     }
 }

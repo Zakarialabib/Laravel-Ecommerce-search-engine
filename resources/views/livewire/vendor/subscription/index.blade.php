@@ -11,10 +11,8 @@
         <div class="mt-4">
 
             <div class="px-6 py-4">
-                <h4 class="text-lg font-semibold mb-4">{{ __('Selected Plan') }}</h4>
                 <div class="mb-4">
                     <h6 class="text-sm font-semibold">{{ __('Payment Method') }}:</h6>
-                    @dd($subscription)
                     <p class="text-sm text-gray-500">{{ $subscription->store->payment_method }}</p>
                 </div>
                 <div class="mb-4">
@@ -40,12 +38,6 @@
                 <div class="mb-4">
                     <h6 class="text-sm font-semibold">{{ __('End Date') }}:</h6>
                     <p class="text-sm text-gray-500">{{ $subscription->ends_date }}</p>
-                </div>
-                <div class="text-center mt-8">
-                    <button type="button" class="btn py-2 px-6 bg-indigo-600 text-white font-semibold"
-                        wire:click="confirmSubscription">
-                        {{ __('Confirm Subscription') }}
-                    </button>
                 </div>
             </div>
         </div>

@@ -13,17 +13,13 @@ class Backup extends Command
 {
     /**
      * The name and signature of the console command.
-     *
-     * @var string
      */
-    protected $signature = 'my:backup';
+    protected string $signature = 'my:backup';
 
     /**
      * The console command description.
-     *
-     * @var string
      */
-    protected $description = 'This command will generate backups of the system according to specified in configs';
+    protected string $description = 'This command will generate backups of the system according to specified in configs';
 
     /**
      * Create a new command instance.
@@ -37,10 +33,8 @@ class Backup extends Command
 
     /**
      * Execute the console command.
-     *
-     * @return mixed
      */
-    public function handle()
+    public function handle(): mixed
     {
         if (settings()->backup_status === 1) {
             $artisan_command = '';

@@ -31,13 +31,13 @@ class Select extends Component
 
     protected $listeners = ['updating', 'changeSelectType'];
 
-    public function changeSelectType($value)
+    public function changeSelectType($value): void
     {
         $this->selectType = $value;
         $this->field = $this->selectType;
     }
 
-    public function mount(Model $model)
+    public function mount(Model $model): void
     {
         $this->model = $model;
         $this->field = 'category_id';
@@ -49,17 +49,17 @@ class Select extends Component
         $this->uniqueId = uniqid();
     }
 
-    public function updated($field, $value)
+    public function updated($field, $value): void
     {
         $this->model->setAttribute($this->field, $value)->save();
 
         $this->alert('success', __('Status Changed successfully!'), [
-            'position'       => 'center',
-            'timer'          => 3000,
-            'toast'          => true,
-            'text'           => '',
+            'position' => 'center',
+            'timer' => 3000,
+            'toast' => true,
+            'text' => '',
             'showDenyButton' => false,
-            'onDenied'       => '',
+            'onDenied' => '',
         ]);
 
         // $this->emit('refreshIndex');

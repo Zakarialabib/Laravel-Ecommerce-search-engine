@@ -6,11 +6,10 @@ namespace App\Http\Livewire\Admin\BlogCategory;
 
 use App\Models\BlogCategory;
 use App\Models\Language;
-use Livewire\Component;
-use Illuminate\Support\Collection;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Collection;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
 
 class Edit extends Component
 {
@@ -25,14 +24,25 @@ class Edit extends Component
     ];
 
     protected $rules = [
-        'blogcategory.title'       => 'required|string|max:255',
+        'blogcategory.title' => 'required|string|max:255',
         'blogcategory.description' => 'nullable',
-        'blogcategory.meta_title'  => 'nullable|max:100',
-        'blogcategory.meta_desc'   => 'nullable|max:200',
+        'blogcategory.meta_title' => 'nullable|max:65',
+        'blogcategory.meta_description' => 'nullable|max:170',
         'blogcategory.language_id' => 'required|integer',
     ];
 
-    public function editModal($blogcategory)
+    protected $messages = [
+        'blogcategory.title.required' => 'The title cannot be empty.',
+        'blogcategory.title.string' => 'The title must be a string.',
+        'blogcategory.title.max' => 'The title may not be greater than 255 characters.',
+        'blogcategory.description.required' => 'The description cannot be empty.',
+        'blogcategory.meta_title.max' => 'The meta title may not be greater than 65 characters.',
+        'blogcategory.meta_description.max' => 'The meta description may not be greater than 170 characters.',
+        'blogcategory.language_id.required' => 'The language cannot be empty.',
+        'blogcategory.language_id.integer' => 'The language must be an integer.',
+    ];
+
+    public function editModal($blogcategory): void
     {
         // abort_if(Gate::denies('blogcategory_edit'), 403);
 
@@ -45,7 +55,7 @@ class Edit extends Component
         $this->editModal = true;
     }
 
-    public function update()
+    public function update(): void
     {
         $this->validate();
 

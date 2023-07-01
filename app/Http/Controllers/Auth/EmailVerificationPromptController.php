@@ -12,12 +12,8 @@ class EmailVerificationPromptController extends Controller
 {
     /**
      * Display the email verification prompt.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     *
-     * @return mixed
      */
-    public function __invoke(Request $request)
+    public function __invoke(Request $request): mixed
     {
         return $request->user()->hasVerifiedEmail()
                     ? redirect()->intended(RouteServiceProvider::CLIENT_HOME)

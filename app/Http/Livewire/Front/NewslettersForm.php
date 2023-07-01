@@ -38,7 +38,7 @@ class NewslettersForm extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function subscribe()
+    public function subscribe(): void
     {
         try {
             $validatedData = $this->validate();
@@ -60,7 +60,7 @@ class NewslettersForm extends Component
     }
 
     /* @var array */
-    private function resetInputFields()
+    private function resetInputFields(): void
     {
         $this->email = '';
     }

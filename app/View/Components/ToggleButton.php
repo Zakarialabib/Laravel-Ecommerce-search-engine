@@ -14,8 +14,7 @@ class ToggleButton extends Component
     {
     }
 
-    /** @return \Illuminate\Contracts\View\View|\Illuminate\Contracts\Support\Htmlable|Closure|string */
-    public function render()
+    public function render(): \Illuminate\Contracts\View\View|\Illuminate\Contracts\Support\Htmlable|Closure|string
     {
         return view('components.toggle-button');
     }

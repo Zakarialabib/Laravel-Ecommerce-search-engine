@@ -52,22 +52,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -79,8 +79,8 @@ class Index extends Component
     public function render(): View|Factory
     {
         $query = Page::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -89,7 +89,7 @@ class Index extends Component
         return view('livewire.admin.page.index', compact('pages'));
     }
 
-    public function delete()
+    public function delete(): void
     {
         abort_if(Gate::denies('page_delete'), 403);
 
@@ -98,7 +98,7 @@ class Index extends Component
         $this->alert('success', __('Page deleted successfully.'));
     }
 
-    public function deleteSelected()
+    public function deleteSelected(): void
     {
         abort_if(Gate::denies('page_delete'), 403);
 
@@ -109,14 +109,14 @@ class Index extends Component
         $this->alert('success', __('Page deleted successfully.'));
     }
 
-    public function deleteModal($page)
+    public function deleteModal($page): void
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast'             => false,
-            'position'          => 'center',
+            'toast' => false,
+            'position' => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText'  => __('Cancel'),
-            'onConfirmed'       => 'delete',
+            'cancelButtonText' => __('Cancel'),
+            'onConfirmed' => 'delete',
         ]);
         $this->page = $page;
     }

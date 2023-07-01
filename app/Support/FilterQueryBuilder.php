@@ -37,7 +37,7 @@ class FilterQueryBuilder
         return $query->where($filter['column'], 'like', '%'.$filter['query_1'].'%', $filter['match']);
     }
 
-    protected function makeOrder($query, $data)
+    protected function makeOrder($query, $data): void
     {
         if ($this->isNestedColumn($data['order_column'])) {
             [$relationship, $column] = explode('.', $data['order_column']);
@@ -48,7 +48,7 @@ class FilterQueryBuilder
             $relatedTable = $relatedModel->getTable();
             $as = "prefix_{$relatedTable}";
 
-            if ( ! $belongs instanceof BelongsTo) {
+            if (! $belongs instanceof BelongsTo) {
                 return;
             }
 
@@ -67,14 +67,14 @@ class FilterQueryBuilder
             ->select("{$this->table}.*");
     }
 
-    protected function makeFilter($query, $filter)
+    protected function makeFilter($query, $filter): void
     {
         if ($this->isNestedColumn($filter['column'])) {
             [$relation, $filter['column']] = explode('.', $filter['column']);
             $callable = Str::camel($relation);
             $filter['match'] = 'and';
 
-            $query->orWhereHas(Str::camel($callable), function ($q) use ($filter) {
+            $query->orWhereHas(Str::camel($callable), function ($q) use ($filter): void {
                 $this->{Str::camel($filter['operator'])}(
                     $filter,
                     $q

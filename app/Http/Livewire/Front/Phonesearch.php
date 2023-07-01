@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use Livewire\Component;
-use Http;
 use App\Models\Phone;
+use Http;
+use Livewire\Component;
 
 class Phonesearch extends Component
 {
@@ -15,7 +15,7 @@ class Phonesearch extends Component
 
     public $search = '';
 
-    public function mount()
+    public function mount(): void
     {
         $this->search = request()->query('search', $this->search);
     }
@@ -35,9 +35,9 @@ class Phonesearch extends Component
 
                 $phone = Phone::create([
                     'phone_name' => $phone_name,
-                    'brand'      => $brand,
-                    'slug'       => $slug,
-                    'image'      => $image,
+                    'brand' => $brand,
+                    'slug' => $slug,
+                    'image' => $image,
                 ], $searchResults);
                 $phone->save();
             }

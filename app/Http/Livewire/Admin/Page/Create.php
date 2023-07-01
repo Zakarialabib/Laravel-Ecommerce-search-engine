@@ -12,7 +12,6 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Http\Livewire\Quill;
 
 class Create extends Component
 {
@@ -25,26 +24,37 @@ class Create extends Component
 
     public $image;
 
-    public $details;
+    public $description;
 
     public $listeners = [
         'createPage',
-        Quill::EVENT_VALUE_UPDATED,
     ];
-
-    public function quill_value_updated($value)
-    {
-        $this->page->details = $value;
-    }
 
     protected $rules = [
-        'page.title'            => ['required', 'string', 'max:255'],
-        'page.slug'             => ['required', 'max:255'],
-        'page.details'          => ['required'],
-        'page.meta_title'       => ['nullable', 'max:255'],
-        'page.meta_description' => ['nullable', 'max:255'],
-        'page.language_id'      => ['nullable'],
+        'page.title' => ['required', 'string', 'max:255'],
+        'page.slug' => ['required', 'max:255'],
+        'description' => ['required'],
+        'page.meta_title' => ['nullable', 'max:65'],
+        'page.meta_description' => ['nullable', 'max:170'],
+        'page.language_id' => ['nullable'],
     ];
+
+    protected $messages = [
+        'page.title.required' => 'The title cannot be empty.',
+        'page.title.string' => 'The title must be a string.',
+        'page.title.max' => 'The title may not be greater than 255 characters.',
+        'page.slug.required' => 'The slug cannot be empty.',
+        'page.slug.max' => 'The slug may not be greater than 255 characters.',
+        'description.required' => 'The details cannot be empty.',
+        'page.meta_title.max' => 'The meta title may not be greater than 65 characters.',
+        'page.meta_description.max' => 'The meta description may not be greater than 170 characters.',
+        'page.language_id.integer' => 'The language must be an integer.',
+    ];
+
+    public function updatedDescription($value): void
+    {
+        $this->description = $value;
+    }
 
     public function render(): View|Factory
     {
@@ -53,7 +63,7 @@ class Create extends Component
         return view('livewire.admin.page.create');
     }
 
-    public function createPage()
+    public function createPage(): void
     {
         $this->resetErrorBag();
 
@@ -66,7 +76,7 @@ class Create extends Component
         $this->createPage = true;
     }
 
-    public function create()
+    public function create(): void
     {
         $this->validate();
 
@@ -81,7 +91,7 @@ class Create extends Component
         $this->page->save();
 
         $pageSettings = new PageSetting([
-            'page_id'     => $this->page->id,
+            'page_id' => $this->page->id,
             'language_id' => $this->page->language_id,
         ]);
 

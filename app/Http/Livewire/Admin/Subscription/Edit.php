@@ -15,7 +15,7 @@ class Edit extends Component
         'submit',
     ];
 
-    public function mount(Subscription $subscription)
+    public function mount(Subscription $subscription): void
     {
         $this->subscription = $subscription;
     }
@@ -25,7 +25,7 @@ class Edit extends Component
         return view('livewire.admin.subscription.create');
     }
 
-    public function submit()
+    public function submit(): void
     {
         $this->validate();
 

@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $is_default
  * @property string|null $created_at
  * @property string|null $updated_at
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Currency advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|Currency newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Currency newQuery()
@@ -30,6 +31,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Currency whereSymbol($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Currency whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Currency whereValue($value)
+ *
  * @mixin \Eloquent
  */
 class Currency extends Model

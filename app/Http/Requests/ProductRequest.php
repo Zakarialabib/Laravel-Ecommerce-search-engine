@@ -11,15 +11,15 @@ class ProductRequest extends FormRequest
     public function rules()
     {
         return [
-            '*.name'       => 'required|string',
-            '*.price'      => 'required|numeric',
-            '*.code'       => 'required',
-            '*.quantity'   => 'nullable',
+            '*.name' => 'required|string',
+            '*.price' => 'required|numeric',
+            '*.code' => 'required',
+            '*.quantity' => 'nullable',
             '*.categoryId' => 'nullable|exists:categories,id',
         ];
     }
 
-    protected function prepareForValidation()
+    protected function prepareForValidation(): void
     {
         $data = [];
 

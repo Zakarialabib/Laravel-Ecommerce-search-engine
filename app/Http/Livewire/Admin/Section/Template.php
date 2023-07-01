@@ -26,12 +26,12 @@ class Template extends Component
         'createTemplate',
     ];
 
-    public function mount()
+    public function mount(): void
     {
         $this->templates = config('templates');
     }
 
-    public function createTemplate()
+    public function createTemplate(): void
     {
         $this->resetErrorBag();
 
@@ -40,23 +40,23 @@ class Template extends Component
         $this->createTemplate = true;
     }
 
-    public function updatedSelectTemplate()
+    public function updatedSelectTemplate(): void
     {
         $this->selectedTemplate = $this->templates[$this->selectTemplate];
     }
 
-    public function create()
+    public function create(): void
     {
         try {
             $section = [
-                'title'          => $this->selectedTemplate['title'],
-                'subtitle'       => $this->selectedTemplate['subtitle'],
+                'title' => $this->selectedTemplate['title'],
+                'subtitle' => $this->selectedTemplate['subtitle'],
                 'featured_title' => $this->selectedTemplate['featured_title'],
-                'label'          => $this->selectedTemplate['label'],
-                'description'    => $this->selectedTemplate['description'],
-                'bg_color'       => $this->selectedTemplate['bg_color'],
-                'position'       => $this->selectedTemplate['position'],
-                'link'           => $this->selectedTemplate['link'],
+                'label' => $this->selectedTemplate['label'],
+                'description' => $this->selectedTemplate['description'],
+                'bg_color' => $this->selectedTemplate['bg_color'],
+                'position' => $this->selectedTemplate['position'],
+                'link' => $this->selectedTemplate['link'],
             ];
 
             Section::create($section);

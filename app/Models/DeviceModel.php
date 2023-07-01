@@ -33,7 +33,9 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property string|null $deleted_at
+ *
  * @property-read \App\Models\Brand $brand
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|DeviceModel active()
  * @method static \Illuminate\Database\Eloquent\Builder|DeviceModel advancedFilter($data)
  * @method static \Illuminate\Database\Eloquent\Builder|DeviceModel newModelQuery()
@@ -57,6 +59,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|DeviceModel whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DeviceModel whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|DeviceModel whereUuid($value)
+ *
  * @mixin \Eloquent
  */
 class DeviceModel extends Model
@@ -78,21 +81,21 @@ class DeviceModel extends Model
      *
      * @var array<int, string>
      */
-    public $orderable = self::ATTRIBUTES;
+    public array $orderable = self::ATTRIBUTES;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    public $filterable = self::ATTRIBUTES;
+    public array $filterable = self::ATTRIBUTES;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
+    protected array $fillable = [
         'name',
         'slug',
         'description',
@@ -112,12 +115,12 @@ class DeviceModel extends Model
      *
      * @var array<string, string>
      */
-    protected $casts = [
+    protected array $casts = [
         'technical_details' => 'array',
-        'features'          => 'array',
-        'specifications'    => 'array',
-        'type'              => DeviceModelType::class,
-        'status'            => Status::class,
+        'features' => 'array',
+        'specifications' => 'array',
+        'type' => DeviceModelType::class,
+        'status' => Status::class,
     ];
 
     public function brand()
@@ -125,7 +128,7 @@ class DeviceModel extends Model
         return $this->belongsTo(Brand::class);
     }
 
-    public function scopeActive($query)
+    public function scopeActive($query): void
     {
         $query->where('status', true);
     }

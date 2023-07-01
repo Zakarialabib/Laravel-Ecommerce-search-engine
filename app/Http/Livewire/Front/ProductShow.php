@@ -37,7 +37,7 @@ class ProductShow extends Component
     public $listeners = [
     ];
 
-    public function mount(Product $product)
+    public function mount(Product $product): void
     {
         $this->product = $product;
 

@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Admin\Role;
 
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
 class Edit extends Component
 {
@@ -25,7 +25,7 @@ class Edit extends Component
         'submit',
     ];
 
-    public function mount(Role $role)
+    public function mount(Role $role): void
     {
         $this->role = $role;
         $this->permissions = $this->role->permissions->pluck('id')->toArray();

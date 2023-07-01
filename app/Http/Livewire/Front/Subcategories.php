@@ -42,23 +42,23 @@ class Subcategories extends Component
         ],
     ];
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function filterProductSubcategories($subcategory_id)
+    public function filterProductSubcategories($subcategory_id): void
     {
         $this->subcategory_id = $subcategory_id;
         $this->resetPage();
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sorting = 'default';
         $this->sortBy = 'id';
@@ -76,8 +76,8 @@ class Subcategories extends Component
     public function render(): View|Factory
     {
         $query = Product::active()->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 

@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Admin\Product;
 
 use App\Helpers;
+use App\Http\Livewire\Quill;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Price;
 use App\Models\Product;
 use App\Models\Subcategory;
 use Illuminate\Contracts\View\Factory;
@@ -15,8 +17,6 @@ use Illuminate\Support\Str;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use App\Http\Livewire\Quill;
-use App\Models\Price;
 
 class Create extends Component
 {
@@ -49,36 +49,36 @@ class Create extends Component
     public array $listsForFields = [];
 
     protected $rules = [
-        'product.name'             => ['required', 'string', 'max:255'],
-        'product.url'              => ['required', 'string', 'max:255'],
-        'product.price'            => ['required', 'numeric', 'max:2147483647'],
-        'product.old_price'        => ['required', 'numeric', 'max:2147483647'],
-        'product.wholesale_price'  => ['nullable', 'numeric', 'max:2147483647'],
-        'description'              => ['nullable'],
-        'product.meta_title'       => ['nullable', 'string', 'max:255'],
-        'product.meta_description' => ['nullable', 'string', 'max:255'],
-        'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
-        'product.category_id'      => ['required', 'integer'],
-        'product.subcategories'    => ['required', 'array', 'min:1'],
-        'product.subcategories.*'  => ['integer', 'distinct:strict'],
-        'options.*.type'           => ['required', 'string', 'in:color,size'],
-        'options.*.value'          => ['required_if:options.*.type,color', 'string'],
-        'product.brand_id'         => ['nullable', 'integer'],
-        'product.embeded_video'    => ['nullable'],
-        'product.condition'        => ['nullable'],
+        'product.name' => ['required', 'string', 'max:255'],
+        'product.url' => ['required', 'string', 'max:255'],
+        'product.price' => ['required', 'numeric', 'max:2147483647'],
+        'product.old_price' => ['required', 'numeric', 'max:2147483647'],
+        'product.wholesale_price' => ['nullable', 'numeric', 'max:2147483647'],
+        'description' => ['nullable'],
+        'product.meta_title' => ['nullable', 'string', 'max:65'],
+        'product.meta_description' => ['nullable', 'string', 'max:170'],
+        'product.meta_keywords' => ['nullable', 'string', 'min:1'],
+        'product.category_id' => ['required', 'integer'],
+        'product.subcategories' => ['required', 'array', 'min:1'],
+        'product.subcategories.*' => ['integer', 'distinct:strict'],
+        'options.*.type' => ['required', 'string', 'in:color,size'],
+        'options.*.value' => ['required_if:options.*.type,color', 'string'],
+        'product.brand_id' => ['nullable', 'integer'],
+        'product.embeded_video' => ['nullable'],
+        'product.condition' => ['nullable'],
     ];
 
-    public function updatedDescription($value)
+    public function updatedDescription($value): void
     {
         $this->description = $value;
     }
 
-    public function updated($propertyName)
+    public function updated($propertyName): void
     {
         $this->validateOnly($propertyName);
     }
 
-    public function updatedProductSubcategories()
+    public function updatedProductSubcategories(): void
     {
         $this->product->subcategories()->sync($this->product->subcategories);
     }
@@ -98,7 +98,7 @@ class Create extends Component
         return view('livewire.admin.product.create');
     }
 
-    public function createProduct()
+    public function createProduct(): void
     {
         $this->resetErrorBag();
 
@@ -109,7 +109,7 @@ class Create extends Component
         $this->createProduct = true;
     }
 
-    public function create()
+    public function create(): void
     {
         $this->validate();
 

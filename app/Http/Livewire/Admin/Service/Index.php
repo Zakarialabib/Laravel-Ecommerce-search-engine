@@ -6,10 +6,10 @@ namespace App\Http\Livewire\Admin\Service;
 
 use App\Http\Livewire\WithSorting;
 use App\Models\Service;
-use Livewire\Component;
-use Livewire\WithPagination;
 use Illuminate\Support\Facades\Gate;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
+use Livewire\Component;
+use Livewire\WithPagination;
 
 class Index extends Component
 {
@@ -57,22 +57,22 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -88,8 +88,8 @@ class Index extends Component
         $query = Service::when($this->language_id, function ($query) {
             return $query->where('language_id', $this->language_id);
         })->advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -99,7 +99,7 @@ class Index extends Component
             ->extends('layouts.dashboard');
     }
 
-    public function showModal(Service $service)
+    public function showModal(Service $service): void
     {
         abort_if(Gate::denies('service_show'), 403);
 
@@ -112,7 +112,7 @@ class Index extends Component
         $this->showModal = true;
     }
 
-    public function delete()
+    public function delete(): void
     {
         abort_if(Gate::denies('service_delete'), 403);
 
@@ -121,7 +121,7 @@ class Index extends Component
         $this->alert('success', __('Service deleted successfully.'));
     }
 
-    public function deleteSelected()
+    public function deleteSelected(): void
     {
         abort_if(Gate::denies('service_delete'), 403);
 
@@ -132,35 +132,35 @@ class Index extends Component
         $this->alert('success', __('Service deleted successfully.'));
     }
 
-    public function confirmed()
+    public function confirmed(): void
     {
         $this->emit('delete');
     }
 
-    public function deleteModal($service)
+    public function deleteModal($service): void
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast'             => false,
-            'position'          => 'center',
+            'toast' => false,
+            'position' => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText'  => __('Cancel'),
-            'onConfirmed'       => 'delete',
+            'cancelButtonText' => __('Cancel'),
+            'onConfirmed' => 'delete',
         ]);
         $this->service = $service;
     }
 
     // Service  Clone
-    public function clone(Service $service)
+    public function clone(Service $service): void
     {
         $service_details = Service::find($service->id);
 
         Service::create([
             'language_id' => $service_details->language_id,
-            'title'       => $service_details->title,
-            'slug'        => $service_details->slug,
-            'image'       => $service_details->image,
-            'content'     => $service_details->content,
-            'status'      => 0,
+            'title' => $service_details->title,
+            'slug' => $service_details->slug,
+            'image' => $service_details->image,
+            'content' => $service_details->content,
+            'status' => 0,
         ]);
         $this->alert('success', __('Service Cloned successfully!'));
     }

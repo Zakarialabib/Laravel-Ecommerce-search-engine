@@ -74,27 +74,27 @@ class Index extends Component
         return count($this->selected);
     }
 
-    public function updatingSearch()
+    public function updatingSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatingPerPage()
+    public function updatingPerPage(): void
     {
         $this->resetPage();
     }
 
-    public function resetSelected()
+    public function resetSelected(): void
     {
         $this->selected = [];
     }
 
-    public function confirmed()
+    public function confirmed(): void
     {
         $this->emit('delete');
     }
 
-    public function mount()
+    public function mount(): void
     {
         $this->sortBy = 'id';
         $this->sortDirection = 'desc';
@@ -108,8 +108,8 @@ class Index extends Component
         abort_if(Gate::denies('brand_access'), 403);
 
         $query = Brand::advancedFilter([
-            's'               => $this->search ?: null,
-            'order_column'    => $this->sortBy,
+            's' => $this->search ?: null,
+            'order_column' => $this->sortBy,
             'order_direction' => $this->sortDirection,
         ]);
 
@@ -118,7 +118,7 @@ class Index extends Component
         return view('livewire.admin.brands.index', compact('brands'));
     }
 
-    public function showModal(Brand $brand)
+    public function showModal(Brand $brand): void
     {
         abort_if(Gate::denies('brand_show'), 403);
 
@@ -131,19 +131,19 @@ class Index extends Component
         $this->showModal = true;
     }
 
-    public function deleteModal($brand)
+    public function deleteModal($brand): void
     {
         $this->confirm(__('Are you sure you want to delete this?'), [
-            'toast'             => false,
-            'position'          => 'center',
+            'toast' => false,
+            'position' => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText'  => __('Cancel'),
-            'onConfirmed'       => 'delete',
+            'cancelButtonText' => __('Cancel'),
+            'onConfirmed' => 'delete',
         ]);
         $this->brand = $brand;
     }
 
-    public function delete()
+    public function delete(): void
     {
         abort_if(Gate::denies('brand_delete'), 403);
 
@@ -152,20 +152,20 @@ class Index extends Component
         $this->alert('success', __('Brand deleted successfully.'));
     }
 
-    public function deleteSelected()
+    public function deleteSelected(): void
     {
         abort_if(Gate::denies('brand_delete'), 403);
 
         $this->confirm(__('Are you sure you want to delete the selected brands and their device models?'), [
-            'toast'             => false,
-            'position'          => 'center',
+            'toast' => false,
+            'position' => 'center',
             'showConfirmButton' => true,
-            'cancelButtonText'  => __('Cancel'),
-            'onConfirmed'       => 'massDelete',
+            'cancelButtonText' => __('Cancel'),
+            'onConfirmed' => 'massDelete',
         ]);
     }
 
-    public function massDelete()
+    public function massDelete(): void
     {
         abort_if(Gate::denies('brand_delete'), 403);
 
@@ -179,14 +179,14 @@ class Index extends Component
         $this->alert('success', __('Selected brands and their device models deleted successfully.'));
     }
 
-    public function importModal()
+    public function importModal(): void
     {
         // abort_if(Gate::denies('brand_create'), 403);
 
         $this->importModal = true;
     }
 
-    public function import()
+    public function import(): void
     {
         // abort_if(Gate::denies('brand_create'), 403);
 
