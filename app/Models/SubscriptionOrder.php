@@ -79,7 +79,7 @@ class SubscriptionOrder extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'user_id',
         'subscription_id',
         'payment_method',
@@ -93,7 +93,7 @@ class SubscriptionOrder extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'status' => 'boolean',
     ];
 

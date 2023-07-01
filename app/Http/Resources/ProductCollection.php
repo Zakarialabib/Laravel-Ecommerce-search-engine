@@ -13,7 +13,7 @@ class ProductCollection extends ResourceCollection
      *
      * @return array
      */
-    public function toArray(\Illuminate\Http\Request $request): array
+    public function toArray($request)
     {
         return [
             'data'  => ProductResource::collection($this->collection),

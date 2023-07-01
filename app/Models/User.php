@@ -95,14 +95,13 @@ class User extends Authenticatable
     use GetModelByUuid;
     use UuidGenerator;
 
-    public $orderable = [
-        'id', 'name',   'city', 'country',
-        'phone', 'email', 'password', 'created_at', 'updated_at',
-    ];
 
-    protected $filterable = [
-        'name',   'city', 'country',
-        'phone', 'email', 'password', 'created_at', 'updated_at',
+    public const ATTRIBUTES = [
+        'id',
+         'name',
+        'status',
+        'created_at',
+         'updated_at',
     ];
 
     /**
@@ -110,8 +109,23 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
-        'id', 'name',   'city', 'country', 'address',
+    public array $orderable = self::ATTRIBUTES;
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    public array $filterable = self::ATTRIBUTES;
+
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<int, string>
+     */
+    protected $fillable = [
+        'uuid', 'name',   'city', 'country', 'address',
         'phone', 'email', 'password', 'created_at', 'updated_at', 'store_id',
     ];
 
@@ -120,7 +134,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
-    protected array $hidden = [
+    protected $hidden = [
         'password',
         'remember_token',
     ];
@@ -130,7 +144,7 @@ class User extends Authenticatable
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'email_verified_at' => 'datetime',
         'status'            => Status::class,
     ];

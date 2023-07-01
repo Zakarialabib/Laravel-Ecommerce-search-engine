@@ -78,7 +78,8 @@ class VendorHighlighted extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
+        'uuid',
         'placement_type',
         'price',
         'approved',
@@ -92,7 +93,7 @@ class VendorHighlighted extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'approved' => 'boolean',
         'status'   => 'boolean',
     ];

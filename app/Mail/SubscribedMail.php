@@ -15,11 +15,6 @@ class SubscribedMail extends Mailable
     use Queueable;
     use SerializesModels;
 
-    /**
-     * Create a new message instance.
-     *
-     * @param Request $form
-     */
     public function __construct()
     {
     }

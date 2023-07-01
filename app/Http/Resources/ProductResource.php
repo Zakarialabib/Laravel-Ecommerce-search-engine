@@ -13,7 +13,7 @@ class ProductResource extends JsonResource
      *
      * @return array
      */
-    public function toArray(\Illuminate\Http\Request $request): array
+    public function toArray($request)
     {
         return [
             'id' => $this->id,

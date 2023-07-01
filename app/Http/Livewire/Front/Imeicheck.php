@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Front;
 
 use App\Models\DeviceModel;
-use Http;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class ImeiCheck extends Component

@@ -77,7 +77,8 @@ class UserSubscription extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
+        'uuid',
         'user_id',
         'subscription_id',
         'order_id',
@@ -91,7 +92,7 @@ class UserSubscription extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'status' => 'boolean',
     ];
 

@@ -8,6 +8,8 @@ use Illuminate\Validation\ValidationException;
 
 trait HasAdvancedFilter
 {
+    
+
     public function scopeAdvancedFilter($query, $data)
     {
         return $this->processQuery($query, $data);

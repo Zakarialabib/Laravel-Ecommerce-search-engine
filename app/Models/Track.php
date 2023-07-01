@@ -76,7 +76,8 @@ class Track extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
+        'uuid',
         'belongs_to_type',
         'belongs_to',
         'type',
@@ -91,7 +92,7 @@ class Track extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'status' => 'boolean',
     ];
 }

@@ -175,7 +175,7 @@ class Product extends Model implements Buyable
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'subcategories' => 'array',
         'status'        => Status::class,
         'options'       => 'array',

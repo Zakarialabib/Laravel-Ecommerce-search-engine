@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
-use Auth;
+use Illuminate\Support\Facades\Auth;
 use Closure;
 
 class SuperAdmin
 {
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->isAdmin()) {
+        if (Auth::user()->hasRole('admin')) {
             return $next($request);
         }
 

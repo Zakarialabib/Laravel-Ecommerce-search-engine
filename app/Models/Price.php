@@ -57,6 +57,7 @@ class Price extends Model
     use GetModelByUuid;
 
     protected $fillable = [
+        'uuid',
         'price',
         'old_price',
         'wholesale_price',

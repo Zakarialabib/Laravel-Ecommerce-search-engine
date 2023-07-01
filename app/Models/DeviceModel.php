@@ -95,7 +95,7 @@ class DeviceModel extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'name',
         'slug',
         'description',
@@ -115,7 +115,7 @@ class DeviceModel extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'technical_details' => 'array',
         'features'          => 'array',
         'specifications'    => 'array',

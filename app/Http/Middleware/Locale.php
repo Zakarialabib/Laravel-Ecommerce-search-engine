@@ -10,11 +10,11 @@ use Closure;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Http\Request;
 class Locale
 {
     /** Handle an incoming request. */
-    public function handle(\Illuminate\Http\Request $request, Closure $next): mixed
+    public function handle(Request $request, Closure $next): mixed
     {
         // Set config translatable.locales
         if (Schema::hasTable('languages')) {

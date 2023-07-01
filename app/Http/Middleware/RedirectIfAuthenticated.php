@@ -16,21 +16,21 @@ class RedirectIfAuthenticated
      *
      * @param  Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      */
-    public function handle(Request $request, Closure $next, ?string ...$guards): \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
+    public function handle(Request $request, Closure $next, ...$guards)
     {
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                if (Auth::user()->isAdmin()) {
+                if (Auth::user()->hasRole('admin')) {
                     return redirect(RouteServiceProvider::ADMIN_HOME);
                 }
 
-                if (Auth::user()->isVendor()) {
+                if (Auth::user()->hasRole('vendor')) {
                     return redirect(RouteServiceProvider::VENDOR_HOME);
                 }
 
-                if (Auth::user()->isClient()) {
+                if (Auth::user()->hasRole('client')) {
                     return redirect(RouteServiceProvider::CLIENT_HOME);
                 }
             }

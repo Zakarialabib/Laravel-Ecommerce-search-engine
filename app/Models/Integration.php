@@ -74,7 +74,7 @@ class Integration extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
         'uuid',
         'type',
         'store_url',

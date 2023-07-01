@@ -15,7 +15,7 @@ class OrderFormMail extends Mailable
 
     public $order;
 
-    public function __construct(OrderForms $order)
+    public function __construct($order)
     {
         $this->order = $order;
     }

@@ -51,7 +51,8 @@ class Payment extends Model
      *
      * @var array<int, string>
      */
-    protected array $fillable = [
+    protected $fillable = [
+        'uuid',
         'status',
     ];
 
@@ -60,7 +61,7 @@ class Payment extends Model
      *
      * @var array<string, string>
      */
-    protected array $casts = [
+    protected $casts = [
         'status' => 'boolean',
     ];
 }
