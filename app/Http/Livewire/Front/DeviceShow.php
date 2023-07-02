@@ -26,7 +26,7 @@ class DeviceShow extends Component
 
     public $brand;
 
-    public $brand_device_model;
+    public $brand_device_models;
 
     public $listeners = [
     ];
@@ -35,13 +35,17 @@ class DeviceShow extends Component
     {
         $this->device_model = DeviceModel::whereSlug($slug)->first();
 
-        $this->brand_device_model = DeviceModel::active()->where('brand_id', $this->device_model->brand_id)->take(3)->get();
+        $this->brand_device_models = DeviceModel::active()
+                        ->where('brand_id', $this->device_model->brand_id)
+                        ->limit(4)->get();
 
         $this->similarProducts = Product::where('name', 'like', '%'.$this->device_model->name.'%')
-            ->with(['prices', 'store'])
+            ->inRandomOrder()
+            ->limit(4)
             ->get();
 
         $this->relatedProducts = Product::active()
+            ->where('brand_id', $this->device_model->brand_id)
             ->inRandomOrder()
             ->limit(4)
             ->get();

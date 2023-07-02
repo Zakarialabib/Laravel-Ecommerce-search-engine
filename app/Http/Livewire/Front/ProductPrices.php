@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Front;
 
-use App\Models\Store;
+use App\Models\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Jantinnerezo\LivewireAlert\LivewireAlert;
@@ -21,7 +21,7 @@ class ProductPrices extends Component
     public $search = null;
 
     public $results;
-    public $stores;
+    public $products;
 
     public $howMany = 5;
 
@@ -35,14 +35,8 @@ class ProductPrices extends Component
         $searchTerm = $this->search;
 
         if (strlen($this->search) > 3) {
-            // Get a list of stores that have products matching the search term
-            $this->results = Store::whereHas('products', function ($query): void {
-                $query->where('name', 'like', '%'.$this->search.'%');
-            })
-                ->with(['products' => function ($query): void {
-                    $query->where('name', 'like', '%'.$this->search.'%');
-                },
-                ])
+            $this->results = Product::active()
+                            ->where('name', 'like', '%'.$this->search.'%')
                 ->take($this->howMany)
                 ->get();
         } else {
