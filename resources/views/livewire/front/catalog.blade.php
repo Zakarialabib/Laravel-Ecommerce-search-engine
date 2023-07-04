@@ -193,7 +193,6 @@
                                     wire:click="filterProducts('subcategory', {{ $subcategory->id }})">
                                     <span class="inline-block px-4 py-2 text-sm font-bold font-heading text-blue-300">
                                         {{ $subcategory->name }} <small>
-                                            ({{ $subcategory->products->count() }})
                                         </small>
                                     </span>
                                 </button>

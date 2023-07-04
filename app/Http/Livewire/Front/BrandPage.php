@@ -32,6 +32,11 @@ class BrandPage extends Component
     
     public $selectedCategory;
 
+    public function selectedCategory($value)
+    {
+        $this->selectedCategory = $value;
+    }
+
     public function mount(Brand $brand): void
     {
         $this->brand = $brand;
@@ -49,13 +54,11 @@ class BrandPage extends Component
     public function loadMoreProducts(): void
     {
         $this->perPage += 25;
-        $this->loadProducts();
     }
 
     public function loadMoreDeviceModels(): void
     {
         $this->perPage += 25;
-        $this->loadDeviceModels();
     }
 
     public function render(): View|Factory

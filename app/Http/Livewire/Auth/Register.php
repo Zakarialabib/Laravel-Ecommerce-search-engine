@@ -63,7 +63,7 @@ class Register extends Component
             'status'   => Status::INACTIVE, // Set status to inactive by default
         ]);
 
-        $roleName = $this->isStoreOwner ? 'VENDOR' : 'CLIENT';
+        $roleName = $this->isStoreOwner ? 'vendor' : 'client';
 
         $role = Role::where('name', $roleName)->first();
 
@@ -89,11 +89,11 @@ class Register extends Component
         Auth::login($user, true);
 
         switch (true) {
-            case $user->hasRole('ADMIN'):
+            case $user->hasRole('admin'):
                 return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
 
                 break;
-            case $user->hasRole('VENDOR'):
+            case $user->hasRole('vendor'):
                 return redirect()->route('subscription-confirm');
 
                 break;

@@ -46,12 +46,14 @@
         </div>
 
         <div class="w-full px-10 py-4 my-5 bg-white rounded-lg">
-            <h3 class="py-5 text-3xl md:text-4xl lg:text-5xl leading-tight text-indigo-600 text-center font-bold tracking-tighter uppercase cursor-pointer">
+            <h3
+                class="py-5 text-3xl md:text-4xl lg:text-5xl leading-tight text-indigo-600 text-center font-bold tracking-tighter uppercase cursor-pointer">
                 <span class="hover:underline transition duration-200 ease-in-out">
-                    {{ $brand->name }} {{ __('Devices') }}
+                    {{ __('Devices') }} {{ $brand->name }}
                 </span>
             </h3>
-            <div class="grid gap-6 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 my-10">
+            <div class="grid gap-6 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 my-10"
+                wire:loading.class="opacity-50" wire:target="loadMoreDeviceModels">
                 @forelse ($deviceModels as $deviceModel)
                     <x-deviceModel-card :deviceModel="$deviceModel" />
                 @empty
@@ -62,43 +64,46 @@
                     </div>
                 @endforelse
             </div>
-            @if($deviceModels->isNotEmpty())
-            <div class="flex justify-center">
-                <x-button primary type="button" wire:click="loadMoreDeviceModels" class="w-full">
-                    {{ __('Load more devices') }}
-                </x-button>
-            </div>
+            @if ($deviceModels->isEmpty())
+                <div class="flex justify-center text-center">
+                    <x-button primary type="button" wire:click="loadMoreDeviceModels" wire:loading.attr="disabled">
+                        {{ __('Load more devices') }}
+                    </x-button>
+                </div>
             @endif
         </div>
-        
+
         <div class="w-full px-10 py-4 my-5 bg-white rounded-lg">
-            <h3 class="py-5 text-3xl md:text-4xl lg:text-5xl leading-tight text-indigo-600 text-center font-bold tracking-tighter uppercase cursor-pointer">
+            <h3
+                class="py-5 text-3xl md:text-4xl lg:text-5xl leading-tight text-indigo-600 text-center font-bold tracking-tighter uppercase cursor-pointer">
                 <span class="hover:underline transition duration-200 ease-in-out">
-                    {{ $brand->name }} {{ __('Products') }}
+                    {{ __('Products') }} {{ $brand->name }}
                 </span>
             </h3>
             <div class="my-4 flex gap-4 justify-center">
                 @foreach ($categories as $category)
-                    <x-button primary type="button" wire:click="selectedCategory({{ $category->id }})" class="{{ $selectedCategory == $category->id ? 'active' : '' }}">{{ $category->name }}</x-button>
+                    <x-button primary type="button" wire:click="selectedCategory({{ $category->id }})"
+                        wire:loading.attr="disabled">{{ $category->name }}</x-button>
                 @endforeach
             </div>
-            <div class="grid gap-6 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 my-10">
+            <div class="grid gap-6 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 my-10"
+                wire:loading.class="opacity-50" wire:target="loadMoreProducts">
                 @forelse ($products as $product)
                     <x-product-card :product="$product" />
                 @empty
-                <div class="col-span-full text-center">
+                    <div class="col-span-full text-center">
                         <h3 class="text-3xl font-bold font-heading text-blue-900">
                             {{ __('No brand products found') }}
                         </h3>
                     </div>
                 @endforelse
             </div>
-            @if($products->isNotEmpty())
-            <div class="flex justify-center">
-                <x-button primary type="button" wire:click="loadMoreProducts" class="w-full">
-                    {{ __('Load more products') }}
-                </x-button>
-            </div>
+            @if ($products->isEmpty())
+                <div class="flex justify-center text-center">
+                    <x-button primary type="button" wire:click="loadMoreProducts" wire:loading.attr="disabled">
+                        {{ __('Load more products') }}
+                    </x-button>
+                </div>
             @endif
         </div>
     </div>

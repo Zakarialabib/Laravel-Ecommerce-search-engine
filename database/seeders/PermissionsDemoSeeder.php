@@ -21,14 +21,12 @@ class PermissionsDemoSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        // create permissions
-        // Permission::create(['name' => 'account access','guard_name' => 'account_access']);
-        // Permission::create(['name' => 'admin access','guard_name' => 'admin_access']);
-        // Permission::create(['name' => 'client access','guard_name' => 'client_access']);
 
         $role1 = Role::create(['name' => 'admin']);
 
         $role2 = Role::create(['name' => 'vendor']);
+        
+        $role3 = Role::create(['name' => 'client']);
         // $role2->givePermissionTo('admin_access');
         // $role2->givePermissionTo('account_access');
 
@@ -48,11 +46,11 @@ class PermissionsDemoSeeder extends Seeder
         ]);
         $user->assignRole($role2);
 
-        // $user = \App\Models\User::factory()->create([
-        //     'name'     => 'Client',
-        //     'email'    => 'client@mail.com',
-        //     'password' => bcrypt('password'),
-        // ]);
-        // $user->assignRole($role3);
+        $user = \App\Models\User::factory()->create([
+            'name'     => 'Client',
+            'email'    => 'client@mail.com',
+            'password' => bcrypt('password'),
+        ]);
+        $user->assignRole($role3);
     }
 }

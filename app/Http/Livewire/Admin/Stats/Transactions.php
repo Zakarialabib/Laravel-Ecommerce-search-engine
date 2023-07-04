@@ -31,8 +31,8 @@ class Transactions extends Component
     {
         $this->categoriesCount = Category::count('id');
         $this->productCount = Product::count('id');
-        $this->clientCount = User::hasRole('client')->count('id');
-        $this->vendorCount = User::hasRole('vendor')->count('id');
+        $this->clientCount = User::role('client')->count('id');
+        $this->vendorCount = User::role('vendor')->count('id');
         $this->deviceModelCount = DeviceModel::count('id');
 
         $this->userSubscriptions_count = UserSubscription::whereDate('created_at', '>=', now()->subWeek())

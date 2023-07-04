@@ -1,7 +1,7 @@
-<div class="relative w-full h-full ">
+<div class="relative w-full h-full">
     <div class="h-[3rem] w-auto xl:w-[28rem] lg:w-[20rem] md:w-[15rem]">
-        <input wire:model.debounce.300ms="query" type="text"
-            class="w-full h-full border-0 focus:ring-transparent bg-gray-100 text-gray-900 text-xs focus:outline-none py-2rounded-md"
+        <x-input wire:model.debounce.300ms="query" type="text"
+            class="w-full h-full py-2 pl-6 rounded-md"
             placeholder="{{ __('Search for products or devices') }}..." />
         <button wire:click="clear" class="bg-gray-100 h-full">
             <svg class="w-4 h-4 absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-900"
@@ -12,7 +12,7 @@
     </div>
 
     @if (count($results) > 0)
-        <div class="absolute top-10 left-0 w-full bg-white text-black border border-gray-300 rounded z-50"
+        <div class="absolute top-10 left-0 w-full bg-white text-black rounded z-50"
             x-transition:enter="transition-all duration-300" x-transition:enter-start="opacity-0"
             x-transition:enter-end="opacity-100" x-transition:leave="transition-all"
             x-transition:leave-start="opacity-25" x-transition:leave-end="opacity-0 hidden" x-cloak>

@@ -62,7 +62,7 @@
         <div class="mx-auto max-w-[1500px] px-5">
             <div class="grid grid-cols-12 gap-5">
                 @foreach ($this->featured_banners as $featured_banner)
-                    <div class="col-span-full md:col-span-6">
+                    <div class="col-span-6 sm:col-span-full lg:col-span-4 md:col-span-6">
                         <div
                             class="relative shadow-xl isolate flex aspect-[72/31] sm:aspect-[72/28] lg:aspect-[72/30] xl:aspect-[72/26] w-full items-center overflow-hidden bg-[#953fff]">
                             <div

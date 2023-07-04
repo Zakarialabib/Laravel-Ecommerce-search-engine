@@ -110,19 +110,19 @@ class Index extends Component
             'order_direction' => $this->sortDirection,
         ]);
 
-        if ($this->filterRole === 'ADMIN') {
+        if ($this->filterRole === 'admin') {
             $query->where(function ($query): void {
                 $query->whereHas('roles', function ($query): void {
                     $query->where('name', $this->filterRole);
                 });
             });
-        } elseif ($this->filterRole === 'VENDOR') {
+        } elseif ($this->filterRole === 'vendor') {
             $query->where(function ($query): void {
                 $query->whereHas('roles', function ($query): void {
                     $query->where('name', $this->filterRole);
                 });
             });
-        } elseif ($this->filterRole === 'CLIENT') {
+        } elseif ($this->filterRole === 'client') {
             $query->where(function ($query): void {
                 $query->whereHas('roles', function ($query): void {
                     $query->where('name', $this->filterRole);
