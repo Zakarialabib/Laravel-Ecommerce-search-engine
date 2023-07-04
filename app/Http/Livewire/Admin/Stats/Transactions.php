@@ -116,7 +116,7 @@ class Transactions extends Component
             ],
             'series' => [
                 [
-                    'name' => __('UserSubscriptions'),
+                    'name' => __('User Subscriptions'),
                     'data' => array_column($chartData, 'user_subscriptions'),
                 ],
             ],
