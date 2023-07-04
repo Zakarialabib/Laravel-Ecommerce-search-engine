@@ -53,7 +53,7 @@
                 <ul class="divide-y divide-gray-300">
                     @foreach ($results['deviceModels'] as $deviceModel)
                         <li class="p-2 text-black hover:bg-gray-100">
-                            <a href="{{ route('front.deviceshow' . $deviceModel->slug) }}"
+                            <a href="{{ route('front.deviceshow' , $deviceModel->slug) }}"
                                 class="flex gap-8 items-center">
                                 <span class="font-bold">
                                     {{ $deviceModel->name }}
