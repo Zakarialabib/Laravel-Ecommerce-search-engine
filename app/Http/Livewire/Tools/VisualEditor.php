@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Tools;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\File;
@@ -483,6 +483,6 @@ class VisualEditor extends Component
 
     public function render(): View
     {
-        return view('livewire.visual-editor');
+        return view('livewire.tools.visual-editor');
     }
 }

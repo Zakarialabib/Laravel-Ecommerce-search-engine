@@ -66,9 +66,9 @@
 
 
                     <div class="w-full py-2 px-3">
-                        <x-label for="photo" :value="__('Image')" />
-                        <x-fileupload wire:model="photo" :file="$photo" accept="image/jpg,image/jpeg,image/png" />
-                        <x-input-error :messages="$errors->get('photo')" for="photo" class="mt-2" />
+                        <x-label for="image" :value="__('Image')" />
+                        <x-fileupload wire:model="image" :file="$image" accept="image/jpg,image/jpeg,image/png" />
+                        <x-input-error :messages="$errors->get('image')" for="image" class="mt-2" />
                     </div>
                     <div class="w-full px-3">
                         <x-button primary type="submit" wire:loading.attr="disabled" class="w-full">

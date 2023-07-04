@@ -19,7 +19,7 @@ return new class () extends Migration {
             $table->string('subtitle')->nullable();
             $table->string('title');
             $table->string('description')->nullable();
-            $table->string('photo');
+            $table->string('image');
             $table->string('bg_color')->nullable();
             $table->boolean('featured')->default(false);
             $table->string('link')->nullable();

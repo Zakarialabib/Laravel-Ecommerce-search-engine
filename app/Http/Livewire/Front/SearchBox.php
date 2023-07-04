@@ -8,52 +8,53 @@ use App\Models\Product;
 use App\Models\DeviceModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Support\Collection;
 use Livewire\Component;
 
 class SearchBox extends Component
 {
-    public $listeners = ['updatedSearch' => 'search'];
-
-    public $search = null;
-
+    public $query = '';
     public $results = [];
+    public $loading = false;
+    public $perPage = 5; // Number of results to show initially
+    public $loadMore = false;
 
-    public $searchBox = true;
-
-    public function updatedSearch(): void
+    public function updatedQuery()
     {
-        if (strlen($this->search) > 3) {
-    
-            $productResults = Product::active()
-                ->where('name', 'like', '%'.$this->search.'%')
-                ->orWhere('description', 'like', '%'.$this->search.'%')
-                ->limit(5)
-                ->get();
-    
-            $deviceModelResults = DeviceModel::active()
-                ->where('name', 'like', '%'.$this->search.'%')
-                ->limit(5)
-                ->get();
-    
-            $this->results = new Collection($productResults->merge($deviceModelResults));
-    
-        } else {
-            $this->results = new Collection([]);
+        $this->search();
+    }
+
+    public function search()
+    {
+        if (empty($this->query)) {
+            $this->results = []; // Reset the results array
+            return;
         }
+    
+        // Fetch products and device models based on the search query
+        $products = Product::with('store')->where('name', 'like', '%' . $this->query . '%')->limit($this->perPage)->get();
+        $deviceModels = DeviceModel::where('name', 'like', '%' . $this->query . '%')->limit($this->perPage)->get();
+    
+        // Combine products and device models in the results array
+        $this->results = [
+            'products' => $products,
+            'deviceModels' => $deviceModels,
+        ];
     }
     
 
-    public function hideSearchResults(): void
+    public function loadMore()
     {
-        $this->searchBox = false;
-        $this->clearSearch();
+        $this->perPage += 5; // Increase the number of results to show
+        $this->loadMore = true; // Set the flag to indicate that load more has been clicked
+        $this->search(); // Perform the search again to get more results
     }
 
-    public function clearSearch(): void
+    public function clear()
     {
-        $this->search = '';
+        $this->query = '';
         $this->results = [];
+        $this->perPage = 5;
+        $this->loadMore = false;
     }
 
     public function render(): View|Factory

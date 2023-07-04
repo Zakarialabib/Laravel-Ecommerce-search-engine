@@ -11,6 +11,7 @@ use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
 use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Url;
+use Carbon\Carbon;
 
 class GenerateSitemap extends Command
 {

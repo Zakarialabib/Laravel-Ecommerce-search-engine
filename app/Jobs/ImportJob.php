@@ -12,6 +12,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\File;
 use Maatwebsite\Excel\Facades\Excel;
+use App\Trait\QueueProgress;
 
 class ImportJob implements ShouldQueue
 {
@@ -19,7 +20,13 @@ class ImportJob implements ShouldQueue
     use InteractsWithQueue;
     use Queueable;
     use SerializesModels;
+    use QueueProgress;
 
+    /**
+     * The name of the output file.
+     *
+     * @var string
+     */
     protected $filename;
 
     /**
@@ -27,7 +34,7 @@ class ImportJob implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($filename)
+    public function __construct(string $filename)
     {
         $this->filename = $filename;
     }
@@ -35,8 +42,22 @@ class ImportJob implements ShouldQueue
     /** Execute the job. */
     public function handle(): void
     {
+        $this->setProgress(0);
+
+        sleep(2);
+
+        $this->setProgress(35);
+
         Excel::import(new ImportUpdates(), public_path('images/products/'.$this->filename));
 
+        sleep(2);
+
+        $this->setProgress(75);
+
         File::delete(public_path('images/products/'.$this->filename));
+
+        sleep(2);
+
+        $this->setProgress(100);
     }
 }

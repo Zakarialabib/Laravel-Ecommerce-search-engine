@@ -610,7 +610,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -632,6 +631,56 @@
                         <option value="right">Right</option>
                     </select>
                 </div>
+
+                  <!-- Header Template Modal -->
+    @if ($showHeaderModal)
+        <x-modal wire:model="showHeaderModal">
+            <x-slot name="title">{{__('Choose a header template')}}</x-slot>
+
+            <x-slot name="content">
+                <div class="grid grid-cols-3 gap-4">
+                    <!-- Render available header templates -->
+                    @foreach ($headerTemplates as $template)
+                        <div class="border rounded p-4">
+                            {!! $template !!}
+                            <!-- Render the HTML for the template component -->
+                            <button class="mt-4 px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                                wire:click="selectHeaderTemplate('{{ $template }}')">{{__('Select')}}</button>
+                        </div>
+                    @endforeach
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-button wire:click="$set('showHeaderModal', false)">{{__('Cancel')}}</x-button>
+            </x-slot>
+        </x-modal>
+    @endif
+
+    <!-- Footer Template Modal -->
+    @if ($showFooterModal)
+        <x-modal wire:model="showFooterModal">
+            <x-slot name="title">{{__('Choose a footer template')}}</x-slot>
+
+            <x-slot name="content">
+                <div class="grid grid-cols-3 gap-4">
+                    <!-- Render available footer templates -->
+                    @foreach ($footerTemplates as $template)
+                        <div class="border rounded p-4">
+                            {!! $template !!}
+                            <!-- Render the HTML for the template component -->
+                            <button class="mt-4 px-4 py-2 text-white bg-blue-500 rounded hover:bg-blue-600"
+                                wire:click="selectFooterTemplate('{{ $template }}')">{{__('Select')}}</button>
+                        </div>
+                    @endforeach
+                </div>
+            </x-slot>
+
+            <x-slot name="footer">
+                <x-button wire:click="$set('showFooterModal', false)">{{__('Cancel')}}</x-button>
+            </x-slot>
+        </x-modal>
+    @endif
  --}}
 
 @push('scripts')

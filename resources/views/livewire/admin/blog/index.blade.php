@@ -59,7 +59,7 @@
                     </x-table.td>
                     <x-table.td>
                         @php
-                            $photo = $blog->photo ? url('assets/images/blogs/' . $blog->photo) : url('assets/images/noimage.png');
+                            $photo = $blog->image ? url('images/blogs/' . $blog->image) : url('images/noimage.png');
                         @endphp
                         <img src="{{ $photo }}" alt="Image">
                     </x-table.td>

@@ -54,7 +54,7 @@ class Template extends Component
             'description'          => $this->selectedTemplate['description'],
             'meta_title'       => $this->selectedTemplate['meta_title'],
             'meta_description' => $this->selectedTemplate['meta_description'],
-            'photo'            => $this->selectedTemplate['image'],
+            'image'            => $this->selectedTemplate['image'],
         ];
 
         $page = Page::create($pageTemplate);

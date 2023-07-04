@@ -82,10 +82,10 @@ class Create extends Component
 
         $this->page->slug = Str::slug($this->page->name);
 
-        if ($this->photo) {
-            $imageName = Str::slug($this->page->name).'-'.date('Y-m-d H:i:s').'.'.$this->photo->extension();
-            $this->photo->storeAs('pages', $imageName);
-            $this->page->photo = $imageName;
+        if ($this->image) {
+            $imageName = Str::slug($this->page->name).'-'.date('Y-m-d H:i:s').'.'.$this->image->extension();
+            $this->image->storeAs('pages', $imageName);
+            $this->page->image = $imageName;
         }
 
         $this->page->save();

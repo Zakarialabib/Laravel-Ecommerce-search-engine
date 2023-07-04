@@ -59,8 +59,8 @@
 
                     <div class="w-full py-2 px-3">
                         <x-label for="image" :value="__('Image')" />
-                        <x-media-upload title="{{ __('Image') }}" name="photo" wire:model="photo"
-                            :file="$photo" {{-- :preview="$this->photopreview" --}} single types="PNG / JPEG / WEBP"
+                        <x-media-upload title="{{ __('Image') }}" name="image" wire:model="image"
+                            :file="$image" single types="PNG / JPEG / WEBP"
                             fileTypes="image/*" />
                     </div>
 

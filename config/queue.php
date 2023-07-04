@@ -90,4 +90,21 @@ return [
         'table' => 'failed_jobs',
     ],
 
+
+    /*
+    |--------------------------------------------------------------------------
+    | Queue Monitor
+    |--------------------------------------------------------------------------
+    |
+    | This option configures the behavior of the queue monitor. You can
+    | activate or deactivate the pruning of the queue monitor table.
+    | You can also set the number of days to keep the records.
+    |
+    */
+
+    'pruning' =>  [
+        'activate' => true,
+        'retention_days' => 7,
+    ]
+
 ];

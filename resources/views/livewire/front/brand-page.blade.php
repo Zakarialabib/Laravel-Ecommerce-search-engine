@@ -1,16 +1,16 @@
 <div>
 
-@section('meta')
-    <meta itemprop="url" content="{{ URL::current() }}">
-    <meta property="og:title" content="{{ $brand->meta_title }}">
-    <meta property="og:description" content="{!! $brand->meta_description !!}">
-    <meta property="og:url" content="{{ URL::current() }}">
-    <meta property="og:image" content="{{ asset('images/brands/' . $brand->image) }}">
-@endsection
+    @section('meta')
+        <meta itemprop="url" content="{{ URL::current() }}">
+        <meta property="og:title" content="{{ $brand->meta_title }}">
+        <meta property="og:description" content="{!! $brand->meta_description !!}">
+        <meta property="og:url" content="{{ URL::current() }}">
+        <meta property="og:image" content="{{ asset('images/brands/' . $brand->image) }}">
+    @endsection
 
     <div class="w-full px-4 mx-auto" x-data="{ showSidebar: false }">
 
-        <div class="relative bg-white overflow-hidden mb-5">
+        <div class="relative bg-white overflow-hidden mt-5">
             <img class="absolute right-0 top-0 md:w-1/2 sm:w-full h-full object-cover"
                 src="{{ asset('images/brands/' . $brand->featured_image) }}" alt="{{ $brand->name }}" loading="lazy">
             <div class="relative max-w-xl pl-6 lg:pl-20 py-10 bg-white bg-opactity-75">
@@ -44,38 +44,62 @@
                 </div>
             </div>
         </div>
-        <div class="w-full px-4" x-data="{ loading: false }">
 
-            <div class="grid gap-6 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 mb-10"
-                >
-                @forelse ($brandDeviceModels as $deviceModel)
+        <div class="w-full px-10 py-4 my-5 bg-white rounded-lg">
+            <h3 class="py-5 text-3xl md:text-4xl lg:text-5xl leading-tight text-indigo-600 text-center font-bold tracking-tighter uppercase cursor-pointer">
+                <span class="hover:underline transition duration-200 ease-in-out">
+                    {{ $brand->name }} {{ __('Devices') }}
+                </span>
+            </h3>
+            <div class="grid gap-6 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 my-10">
+                @forelse ($deviceModels as $deviceModel)
                     <x-deviceModel-card :deviceModel="$deviceModel" />
                 @empty
-                    <div class="w-full">
+                    <div class="col-span-full text-center">
+                        <h3 class="text-3xl font-bold font-heading text-blue-900">
+                            {{ __('No brand devices found') }}
+                        </h3>
+                    </div>
+                @endforelse
+            </div>
+            @if($deviceModels->isNotEmpty())
+            <div class="flex justify-center">
+                <x-button primary type="button" wire:click="loadMoreDeviceModels" class="w-full">
+                    {{ __('Load more devices') }}
+                </x-button>
+            </div>
+            @endif
+        </div>
+        
+        <div class="w-full px-10 py-4 my-5 bg-white rounded-lg">
+            <h3 class="py-5 text-3xl md:text-4xl lg:text-5xl leading-tight text-indigo-600 text-center font-bold tracking-tighter uppercase cursor-pointer">
+                <span class="hover:underline transition duration-200 ease-in-out">
+                    {{ $brand->name }} {{ __('Products') }}
+                </span>
+            </h3>
+            <div class="my-4 flex gap-4 justify-center">
+                @foreach ($categories as $category)
+                    <x-button primary type="button" wire:click="selectedCategory({{ $category->id }})" class="{{ $selectedCategory == $category->id ? 'active' : '' }}">{{ $category->name }}</x-button>
+                @endforeach
+            </div>
+            <div class="grid gap-6 lg:grid-cols-6 md:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 my-10">
+                @forelse ($products as $product)
+                    <x-product-card :product="$product" />
+                @empty
+                <div class="col-span-full text-center">
                         <h3 class="text-3xl font-bold font-heading text-blue-900">
                             {{ __('No brand products found') }}
                         </h3>
                     </div>
                 @endforelse
             </div>
-            <div class="flex justify-center mt-10" x-show="!loading && '{{ $brandDeviceModels->hasMorePages() }}'">
-                <div x-intersect="() => { $wire.loadMore(() => loading = false) }"
-                    x-transition:enter="transition ease-out duration-1000"
-                    x-transition:enter-start="opacity-0 transform translate-y-10"
-                    x-transition:enter-end="opacity-100 transform translate-y-0">
-                    <div class="flex items-center justify-center text-center">
-                        <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500" viewBox="0 0 24 24">
-                            <circle class="opacity-25" cx="12" cy="12" r="10"
-                                stroke="currentColor" stroke-width="4" fill="none"></circle>
-                            <path class="opacity-75" fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647zM20 12a8 8 0 01-8 8v4c4.627 0 10-5.373 10-12h-4zm-2-5.291A7.962 7.962 0 0120 12h4c0-3.042-1.135-5.824-3-7.938l-3 2.647z">
-                            </path>
-                        </svg>
-                        <span>{{ __('Loading...') }}</span>
-                    </div>
-                </div>
+            @if($products->isNotEmpty())
+            <div class="flex justify-center">
+                <x-button primary type="button" wire:click="loadMoreProducts" class="w-full">
+                    {{ __('Load more products') }}
+                </x-button>
             </div>
-
+            @endif
         </div>
     </div>
 </div>

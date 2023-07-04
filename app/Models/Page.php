@@ -44,19 +44,19 @@ class Page extends Model
     use HasAdvancedFilter;
 
     public $orderable = [
-        'id', 'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'photo',
+        'id', 'title', 'slug', 'language_id'
     ];
 
     protected $filterable = [
-        'id', 'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'photo',
+        'id', 'title', 'slug', 'language_id'
     ];
 
     protected $fillable = [
-        'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'photo',
+        'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'image',
     ];
 
-    /** Scope a query to only include active products. */
-    public function scopeActive(\Illuminate\Database\Eloquent\Builder $query): void
+
+    public function scopeActive($query): void
     {
         $query->where('status', true);
     }

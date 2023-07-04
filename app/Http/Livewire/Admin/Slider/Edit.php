@@ -28,7 +28,7 @@ class Edit extends Component
 
     public $slider;
 
-    public $photo;
+    public $umage;
 
     public $description;
 
@@ -64,16 +64,16 @@ class Edit extends Component
     {
         $this->validate();
 
-        if ($this->photo) {
-            $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->photo->extension();
+        if ($this->umage) {
+            $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->umage->extension();
 
-            $img = Image::make($this->photo->getRealPath())->encode('webp', 85);
+            $img = Image::make($this->umage->getRealPath())->encode('webp', 85);
 
             $img->stream();
 
             Storage::disk('local_files')->put('sliders/'.$imageName, $img, 'public');
 
-            $this->slider->photo = $imageName;
+            $this->slider->umage = $imageName;
         }
 
         $this->slider->save();

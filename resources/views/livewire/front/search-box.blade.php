@@ -1,50 +1,79 @@
-<div>
-    <div x-data="{ searchBox: false }" class="relative w-full h-full rounded-lg" @click.away="searchBox = false" wire:ignore>
-        <div class="h-[3rem] w-auto xl:w-[28rem] lg:w-[20rem] md:w-[15rem]">
-            <button type="button" @click="searchBox = !searchBox"
-                class="h-full absolute z-20 top-0 px-2 flex items-center bg-move-400 hover:bg-move-200 transition focus:outline-none">
-                <i class="fa fa-search text-gray-100"></i>
-            </button>
-            <input type="text" wire:model="search" placeholder="{{ __('Search for products') }}" autocomplete=""
-                class="w-full h-full border-0 focus:ring-transparent bg-gray-100 text-gray-900 text-xs focus:outline-none py-2 pl-10 pr-5 rounded-md">
-        </div>
-        @if (!empty($search))
-            <div x-transition:enter="transition-all duration-300" x-transition:enter-start="opacity-0"
-                x-transition:enter-end="opacity-100" x-transition:leave="transition-all"
-                x-transition:leave-start="opacity-25" x-transition:leave-end="opacity-0 hidden"
-                class="absolute top-0 left-0 h-[3rem] w-auto xl:w-[28rem] lg:w-[20rem] md:w-[15rem] mt-12 bg-white rounded-md shadow-xl overflow-y-auto z-50"
-                x-on:click.away="clearSearch()" x-show="searchBox" x-cloack>
-                <ul>
-                    @foreach ($results as $result)
-                        @if ($result instanceof \App\Models\Product)
-                            <li class="flex items-center px-4 py-3 border-b border-gray-100">
-                                <a href="{{ route('front.product', $result->slug) }}" class="flex">
-                                    <img src="{{ asset('images/products/' . $result->image) }}" alt=""
-                                        loading="lazy" class="w-10 h-10 object-cover">
-                                    <div class="mx-4">
-                                        <p class="font-semibold text-gray-700">{{ $result->name }}</p>
-                                    </div>
-                                </a>
-                            </li>
-                        @elseif ($result instanceof \App\Models\DeviceModel)
-                            <li class="flex items-center px-4 py-3 border-b border-gray-100">
-                                <a href="{{ route('front.deviceshow', $result->slug) }}" class="flex">
-                                    <img src="{{ asset('images/devices/' . $result->image) }}" alt=""
-                                        loading="lazy" class="w-10 h-10 object-cover">
-                                    <div class="mx-4">
-                                        <p class="font-semibold text-gray-700">{{ $result->name }}</p>
-                                    </div>
-                                </a>
-                            </li>
-                        @endif
+<div class="relative w-full h-full ">
+    <div class="h-[3rem] w-auto xl:w-[28rem] lg:w-[20rem] md:w-[15rem]">
+        <input wire:model.debounce.300ms="query" type="text"
+            class="w-full h-full border-0 focus:ring-transparent bg-gray-100 text-gray-900 text-xs focus:outline-none py-2rounded-md"
+            placeholder="{{ __('Search for products or devices') }}..." />
+        <button wire:click="clear" class="bg-gray-100 h-full">
+            <svg class="w-4 h-4 absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-900"
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
+
+    @if (count($results) > 0)
+        <div class="absolute top-10 left-0 w-full bg-white text-black border border-gray-300 rounded z-50"
+            x-transition:enter="transition-all duration-300" x-transition:enter-start="opacity-0"
+            x-transition:enter-end="opacity-100" x-transition:leave="transition-all"
+            x-transition:leave-start="opacity-25" x-transition:leave-end="opacity-0 hidden" x-cloak>
+            @if (count($results['products']) > 0)
+                <div class="w-full text-center p-2 font-semibold">
+                    {{ __('Products') }}
+                </div>
+                <hr class="border-t border-gray-300">
+                <ul class="divide-y divide-gray-300">
+                    @foreach ($results['products'] as $product)
+                        <li class="p-2 text-black hover:bg-gray-100">
+                            <a href="{{ route('front.product', $product->slug) }}" class="flex gap-8 items-center">
+                                <span class="font-bold">
+                                    {{ $product->name }}
+                                </span>
+                                @if ($product->store)
+                                    <span>
+                                        {{ __('Store') }} : {{ $product->store?->name }}
+                                    </span>
+                                @endif
+                            </a>
+                        </li>
                     @endforeach
-                    @if ($results->isEmpty())
-                        <li class="px-4 py-3 text-gray-600">{{ __('No results found for') }}
-                            "{{ $search }}"
+                    @if (count($results['products']) >= $perPage)
+                        <li class="flex justify-center">
+                            <button class="w-full text-white bg-indigo-600 py-2 text-center"
+                                wire:click="loadMore">{{ __('Load More') }}</button>
                         </li>
                     @endif
                 </ul>
-            </div>
-        @endif
-    </div>
+            @endif
+
+            @if (count($results['deviceModels']) > 0)
+                <div class="w-full text-center p-2 font-semibold">
+                    {{ __('Devices') }}
+                </div>
+                <hr class="border-t border-gray-300">
+                <ul class="divide-y divide-gray-300">
+                    @foreach ($results['deviceModels'] as $deviceModel)
+                        <li class="p-2 text-black hover:bg-gray-100">
+                            <a href="{{ route('front.deviceshow' . $deviceModel->slug) }}"
+                                class="flex gap-8 items-center">
+                                <span class="font-bold">
+                                    {{ $deviceModel->name }}
+                                </span>
+                                @if ($deviceModel->brand_id)
+                                    <span>
+                                        {{ __('Brand') }} : {{ $product->brand?->name }}
+                                    </span>
+                                @endif
+                            </a>
+                        </li>
+                    @endforeach
+                    @if (count($results['deviceModels']) >= $perPage)
+                        <li class="flex justify-center">
+                            <button class="w-full text-white bg-indigo-600 py-2 text-center" wire:click="loadMore">
+                                {{ __('Load More') }}</button>
+                        </li>
+                    @endif
+                </ul>
+            @endif
+        </div>
+    @endif
 </div>

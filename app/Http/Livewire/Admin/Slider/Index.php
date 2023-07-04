@@ -24,8 +24,6 @@ class Index extends Component
 
     public $slider;
 
-    public $photo;
-
     public $listeners = [
         'refreshIndex' => '$refresh',
         'showModal', 'delete',
@@ -98,11 +96,6 @@ class Index extends Component
 
         return view('livewire.admin.slider.index', compact('sliders'));
     }
-
-    // public function getPhotoPreviewProperty()
-    // {
-    //     return $this->slider->photo;
-    // }
 
     public function setFeatured($id): void
     {

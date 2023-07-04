@@ -26,7 +26,7 @@ class Create extends Component
 
     public $slider;
 
-    public $photo;
+    public $image;
 
     public $description;
 
@@ -42,7 +42,7 @@ class Create extends Component
         'slider.language_id'   => ['nullable'],
         'slider.bg_color'      => ['nullable'],
         'slider.embeded_video' => ['nullable'],
-        'photo'                => ['required'],
+        'image'                => ['required'],
     ];
 
     public function updatedDescription($value): void
@@ -72,16 +72,16 @@ class Create extends Component
     {
         $this->validate();
 
-        if ($this->photo) {
-            $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->photo->extension();
+        if ($this->image) {
+            $imageName = Str::slug($this->slider->title).'-'.Str::random(5).'.'.$this->image->extension();
 
-            $img = Image::make($this->photo->getRealPath())->encode('webp', 85);
+            $img = Image::make($this->image->getRealPath())->encode('webp', 85);
 
             $img->stream();
 
             Storage::disk('local_files')->put('sliders/'.$imageName, $img, 'public');
 
-            $this->slider->photo = $imageName;
+            $this->slider->image = $imageName;
         }
 
         $this->slider->description = $this->description;

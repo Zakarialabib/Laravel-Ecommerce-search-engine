@@ -66,7 +66,7 @@ class Slider extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'title', 'subtitle', 'description', 'embeded_video', 'photo', 'featured', 'link', 'language_id', 'bg_color', 'status',
+        'title', 'subtitle', 'description', 'embeded_video', 'image', 'featured', 'link', 'language_id', 'bg_color', 'status',
     ];
 
     /** Scope a query to only include active products. */

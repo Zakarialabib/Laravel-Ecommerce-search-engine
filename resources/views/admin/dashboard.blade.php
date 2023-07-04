@@ -59,10 +59,7 @@
         {{-- <div class="w-full px-6  my-4">
         @livewire('tools.qr-generator')
         </div>
-        
-        <div class="w-full px-6  my-4">
-            @livewire('visual-editor')
-        </div> --}}
+        --}}
 
         <div class="w-full px-6  my-4">
             @livewire('admin.stats.transactions')

@@ -1,11 +1,11 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Livewire\Front;
 
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\DeviceModel;
+use App\Models\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Livewire\Component;
@@ -16,24 +16,26 @@ class BrandPage extends Component
     use WithPagination;
 
     public $listeners = [
-        'load-more' => 'loadMore',
+        'load-more-products' => 'loadMoreProducts',
+        'load-more-device-models' => 'loadMoreDeviceModels',
     ];
 
-    public int $perPage;
+    public $perPage = 25;
 
-    public array $paginationOptions;
+    public $paginationOptions = [25, 50, 100];
 
-    public array $sortingOptions;
+    public $sortingOptions = [];
 
-    public $brand;
+    public Brand $brand;
 
-    public $sorting;
+    public string $sorting = '';
+    
+    public $selectedCategory;
 
-    public function mount($brand): void
+    public function mount(Brand $brand): void
     {
-        $this->brand = Brand::findOrFail($brand->id);
-        $this->paginationOptions = [25, 50, 100];
-        $this->perPage = 25;
+        $this->brand = $brand;
+        
         $this->sortingOptions = [
             'name-asc'   => __('Order Alphabetic, A-Z'),
             'name-desc'  => __('Order Alphabetic, Z-A'),
@@ -44,34 +46,53 @@ class BrandPage extends Component
         ];
     }
 
-    public function loadMore(): void
+    public function loadMoreProducts(): void
     {
         $this->perPage += 25;
+        $this->loadProducts();
+    }
+
+    public function loadMoreDeviceModels(): void
+    {
+        $this->perPage += 25;
+        $this->loadDeviceModels();
     }
 
     public function render(): View|Factory
     {
-        $query = DeviceModel::active()
-            ->where('brand_id', $this->brand->id);
+        $categories = Category::select('id', 'name')->get();
+        $products = $this->getSortedModels(Product::class);
+        $deviceModels = $this->getSortedModels(DeviceModel::class);
 
-        if ($this->sorting === 'name') {
+        return view('livewire.front.brand-page', [
+            'categories' => $categories,
+            'products' => $products,
+            'deviceModels' => $deviceModels,
+        ]);
+    }
+
+    private function getSortedModels(string $modelClass)
+    {
+        $query = $modelClass::active()
+            ->where('brand_id', $this->brand->id)
+            ->when($this->selectedCategory, function ($query) {
+                $query->where('category_id', $this->selectedCategory);
+            });
+
+        if ($this->sorting === 'name-asc') {
             $query->orderBy('name', 'asc');
         } elseif ($this->sorting === 'name-desc') {
             $query->orderBy('name', 'desc');
-        } elseif ($this->sorting === 'price') {
+        } elseif ($this->sorting === 'price-asc') {
             $query->orderBy('price', 'asc');
         } elseif ($this->sorting === 'price-desc') {
             $query->orderBy('price', 'desc');
-        } elseif ($this->sorting === 'date') {
+        } elseif ($this->sorting === 'date-asc') {
             $query->orderBy('created_at', 'asc');
         } elseif ($this->sorting === 'date-desc') {
             $query->orderBy('created_at', 'desc');
         }
 
-        $brandDeviceModels = $query->paginate($this->perPage);
-
-        $this->emit('deviceModalLoaded', $brandDeviceModels->count());
-
-        return view('livewire.front.brand-page', compact('brandDeviceModels'));
+        return $query->paginate($this->perPage);
     }
 }

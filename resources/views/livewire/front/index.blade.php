@@ -4,7 +4,7 @@
         <div class="w-full mx-auto bg-gray-900">
             @foreach ($this->sliders as $slider)
                 <div class="flex flex-wrap -mx-4 py-10 px-4"
-                    style="background-image: url({{ asset('images/sliders/' . $slider->photo) }});background-size: cover;background-position: center;
+                    style="background-image: url({{ asset('images/sliders/' . $slider->image) }});background-size: cover;background-position: center;
                 background-blend-mode: overlay;background-color: {{ $slider->bg_color }};">
                     <div class="w-full px-10 lg:mb-5 sm:mb-2">
                         <div class="lg:py-5 py-10 text-white px-5">
@@ -77,7 +77,7 @@
                                 </a>
                             </div><img
                                 class="absolute right-0 top-0 -z-10 block h-full max-w-[50%] lg:max-w-[45%] object-cover object-right"
-                                src="{{ asset('images/featured_banners/' . $featured_banner->photo) }}"
+                                src="{{ asset('images/featuredbanners/' . $featured_banner->image) }}"
                                 alt="{{ $featured_banner->title }}">
                         </div>
                     </div>
