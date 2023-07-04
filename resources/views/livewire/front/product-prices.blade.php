@@ -3,7 +3,7 @@
 
         <div class="h-[3rem] w-auto">
             <x-input type="text" wire:model.debounce.300="search" placeholder="{{ __('Search for products') }}"
-                class="w-full h-full bg-gray-50 text-gray-900 py-2">
+                class="w-full h-full bg-gray-50 text-gray-900 py-2" />
         </div>
 
         @if (!empty($search))

@@ -1,7 +1,7 @@
 <div class="relative w-full h-full">
     <div class="h-[3rem] w-auto xl:w-[28rem] lg:w-[20rem] md:w-[15rem]">
         <x-input wire:model.debounce.300ms="query" type="text"
-            class="w-full h-full py-2 pl-6 rounded-md"
+            class="w-full h-full py-2 pl-10 rounded-md"
             placeholder="{{ __('Search for products or devices') }}..." />
         <button wire:click="clear" class="bg-gray-100 h-full">
             <svg class="w-4 h-4 absolute top-1/2 left-3 transform -translate-y-1/2 text-gray-900"
