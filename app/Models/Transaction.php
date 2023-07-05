@@ -17,7 +17,7 @@ class Transaction extends Model
     use UuidGenerator;
     use GetModelByUuid;
 
-    const ATTRIBUTES = [
+    public const ATTRIBUTES = [
         'id',
         'status',
     ];
@@ -28,7 +28,7 @@ class Transaction extends Model
      * @var array<int, string>
      */
     public $orderable = self::ATTRIBUTES;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -43,13 +43,12 @@ class Transaction extends Model
      */
     protected $fillable = [
         'user_id',
-'        package_id',
-'        subscription_id',
-'        type',
-'        amount',
+        '        package_id',
+        '        subscription_id',
+        '        type',
+        '        amount',
         'status',
     ];
-    
 
     /**
      * The attributes that should be cast.

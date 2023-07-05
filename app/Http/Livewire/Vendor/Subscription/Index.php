@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Vendor\Subscription;
 
-use App\Models\UserSubscription;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -16,7 +15,6 @@ class Index extends Component
     {
         $user = Auth::user();
         $this->userSubscription = $user->subscription->first();
-
     }
 
     public function render()

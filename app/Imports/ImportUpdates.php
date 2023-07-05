@@ -10,7 +10,6 @@ use Maatwebsite\Excel\Concerns\ToModel;
 class ImportUpdates implements ToModel
 {
     /** @param array $row */
-
     public function model(array $row)
     {
         $product = Product::where('code', $row[0])->first();

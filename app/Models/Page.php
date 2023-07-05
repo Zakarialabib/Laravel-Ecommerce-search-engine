@@ -44,17 +44,16 @@ class Page extends Model
     use HasAdvancedFilter;
 
     public $orderable = [
-        'id', 'title', 'slug', 'language_id'
+        'id', 'title', 'slug', 'language_id',
     ];
 
     protected $filterable = [
-        'id', 'title', 'slug', 'language_id'
+        'id', 'title', 'slug', 'language_id',
     ];
 
     protected $fillable = [
         'title', 'slug', 'details', 'meta_title', 'meta_description', 'language_id', 'image',
     ];
-
 
     public function scopeActive($query): void
     {

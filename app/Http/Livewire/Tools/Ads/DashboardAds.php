@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Tools\Ads;
 
 use App\Models\AdsType;
@@ -9,7 +11,8 @@ class DashboardAds extends Component
 {
     public function render()
     {
-        $adsTypes =  AdsType::all();
+        $adsTypes = AdsType::all();
+
         return view('livewire.ads.dashboard-ads', compact('adsTypes'));
     }
 }

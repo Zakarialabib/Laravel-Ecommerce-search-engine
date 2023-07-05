@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Providers;
 
 use App\Models\QueueMonitor;
@@ -10,6 +12,7 @@ use Illuminate\Queue\Events\JobProcessed;
 use Illuminate\Queue\Events\JobProcessing;
 use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\ServiceProvider;
+use Throwable;
 
 class QueueMonitorProvider extends ServiceProvider
 {
@@ -20,7 +23,7 @@ class QueueMonitorProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+
         Queue::before(static function (JobProcessing $event) {
             self::jobStarted($event->job);
         });
@@ -38,29 +41,25 @@ class QueueMonitorProvider extends ServiceProvider
         });
     }
 
-    /**
-     * Get Job ID.
-     */
+    /** Get Job ID. */
     public static function getJobId(JobContract $job): string|int
     {
         return QueueMonitor::getJobId($job);
     }
 
-    /**
-     * Start Queue Monitoring for Job.
-     */
+    /** Start Queue Monitoring for Job. */
     protected static function jobStarted(JobContract $job): void
     {
         $now = now();
         $jobId = self::getJobId($job);
 
         $monitor = QueueMonitor::query()->create([
-            'job_id' => $jobId,
-            'name' => $job->resolveName(),
-            'queue' => $job->getQueue(),
+            'job_id'     => $jobId,
+            'name'       => $job->resolveName(),
+            'queue'      => $job->getQueue(),
             'started_at' => $now,
-            'attempt' => $job->attempts(),
-            'progress' => 0,
+            'attempt'    => $job->attempts(),
+            'progress'   => 0,
         ]);
 
         QueueMonitor::query()
@@ -75,10 +74,8 @@ class QueueMonitorProvider extends ServiceProvider
             });
     }
 
-    /**
-     * Finish Queue Monitoring for Job.
-     */
-    protected static function jobFinished(JobContract $job, bool $failed = false, ?\Throwable $exception = null): void
+    /** Finish Queue Monitoring for Job. */
+    protected static function jobFinished(JobContract $job, bool $failed = false, ?Throwable $exception = null): void
     {
         $monitor = QueueMonitor::query()
             ->where('job_id', self::getJobId($job))
@@ -91,9 +88,9 @@ class QueueMonitorProvider extends ServiceProvider
         }
 
         $attributes = [
-            'progress' => 100,
+            'progress'    => 100,
             'finished_at' => now(),
-            'failed' => $failed,
+            'failed'      => $failed,
         ];
 
         if (null !== $exception) {

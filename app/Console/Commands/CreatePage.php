@@ -15,7 +15,7 @@ class CreatePage extends Command
     /** The console command description. */
     protected $description = 'Create a new page with specified components';
 
-      /**
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -25,7 +25,6 @@ class CreatePage extends Command
         parent::__construct();
     }
 
-    
     public function handle(): void
     {
         $name = Str::snake($this->argument('title'));

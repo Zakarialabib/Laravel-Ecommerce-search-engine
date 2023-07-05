@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Jobs;
 
-use App\Imports\ImportUpdates;
 use App\Imports\ProductImport;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -49,19 +48,16 @@ class ProductJob implements ShouldQueue
 
         $this->setProgress(35);
 
-       Excel::import(new ProductImport(), public_path('images/products/'.$this->filename));
+        Excel::import(new ProductImport(), public_path('images/products/'.$this->filename));
 
         sleep(2);
 
         $this->setProgress(75);
 
-       File::delete(public_path('images/products/'.$this->filename));
+        File::delete(public_path('images/products/'.$this->filename));
 
         sleep(2);
 
         $this->setProgress(100);
-      
-
-      
     }
 }

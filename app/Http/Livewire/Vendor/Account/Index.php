@@ -65,7 +65,7 @@ class Index extends Component
         $this->email = $this->user->email;
         $this->password = $this->user->password;
 
-        $store = Store::where('user_id',$this->user->id)->first();
+        $store = Store::where('user_id', $this->user->id)->first();
 
         $this->store_name = $store->name;
         $this->store_url = $store->url;
@@ -87,35 +87,36 @@ class Index extends Component
         $this->user->update();
 
         // store update
-        $store = Store::where('user_id',$this->user->id)->first();
+        $store = Store::where('user_id', $this->user->id)->first();
         $store->name = $this->store_name;
         $store->url = $this->store_url;
         $store->phone = $this->store_phone;
         $store->location = $this->store_address;
-        
-        if($store->logo) {
-            $image_path = public_path('images/store/' .$store->logo);
-            if(file_exists($image_path)) {
-                unlink($image_path);
-            }
-            
-            $imageName = 'logo-' .$this->store_name .'jpg';
-            $this->logo->storeAs('images/store/', $imageName);
-            $store->logo = $imageName;
-        }
-        if($store->banner_image) {
-            
-            $image_path = public_path('images/store/' .$store->banner_image);
-            if(file_exists($image_path)) {
+
+        if ($store->logo) {
+            $image_path = public_path('images/store/'.$store->logo);
+
+            if (file_exists($image_path)) {
                 unlink($image_path);
             }
 
-            $imageName = 'banner-' .$this->store_name .'jpg';
+            $imageName = 'logo-'.$this->store_name.'jpg';
+            $this->logo->storeAs('images/store/', $imageName);
+            $store->logo = $imageName;
+        }
+
+        if ($store->banner_image) {
+            $image_path = public_path('images/store/'.$store->banner_image);
+
+            if (file_exists($image_path)) {
+                unlink($image_path);
+            }
+
+            $imageName = 'banner-'.$this->store_name.'jpg';
             $this->banner_image->storeAs('images/store/', $imageName);
             $store->banner_image = $imageName;
         }
         $store->social_links = $this->social_links;
-
 
         $this->alert('success', 'Account updated successfully', [
             'position'          => 'top-end',

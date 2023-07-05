@@ -34,7 +34,7 @@ class ProductFactory extends Factory
             'code'             => $productCode,
             'category_id'      => 1,
             'brand_id'         => 1,
-            'url'              => 'www.hotech.ma',  
+            'url'              => 'www.hotech.ma',
             'slug'             => $productSlug,
             'meta_title'       => $productName,
             'meta_description' => $productDescription,

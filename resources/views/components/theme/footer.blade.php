@@ -34,7 +34,7 @@
                     <li class="mb-3 text-lg font-extrabold text-black dark:text-white">{{__('Quick Menu')}}</li>
                     <li><a href="{{ route('front.index')}}" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('Home')}}</a></li>
                     <li><a href="{{ route('front.services')}}" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('Service')}}</a></li>
-                    <li><a href="{{ route('front.about')}}" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('About Us')}}</a></li>
+                    <li><a href="#" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('About Us')}}</a></li>
                 </ul>
             </div>
             <div>
@@ -57,7 +57,7 @@
                         <a href="privacy-policy.html" class="inline-block transition hover:scale-110 hover:text-indigo-500">Privacy Policy</a>
                     </li>
                     <li><a href="faq.html" class="inline-block transition hover:scale-110 hover:text-indigo-500">FAQs</a></li>
-                    <li><a href="{{ route('front.blog') }}" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('Blog')}}</a></li>
+                    <li><a href="{{ route('front.blogs') }}" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('Blog')}}</a></li>
                 </ul>
             </div>
             <div>

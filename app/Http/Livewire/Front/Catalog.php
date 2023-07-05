@@ -138,7 +138,7 @@ class Catalog extends Component
             $products = $query->paginate($this->perPage);
         }
 
-        return view('livewire.front.catalog', compact('products'));
+        return view('livewire.front.catalog', compact('products'))->extends('layouts.app');
     }
 
     public function getCategoriesProperty()

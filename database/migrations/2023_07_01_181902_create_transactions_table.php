@@ -6,8 +6,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class () extends Migration {
     public function up(): void
     {
         Schema::create('transactions', static function (Blueprint $table): void {
@@ -18,7 +17,7 @@ return new class extends Migration
             $table->foreignId('subscription_id')->constrained()->nullable()->cascadeOnDelete();
             $table->string('type');
             $table->string('amount')->default(0);
-            $table->boolean('status')->default(true); 
+            $table->boolean('status')->default(true);
             $table->timestamps();
             $table->softDeletes();
         });

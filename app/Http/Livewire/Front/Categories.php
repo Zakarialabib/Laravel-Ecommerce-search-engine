@@ -156,6 +156,6 @@ class Categories extends Component
 
         return view('livewire.front.categories', [
             'products' => $products,
-        ]);
+        ])->extends('layouts.app');
     }
 }

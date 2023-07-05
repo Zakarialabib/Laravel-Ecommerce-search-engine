@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Front;
 
 use App\Models\Brand;
@@ -16,7 +18,7 @@ class BrandPage extends Component
     use WithPagination;
 
     public $listeners = [
-        'load-more-products' => 'loadMoreProducts',
+        'load-more-products'      => 'loadMoreProducts',
         'load-more-device-models' => 'loadMoreDeviceModels',
     ];
 
@@ -29,7 +31,7 @@ class BrandPage extends Component
     public Brand $brand;
 
     public string $sorting = '';
-    
+
     public $selectedCategory;
 
     public function selectedCategory($value)
@@ -37,10 +39,10 @@ class BrandPage extends Component
         $this->selectedCategory = $value;
     }
 
-    public function mount(Brand $brand): void
+    public function mount($slug): void
     {
-        $this->brand = $brand;
-        
+        $this->brand = Brand::where('slug', $slug)->firstOrFail();
+
         $this->sortingOptions = [
             'name-asc'   => __('Order Alphabetic, A-Z'),
             'name-desc'  => __('Order Alphabetic, Z-A'),
@@ -68,10 +70,10 @@ class BrandPage extends Component
         $deviceModels = $this->getSortedModels(DeviceModel::class);
 
         return view('livewire.front.brand-page', [
-            'categories' => $categories,
-            'products' => $products,
+            'categories'   => $categories,
+            'products'     => $products,
             'deviceModels' => $deviceModels,
-        ]);
+        ])->extends('layouts.app');
     }
 
     private function getSortedModels(string $modelClass)

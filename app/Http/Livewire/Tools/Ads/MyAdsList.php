@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Tools\Ads;
 
 use App\Models\Ads;
@@ -21,12 +23,14 @@ class MyAdsList extends Component
     public $showModal = false;
 
     protected $listeners = [
-        'getDataById', 'getId'
+        'getDataById', 'getId',
     ];
+
     public function mount($type = 'views')
     {
         $this->type = $type;
     }
+
     public function render()
     {
         return view('livewire.ads.views.my-ads-list');
@@ -48,12 +52,13 @@ class MyAdsList extends Component
     {
         $this->validate([
             'ads_type_id' => 'required',
-            'ads_title' => 'required',
+            'ads_title'   => 'required',
         ]);
         $ads = Ads::find($this->ads_type_id);
         $ads->url = $this->ads_url;
         $ads->title = $this->ads_title;
         $ads->notes = $this->ads_notes;
+
         if ($this->ads_photo) {
             $file = $this->ads_photo->store('images/ads', 'public');
             $ads->photo = $file;
@@ -66,7 +71,6 @@ class MyAdsList extends Component
 
     public function _reset()
     {
-
         $this->emit('refreshTable');
         $this->ads_type_id = null;
         $this->ads_url = null;

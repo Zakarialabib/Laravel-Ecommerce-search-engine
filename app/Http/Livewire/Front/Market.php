@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Front;
 
 use App\Http\Livewire\WithSorting;
-use App\Models\Product;
+use App\Models\Store;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -53,17 +53,17 @@ class Market extends Component
 
     public function render()
     {
-        $query = Product::where('name', 'like', '%'.$this->search.'%')
+        $query = Store::where('name', 'like', '%'.$this->search.'%')
             ->advancedFilter([
                 's'               => $this->search ?: null,
                 'order_column'    => $this->sortBy,
                 'order_direction' => $this->sortDirection,
             ]);
 
-        $products = $query->paginate($this->perPage);
+        $stores = $query->paginate($this->perPage);
 
         return view('livewire.front.market', [
-            'products' => $products,
-        ]);
+            'stores' => $stores,
+        ])->extends('layouts.app');
     }
 }

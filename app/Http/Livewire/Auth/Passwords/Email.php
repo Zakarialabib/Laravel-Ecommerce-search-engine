@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Auth\Passwords;
 
 use Illuminate\Support\Facades\Password;
-use Illuminate\Contracts\Auth\PasswordBroker;
 use Livewire\Component;
 
 class Email extends Component

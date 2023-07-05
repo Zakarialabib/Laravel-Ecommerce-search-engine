@@ -7,7 +7,6 @@ namespace App\Http\Livewire\Admin\Stats;
 use App\Models\Category;
 use App\Models\DeviceModel;
 use App\Models\UserSubscription;
-use App\Models\Packages;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
@@ -58,7 +57,7 @@ class Transactions extends Component
             ->toArray();
 
         $user_subscriptions = [
-            'amount'      => array_column($query, 'amount'),
+            'amount' => array_column($query, 'amount'),
             'labels' => array_column($query, 'labels'),
         ];
 
@@ -96,7 +95,7 @@ class Transactions extends Component
         foreach ($daysInMonth as $day) {
             $order = $user_subscriptionsData->where('day', $day)->first();
             $chartData[] = [
-                'day'    => $day,
+                'day'                => $day,
                 'user_subscriptions' => $order ? $order->amount_user_subscriptions : 0,
             ];
         }

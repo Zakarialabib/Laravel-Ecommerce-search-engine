@@ -6,6 +6,7 @@
         <meta property="og:url" content="{{ URL::current() }}">
         <meta property="og:image" content="{{ asset('images/vendors/' . $vendor->logo) }}">
     @endsection
+    
     <div class="flex flex-col lg:flex-row-reverse">
         <div class="w-full sm:w-full md:w-full lg:w-1/4 h-auto mx-auto relative overflow-hidden" x-data="{ showSidebar: false }">
             <div class="relative w-auto px-4 py-10 rounded-md bg-white mx-6 mt-4  bg-opacity-75">

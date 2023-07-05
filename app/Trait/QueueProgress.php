@@ -1,19 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Trait;
 
 use App\Models\QueueMonitor;
 
 trait QueueProgress
 {
-    /**
-     * Update progress.
-     */
+    /** Update progress. */
     public function setProgress(int $progress): void
     {
         $progress = min(100, max(0, $progress));
 
-        if (! $monitor = $this->getQueueMonitor()) {
+        if ( ! $monitor = $this->getQueueMonitor()) {
             return;
         }
 
@@ -24,20 +24,18 @@ trait QueueProgress
         $this->progressLastUpdated = time();
     }
 
-    /**
-     * Return Queue Monitor Model.
-     */
+    /** Return Queue Monitor Model. */
     protected function getQueueMonitor(): ?QueueMonitor
     {
-        if (! property_exists($this, 'job')) {
+        if ( ! property_exists($this, 'job')) {
             return null;
         }
 
-        if (! $this->job) {
+        if ( ! $this->job) {
             return null;
         }
 
-        if (! $jobId = QueueMonitor::getJobId($this->job)) {
+        if ( ! $jobId = QueueMonitor::getJobId($this->job)) {
             return null;
         }
 

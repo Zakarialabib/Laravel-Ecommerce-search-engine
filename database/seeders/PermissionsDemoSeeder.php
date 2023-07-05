@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\PermissionRegistrar;
 
@@ -21,11 +20,10 @@ class PermissionsDemoSeeder extends Seeder
         // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-
         $role1 = Role::create(['name' => 'admin']);
 
         $role2 = Role::create(['name' => 'vendor']);
-        
+
         $role3 = Role::create(['name' => 'client']);
         // $role2->givePermissionTo('admin_access');
         // $role2->givePermissionTo('account_access');

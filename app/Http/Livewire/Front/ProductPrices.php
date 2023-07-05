@@ -36,7 +36,7 @@ class ProductPrices extends Component
 
         if (strlen($this->search) > 3) {
             $this->results = Product::active()
-                            ->where('name', 'like', '%'.$this->search.'%')
+                ->where('name', 'like', '%'.$this->search.'%')
                 ->take($this->howMany)
                 ->get();
         } else {

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Tools\QueueMonitor;
 
 use App\Models\QueueMonitor;
@@ -26,7 +28,6 @@ class Index extends Component
     public $totalExecutionTime;
     public $averageExecutionTime;
 
-
     public function mount()
     {
         $aggregationColumns = [
@@ -41,10 +42,9 @@ class Index extends Component
 
         $this->totalJobsExecuted = $this->aggregatedInfo->count ?? 0;
         $this->totalExecutionTime = ($this->aggregatedInfo->total_time_elapsed ?? 0).'s';
-        $this->averageExecutionTime = ceil((float)$this->aggregatedInfo->average_time_elapsed).'s' ?? 0;
+        $this->averageExecutionTime = ceil((float) $this->aggregatedInfo->average_time_elapsed).'s' ?? 0;
     }
 
-    
     public function delete()
     {
         $this->model->delete();

@@ -21,7 +21,7 @@ class UnderMaintenanceJob implements ShouldQueue
 
     private $secret;
     private $refresh;
-    
+
     public function __construct($secret = null, $refresh = false)
     {
         $this->secret = $secret;

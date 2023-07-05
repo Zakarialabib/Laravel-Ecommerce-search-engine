@@ -21,7 +21,7 @@ class Ad extends Model
     use UuidGenerator;
     use GetModelByUuid;
 
-    const ATTRIBUTES = [
+    public const ATTRIBUTES = [
         'id',
         'status',
     ];
@@ -32,7 +32,7 @@ class Ad extends Model
      * @var array<int, string>
      */
     public $orderable = self::ATTRIBUTES;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -60,7 +60,6 @@ class Ad extends Model
         'notes',
         'status',
     ];
-    
 
     /**
      * The attributes that should be cast.
@@ -69,14 +68,14 @@ class Ad extends Model
      */
     protected $casts = [
         'status' => Status::class,
-        'type' => AdType::class,
+        'type'   => AdType::class,
     ];
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
- 
+
     public function package(): BelongsTo
     {
         return $this->belongsTo(Package::class, 'package_id')->whereNotNull('packages.updated_at');
@@ -91,5 +90,4 @@ class Ad extends Model
     {
         return $this->getFormatedPrice($this->package()->first()->price * $this->views);
     }
-
 }

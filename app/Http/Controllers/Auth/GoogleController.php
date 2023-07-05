@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\Auth;
 
 use App\Exports\UsersExport;
@@ -10,6 +12,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Maatwebsite\Excel\Facades\Excel;
+use Google_Client;
+use Google_Service_Oauth2;
+use Google_Service_Drive;
+use Google_Service_Drive_DriveFile;
 
 class GoogleController extends Controller
 {
@@ -18,16 +24,16 @@ class GoogleController extends Controller
     public function __construct()
     {
         $google_redirect_url = route('glogin');
-        $this->gClient = new \Google_Client();
+        $this->gClient = new Google_Client();
         $this->gClient->setApplicationName(config('services.google.app_name'));
         $this->gClient->setClientId(config('services.google.client_id'));
         $this->gClient->setClientSecret(config('services.google.client_secret'));
         $this->gClient->setRedirectUri($google_redirect_url);
         $this->gClient->setDeveloperKey(config('services.google.api_key'));
         $this->gClient->setScopes([
-                'https://www.googleapis.com/auth/drive.file',
-                'https://www.googleapis.com/auth/drive',
-            ]);
+            'https://www.googleapis.com/auth/drive.file',
+            'https://www.googleapis.com/auth/drive',
+        ]);
         $this->gClient->setAccessType('offline');
         $this->gClient->setApprovalPrompt('force');
     }
@@ -41,14 +47,17 @@ class GoogleController extends Controller
             return 'not registered';
         }
 
-        $google_oauthV2 = new \Google_Service_Oauth2($this->gClient);
+        $google_oauthV2 = new Google_Service_Oauth2($this->gClient);
+
         if ($request->get('code')) {
             $this->gClient->authenticate($request->get('code'));
             $request->session()->put('token', $this->gClient->getAccessToken());
         }
+
         if ($request->session()->get('token')) {
             $this->gClient->setAccessToken($request->session()->get('token'));
         }
+
         if ($this->gClient->getAccessToken()) {
             //For logged in user, get details from google using acces
             $user = Auth::user();
@@ -79,14 +88,17 @@ class GoogleController extends Controller
 
         if (Auth::user()->access_token === '') {
             // return $auth->access_token;
-            $google_oauthV2 = new \Google_Service_Oauth2($this->gClient);
+            $google_oauthV2 = new Google_Service_Oauth2($this->gClient);
+
             if ($request->get('code')) {
                 $this->gClient->authenticate($request->get('code'));
                 $request->session()->put('token', $this->gClient->getAccessToken());
             }
+
             if ($request->session()->get('token')) {
                 $this->gClient->setAccessToken($request->session()->get('token'));
             }
+
             if ($this->gClient->getAccessToken()) {
                 //For logged in user, get details from google using acces
                 $user = Auth::user();
@@ -101,7 +113,7 @@ class GoogleController extends Controller
                 // dd('Successfully authenticated');
                 return
                 redirect()
-                ->back()->withInput(['tab' => 'backup'])
+                    ->back()->withInput(['tab' => 'backup'])
                     ->with('success', 'google dirve was authorized!, Please "CLICK" Google Drive button again to continue backup data');
             } else {
                 //For Guest user, get google login url
@@ -112,10 +124,11 @@ class GoogleController extends Controller
         }
 
         // dd($auth);
-        $service = new \Google_Service_Drive($this->gClient);
+        $service = new Google_Service_Drive($this->gClient);
         $user = Auth::user();
         // dd($user);
         $this->gClient->setAccessToken(json_decode($user->access_token, true));
+
         if ($this->gClient->isAccessTokenExpired()) {
             // save refresh token to some variable
             $refreshTokenSaved = $this->gClient->getRefreshToken();
@@ -139,21 +152,21 @@ class GoogleController extends Controller
         // dd($backupName);
 
         $folder = 'howsit-backup'.time();
-        $fileMetadata = new \Google_Service_Drive_DriveFile([
-                'name' => $folder,
-                'mimeType' => 'application/vnd.google-apps.folder', ]);
+        $fileMetadata = new Google_Service_Drive_DriveFile([
+            'name'     => $folder,
+            'mimeType' => 'application/vnd.google-apps.folder', ]);
         $folder = $service->files->create($fileMetadata, [
-                'fields' => 'id', ]);
+            'fields' => 'id', ]);
         printf("Folder ID: %s\n", $folder->id);
 
         // $nameFile = 'howsit-backup'.time().'.csv';
-        $file = new \Google_Service_Drive_DriveFile([
-                            'name' => $backupName,
-                            'parents' => [$folder->id],
-                        ]);
+        $file = new Google_Service_Drive_DriveFile([
+            'name'    => $backupName,
+            'parents' => [$folder->id],
+        ]);
         $result = $service->files->create($file, [
-            'data' => file_get_contents(public_path('backup/'.$backupName)),
-            'mimeType' => 'application/octet-stream',
+            'data'       => file_get_contents(public_path('backup/'.$backupName)),
+            'mimeType'   => 'application/octet-stream',
             'uploadType' => 'media',
         ]);
         // get url of uploaded file
@@ -161,7 +174,7 @@ class GoogleController extends Controller
 
         return
         redirect()
-        ->back()->withInput(['tab' => 'backup'])
+            ->back()->withInput(['tab' => 'backup'])
             ->with('success', 'Data backup successfully!');
     }
 

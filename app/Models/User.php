@@ -95,13 +95,12 @@ class User extends Authenticatable
     use GetModelByUuid;
     use UuidGenerator;
 
-
     public const ATTRIBUTES = [
         'id',
-         'name',
+        'name',
         'status',
         'created_at',
-         'updated_at',
+        'updated_at',
     ];
 
     /**
@@ -117,7 +116,6 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     public array $filterable = self::ATTRIBUTES;
-
 
     /**
      * The attributes that are mass assignable.

@@ -27,20 +27,20 @@ class SearchBox extends Component
     {
         if (empty($this->query)) {
             $this->results = []; // Reset the results array
+
             return;
         }
-    
+
         // Fetch products and device models based on the search query
-        $products = Product::with('store')->where('name', 'like', '%' . $this->query . '%')->limit($this->perPage)->get();
-        $deviceModels = DeviceModel::where('name', 'like', '%' . $this->query . '%')->limit($this->perPage)->get();
-    
+        $products = Product::with('store')->where('name', 'like', '%'.$this->query.'%')->limit($this->perPage)->get();
+        $deviceModels = DeviceModel::where('name', 'like', '%'.$this->query.'%')->limit($this->perPage)->get();
+
         // Combine products and device models in the results array
         $this->results = [
-            'products' => $products,
+            'products'     => $products,
             'deviceModels' => $deviceModels,
         ];
     }
-    
 
     public function loadMore()
     {

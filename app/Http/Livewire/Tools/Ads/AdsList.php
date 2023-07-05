@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Tools\Ads;
 
 use App\Models\Ads;
@@ -13,6 +15,7 @@ class AdsList extends Component
     {
         $this->type = $type;
     }
+
     public function render()
     {
         return view('livewire.tools.ads.ads-list', [

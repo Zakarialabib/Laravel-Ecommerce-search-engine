@@ -1,5 +1,6 @@
 <div>
-    <div class="w-full px-4 mx-auto">
+    @section('title', __('Catalog'))
+    <section class="py-5 px-4 bg-gray-100 w-full mx-auto">
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full md:px-4 sm:px-2 flex flex-wrap justify-between">
                 <ul class="flex flex-wrap items-center mb-10 xl:mb-0">
@@ -283,5 +284,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </div>

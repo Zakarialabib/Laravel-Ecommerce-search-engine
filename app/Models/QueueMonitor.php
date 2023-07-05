@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Contracts\Queue\Job as JobContract;
@@ -11,7 +13,8 @@ use Illuminate\Support\Facades\Hash;
 
 class QueueMonitor extends Model
 {
-    use HasFactory, Prunable;
+    use HasFactory;
+    use Prunable;
 
     protected $fillable = [
         'job_id',
@@ -26,8 +29,8 @@ class QueueMonitor extends Model
     ];
 
     protected $casts = [
-        'failed' => 'bool',
-        'started_at' => 'datetime',
+        'failed'      => 'bool',
+        'started_at'  => 'datetime',
         'finished_at' => 'datetime',
     ];
 
@@ -64,9 +67,7 @@ class QueueMonitor extends Model
         return Hash::make($job->getRawBody());
     }
 
-    /**
-     * check if the job is finished.
-     */
+    /** check if the job is finished. */
     public function isFinished(): bool
     {
         if ($this->hasFailed()) {
@@ -76,24 +77,20 @@ class QueueMonitor extends Model
         return null !== $this->finished_at;
     }
 
-    /**
-     * Check if the job has failed.
-     */
+    /** Check if the job has failed. */
     public function hasFailed(): bool
     {
         return $this->failed;
     }
 
-    /**
-     * check if the job has succeeded.
-     */
+    /** check if the job has succeeded. */
     public function hasSucceeded(): bool
     {
-        if (!$this->isFinished()) {
+        if ( ! $this->isFinished()) {
             return false;
         }
 
-        return !$this->hasFailed();
+        return ! $this->hasFailed();
     }
 
     /**
@@ -106,6 +103,7 @@ class QueueMonitor extends Model
         if (config('queue.pruning.activate')) {
             return static::where('created_at', '<=', now()->subDays(config('queue.pruning.retention_days')));
         }
+
         return false;
     }
 }

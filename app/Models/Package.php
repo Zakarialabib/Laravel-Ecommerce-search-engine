@@ -17,7 +17,7 @@ class Package extends Model
     use UuidGenerator;
     use GetModelByUuid;
 
-    const ATTRIBUTES = [
+    public const ATTRIBUTES = [
         'id',
         'status',
     ];
@@ -28,7 +28,7 @@ class Package extends Model
      * @var array<int, string>
      */
     public $orderable = self::ATTRIBUTES;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -48,7 +48,6 @@ class Package extends Model
         'features',
         'status',
     ];
-    
 
     /**
      * The attributes that should be cast.
@@ -56,7 +55,7 @@ class Package extends Model
      * @var array<string, string>
      */
     protected $casts = [
-        'status' => 'boolean',
+        'status'   => 'boolean',
         'features' => 'array',
     ];
 }

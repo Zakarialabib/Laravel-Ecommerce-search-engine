@@ -1,4 +1,6 @@
 <div>
+    @section('title', __('Services'))
+
     <section class="bg-gradient-to-b from-white/[55%] to-transparent py-12 dark:from-white/5 md:py-20">
         <div class="px-6">
             <div class="heading text-center">

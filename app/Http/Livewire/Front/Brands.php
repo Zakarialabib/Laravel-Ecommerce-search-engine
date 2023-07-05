@@ -87,7 +87,7 @@ class Brands extends Component
 
         $this->emit('deviceModalLoaded', $products->count());
 
-        return view('livewire.front.brands', compact('products'));
+        return view('livewire.front.brands', compact('products'))->extends('layouts.app');
     }
 
     public function getBrandsProperty()

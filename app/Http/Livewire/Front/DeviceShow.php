@@ -36,8 +36,8 @@ class DeviceShow extends Component
         $this->device_model = DeviceModel::whereSlug($slug)->first();
 
         $this->brand_device_models = DeviceModel::active()
-                        ->where('brand_id', $this->device_model->brand_id)
-                        ->limit(4)->get();
+            ->where('brand_id', $this->device_model->brand_id)
+            ->limit(4)->get();
 
         $this->similarProducts = Product::where('name', 'like', '%'.$this->device_model->name.'%')
             ->inRandomOrder()

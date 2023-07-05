@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace App\Http\Livewire\Vendor\Settings;
 
-use BaconQrCode\Writer;
 use Livewire\Component;
 
 class Index extends Component

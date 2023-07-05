@@ -1,5 +1,7 @@
 <div>
-    <div class="relative mx-auto mb-5">
+    @section('title', __('Home'))
+    
+    <section class="relative mx-auto mb-5">
 
         <div class="w-full mx-auto bg-gray-900">
             @foreach ($this->sliders as $slider)
@@ -28,13 +30,13 @@
             <div class="w-full py-5 px-4 mx-auto">
                 <div class="flex flex-col">
                     <h2 class="text-2xl font-bold text-center mb-4 cursor-pointer">
-                        {{ __('Categories') }}
+                        {{ __('Browse between Categories') }}
                     </h2>
 
                     <div class="flex flex-wrap justify-center overflow-x-scroll gap-4 py-4">
                         @foreach ($this->subcategories as $subcategory)
                             <a href="{{ route('front.subcategoryPage', $subcategory->slug) }}"
-                                class="relative w-44 h-44" x-data="{ hover: false }" @mouseenter="hover = true"
+                                class="relative w-36 h-36 rounded-md" x-data="{ hover: false }" @mouseenter="hover = true"
                                 @mouseleave="hover = false">
                                 <div
                                     class="absolute top-0 left-0 right-0 bottom-0 rounded bg-white shadow-lg transform hover:scale-105 transition-all duration-300">
@@ -64,7 +66,7 @@
                 @foreach ($this->featured_banners as $featured_banner)
                     <div class="col-span-6 sm:col-span-full lg:col-span-4 md:col-span-6">
                         <div
-                            class="relative shadow-xl isolate flex aspect-[72/31] sm:aspect-[72/28] lg:aspect-[72/30] xl:aspect-[72/26] w-full items-center overflow-hidden bg-[#953fff]">
+                            class="relative shadow-xl isolate flex aspect-[72/31] sm:aspect-[50/20] lg:aspect-[30/20] xl:aspect-[30/20] w-full items-center overflow-hidden bg-[#953fff]">
                             <div
                                 class="flex flex-col gap-y-3 sm:gap-y-4 md:gap-y-5 lg:gap-y-7 xl:gap-y-9 items-start w-2/3 pl-5 sm:pl-7 leading-tight lg:pl-8 lg:pb-3 xl:pl-12 xl:pb-2">
                                 <h4
@@ -150,7 +152,8 @@
                                 <div class="grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ">
                                     @foreach ($this->brands as $brand)
                                         <div class="flex items-center justify-center">
-                                            <a href="{{ route('front.brandPage', $brand->slug) }}">
+                                            <a href="{{ route('front.brandPage', $brand->slug) }}"
+                                                class="text-sm font-bold hover:text-move-400 hover:underline transition hover:scale-110">
                                                 {{ $brand->name }}
                                             </a>
                                         </div>
@@ -222,5 +225,5 @@
                 </div>
             </div>
         @endif
-    </div>
+    </section>
 </div>

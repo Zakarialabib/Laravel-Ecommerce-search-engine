@@ -7,8 +7,10 @@
         <meta property="og:url" content="{{ URL::current() }}">
         <meta property="og:image" content="{{ asset('images/brands/' . $brand->image) }}">
     @endsection
+    
+    @section('title', $brand?->name)
 
-    <div class="w-full px-4 mx-auto" x-data="{ showSidebar: false }">
+    <section class="py-5 px-4 bg-gray-100 w-full mx-auto" x-data="{ showSidebar: false }">
 
         <div class="relative bg-white overflow-hidden mt-5">
             <img class="absolute right-0 top-0 md:w-1/2 sm:w-full h-full object-cover"
@@ -106,5 +108,5 @@
                 </div>
             @endif
         </div>
-    </div>
+    </section>
 </div>

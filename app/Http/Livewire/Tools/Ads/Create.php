@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Livewire\Ads\Views;
 
 use App\Models\Ads;
@@ -8,6 +10,7 @@ use App\Models\Package;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithFileUploads;
+use Throwable;
 
 class Create extends Component
 {
@@ -34,11 +37,13 @@ class Create extends Component
         $this->adsType = AdsType::find($id);
         $this->packages = Package::where('ads_type_id', $this->ads_type_id)->whereNotNull('updated_at')->get();
     }
+
     public function render(): View
     {
         if ($this->ads_package_id) {
             $package = Package::find($this->ads_package_id);
             $this->package = $package;
+
             if ($package->type == 'views') {
                 $this->amount_to_pay = $this->number_of_views * $package->price;
             } else {
@@ -46,6 +51,7 @@ class Create extends Component
                 $this->amount_to_pay = $package->price;
             }
         }
+
         return view('livewire.tools.ads.create', [
             'ads_types' => AdsType::whereNotNull('updated_at')->get(),
         ]);
@@ -54,25 +60,25 @@ class Create extends Component
     public function store()
     {
         $this->validate([
-            'ads_type_id' => 'required',
-            'ads_title' => 'required',
-            'ads_package_id' => 'required',
+            'ads_type_id'     => 'required',
+            'ads_title'       => 'required',
+            'ads_package_id'  => 'required',
             'number_of_views' => 'numeric',
         ]);
 
         try {
             $user = auth()->user();
-            
+
             $data = [
-                'user_id' => $user->id,
+                'user_id'    => $user->id,
                 'package_id' => $this->ads_package_id,
-                'title' => $this->ads_title,
-                'notes' => $this->ads_notes,
-                'url' => $this->ads_url ?? '#',
-                'views' => $this->number_of_views,
-                'amount' => $this->amount_to_pay,
-                'type' => $this->type,
-                'status' => 'active',
+                'title'      => $this->ads_title,
+                'notes'      => $this->ads_notes,
+                'url'        => $this->ads_url ?? '#',
+                'views'      => $this->number_of_views,
+                'amount'     => $this->amount_to_pay,
+                'type'       => $this->type,
+                'status'     => 'active',
             ];
 
             if ($this->ads_photo) {
@@ -82,34 +88,31 @@ class Create extends Component
 
             Ads::create($data);
 
-
-            // translate to english 
+            // translate to english
             $this->alert('success', 'Ads successfully added', [
-                'position' =>  'center',
-                'timer' =>  3000,
-                'toast' =>  false,
-                'text' =>  '',
-                'confirmButtonText' =>  'Ok',
-                'cancelButtonText' =>  'Cancel',
-                'showCancelButton' =>  false,
-                'showConfirmButton' =>  false,
+                'position'          => 'center',
+                'timer'             => 3000,
+                'toast'             => false,
+                'text'              => '',
+                'confirmButtonText' => 'Ok',
+                'cancelButtonText'  => 'Cancel',
+                'showCancelButton'  => false,
+                'showConfirmButton' => false,
             ]);
-        } catch (\Throwable $th) {
+        } catch (Throwable $th) {
             // dd($th->getMessage());
             DB::rollback();
             $this->alert('error', 'Failed to add ads', [
-                'position' =>  'center',
-                'timer' =>  3000,
-                'toast' =>  false,
-                'text' =>  '',
-                'confirmButtonText' =>  'Ok',
-                'cancelButtonText' =>  'Cancel',
-                'showCancelButton' =>  false,
-                'showConfirmButton' =>  false,
+                'position'          => 'center',
+                'timer'             => 3000,
+                'toast'             => false,
+                'text'              => '',
+                'confirmButtonText' => 'Ok',
+                'cancelButtonText'  => 'Cancel',
+                'showCancelButton'  => false,
+                'showConfirmButton' => false,
             ]);
             //throw $th;
         }
     }
 }
-
- 

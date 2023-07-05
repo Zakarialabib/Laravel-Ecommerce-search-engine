@@ -24,7 +24,7 @@ class Create extends Component
     public $image;
 
     public $blog;
-    
+
     public $description;
 
     public $listeners = ['createBlog'];
@@ -32,7 +32,7 @@ class Create extends Component
     protected $rules = [
         'blog.title'            => 'required|min:3|max:255',
         'blog.category_id'      => 'required|integer',
-        'description'          => 'required|min:3',
+        'description'           => 'required|min:3',
         'blog.language_id'      => 'nullable|integer',
         'blog.meta_title'       => 'nullable|max:65',
         'blog.meta_description' => 'nullable|max:170',
@@ -44,8 +44,8 @@ class Create extends Component
         'blog.title.max'            => 'The title may not be greater than 255 characters.',
         'blog.category_id.required' => 'The category cannot be empty.',
         'blog.category_id.integer'  => 'The category must be an integer.',
-        'description.required'     => 'The description cannot be empty.',
-        'description.min'          => 'The description must be at least 3 characters.',
+        'description.required'      => 'The description cannot be empty.',
+        'description.min'           => 'The description must be at least 3 characters.',
         'blog.language_id.integer'  => 'The language must be an integer.',
         'blog.meta_title.max'       => 'The meta title may not be greater than 65 characters.',
         'blog.meta_description.max' => 'The meta description may not be greater than 170 characters.',
@@ -73,7 +73,7 @@ class Create extends Component
         $this->resetErrorBag();
 
         $this->resetValidation();
-        
+
         $this->blog = new Blog();
 
         $this->createBlog = true;
