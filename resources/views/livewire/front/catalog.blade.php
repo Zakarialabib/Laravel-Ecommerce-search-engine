@@ -3,10 +3,10 @@
     <section class="py-5 px-4 bg-gray-100 w-full mx-auto">
         <div class="mb-10 items-center justify-between bg-white py-4">
             <div class="w-full md:px-4 sm:px-2 flex flex-wrap justify-between">
-                <ul class="flex flex-wrap items-center mb-10 xl:mb-0">
+                <ul class="w-full flex flex-wrap items-center mb-10 xl:mb-0">
                     <li class="mr-6">
                         <a class="flex items-center text-sm font-medium text-gray-400 hover:text-gray-500" href="/">
-                            <span>Home</span>
+                            <span>{{__('Home')}}</span>
                             <svg class="ml-6" width="4" height="7" viewBox="0 0 4 7" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -27,23 +27,15 @@
                             </svg>
                         </a>
                     </li>
-                    <li><a class="text-sm font-medium text-indigo-500 hover:text-indigo-600" href="#">Catalog</a>
-                    </li>
-                </ul>
-
-                <div class="pb-9 text-center border-b border-black border-opacity-5">
-                    <div class="relative">
-                        <h2
-                            class="mb-5 md:mb-0 text-9xl xl:text-10xl leading-normal font-heading font-medium text-center">
-                            New in</h2>
+                    <li>
                         <span
                             class="md:absolute md:right-0 md:bottom-3 text-sm text-gray-400 font-medium">{{ $products->count() }}
                             {{ __('Products') }}</span>
-                    </div>
-                </div>
+                    </li>
+                </ul>
 
 
-                <div class="flex flex-wrap py-5 mb-14 xl:mb-16 border-b border-black border-opacity-10">
+                <div class="w-full flex flex-wrap py-5 mb-14 xl:mb-16 border-b border-black border-opacity-10">
                     <div class="w-full sm:w-1/3 lg:w-1/5 py-2 sm:px-3">
                         <select
                             class="px-5 py-3 mr-2 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm focus:shadow-outline-blue focus:border-blue-500"
@@ -71,7 +63,7 @@
         <div class="mb-10 md:mb-11 lg:mb-12 xl:mb-14 lg:pb-1 xl:pb-0">
             <div class="flex items-center justify-center -mt-2 pb-0.5 mb-4 md:mb-5 lg:mb-6 2xl:mb-7 3xl:mb-8">
                 <h3 class="text-lg pt-5 md:text-xl lg:text-2xl 2xl:text-3xl xl:leading-10 font-bold text-heading">
-                    {{ __('Shop By Category') }}
+                    {{ __('Browse by Category') }}
                 </h3>
             </div>
             <div x-data="{ swiper: null }" x-init="swiper = new Swiper($refs.container, {

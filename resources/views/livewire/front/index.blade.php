@@ -61,7 +61,7 @@
             </div>
         @endif
 
-        <div class="mx-auto max-w-[1500px] px-5">
+        <div class="mx-auto max-w-[1500px] px-5 py-6 bg-gradient-to-l from-purple-400 to-purple-100">
             <div class="grid grid-cols-12 gap-5">
                 @foreach ($this->featured_banners as $featured_banner)
                     <div class="col-span-6 sm:col-span-full lg:col-span-4 md:col-span-6">

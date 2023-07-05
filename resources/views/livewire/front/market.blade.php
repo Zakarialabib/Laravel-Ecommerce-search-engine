@@ -15,14 +15,6 @@
                     @endforeach
                 </select>
 
-                <select
-                    class="lg:px-4 md:px-2 py-3 bg-white text-gray-700 rounded border border-gray-100 text-xs focus:shadow-outline-blue focus:border-move-500"
-                    id="sortBy" wire:model="sorting">
-                    <option selected>{{ __('Choose filters') }}</option>
-                    @foreach ($sortingOptions as $value => $label)
-                        <option value="{{ $value }}">{{ $label }}</option>
-                    @endforeach
-                </select>
                 <div>
                     <x-input type="text" wire:model.debounce.300ms="search" placeholder="{{ __('Search') }}"
                         autofocus />
