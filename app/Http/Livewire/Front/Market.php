@@ -48,7 +48,7 @@ class Market extends Component
         $this->sortDirection = 'desc';
         $this->perPage = 10;
         $this->paginationOptions = [25, 50, 100];
-        $this->orderable = (new Product())->orderable;
+        $this->orderable = (new Store())->orderable;
     }
 
     public function render()

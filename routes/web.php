@@ -17,6 +17,7 @@ use App\Http\Livewire\Front\Categories as CategoryIndex;
 use App\Http\Livewire\Front\Catalog as CatalogIndex;
 use App\Http\Livewire\Front\Blogs as BlogIndex;
 use App\Http\Livewire\Front\ShowBlog as BlogShow;
+use App\Http\Livewire\Front\ProductShow;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
@@ -44,7 +45,7 @@ Route::group(['middleware' => 'firewall.all'], function () {
     Route::get('/categories/{slug}', [FrontController::class, 'subcategoryPage'])->name('front.subcategoryPage');
     Route::get('/marques', BrandsIndex::class)->name('front.brands');
     Route::get('/marque/{slug}', BrandShow::class)->name('front.brandPage');
-    Route::get('/catalog/{slug}', [FrontController::class, 'productShow'])->name('front.product');
+    Route::get('/catalog/{slug}', ProductShow::class)->name('front.product');
     Route::get('/device-model/{slug}', DeviceShow::class)->name('front.deviceshow');
     Route::get('/vendeurs', MarketIndex::class)->name('front.vendors');
     Route::get('/contact', [FrontController::class, 'contact'])->name('front.contact');

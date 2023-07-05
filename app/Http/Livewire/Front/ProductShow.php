@@ -37,9 +37,9 @@ class ProductShow extends Component
     public $listeners = [
     ];
 
-    public function mount(Product $product): void
+    public function mount($slug): void
     {
-        $this->product = $product;
+        $this->product = Product::where('slug', $slug)->firstOrFail();
 
         $this->brand_products = Product::active()->where('brand_id', $product->brand_id)->take(3)->get();
         $this->relatedProducts = Product::active()
@@ -53,6 +53,6 @@ class ProductShow extends Component
 
     public function render(): View|Factory
     {
-        return view('livewire.front.product-show');
+        return view('livewire.front.product-show')->layout('layouts.app');
     }
 }
