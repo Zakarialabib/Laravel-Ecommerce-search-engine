@@ -41,14 +41,14 @@ class ProductShow extends Component
     {
         $this->product = Product::where('slug', $slug)->firstOrFail();
 
-        $this->brand_products = Product::active()->where('brand_id', $product->brand_id)->take(3)->get();
+        $this->brand_products = Product::active()->where('brand_id', $this->product->brand_id)->take(3)->get();
         $this->relatedProducts = Product::active()
             ->inRandomOrder()
             ->limit(4)
             ->get();
 
-        $this->brand = Brand::where('id', $product->brand_id)->first();
-        $this->category = Category::where('id', $product->category_id)->first();
+        $this->brand = Brand::where('id', $this->product->brand_id)->first();
+        $this->category = Category::where('id', $this->product->category_id)->first();
     }
 
     public function render(): View|Factory
