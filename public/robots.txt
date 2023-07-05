@@ -17,4 +17,4 @@ Disallow: /admin/*
 Disallow: /panier
 Disallow: /caisse
 
-Sitemap: https://badrluxury.com/sitemap.xml
+Sitemap: https://chrilia.com/sitemap.xml

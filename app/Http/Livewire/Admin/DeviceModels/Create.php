@@ -92,7 +92,7 @@ class Create extends Component
 
             $img->stream();
 
-            Storage::disk('local_files')->put('device_models/'.$imageName, $img, 'public');
+            Storage::disk('local_files')->put('device-models/'.$imageName, $img, 'public');
 
             $this->device_model->image = $imageName;
         }
@@ -122,7 +122,7 @@ class Create extends Component
 
             $img->stream();
 
-            Storage::disk('local_files')->put('device_models/'.$imageName, $img, 'public');
+            Storage::disk('local_files')->put('device-models/'.$imageName, $img, 'public');
 
             $this->device_model->image = $imageName;
         }

@@ -1,9 +1,21 @@
 <footer class="w-full mt-auto bg-gray-50 dark:bg-transparent dark:bg-gradient-to-b dark:from-white/[0.03] dark:to-transparent">
     <div class="px-6">
+        @livewire('front.newsletters')
+    </div>
+    <div class="px-6">
         <div class="grid gap-y-10 gap-x-4 py-14 sm:grid-cols-3 lg:grid-cols-5 lg:py-[100px]">
             <div class="relative">
                 <img src="{{ asset('images/' . Helpers::settings('site_logo')) }}" loading="lazy" alt="{{ Helpers::settings('site_name') }}" class="h-7">
-                <ul class="mt-12 flex items-center gap-8">
+                <ul class="my-6 flex flex-col gap-3 font-bold">
+                    <li class="mb-3 text-lg font-extrabold text-black dark:text-white">{{__('Information')}}</li>
+                    <li>
+                        {{ Helpers::settings('company_address') }}
+                    </li>
+                    <li>
+                        <a href="tel:+(617) 254-2333" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{ Helpers::settings('company_phone') }}</a>
+                    </li>
+                </ul>
+                <ul class="flex items-center gap-8">
                     <li>
                         <a href="{{ Helpers::settings('social_facebook') }}">
                             <svg width="10" height="20" viewBox="0 0 10 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="transition hover:scale-110 hover:text-indigo-500">
@@ -33,6 +45,7 @@
                 <ul class="flex flex-col gap-3 font-bold">
                     <li class="mb-3 text-lg font-extrabold text-black dark:text-white">{{__('Quick Menu')}}</li>
                     <li><a href="{{ route('front.index')}}" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('Home')}}</a></li>
+                    <li><a href="{{ route('front.catalog')}}" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('Catalog')}}</a></li>
                     <li><a href="{{ route('front.services')}}" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('Service')}}</a></li>
                     <li><a href="#" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('About Us')}}</a></li>
                 </ul>
@@ -49,7 +62,7 @@
             </div>
             <div>
                 <ul class="flex flex-col gap-3 font-bold">
-                    <li class="mb-3 text-lg font-extrabold text-black dark:text-white">{{__('Legal')}}</li>
+                    <li class="mb-3 text-lg font-extrabold text-black dark:text-white">{{__('Informations')}}</li>
                     <li>
                         <a href="terms-conditions.html" class="inline-block transition hover:scale-110 hover:text-indigo-500">Terms &amp; Conditions</a>
                     </li>
@@ -58,17 +71,6 @@
                     </li>
                     <li><a href="faq.html" class="inline-block transition hover:scale-110 hover:text-indigo-500">FAQs</a></li>
                     <li><a href="{{ route('front.blogs') }}" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{__('Blog')}}</a></li>
-                </ul>
-            </div>
-            <div>
-                <ul class="flex flex-col gap-3 font-bold">
-                    <li class="mb-3 text-lg font-extrabold text-black dark:text-white">{{__('Information')}}</li>
-                    <li>
-                        {{ Helpers::settings('company_address') }}
-                    </li>
-                    <li>
-                        <a href="tel:+(617) 254-2333" class="inline-block transition hover:scale-110 hover:text-indigo-500">{{ Helpers::settings('company_phone') }}</a>
-                    </li>
                 </ul>
             </div>
         </div>

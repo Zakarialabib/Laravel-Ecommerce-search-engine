@@ -7,6 +7,7 @@ namespace App\Http\Livewire\Admin\Brands;
 use App\Http\Livewire\WithSorting;
 use App\Imports\BrandsImport;
 use App\Models\Brand;
+use App\Models\DeviceModel;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Gate;
@@ -15,6 +16,7 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class Index extends Component
 {
@@ -152,20 +154,32 @@ class Index extends Component
         $this->alert('success', __('Brand deleted successfully.'));
     }
 
+    
     public function deleteSelected(): void
     {
         abort_if(Gate::denies('brand_delete'), 403);
-
-        Brand::whereIn('id', $this->selected)->delete();
-
-        // Delete associated device models
+    
+        // Get the brands that are going to be deleted
+        $brandsToDelete = Brand::whereIn('id', $this->selected)->get();
+    
+        // Delete the associated device models
         DeviceModel::whereIn('brand_id', $this->selected)->delete();
-
+    
+        // Delete the images associated with the brands
+        foreach ($brandsToDelete as $brand) {
+            // Assuming the image name is stored in the 'image' attribute of the Brand model
+            $imageName = $brand->image;
+            Storage::disk('local_files')->delete('brands/' . $imageName);
+        }
+    
+        // Delete the brands
+        Brand::whereIn('id', $this->selected)->delete();
+    
         $this->resetSelected();
-
+    
         $this->alert('success', __('Selected brands and their device models deleted successfully.'));
     }
-
+    
     public function importModal(): void
     {
         // abort_if(Gate::denies('brand_create'), 403);

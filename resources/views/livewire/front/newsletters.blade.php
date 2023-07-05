@@ -1,7 +1,8 @@
 <div>
-    <h3 class="mb-6 text-xl text-white font-bold font-heading">{{ __('Join our Newsletter') }}</h3>
+    <div class="py-4">
+    <h3 class="pb-2 text-xl text-black font-bold font-heading">{{ __('Join our Newsletter') }}</h3>
     <form wire:submit.prevent="subscribe">
-        <div class="mb-6 relative lg:mx-auto bg-white rounded-lg">
+        <div class="mb-6 relative lg:mx-auto">
             <div class="relative flex flex-wrap items-center justify-between">
                 <div class="relative flex-1">
                     <span
@@ -17,4 +18,5 @@
             </div>
         </div>
     </form>
+</div>
 </div>

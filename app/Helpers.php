@@ -83,16 +83,17 @@ class Helpers
         return null;
     }
 
-    /**
+      /**
      * Uploads an image from a URL and returns the file name.
      *
      * @param string $image_url The URL of the image to upload.
      * @param string $productName The name of the product.
      * @param int $size The size of the square to resize the image to.
+     * @param string $folderName The name of the folder to store the image (either 'products' or 'device-models').
      *
      * @return string|null The name of the uploaded file, or null if the upload failed.
      */
-    public static function uploadImage(string $image_url, string $productName, int $size = 800): ?string
+    public static function uploadImage(string $image_url, string $productName, int $size = 800, string $folderName): ?string
     {
         $response = Http::get($image_url);
 
@@ -124,7 +125,7 @@ class Helpers
 
         $img->stream();
 
-        Storage::disk('local_files')->put('products/'.$name, $img, 'public');
+        Storage::disk('local_files')->put($folderName . '/' . $name, $img, 'public');
 
         return $name;
     }

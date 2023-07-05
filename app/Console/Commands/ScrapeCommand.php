@@ -109,7 +109,7 @@ class ScrapeCommand extends Command
 
                         $device = DeviceModel::firstOrCreate([
                             'name'              => $name,
-                            'image'             => Helpers::uploadImage($parser->find('.specs-photo-main img')[0]->src, $name) ?? 'default.jpg',
+                            'image'             => Helpers::uploadImage($parser->find('.specs-photo-main img')[0]->src, $name, 600 ,'device-models') ?? 'default.jpg',
                             'code'              => Str::slug($name),
                             'slug'              => Str::slug($name),
                             'type'              => DeviceModelType::SMARTPHONE,

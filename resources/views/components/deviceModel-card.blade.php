@@ -8,9 +8,9 @@
         <div class="relative text-left">
             <a href="{{ route('front.deviceshow', $deviceModel->slug) }}" class="flex justify-center" itemprop="url">
                 <img class="lg:h-[250px] md:h-[150px] object-fill py-2"
-                    src="{{ asset('images/products/' . $deviceModel->image) }}" onerror="this.onerror=null; this.remove();"
+                    src="{{ asset('images/device-models/' . $deviceModel->image) }}" onerror="this.onerror=null; this.remove();"
                     alt="{{ $deviceModel->name }}" loading="lazy" />
-                <meta itemprop="image" content="{{ asset('images/products/' . $deviceModel->image) }}" />
+                <meta itemprop="image" content="{{ asset('images/device-models/' . $deviceModel->image) }}" />
             </a>
         </div>
         <div class="px-2 pb-4 text-left">

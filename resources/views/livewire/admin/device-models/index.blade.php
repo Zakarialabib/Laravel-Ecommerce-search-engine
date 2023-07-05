@@ -1,4 +1,6 @@
 <div>
+    @section('title', __('Device Models'))
+
     <section class="py-3 px-4">
         <div class="flex flex-wrap items-center justify-between">
             <div class="mb-5 lg:mb-0">
@@ -112,7 +114,7 @@
                     </x-table.td>
                     <x-table.td>
                         @if ($device_model->image)
-                            <img src="{{ asset('images/device_models/' . $device_model->image) }}"
+                            <img src="{{ asset('images/device-models/' . $device_model->image) }}"
                                 alt="{{ $device_model->name }}" class="w-10 h-10 rounded-full">
                         @else
                             {{ __('No image') }}

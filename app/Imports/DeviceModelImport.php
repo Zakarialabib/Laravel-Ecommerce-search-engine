@@ -24,7 +24,7 @@ class DeviceModelImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 'slug'             => Str::slug($row['nom'], '-').'-'.Str::random(5),
                 'code'             => Str::random(10),
                 'brand_id'         => Brand::where('name', $row['marque'])->first()->id ?? Helpers::createBrand(['name' => $row['marque']]),
-                'image'            => Helpers::uploadImage($row['image'], $row['nom']) ?? 'default.jpg',
+                'image'            => Helpers::uploadImage($row['image'], $row['nom'], 600, 'device-models') ?? 'default.jpg',
                 'meta_title'       => Str::limit($row['nom'], 60),
                 'meta_description' => Str::limit($row['description'], 160),
                 'meta_keywords'    => Str::limit($row['nom'], 60),
