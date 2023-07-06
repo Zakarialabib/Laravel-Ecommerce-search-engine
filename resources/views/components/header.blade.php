@@ -11,7 +11,10 @@
                     @livewire('front.search-box')
                 </div>
 
-                <div class="hidden md:flex items-center text-move-800 gap-4">
+                <div class="hidden md:flex items-center text-move-800 gap-2">
+                    
+                    <x-theme.language-switcher />
+
                     @if (Auth::check())
                         <x-dropdown align="right" width="56">
                             <x-slot name="trigger">
@@ -29,11 +32,9 @@
                                     <x-dropdown-link :href="route('admin.settings')">
                                         {{ __('Settings') }}
                                     </x-dropdown-link>
-                                @elseif (Auth::user()->isVendor())
-                                @php
-                                    $store = \App\Models\Store::with('user')->where('user_id',Auth::user()->id)->first();
-                                @endphp         
-                                    <x-dropdown-link href="{{ route('front.store-show', $store->slug) }}">
+                                @elseif (Auth::user()->isVendor() && Auth::user()->store)
+                                
+                                    <x-dropdown-link href="{{ route('front.store-show', auth()->user()->store->slug) }}">
                                         {{ __('Store') }}
                                     </x-dropdown-link>
                                     <x-dropdown-link href="{{ route('vendor.dashboard') }}">
@@ -84,6 +85,7 @@
                     @endif
                 </div>
             </div>
+            
             <button type="button" class="self-center ml-4 mr-8 text-gray-800 md:hidden"
                 @click="isSidebar = !isSidebar">
                 <svg width="28" height="20" viewbox="0 0 20 12" fill="none" stroke="currentColor"
@@ -157,7 +159,7 @@
                     <ul x-show="isBrand" class="py-2 space-y-4 font-semibold font-heading">
                         @foreach (\App\Helpers::getActiveBrands() as $brand)
                             <li>
-                                <a href="{{ route('front.brands') }}?c={{ $brand->id }}"
+                                <a href="{{ route('front.brandPage', $brand->slug) }}"
                                     class="text-lg text-move-800 text-center font-semibold leading-5 font-heading hover:text-gray-800 hover:underline">
                                     {{ $brand->name }}
                                 </a>
@@ -187,7 +189,7 @@
                                         {{ __('Settings') }}
                                     </a>
                                 </div>
-                            @elseif (Auth::user()->isVendor())
+                            @elseif (Auth::user()->isVendor() && Auth::user()->store)
                                 <div class="py-3">
                                     <a class="hover:text-move-500" href="{{ route('vendor.dashboard') }}">
                                         {{ __('Dashobard') }}
@@ -195,8 +197,7 @@
                                 </div>
                                 <div class="py-3">
                                     <a class="hover:text-move-500"
-                                    
-                                        href="{{ route('front.store-show',$store->slug) }}">
+                                        href="{{ route('front.store-show',auth()->user()->store->slug) }}">
                                         {{ __('Store') }}
                                     </a>
                                 </div>

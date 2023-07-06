@@ -18,7 +18,7 @@
                 <meta itemprop="image" content="{{ asset('images/products/' . $product->image) }}" />
             </a>
 
-            @if ($product->price->old_price && $product->discount != 0)
+            @if ($product->price?->old_price && $product->discount != 0)
                 <div class="absolute top-0 right-0 mb-3 p-2 bg-red-500 rounded-bl-lg">
                     <span class="text-white font-bold text-sm">
                         - {{ $product->discount }}%
@@ -49,10 +49,10 @@
 
             <div itemprop="offers" itemscope itemtype="https://schema.org/Offer">
                 <p class="text-center text-move-400 hover:text-move-800 font-bold text-md mt-2"><span
-                        itemprop="price">{{ $product->price->price }}</span>DH
+                        itemprop="price">{{ Helpers::format_currency($product->price?->price) }}</span>
 
-                    @if ($product->price->old_price && $product->discount != 0)
-                        <del class="ml-4 text-black">{{ $product->price->old_price }} DH </del>
+                    @if ($product->price?->old_price && $product->discount != 0)
+                        <del class="ml-4 text-black">{{ Helpers::format_currency($product->price->old_price) }} </del>
                     @endif
                 </p>
 

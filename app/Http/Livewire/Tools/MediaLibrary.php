@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire;
+namespace App\Http\Livewire\Tools;
 
 use Livewire\Component;
 use Illuminate\Support\Facades\Storage;

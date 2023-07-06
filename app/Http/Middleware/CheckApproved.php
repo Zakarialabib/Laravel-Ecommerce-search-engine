@@ -12,7 +12,7 @@ class CheckApproved
     /** Handle an incoming request. */
     public function handle(Request $request, Closure $next): mixed
     {
-        if ( ! auth()->user()->status) {
+        if ( ! auth()->user()->store ) {
             return redirect()->route('auth.approval');
         }
 

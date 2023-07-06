@@ -20,7 +20,7 @@ class SliderSeeder extends Seeder
             [
                 'subtitle' => 'Slider Subtitle',
                 'title'    => 'Slider Title',
-                'details'  => 'Slider Details',
+                'description'  => 'Slider description',
                 'image'    => 'slider.jpg',
                 'bg_color' => 'bg-white',
                 'featured' => 1,
@@ -29,7 +29,7 @@ class SliderSeeder extends Seeder
             [
                 'subtitle' => 'Slider Subtitle',
                 'title'    => 'Slider Title',
-                'details'  => 'Slider Details',
+                'description'  => 'Slider description',
                 'image'    => 'slider.jpg',
                 'bg_color' => 'bg-white',
                 'featured' => 0,
@@ -38,7 +38,7 @@ class SliderSeeder extends Seeder
             [
                 'subtitle' => 'Slider Subtitle',
                 'title'    => 'Slider Title',
-                'details'  => 'Slider Details',
+                'description'  => 'Slider description',
                 'image'    => 'slider.jpg',
                 'bg_color' => 'bg-white',
                 'featured' => 0,

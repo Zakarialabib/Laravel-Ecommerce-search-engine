@@ -6,9 +6,12 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Facades\Cache;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\App;
 use Throwable;
 
 class FrontController extends Controller
@@ -48,6 +51,14 @@ class FrontController extends Controller
     {
         return view('front.user-account');
     }
+
+    public function changeLanguage($code)
+    {
+        Session::put('locale', $code);
+
+        return redirect()->back();
+    }
+
 
     public function generateSitemaps()
     {

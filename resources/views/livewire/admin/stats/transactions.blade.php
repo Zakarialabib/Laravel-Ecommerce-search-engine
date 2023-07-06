@@ -56,7 +56,7 @@
             <div class="px-2 pb-2 w-full sm:w-full">
                 <div class="card bg-white">
                     <div class="flex w-full px-4 justify-between items-center">
-                        <h3>{{ __('User Subscriptions') }}</h3>
+                        <h3>{{ __('Subscription order') }}</h3>
                     </div>
                     <div id="chart"></div>
                 </div>
@@ -83,8 +83,8 @@
             let tes = data;
             let options = {
                 series: [{
-                        name: "User Subscription Total Amount",
-                        data: tes.amount.user_subscriptions
+                        name: "Order Subscription Total Amount",
+                        data: tes.amount.subscription_order
                     },
                 ],
                 chart: {

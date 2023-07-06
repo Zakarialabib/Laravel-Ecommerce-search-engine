@@ -23,9 +23,9 @@ class FeaturedBannerSeeder extends Seeder
                 'link'        => '#',
                 'label'       => 'Offer this week',
                 'image'       => 'featured_banner.jpg',
-                'status'      => 1,
-                'featured'    => 1,
-                'product_id'  => 1,
+                'status'      => true,
+                'featured'    => true,
+                'product_id'  => null,
                 'language_id' => 1,
             ],
             [
@@ -36,7 +36,7 @@ class FeaturedBannerSeeder extends Seeder
                 'image'       => 'featured_banner.jpg',
                 'status'      => 1,
                 'featured'    => 1,
-                'product_id'  => 1,
+                'product_id'  => null,
                 'language_id' => 1,
             ],
             [
@@ -47,7 +47,7 @@ class FeaturedBannerSeeder extends Seeder
                 'image'       => 'featured_banner.jpg',
                 'status'      => 1,
                 'featured'    => 1,
-                'product_id'  => 1,
+                'product_id'  => null,
                 'language_id' => 1,
             ],
         ]);

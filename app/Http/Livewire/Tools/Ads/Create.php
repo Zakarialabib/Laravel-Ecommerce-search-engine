@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Http\Livewire\Ads\Views;
+namespace App\Http\Livewire\Tools\Ads;
 
 use App\Models\Ads;
 use App\Models\AdsType;

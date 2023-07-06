@@ -11,6 +11,7 @@ use App\Models\DeviceModel;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Symfony\Component\DomCrawler\Crawler;
 
 class ScrapeCommand extends Command
 {
@@ -30,9 +31,10 @@ class ScrapeCommand extends Command
         parent::__construct();
     }
 
-    /** Execute the console command. */
+    
     public function handle(): int
-    {
+{
+    try {
         $lastIndex = (int) file_get_contents('last_index.txt');
 
         $retryCount = 0;
@@ -43,7 +45,12 @@ class ScrapeCommand extends Command
             $sitemapSource = Http::timeout(60)->get('https://www.gsmarena.com/sitemap-phones.xml');
             $retryCount++;
             usleep($retryDelay);
-        } while ( ! $sitemapSource->successful() && $retryCount < $maxRetries);
+        } while (!$sitemapSource->successful() && $retryCount < $maxRetries);
+
+        if (!$sitemapSource->successful()) {
+            $this->error('Failed to retrieve the sitemap. Please check your internet connection and try again.');
+            return 1;
+        }
 
         $xml = simplexml_load_string($sitemapSource->body());
 
@@ -61,11 +68,31 @@ class ScrapeCommand extends Command
             }
 
             if (
-                ! strpos($url->loc->__toString(), 'related.php') &&
-                ! strpos($url->loc->__toString(), '-3d-spin-') &&
-                ! strpos($url->loc->__toString(), '-pictures-')
+                !strpos($url->loc->__toString(), 'related.php') &&
+                !strpos($url->loc->__toString(), '-3d-spin-') &&
+                !strpos($url->loc->__toString(), '-pictures-')
             ) {
-                $httpSource = Http::get($url->loc);
+
+                // Fetch the URL contents using session management
+                $httpSource = $this->fetchUrl((string) $url->loc);
+                if ($httpSource === null) {
+                    $this->line("URL already fetched in this session: {$url->loc->__toString()}. Skipping...");
+                    $progressbar->advance();
+                    continue;
+                }
+
+                if (!$httpSource->successful()) {
+                    $this->error("Failed to fetch data for URL: {$url->loc->__toString()}. Skipping... (HTTP status code: {$httpSource->status()})");
+                    $progressbar->advance();
+                    continue;
+                }
+
+                if (!$httpSource->successful()) {
+                    $this->error("Failed to fetch data for URL: {$url->loc->__toString()} - Skipping... (HTTP status code: {$httpSource->status()})");
+                    $progressbar->advance();
+                    continue;
+                }
+
                 $parser = str_get_html($httpSource->body());
 
                 $name = $parser->find('[data-spec="modelname"]')[0]->plaintext ?? null;
@@ -109,7 +136,7 @@ class ScrapeCommand extends Command
 
                         $device = DeviceModel::firstOrCreate([
                             'name'              => $name,
-                            'image'             => Helpers::uploadImage($parser->find('.specs-photo-main img')[0]->src, $name, 600 ,'device-models') ?? 'default.jpg',
+                            'image'             => Helpers::uploadImage($parser->find('.specs-photo-main img')[0]->src, $name,'device-models', 600) ?? 'default.jpg',
                             'code'              => Str::slug($name),
                             'slug'              => Str::slug($name),
                             'type'              => DeviceModelType::SMARTPHONE,
@@ -130,15 +157,15 @@ class ScrapeCommand extends Command
                             ],
                             'features'         => null,
                             'specifications'   => $specifications,
-                            'meta_title'       => $name,
-                            'meta_description' => __('CHRILIA Maroc- Disover smartphones informations, specifications and technical details'),
+                            'meta_title'       => __('CHRILIA Maroc').$name,
+                            'meta_description' => __('CHRILIA Maroc - Find the best price in internet for electronics & gadgets'),
                         ]);
 
                         $device->save();
                     }
                 }
 
-                sleep(2);
+                sleep(10);
             }
 
             file_put_contents('last_index.txt', $index);
@@ -151,7 +178,12 @@ class ScrapeCommand extends Command
         $progressbar->finish();
 
         return 0;
+    } catch (\Exception $e) {
+        $this->error('An error occurred during the scraping process: ' . $e->getMessage());
+        return 1;
     }
+}
+
 
     private function clearText(?string $text): string
     {
@@ -170,10 +202,33 @@ class ScrapeCommand extends Command
         $availableIndex = 1;
 
         while (array_key_exists($arrayKey, $array)) {
-            $arrayKey .= '_'.$availableIndex;
+            $arrayKey = $arrayKey.'_'.$availableIndex;
             $availableIndex++;
         }
 
         return $arrayKey;
     }
+
+    // Function to fetch the contents of a URL using session management
+    public function fetchUrl($url) {
+        // Check if the session key for the URL exists
+        if (!isset($_SESSION[$url])) {
+            // Create a new session key for the URL
+            $_SESSION[$url] = true;
+            
+            // Make the HTTP request to fetch the URL
+            $httpSource = Http::withHeaders([
+                'User-Agent' => 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.71 Safari/537.36',
+            ])->get($url);
+            
+            // Return the response
+            return $httpSource;
+        } else {
+            // The URL has already been fetched in this session
+            // You can choose to skip the request or return cached data if available
+            // For simplicity, we'll return null in this example
+            return null;
+        }
+    }
+
 }

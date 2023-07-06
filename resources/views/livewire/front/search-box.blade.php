@@ -20,8 +20,8 @@
                 <div class="w-full text-center p-2 font-semibold">
                     {{ __('Products') }}
                 </div>
-                <hr class="border-t border-gray-300">
-                <ul class="divide-y divide-gray-300">
+                <hr class="border-t border-gray-200">
+                <ul class="divide-y divide-gray-200 border-b border-x border-gray-500 drop-shadow-md">
                     @foreach ($results['products'] as $product)
                         <li class="p-2 text-black hover:bg-gray-100">
                             <a href="{{ route('front.product', $product->slug) }}" class="flex gap-8 items-center">
@@ -49,8 +49,8 @@
                 <div class="w-full text-center p-2 font-semibold">
                     {{ __('Devices') }}
                 </div>
-                <hr class="border-t border-gray-300">
-                <ul class="divide-y divide-gray-300">
+                <hr class="border-t border-gray-200">
+                <ul class="divide-y divide-gray-200 border-b border-x border-gray-500 drop-shadow-md">
                     @foreach ($results['deviceModels'] as $deviceModel)
                         <li class="p-2 text-black hover:bg-gray-100">
                             <a href="{{ route('front.deviceshow' , $deviceModel->slug) }}"
@@ -60,7 +60,7 @@
                                 </span>
                                 @if ($deviceModel->brand_id)
                                     <span>
-                                        {{ __('Brand') }} : {{ $product->brand?->name }}
+                                        {{ __('Brand') }} : {{ $deviceModel->brand?->name }}
                                     </span>
                                 @endif
                             </a>

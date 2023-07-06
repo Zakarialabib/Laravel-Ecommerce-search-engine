@@ -10,9 +10,13 @@
                 <p class="mb-8 leading-relaxed text-move-900">
                     {{ __('Your account is not activated, please wait or come back later') }}
                 </p>
-                <div class="text-sm mt-2 text-move-800 mb-8 w-full">
+                <div class="flex flex-row justify-center gap-6 text-sm mt-2 text-move-800 mb-8 w-full">
                     <x-button primary href="/">
                         {{ __('Back Home') }}</x-button>
+                    @if (Auth::user()->store && Auth::user()->isVendor())
+                        <x-button primary href="{{ route('subscription-confirm') }}">
+                            {{ __('confirm subscription') }}</x-button>
+                    @endif
                 </div>
             </div>
         </div>

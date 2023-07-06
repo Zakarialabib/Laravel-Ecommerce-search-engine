@@ -54,7 +54,7 @@
                                 </x-table.th>
                                 <x-table.td>
                                     @if ($product->price)
-                                        {{ $product->price->old_price }}
+                                        {{ Helpers::format_currency($product->price->old_price) }}
                                     @endif
                                 </x-table.td>
                             </x-table.tr>
@@ -64,7 +64,7 @@
                                 </x-table.th>
                                 <x-table.td>
                                     @if ($product->price)
-                                        {{ $product->price->price }}
+                                        {{ Helpers::format_currency($product->price->price) }}
                                     @endif
                                 </x-table.td>
                             </x-table.tr>

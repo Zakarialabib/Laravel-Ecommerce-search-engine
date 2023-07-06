@@ -93,7 +93,7 @@ class Helpers
      *
      * @return string|null The name of the uploaded file, or null if the upload failed.
      */
-    public static function uploadImage(string $image_url, string $productName, int $size = 800, string $folderName): ?string
+    public static function uploadImage(string $image_url, string $productName, string $folderName, int $size = 800): ?string
     {
         $response = Http::get($image_url);
 
@@ -237,5 +237,11 @@ class Helpers
         Storage::disk('local_files')->put('products/'.$imageName, $img, 'public');
 
         return $imageName;
+    }
+
+    
+    public static function flagImageUrl($language_code)
+    {
+        return asset("images/flags/{$language_code}.png");
     }
 }

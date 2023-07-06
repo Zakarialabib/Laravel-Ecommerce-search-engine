@@ -125,7 +125,7 @@
                             </x-table.td>
 
                             <x-table.td>
-                                <img src="{{ flagImageUrl($service->language->code) }}">
+                                <img src="{{ Helpers::flagImageUrl($service->language->code) }}">
                             </x-table.td>
 
 

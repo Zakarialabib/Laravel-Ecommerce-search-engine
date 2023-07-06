@@ -53,18 +53,12 @@
                     </div>
                 </div>
             </div>
-        @else
-            <div class="w-full mt-20 p-5 mx-auto">
-                <h3 class="text-center text-xl">
-                    {{ __('Coming soon') }}
-                </h3>
-            </div>
         @endif
 
-        <div class="mx-auto max-w-[1500px] px-5 py-6 bg-gradient-to-l from-purple-400 to-purple-100">
-            <div class="grid grid-cols-12 gap-5">
+        <div class="max-w-[1500px] mt-10 px-5 py-6 bg-purple-200 mx-4 rounded-xl shadow-md">
+            <div class="grid sm:grid-cols-1 lg:grid-cols-12 gap-5">
                 @foreach ($this->featured_banners as $featured_banner)
-                    <div class="col-span-6 sm:col-span-full lg:col-span-4 md:col-span-6">
+                    <div class="col-span-12 sm:col-span-full lg:col-span-4 md:col-span-6">
                         <div
                             class="relative shadow-xl isolate flex aspect-[72/31] sm:aspect-[50/20] lg:aspect-[30/20] xl:aspect-[30/20] w-full items-center overflow-hidden bg-[#953fff]">
                             <div
@@ -153,7 +147,7 @@
                                     @foreach ($this->brands as $brand)
                                         <div class="flex items-center justify-center">
                                             <a href="{{ route('front.brandPage', $brand->slug) }}"
-                                                class="text-sm font-bold hover:text-move-400 hover:underline transition hover:scale-110">
+                                                class="text-sm uppercase font-bold hover:text-move-400 hover:underline transition hover:scale-110">
                                                 {{ $brand->name }}
                                             </a>
                                         </div>

@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,6 +29,8 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 
+        $this->setLocale();
+
         View::share('languages', $this->getLanguages());
 
         Settings::observe(SettingsObserver::class);
@@ -34,16 +38,32 @@ class AppServiceProvider extends ServiceProvider
         // Model::shouldBeStrict(! $this->app->isProduction());
     }
 
-    private function getLanguages()
+   private function getLanguages()
     {
-        if ( ! Schema::hasTable('languages')) {
-            return;
+        if (!Schema::hasTable('languages')) {
+            return [];
         }
 
         return cache()->rememberForever('languages', function () {
-            return Session::has('language')
-                ? Language::pluck('name', 'code')->toArray()
-                : Language::where('is_default', 1)->first();
+            return Language::all()->pluck('name', 'code')->toArray();
         });
     }
+
+    private function setLocale()
+    {
+        $sessionLocale = Session::get('locale');
+
+        if (!empty($sessionLocale) && in_array($sessionLocale, array_keys($this->getLanguages()))) {
+            App::setLocale($sessionLocale);
+        } else {
+            $defaultLanguage = Language::where('is_default', true)->first();
+
+            if ($defaultLanguage) {
+                App::setLocale($defaultLanguage->code);
+            }
+        }
+
+        Cache::forget('languages');
+    }
+
 }

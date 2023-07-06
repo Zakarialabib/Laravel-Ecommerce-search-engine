@@ -1,11 +1,11 @@
 {
-  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
-    "file": "assets/fa-brands-400.74833209.woff2",
-    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
-  },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2": {
     "file": "assets/fa-regular-400.8e7e5ea1.woff2",
     "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-regular-400.woff2"
+  },
+  "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2": {
+    "file": "assets/fa-brands-400.74833209.woff2",
+    "src": "node_modules/@fortawesome/fontawesome-free/webfonts/fa-brands-400.woff2"
   },
   "node_modules/@fortawesome/fontawesome-free/webfonts/fa-solid-900.woff2": {
     "file": "assets/fa-solid-900.7152a693.woff2",
@@ -36,8 +36,8 @@
     "src": "resources/js/app.js",
     "isEntry": true,
     "css": [
-      "assets/app.4f616c5e.css",
-      "assets/app.de73ffec.css"
+      "assets/app.eeb2db24.css",
+      "assets/app.eb4b9342.css"
     ],
     "assets": [
       "assets/fa-brands-400.74833209.woff2",
@@ -51,12 +51,12 @@
     ]
   },
   "resources/css/app.css": {
-    "file": "assets/app.de73ffec.css",
+    "file": "assets/app.eb4b9342.css",
     "src": "resources/css/app.css",
     "isEntry": true
   },
   "resources/js/app.css": {
-    "file": "assets/app.4f616c5e.css",
+    "file": "assets/app.eeb2db24.css",
     "src": "resources/js/app.css"
   }
 }

@@ -22,7 +22,9 @@
             <div class="py-10 px-6 mx-4 bg-white border shadow-xl">
                 <div class="flex flex-wrap -mx-4 mb-14">
                     <div class="w-full md:w-1/2 px-4 mb-8 md:mb-0">
-                        <x-product-carousel :product="$device_model" />
+                        <img src="{{ asset('images/device-models/' . $device_model->image) }}" 
+                            alt="{{ $device_model->name }}"  loading="lazy"
+                            class="w-full h-full object-cover">
                     </div>
 
                     <div class="w-full md:w-1/2 px-4">

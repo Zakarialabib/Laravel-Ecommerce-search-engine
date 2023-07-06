@@ -7,6 +7,7 @@ namespace App\Http\Livewire\Admin\Stats;
 use App\Models\Category;
 use App\Models\DeviceModel;
 use App\Models\UserSubscription;
+use App\Models\SubscriptionOrder;
 use App\Models\Product;
 use App\Models\User;
 use Carbon\Carbon;
@@ -44,28 +45,28 @@ class Transactions extends Component
 
     public function chart(): void
     {
-        $query = UserSubscription::selectRaw('SUM(amount) as amount')
+        $query = SubscriptionOrder::selectRaw('SUM(amount) as amount')
             ->when($this->typeChart === 'monthly', function ($q) {
-                return $q->selectRaw('MONTH(created_at) as labels, COUNT(*) as user_subscriptions')
+                return $q->selectRaw('MONTH(created_at) as labels, COUNT(*) as subscription_order')
                     ->whereYear('created_at', '=', date('Y'))
                     ->groupByRaw('MONTH(created_at)');
             }, function ($q) {
-                return $q->selectRaw('YEAR(created_at) as labels, COUNT(*) as user_subscriptions')
+                return $q->selectRaw('YEAR(created_at) as labels, COUNT(*) as subscription_order')
                     ->groupByRaw('YEAR(created_at)');
             })
             ->get()
             ->toArray();
 
-        $user_subscriptions = [
+        $subscription_order = [
             'amount' => array_column($query, 'amount'),
             'labels' => array_column($query, 'labels'),
         ];
 
         $this->charts = json_encode([
             'amount' => [
-                'user_subscriptions' => $user_subscriptions['amount'],
+                'subscription_order' => $subscription_order['amount'],
             ],
-            'labels' => $user_subscriptions['labels'],
+            'labels' => $subscription_order['labels'],
         ]);
     }
 
@@ -83,7 +84,7 @@ class Transactions extends Component
         }
 
         // Get user_subscriptions data for each day in the current month
-        $user_subscriptionsData = UserSubscription::selectRaw('DATE(created_at) as day, SUM(amount) as amount_user_subscriptions')
+        $orderSubscriptionData = SubscriptionOrder::selectRaw('DATE(created_at) as day, SUM(amount) as amount_subscription_orders')
             ->whereBetween('created_at', [$currentMonth, Carbon::now()->endOfMonth()])
             ->groupBy('day')
             ->orderBy('day', 'ASC')
@@ -93,10 +94,10 @@ class Transactions extends Component
         $chartData = [];
 
         foreach ($daysInMonth as $day) {
-            $order = $user_subscriptionsData->where('day', $day)->first();
+            $order = $orderSubscriptionData->where('day', $day)->first();
             $chartData[] = [
                 'day'                => $day,
-                'user_subscriptions' => $order ? $order->amount_user_subscriptions : 0,
+                'subscription_orders' => $order ? $order->amount_subscription_orders : 0,
             ];
         }
 
@@ -116,7 +117,7 @@ class Transactions extends Component
             'series' => [
                 [
                     'name' => __('User Subscriptions'),
-                    'data' => array_column($chartData, 'user_subscriptions'),
+                    'data' => array_column($chartData, 'subscription_orders'),
                 ],
             ],
             'xaxis' => [

@@ -77,7 +77,7 @@
                             <div itemprop="offers" itemtype="https://schema.org/AggregateOffer" itemscope>
                                 <p class="inline-block mb-4 text-2xl font-bold font-heading">
                                     <span>
-                                        {{ $product->price->price ?? '' }} DH
+                                        {{ Helpers::format_currency( $product->price->price) ?? '' }}
                                     </span>
                                     @if ($product->price->old_price && $product->price->discount != 0)
                                         <span class="bg-red-500 text-white rounded-xl px-4 py-2 text-sm ml-4">
@@ -97,7 +97,7 @@
                                 @if ($product->price->old_price && $product->price->discount != 0)
                                     <p class="mb-8 text-blue-300">
                                         <span class="font-normal text-base text-gray-400 line-through">
-                                            {{ $product->price->old_price }} DH
+                                            {{ Helpers::format_currency($product->price->old_price) }}
                                         </span>
                                     </p>
                                 @endif

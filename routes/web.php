@@ -56,6 +56,9 @@ Route::group(['middleware' => 'firewall.all'], function () {
     Route::get('/generate-sitemap', [FrontController::class, 'generateSitemaps'])->name('generate-sitemaps');
     Route::get('/redirect/{url}', [FrontController::class, 'redirect'])->name('redirect');
     Route::get('/services', Services::class)->name('front.services');
+    
+    Route::get('/change-lang/{lang}', [FrontController::class, 'changeLanguage'])->name('changelanguage');
+
     Route::get('/approval', function () {
         return view('auth.approval');
     })->name('auth.approval');

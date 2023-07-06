@@ -33,7 +33,7 @@
             @foreach (\App\Helpers::getActiveBrands() as $brand)
                 <li class="relative">
                     <a href="{{ route('front.brandPage', $brand->slug) }}"
-                        class="flex items-center justify-between py-2 pl-5 rtl:pr-5 xl:pl-7 xl:rtl:pr-7 pr-3 rtl:pl-3 xl:pr-3.5 xl:rtl:pl-3.5 hover:bg-indigo-200 text-black hover:text-indigo-500 transition hover:scale-y-110">
+                        class="flex items-center justify-between py-2 pl-5 rtl:pr-5 xl:pl-7 xl:rtl:pr-7 pr-3 rtl:pl-3 xl:pr-3.5 xl:rtl:pl-3.5 hover:bg-indigo-200 text-black hover:text-indigo-500 transition hover:scale-y-110 uppercase">
                         {{ $brand->name }}
                     </a>
                 </li>
