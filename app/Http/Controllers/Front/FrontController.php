@@ -69,7 +69,7 @@ class FrontController extends Controller
 
             return back();
         } catch (Throwable $th) {
-            Log::info('Sitemap generation failed!', $th->getMessage());
+            Log::info('Sitemap generation failed!');
 
             return back();
         }

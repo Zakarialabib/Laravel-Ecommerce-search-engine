@@ -108,6 +108,15 @@ class Redirects extends Component
         $this->alert('warning', __('Redirect deleted successfully!'));
     }
 
+    public function deleteSelected(): void
+    {
+        Redirect::whereIn('id', $this->selected)->delete();
+
+        $this->resetSelected();
+
+        $this->alert('warning', __('Redirects deleted successfully!'));
+    }
+
     public function render(): View|Factory
     {
         $query = Redirect::advancedFilter([

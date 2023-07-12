@@ -8,7 +8,11 @@
                         <option value="{{ $value }}">{{ $value }}</option>
                     @endforeach
                 </select>
-
+                @if ($this->selected)
+                    <x-button danger type="button" wire:click="deleteSelected" class="mx-3">
+                        <i class="fas fa-trash-alt"></i>
+                    </x-button>
+                @endif
                 @if ($this->selectedCount)
                     <p class="text-sm leading-5">
                         <span class="font-medium">
@@ -137,26 +141,27 @@
             </form>
         </x-slot>
     </x-modal>
-</div>
 
-@push('scripts')
-    <script>
-        document.addEventListener('livewire:load', function() {
-            window.livewire.on('deleteModal', redirectId => {
-                Swal.fire({
-                    title: __("Are you sure?") ,
-                    text: __("You won't be able to revert this!") ,
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: __("Yes, delete it!") 
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.livewire.emit('delete', redirectId)
-                    }
+    @push('scripts')
+        <script>
+            document.addEventListener('livewire:load', function() {
+                window.livewire.on('deleteModal', redirectId => {
+                    Swal.fire({
+                        title: __("Are you sure?"),
+                        text: __("You won't be able to revert this!"),
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: __("Yes, delete it!")
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.livewire.emit('delete', redirectId)
+                        }
+                    })
                 })
             })
-        })
-    </script>
-@endpush
+        </script>
+    @endpush
+
+</div>
