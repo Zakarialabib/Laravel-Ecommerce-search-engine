@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Vendor\Product;
 
 use App\Helpers;
-use App\Http\Livewire\Quill;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -43,7 +42,6 @@ class Edit extends Component
     public $listeners = [
         'optionUpdated' => 'updatedOptions',
         'editModal',
-        Quill::EVENT_VALUE_UPDATED,
     ];
 
     protected $rules = [
@@ -67,9 +65,9 @@ class Edit extends Component
         'product.condition'        => ['nullable'],
     ];
 
-    public function quill_value_updated($value): void
+    public function updatedDescription($value): void
     {
-        $this->product->description = $value;
+        $this->description = $value;
     }
 
     public function getImagePreviewProperty()

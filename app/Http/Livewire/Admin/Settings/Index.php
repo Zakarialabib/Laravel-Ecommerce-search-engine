@@ -62,8 +62,6 @@ class Index extends Component
 
     public $enableRegistrationTerms;
 
-    public $currency_position;
-
     public $site_tax;
 
     public $site_return;
@@ -77,8 +75,6 @@ class Index extends Component
     public $site_about;
 
     public $site_contact;
-
-    protected $listeners = ['save', 'uploadFavicon', 'uploadLogo'];
 
     public function mount(): void
     {
@@ -100,9 +96,6 @@ class Index extends Component
         $this->seo_meta_description = Helpers::settings('seo_meta_description');
         $this->footer_copyright_text = Helpers::settings('footer_copyright_text');
         $this->enableRegistrationTerms = (bool) Helpers::settings('enableRegistrationTerms');
-        $this->currency_code = Helpers::settings('currency_code');
-        $this->currency_symbol = Helpers::settings('currency_symbol');
-        $this->currency_position = Helpers::settings('currency_position');
         $this->site_return = Helpers::settings('site_return');
         $this->site_refund = Helpers::settings('site_refund');
         $this->site_terms = Helpers::settings('site_terms');
@@ -130,9 +123,6 @@ class Index extends Component
             'seo_meta_description'    => $this->seo_meta_description,
             'footer_copyright_text'   => $this->footer_copyright_text,
             'enableRegistrationTerms' => $this->enableRegistrationTerms,
-            'currency_code'           => $this->currency_code,
-            'currency_symbol'         => $this->currency_symbol,
-            'currency_position'       => $this->currency_position,
             'site_return'             => $this->site_return,
             'site_refund'             => $this->site_refund,
             'site_terms'              => $this->site_terms,
@@ -188,7 +178,7 @@ class Index extends Component
         ]);
 
         if ($name !== null) {
-            Storage::delete('logo/'.$name);
+            Storage::delete('images/logo/'.$name);
         }
 
         return $filename->store('logo');

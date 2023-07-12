@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Str;
 
 class Register extends Component
 {
@@ -29,6 +30,42 @@ class Register extends Component
     public $storeName;
     public $storeUrl;
     public $storePhone;
+    public $storeLocation;
+
+    protected $rules =[
+        'name' => 'required',
+        'email' => 'required|email|unique:users,email',
+        'phone' => 'required|numeric',
+        'password' => 'required|min:8|same:passwordConfirmation',
+        'city' => 'required',
+        'country' => 'required',
+        'storeName' => 'required|unique:stores,name',
+        'storeUrl' => 'required|url|unique:stores,url',
+        'storePhone' => 'required|numeric',
+        'storeLocation' => 'required',
+    ];
+
+    protected $messages = [
+        'name.required' => 'The name field is required.',
+        'email.required' => 'The email field is required.',
+        'email.email' => 'The email must be a valid email address.',
+        'email.unique' => 'The email has already been taken.',
+        'phone.required' => 'The phone field is required.',
+        'phone.numeric' => 'The phone must be a number.',
+        'password.required' => 'The password field is required.',
+        'password.min' => 'The password must be at least 8 characters.',
+        'password.same' => 'The password confirmation does not match.',
+        'city.required' => 'The city field is required.',
+        'country.required' => 'The country field is required.',
+        'storeName.required' => 'The store name field is required.',
+        'storeName.unique' => 'The store name has already been taken.',
+        'storeUrl.required' => 'The store url field is required.',
+        'storeUrl.url' => 'The store url must be a valid url.',
+        'storeUrl.unique' => 'The store url has already been taken.',
+        'storePhone.required' => 'The store phone field is required.',
+        'storePhone.numeric' => 'The store phone must be a number.',
+        'storeLocation.required' => 'The store location field is required.',
+    ];
 
     protected $listeners = ['storeOwnerChanged'];
 
@@ -74,6 +111,8 @@ class Register extends Component
                 'name'   => $this->storeName,
                 'url'    => $this->storeUrl,
                 'phone'  => $this->storePhone,
+                'location'  => $this->storeLocation,
+                'user_id'  => $user->id,
                 'slug'   => Str::slug($this->storeName),
                 'status' => Status::INACTIVE, // Set status to inactive by default
             ]);

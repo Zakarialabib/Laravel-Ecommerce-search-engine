@@ -4,7 +4,8 @@
     <section class="bg-gradient-to-b from-white/[55%] to-transparent py-12 dark:from-white/5 md:py-20">
         <div class="px-6">
             <div class="heading text-center">
-                <h6 class="text-3xl font-bold sm:!leading-[50px] heading text-center rtl:lg:text-right !text-indigo-600">{{ __('Our service') }}</h6>
+                <h6 class="text-3xl font-bold sm:!leading-[50px] heading text-center rtl:lg:text-right !text-indigo-600">
+                    {{ __('Our service') }}</h6>
                 <h4>{{ __('High impact service for your business growth') }}</h4>
             </div>
             <div class="mt-24 grid grid-cols-1 gap-10 space-y-10 text-black ltr:text-right rtl:text-left sm:grid-cols-2 sm:space-y-0 lg:grid-cols-3 aos-init aos-animate"
@@ -65,42 +66,57 @@
                 data-aos="fade-up" data-aos-duration="1000">
                 @foreach ($this->subscriptions as $subscription)
                     <div
-                        class="group relative space-y-6 rounded-[32px] border-2 border-indigo-600 bg-white p-7 duration-200 hover:bg-indigo-600 hover:text-black dark:border-gray/[0.1] dark:bg-gray-dark dark:hover:border-indigo-700">
+                        class="flex flex-col pt-8 pb-8 h-full rounded-md shadow-md group relative space-y-6 border-2 border-indigo-600 bg-gray-50 hover:bg-indigo-600 hover:text-black dark:border-gray/[0.1] dark:bg-gray-dark dark:hover:border-indigo-700 hover:scale-105 transition duration-500 ">
                         <div
                             class="item-center absolute -top-[30px] left-1/2 mx-auto inline-flex -translate-x-1/2 justify-between rounded-[78px] bg-indigo-700 py-4 px-8 text-white">
                             <h5 class="text-[22px] font-black">{{ $subscription->name }}
                             </h5>
                         </div>
-                        @foreach ($subscription->features as $index => $feature)
-                            <div class="flex items-center gap-2">
-                                <div>
-                                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none"
+
+                        <div class="mt-5 text-center">
+                            <span
+                                class="text-6xl md:text-7xl text-coolGray-900 font-semibold tracking-tighter">{{ Helpers::format_currency($subscription->price) }}</span>
+                            <span
+                                class="inline-block ml-1 text-coolGray-500 font-semibold">/{{ $subscription->plan }}</span>
+                        </div>
+
+                        <div class="my-7 h-[2px] bg-gray/10"></div>
+
+                        <ul class="flex items-center gap-2 self-start px-8">
+                            @foreach ($subscription->features as $index => $feature)
+                                <li class="flex items-center mb-4 text-coolGray-500 font-medium">
+                                    <svg class="mr-3" width="16" height="16" viewBox="0 0 16 16" fill="none"
                                         xmlns="http://www.w3.org/2000/svg">
                                         <circle cx="8" cy="8" r="8" fill="#45B649"></circle>
                                         <path d="M5.11438 8.11438L7 10L10.7712 6.22876" stroke="white"
                                             stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
                                     </svg>
-                                </div>
-                                <div>
-                                    <p class="text-sm font-bold">{{ $feature }}</p>
-                                </div>
-                            </div>
-                        @endforeach
-                        <div class="my-7 h-[2px] bg-gray/10"></div>
-                        <div class="text-center">
-                            <button type="button"
-                                class="btn py-[19px] px-[26px] text-[22px] font-black text-white group-hover:bg-white group-hover:text-indigo-800">
-                                {{-- {{ $subscription->price }} --}}
-                                <span
-                                    class="text-sm font-bold">/{{ $subscription->duration }}</span>
-                            </button>
-                        </div>
-                        <h5 class="font-blod mt-4 text-center text-sm text-black group-hover:text-white">
-                            {{ __('Billed every') }} {{ $subscription->plan }}
-                        </h5>
+                                    <span class="text-sm font-bold">{{ $feature }}</span>
+                                </li>
+                            @endforeach
+                        </ul>
+
                     </div>
                 @endforeach
             </div>
         </div>
+    </section>
+    <section class="pt-24 bg-white">
+        <div class="relative -mb-40 py-16 px-4 md:px-8 lg:px-16 bg-coolGray-800 rounded-md overflow-hidden">
+            <img class="absolute top-0 left-0 h-full w-full object-cover"
+                src="{{ asset('images/svg/pattern-dark.svg') }}" alt="">
+            <div class="relative max-w-max mx-auto text-center">
+                <h3 class="mb-2 text-2xl md:text-5xl leading-tight font-bold text-white tracking-tighter">
+                    {{ __('Have any additional questions?') }}</h3>
+                <p class="mb-6 text-base md:text-xl text-coolGray-400">
+                    {{ __('CHRILIA is the best solution to market your products') }}
+                </p>
+                <a class="inline-flex items-center justify-center px-7 py-3 h-14 w-full md:w-auto mb-2 md:mb-0 md:mr-4 text-lg leading-7 text-green-50 bg-green-500 hover:bg-green-600 font-medium focus:ring-2 focus:ring-green-500 focus:ring-opacity-50 border border-transparent rounded-md shadow-sm"
+                    href="#">
+                    {{ __('Get in touch') }}
+                </a>
+            </div>
+        </div>
+        <div class="h-64 bg-green-500"></div>
     </section>
 </div>

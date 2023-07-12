@@ -90,29 +90,37 @@
             <!-- Additional fields for store owners -->
             @if ($isStoreOwner)
                 <div class="lg:w-1/2 sm:w-full px-2">
-                    <x-input-label for="store_name" :value="__('Store Name')" required />
+                    <x-input-label for="storeName" :value="__('Store Name')" required />
 
-                    <x-text-input id="store_name" wire:model.lazy="storeName" class="block mt-1 w-full" type="text"
-                        name="store_name" :value="old('store_name')" required />
+                    <x-text-input id="storeName" wire:model.lazy="storeName" class="block mt-1 w-full" type="text"
+                        name="storeName" :value="old('storeName')" required />
 
-                    <x-input-error :messages="$errors->get('store_name')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('storeName')" class="mt-2" />
                 </div>
                 <div class="lg:w-1/2 sm:w-full px-2">
-                    <x-input-label for="store_url" :value="__('Store URL')" required />
+                    <x-input-label for="storeLocation" :value="__('Store Location')" required />
 
-                    <x-text-input id="store_url" wire:model.lazy="storeUrl" class="block mt-1 w-full" type="text"
-                        name="store_url" :value="old('store_url')" />
+                    <x-text-input id="storeLocation" wire:model.lazy="storeLocation" class="block mt-1 w-full" type="text"
+                        name="storeLocation" :value="old('storeLocation')" required />
 
-                    <x-input-error :messages="$errors->get('store_url')" class="mt-2" required />
+                    <x-input-error :messages="$errors->get('storeLocation')" class="mt-2" />
+                </div>
+                <div class="lg:w-1/2 sm:w-full px-2">
+                    <x-input-label for="storeUrl" :value="__('Store URL')" required />
+
+                    <x-text-input id="storeUrl" wire:model.lazy="storeUrl" class="block mt-1 w-full" type="text"
+                        name="storeUrl" :value="old('storeUrl')" />
+
+                    <x-input-error :messages="$errors->get('storeUrl')" class="mt-2" required />
                 </div>
 
                 <div class="lg:w-1/2 sm:w-full px-2">
-                    <x-input-label for="store_phone" :value="__('Store Phone')" required />
+                    <x-input-label for="storePhone" :value="__('Store Phone')" required />
 
-                    <x-text-input id="store_phone" wire:model.lazy="storePhone" class="block mt-1 w-full" type="number"
-                        name="store_phone" :value="old('store_phone')" required />
+                    <x-text-input id="storePhone" wire:model.lazy="storePhone" class="block mt-1 w-full" type="number"
+                        name="storePhone" :value="old('storePhone')" required />
 
-                    <x-input-error :messages="$errors->get('store_phone')" class="mt-2" />
+                    <x-input-error :messages="$errors->get('storePhone')" class="mt-2" />
                 </div>
             @endif
         </div>

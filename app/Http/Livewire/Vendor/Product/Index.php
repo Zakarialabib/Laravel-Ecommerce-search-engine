@@ -18,6 +18,8 @@ class Index extends Component
     use WithSorting;
     use WithFileUploads;
 
+    public $product;
+    
     public int $perPage;
 
     public array $orderable;

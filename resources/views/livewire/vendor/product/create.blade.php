@@ -1,6 +1,6 @@
 <div>
     <!-- Create Modal -->
-    <x-modal wire:model="createProduct">
+    <x-modal wire:model="createModal">
         <x-slot name="title">
             {{ __('Create Product') }}
         </x-slot>
@@ -38,20 +38,7 @@
                             </select>
                         </div>
 
-                        <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
-                            <x-label for="subcategories" :value="__('Subcategories')" />
-                            <select multiple id="subcategories" name="subcategories"
-                                class="block bg-white text-gray-700 rounded border border-gray-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500"
-                                wire:model="product.subcategories">
-                                <option value="" disabled>{{ __('Select SubCategory') }}</option>
-                                @foreach ($this->subcategories as $subcategory)
-                                    <option value="{{ $subcategory->id }}">{{ $subcategory->name }}
-                                    </option>
-                                @endforeach
-                            </select>
-                            <x-input-error :messages="$errors->get('product.subcategories')" for="subcategories" class="mt-2" />
-                        </div>
-
+                      
                         <div class="w-full lg:w-1/2 px-3 mb-6 lg:mb-0">
                             <x-label for="price" :value="__('Price')" required />
                             <x-input id="price" class="block mt-1 w-full" type="number" name="price"
@@ -90,7 +77,7 @@
                         
                         <div class="w-full px-3 mb-6 lg:mb-0">
                             <x-label for="description" :value="__('Description')" />
-                            <livewire:quill :value="$description" />
+                            <x-trix name="description" wire:model="description" />
                         </div>
 
                         <div class="w-full px-4 my-2">

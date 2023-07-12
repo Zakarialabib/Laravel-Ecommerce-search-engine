@@ -24,10 +24,10 @@ class Create extends Component
     use WithFileUploads;
 
     public $listeners = [
-        'createProduct',
+        'createModal',
     ];
 
-    public $createProduct = false;
+    public $createModal = false;
 
     public $product;
 
@@ -40,8 +40,6 @@ class Create extends Component
     public $uploadLink;
 
     public $description;
-
-    public $subcategories;
 
     public $width = 1000;
 
@@ -58,8 +56,6 @@ class Create extends Component
         'product.meta_description' => ['nullable', 'string', 'max:170'],
         'product.meta_keywords'    => ['nullable', 'string', 'min:1'],
         'product.category_id'      => ['required', 'integer'],
-        'product.subcategories'    => ['required', 'array', 'min:1'],
-        'product.subcategories.*'  => ['integer', 'distinct:strict'],
         'options.*.type'           => ['required', 'string', 'in:color,size'],
         'options.*.value'          => ['required_if:options.*.type,color', 'string'],
         'product.brand_id'         => ['nullable', 'integer'],
@@ -77,11 +73,6 @@ class Create extends Component
         $this->validateOnly($propertyName);
     }
 
-    public function updatedProductSubcategories(): void
-    {
-        $this->product->subcategories()->sync($this->product->subcategories);
-    }
-
     public function getImagePreviewProperty()
     {
         return $this->product->image;
@@ -97,7 +88,7 @@ class Create extends Component
         return view('livewire.vendor.product.create');
     }
 
-    public function createProduct(): void
+    public function createModal(): void
     {
         $this->resetErrorBag();
 
@@ -105,7 +96,7 @@ class Create extends Component
 
         $this->product = new Product();
 
-        $this->createProduct = true;
+        $this->createModal = true;
     }
 
     public function create(): void
@@ -133,17 +124,17 @@ class Create extends Component
             $this->product->gallery = json_encode($gallery);
         }
 
-        $this->product->subcategories = $this->subcategories;
-        $this->product->subcategories = $this->subcategories;
-
         $user = User::find(Auth::id());
-        $user->products()->attach($this->product);
+
+        $this->product->store_id = $user->store->id;
+
+        $this->product->save();
 
         $this->alert('success', 'Product created successfully');
 
         $this->emit('refreshIndex');
 
-        $this->createProduct = false;
+        $this->createModal = false;
     }
 
     public function getCategoriesProperty()
@@ -156,8 +147,5 @@ class Create extends Component
         return Brand::select('name', 'id')->get();
     }
 
-    public function getSubcategoriesProperty()
-    {
-        return Subcategory::select('name', 'id')->get();
-    }
+  
 }

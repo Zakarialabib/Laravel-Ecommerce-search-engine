@@ -35,6 +35,7 @@ class ProductImport implements ToCollection, WithHeadingRow, SkipsEmptyRows
                 'meta_title'       => Str::limit($row['nom'], 60),
                 'meta_description' => Str::limit($row['description'], 160),
                 'meta_keywords'    => Str::limit($row['nom'], 60),
+                'storo_id'         => Store::where('user_id', auth()->id())->first()->id ?? null,
                 'status'           => 0,
             ]);
         }

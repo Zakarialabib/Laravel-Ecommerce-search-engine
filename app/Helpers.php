@@ -7,6 +7,7 @@ namespace App;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\Page;
 use App\Models\Currency;
 use App\Models\Settings;
 use App\Models\Subcategory;
@@ -40,10 +41,20 @@ class Helpers
             ->get();
     }
 
+    public static function getActivePages()
+    {
+        return Page::select('id', 'slug', 'title')
+            ->inRandomOrder()
+            ->take(5)
+            ->get();
+    }
+
     public static function getActiveBlogs()
     {
         return Blog::active()
-            ->select('id', 'title', 'slug')
+            ->select(['id', 'title', 'slug','image','description','created_at'])
+            ->inRandomOrder()
+            ->take(5)
             ->get();
     }
 

@@ -135,7 +135,6 @@ class Create extends Component
         }
 
         $this->product->subcategories = $this->subcategories;
-        $this->product->subcategories = $this->subcategories;
 
         $this->product->save();
 

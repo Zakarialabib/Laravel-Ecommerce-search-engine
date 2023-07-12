@@ -1,8 +1,8 @@
 <div>
-    @if($editModal)
+
     <x-modal wire:model="editModal">
         <x-slot name="title">
-            {{ __('Edit Product') }} - {{ $product->name }}
+            {{ __('Edit Product') }} - {{ $product?->name }}
         </x-slot>
 
         <x-slot name="content">
@@ -33,7 +33,7 @@
                                 <option value="">{{ __('Select Category') }}</option>
                                 @foreach ($this->categories as $category)
                                     <option value="{{ $category->id }}"
-                                        @if ($product->category_id == $category->id) selected @endif>{{ $category->name }}</option>
+                                        @if ($product?->category_id == $category->id) selected @endif>{{ $category->name }}</option>
                                 @endforeach
                                 <x-input-error :messages="$errors->get('product.category_id')" for="product.category_id" class="mt-2" />
                             </select>
@@ -76,23 +76,15 @@
                                 id="brand_id" name="brand_id" wire:model="product.brand_id">
                                 <option value="">{{ __('Select Brand') }}</option>
                                 @foreach ($this->brands as $brand)
-                                    <option value="{{ $brand->id }}"
-                                        @if ($product->brand_id == $brand->id) selected @endif>{{ $brand->name }}</option>
+                                    <option value="{{ $brand->id }}" @if ($product?->brand_id == $brand->id) selected @endif>{{ $brand->name }}</option>
                                 @endforeach
                                 <x-input-error :messages="$errors->get('product.brand_id')" for="product.brand_id" class="mt-2" />
                             </select>
                         </div>
 
-                        <div class="sm:w-full lg:w-1/2 px-3 ">
-                            <x-label for="video" :value="__('Condition')" />
-                            <x-input id="condition" class="block mt-1 w-full" type="text" name="condition"
-                                wire:model="product.condition" />
-                            <x-input-error :messages="$errors->get('product.condition')" for="product.condition" class="mt-2" />
-                        </div>
-
                         <div class="w-full mb-4 px-3">
                             <x-label for="description" :value="__('Description')" />
-                            <livewire:quill :value="$description" />
+                            <x-trix name="description" wire:model="description" />
                         </div>
 
                         <div class="w-full px-3 my-2">
@@ -181,5 +173,4 @@
             </form>
         </x-slot>
     </x-modal>
-    @endif
 </div>

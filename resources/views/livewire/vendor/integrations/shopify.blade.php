@@ -1,6 +1,6 @@
 <div>
     @if ($accessToken)
-        <p>Access token: {{ $accessToken }}</p>
+        <p>{{__('Access token')}}: {{ $accessToken }}</p>
         <table>
             <thead>
                 <tr>

@@ -51,8 +51,6 @@ class Ad extends Model
         'title',
         'social_media',
         'type',
-        'commission',
-        'account_name',
         'image',
         'url',
         'views',

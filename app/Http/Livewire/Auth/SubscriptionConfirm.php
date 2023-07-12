@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Livewire\Auth;
 
 use App\Models\Subscription;
+use App\Models\Store;
 use App\Models\SubscriptionOrder;
 use App\Models\UserSubscription;
 use Illuminate\Contracts\View\View;
@@ -16,6 +17,7 @@ class SubscriptionConfirm extends Component
     public $startsAt;
     public $endsAt;
     public $payment_method = 'bank';
+    public $user;
 
     public function getSubscriptionsProperty()
     {
@@ -28,14 +30,19 @@ class SubscriptionConfirm extends Component
         $this->calculateDates();
     }
 
+    public function mount()
+    {
+        $this->user = auth()->user();
+    }
+
     public function confirmSubscription()
     {
         if ( ! auth()->check()) {
             return redirect()->route('login');
         }
-
+        
         $subscriptionOrder = SubscriptionOrder::create([
-            'user_id'         => auth()->user()->id,
+            'user_id'         => $this->user->id,
             'subscription_id' => $this->selectedPlan->id,
             'amount'          => $this->selectedPlan->price,
             'payment_method'  => $this->payment_method,
@@ -44,7 +51,7 @@ class SubscriptionConfirm extends Component
         ]);
 
         UserSubscription::create([
-            'user_id'         => auth()->user()->id,
+            'user_id'         => $this->user->id,
             'subscription_id' => $this->selectedPlan->id,
             'order_id'        => $subscriptionOrder->id,
             'starts_at'       => $this->startsAt,

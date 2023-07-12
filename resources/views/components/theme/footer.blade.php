@@ -89,20 +89,10 @@
             <div>
                 <ul class="flex flex-col gap-3 font-bold">
                     <li class="mb-3 text-lg font-extrabold text-black dark:text-white">{{ __('Informations') }}</li>
-                    <li>
-                        <a href="terms-conditions.html"
-                            class="inline-block transition hover:scale-110 hover:text-indigo-500">Terms &amp;
-                            Conditions</a>
-                    </li>
-                    <li>
-                        <a href="privacy-policy.html"
-                            class="inline-block transition hover:scale-110 hover:text-indigo-500">Privacy Policy</a>
-                    </li>
-                    <li><a href="faq.html"
-                            class="inline-block transition hover:scale-110 hover:text-indigo-500">FAQs</a></li>
-                    <li><a href="{{ route('front.blogs') }}"
-                            class="inline-block transition hover:scale-110 hover:text-indigo-500">{{ __('Blog') }}</a>
-                    </li>
+                    @foreach (Helpers::getActivePages() as $page)
+                    <li><a href="{{ route('front.dynamicPage', $page->slug)}}" class="capitalize inline-block transition hover:scale-110 hover:text-secondary hover:underline">{{ $page->title }}</a></li>
+                    @endforeach
+                    <li><a href="{{ route('front.blogs') }}" class="capitalize inline-block transition hover:scale-110 hover:text-secondary hover:underline">{{__('Blog')}}</a></li>
                 </ul>
             </div>
         </div>

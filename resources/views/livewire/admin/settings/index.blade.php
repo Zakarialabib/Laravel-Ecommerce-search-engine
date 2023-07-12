@@ -1,23 +1,23 @@
 <div>
     <div x-data="{ tab: 'settings' }">
         <div class="flex">
-            <div class="w-1/4">
-                <div class="flex flex-col space-y-2">
+            <div class="w-full sm:w-1/2 lg:w-1/4 px-4 mb-8 sm:mb-0">
+                <div class="p-10 bg-white rounded-2xl">
                     <button @click="tab = 'settings'" :class="{ 'bg-indigo-500 text-white': tab === 'settings' }"
-                        class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
-                        {{ __('General Settigns') }}
+                        class="flex items-center py-3 px-9 leading-7 font-heading font-medium text-white bg-indigo-600 rounded-4xl">
+                        {{ __('General Settings') }}
                     </button>
                     <button @click="tab = 'maintenance'" :class="{ 'bg-indigo-500 text-white': tab === 'maintenance' }"
-                        class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
-                        {{ __('Maintenance Configuration') }}
+                        class="flex items-center py-3 px-9 leading-7 font-heading font-medium text-white bg-indigo-600 rounded-4xl">
+                        {{ __('Maintenance Mode') }}
                     </button>
                     <button @click="tab = 'mail'" :class="{ 'bg-indigo-500 text-white': tab === 'mail' }"
-                        class="px-4 py-2 w-full text-left hover:bg-indigo-500 hover:text-white transition-colors">
+                        class="flex items-center py-3 px-9 leading-7 font-heading font-medium text-white bg-indigo-600 rounded-4xl">
                         {{ __('Mail Configuration') }}
                     </button>
                 </div>
             </div>
-            <div class="w-3/4 px-4">
+            <div class="w-full sm:w-1/2 lg:w-3/4 px-4">
                 <div x-show="tab === 'settings'">
                     <!-- Validation Errors -->
                     <x-validation-errors class="mb-4" :errors="$errors" />
@@ -201,31 +201,6 @@
                             <div class="sm:w-1/2 mb-4 px-2">
                                 <x-label for="site_contact" :value="__('Enable Contact page')" />
                                 <x-checkbox name="site_contact" id="site_contact" wire:model="site_contact" />
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap mb-4">
-                            <div class="lg:w-1/2 sm:w-full px-2">
-                                <x-label for="currency_code" :value="__('Currency code')" />
-                                <x-input wire:model="currency_code" type="text" id="currency_code"
-                                    name="currency_code" />
-                                <x-input-error for="currency_code" :messages="$errors->first('currency_code')" />
-                            </div>
-                            <div class="lg:w-1/2 sm:w-full px-2">
-                                <x-label for="currency_symbol" :value="__('Currency symbol')" />
-                                <x-input wire:model="currency_symbol" type="text" id="currency_symbol"
-                                    name="currency_symbol" />
-                                <x-input-error for="currency_symbol" :messages="$errors->first('currency_symbol')" />
-                            </div>
-                            <div class="lg:w-1/2 sm:w-full px-2">
-                                <x-label for="currency_position" :value="__('Currency Position')" />
-                                <select wire:model="currency_position" name="currency_position"
-                                    id="currency_position"
-                                    class="p-3 leading-5 bg-white text-gray-700 rounded border border-zinc-300 mb-1 text-sm w-full focus:shadow-outline-blue focus:border-blue-500">
-                                    <option selected option>
-                                    <option value="left">{{ __('Left') }}</option>
-                                    <option value="right">{{ __('Right') }}</option>
-                                </select>
-                                <x-input-error for="currency_position" :messages="$errors->first('currency_position')" />
                             </div>
                         </div>
                         <div class="w-full">

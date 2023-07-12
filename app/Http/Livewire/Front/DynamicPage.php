@@ -6,18 +6,24 @@ namespace App\Http\Livewire\Front;
 
 use Livewire\Component;
 use App\Models\Page;
+use App\Models\Section;
 
 class DynamicPage extends Component
 {
     public $page;
-
-    public function mount($slug): void
+    
+    public function getSectionsProperty()
     {
-        $this->page = Page::where('slug', $slug)->firstOrFail();
+        return Section::active()->where('page', $this->page->slug)->get();
     }
 
+    public function mount($slug)
+    {
+        $this->page = Page::where('slug', $slug)->first() ?? abort(404);
+    }
+    
     public function render()
     {
-        return view('livewire.front.dynamic-page')->extends('layouts.app');
+        return view('livewire.front.dynamic-page');
     }
 }

@@ -3,20 +3,30 @@
     @section('title', __('Product list'))
 
     <div class="card bg-white dark:bg-dark-eval-1">
-        <div class="p-6 rounded-t rounded-r mb-0 border-b border-gray-200">
-            <div class="flex items-center my-auto justify-between">
-                <h6 class="text-xl font-bold text-gray-700 dark:text-gray-300">
-                    {{ __('Product list') }}
-                </h6>
-
-
-                <a class="flex float-right md:text-sm sm:text-xs bg-blue-900 text-white hover:text-blue-800 hover:bg-blue-100 active:bg-blue-200 focus:ring-blue-300 text-sm font-bold uppercase px-6 py-2 rounded-md shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                    href="">
-                    {{ __('Create product') }}
-                </a>
+        <div class="py-8 bg-gray-100">
+            <div class="container px-4 mx-auto">
+                <div class="flex flex-wrap items-center justify-between -mx-4">
+                    <div class="w-full md:w-auto px-4 mb-14 md:mb-0">
+                        <h2 class="text-7xl md:text-8xl font-heading font-bold leading-relaxed">
+                            {{ __('Products listing') }}</h2>
+                        <p class="text-gray-400 leading-8">
+                            {{ 'Manage your products.' }}
+                        </p>
+                    </div>
+                    <div class="w-full md:w-auto px-4">
+                        <div class="flex items-center">
+                            <x-button primary type="button" wire:click="$emit('importModal')">
+                                {{ __('Import products') }}
+                            </x-button>
+                            <x-button primary type="button" wire:click="$emit('createModal')">
+                                {{ __('Create product') }}
+                            </x-button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="p-4">
+        <div class="px-10 py-4">
 
             <div class="flex flex-wrap justify-center">
                 <div class="lg:w-1/2 md:w-1/2 sm:w-full flex flex-wrap my-md-0 my-2">
@@ -41,9 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div wire:loading.delay>
-                Loading...
-            </div>
+
 
             <x-table>
                 <x-slot name="thead">
@@ -72,7 +80,7 @@
                 </x-slot>
                 <x-table.tbody>
                     @forelse($products as $product)
-                        <x-table.tr>
+                        <x-table.tr wire:loading.class.delay="opacity-50" wire:key="row-{{ $product->id }}">
                             <x-table.td>
                                 <input type="checkbox" value="{{ $product->id }}" wire:model="selected">
                             </x-table.td>
@@ -102,13 +110,16 @@
                             </x-table.td>
                             <x-table.td>
                                 <div class="inline-flex">
-                                    <x-button info class="flex items-center space-x-2">
+                                    <x-button info class="flex items-center space-x-2"
+                                        wire:click="$emit('showModal', {{ $product->id }})">
                                         <i class="fas fa-eye"></i>
                                     </x-button>
-                                    <x-button secondary class="flex items-center space-x-2">
+                                    <x-button secondary class="flex items-center space-x-2"
+                                        wire:click="$emit('editModal', {{ $product->id }})">
                                         <i class="fas fa-edit"></i>
                                     </x-button>
-                                    <x-button danger type="button" wire:click="confirm('delete', {{ $product->id }})"
+                                    <x-button danger type="button"
+                                        wire:click="$emit('deleteModal', {{ $product->id }})"
                                         wire:loading.attr="disabled">
                                         <i class="fas fa-trash"></i>
                                     </x-button>
@@ -140,6 +151,13 @@
             </div>
 
         </div>
-
     </div>
+
+    @livewire('vendor.product.edit', ['product' => $product])
+
+    @livewire('vendor.product.show', ['product' => $product])
+
+    @livewire('vendor.product.create')
+    
+    @livewire('vendor.product.import')
 </div>

@@ -26,7 +26,7 @@ class Index extends Component
     public $store_name;
     public $store_url;
     public $store_phone;
-    public $store_address;
+    public $store_location;
     public mixed $logo;
     public mixed $banner_image;
     public $social_links;
@@ -48,7 +48,7 @@ class Index extends Component
         'store_name'    => 'required',
         'store_url'     => 'required',
         'store_phone'   => 'required',
-        'store_address' => 'nullable',
+        'store_location' => 'required',
         'logo'          => 'nullable',
         'banner_image'  => 'nullable',
         'social_links'  => 'array',
@@ -70,7 +70,7 @@ class Index extends Component
         $this->store_name = $store->name;
         $this->store_url = $store->url;
         $this->store_phone = $store->phone;
-        $this->store_address = $store->location;
+        $this->store_location = $store->location;
         $this->logo = $store->logo;
         $this->banner_image = $store->banner_image;
         $this->social_links = $store->social_links ?? [];
@@ -91,7 +91,7 @@ class Index extends Component
         $store->name = $this->store_name;
         $store->url = $this->store_url;
         $store->phone = $this->store_phone;
-        $store->location = $this->store_address;
+        $store->location = $this->store_location;
 
         if ($store->logo) {
             $image_path = public_path('images/store/'.$store->logo);
